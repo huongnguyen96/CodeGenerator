@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold  "data source=.;initial catalog=ERP;persist security info=True;user id=sa;password=123456a@;multipleactiveresultsets=True;" Microsoft.EntityFrameworkCore.SqlServer -c ERPContext  -o Repositories/Models -f --no-build --schema APPS --schema APPSYS --use-database-names --json

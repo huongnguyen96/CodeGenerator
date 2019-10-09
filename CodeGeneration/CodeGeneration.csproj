@@ -1,0 +1,88 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repositories\APPSPermissionRepository.cs" />
+    <Compile Remove="Repositories\AssetOrganizationRepository.cs" />
+    <Compile Remove="Repositories\AssetRepository.cs" />
+    <Compile Remove="Repositories\Asset_AssetOrganizationRepository.cs" />
+    <Compile Remove="Repositories\AuditLogRepository.cs" />
+    <Compile Remove="Repositories\BankAccountRepository.cs" />
+    <Compile Remove="Repositories\BankRepository.cs" />
+    <Compile Remove="Repositories\BusinessGroupRepository.cs" />
+    <Compile Remove="Repositories\ChartOfAccountRepository.cs" />
+    <Compile Remove="Repositories\COATemplateDetailRepository.cs" />
+    <Compile Remove="Repositories\COATemplateRepository.cs" />
+    <Compile Remove="Repositories\CostCenterRepository.cs" />
+    <Compile Remove="Repositories\CurrencyRepository.cs" />
+    <Compile Remove="Repositories\CustomerBankAccountRepository.cs" />
+    <Compile Remove="Repositories\CustomerContactRepository.cs" />
+    <Compile Remove="Repositories\CustomerDetailRepository.cs" />
+    <Compile Remove="Repositories\CustomerDetail_CustomerGroupingRepository.cs" />
+    <Compile Remove="Repositories\CustomerGroupingRepository.cs" />
+    <Compile Remove="Repositories\CustomerRepository.cs" />
+    <Compile Remove="Repositories\DivisionRepository.cs" />
+    <Compile Remove="Repositories\EmployeeContactRepository.cs" />
+    <Compile Remove="Repositories\EmployeeDetailRepository.cs" />
+    <Compile Remove="Repositories\EmployeePositionRepository.cs" />
+    <Compile Remove="Repositories\EmployeeRepository.cs" />
+    <Compile Remove="Repositories\Employee_HROrganizationRepository.cs" />
+    <Compile Remove="Repositories\Employee_InventoryOrganizationAddressRepository.cs" />
+    <Compile Remove="Repositories\Employee_ProjectOrganizationRepository.cs" />
+    <Compile Remove="Repositories\EnumMasterDataRepository.cs" />
+    <Compile Remove="Repositories\FeatureOperationRepository.cs" />
+    <Compile Remove="Repositories\FeaturePermissionRepository.cs" />
+    <Compile Remove="Repositories\FeatureRepository.cs" />
+    <Compile Remove="Repositories\FiscalYearRepository.cs" />
+    <Compile Remove="Repositories\GeneralPriceRateRepository.cs" />
+    <Compile Remove="Repositories\HROrganizationRepository.cs" />
+    <Compile Remove="Repositories\InventoryOrganizationAddressRepository.cs" />
+    <Compile Remove="Repositories\InventoryOrganizationRepository.cs" />
+    <Compile Remove="Repositories\ItemDetailRepository.cs" />
+    <Compile Remove="Repositories\ItemDetail_ItemGroupingRepository.cs" />
+    <Compile Remove="Repositories\ItemDiscountRepository.cs" />
+    <Compile Remove="Repositories\ItemGroupingRepository.cs" />
+    <Compile Remove="Repositories\ItemMaterialRepository.cs" />
+    <Compile Remove="Repositories\ItemRepository.cs" />
+    <Compile Remove="Repositories\JobLevelRepository.cs" />
+    <Compile Remove="Repositories\JobTitleRepository.cs" />
+    <Compile Remove="Repositories\LegalEntityRepository.cs" />
+    <Compile Remove="Repositories\NotificationRepository.cs" />
+    <Compile Remove="Repositories\OperationRepository.cs" />
+    <Compile Remove="Repositories\PaymentMethodRepository.cs" />
+    <Compile Remove="Repositories\PaymentTermRepository.cs" />
+    <Compile Remove="Repositories\PositionRepository.cs" />
+    <Compile Remove="Repositories\ProjectOrganizationRepository.cs" />
+    <Compile Remove="Repositories\ProvinceRepository.cs" />
+    <Compile Remove="Repositories\SetOfBookRepository.cs" />
+    <Compile Remove="Repositories\SupplierBankAccountRepository.cs" />
+    <Compile Remove="Repositories\SupplierContactRepository.cs" />
+    <Compile Remove="Repositories\SupplierDetailRepository.cs" />
+    <Compile Remove="Repositories\SupplierDetail_SupplierGroupingRepository.cs" />
+    <Compile Remove="Repositories\SupplierGroupingRepository.cs" />
+    <Compile Remove="Repositories\SupplierRepository.cs" />
+    <Compile Remove="Repositories\SystemConfigurationRepository.cs" />
+    <Compile Remove="Repositories\TaxRepository.cs" />
+    <Compile Remove="Repositories\TaxTemplateDetailRepository.cs" />
+    <Compile Remove="Repositories\TaxTemplateRepository.cs" />
+    <Compile Remove="Repositories\TransformationUnitRepository.cs" />
+    <Compile Remove="Repositories\UnitOfMeasureRepository.cs" />
+    <Compile Remove="Repositories\UserProfileRepository.cs" />
+    <Compile Remove="Repositories\UserRepository.cs" />
+    <Compile Remove="Repositories\VoucherRepository.cs" />
+    <Compile Remove="Repositories\VoucherTypeRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFrameworkCore.Scaffolding.Handlebars" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
+  </ItemGroup>
+
+</Project>
