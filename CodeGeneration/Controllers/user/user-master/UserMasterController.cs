@@ -1,4 +1,5 @@
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,35 @@ using WeGift.Services.MUser;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
+
+
 namespace WeGift.Controllers.user.user_master
 {
     public class UserMasterRoute : Root
     {
-        public const string FE = "user/user-master";
+        public const string FE = "/user/user-master";
         private const string Default = Base + FE;
         public const string Count = Default + "/count";
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
+        
     }
 
     public class UserMasterController : ApiController
     {
+        
+        
         private IUserService UserService;
 
         public UserMasterController(
+            
             IUserService UserService
         )
         {
+            
             this.UserService = UserService;
         }
+
 
         [Route(UserMasterRoute.Count), HttpPost]
         public async Task<int> Count([FromBody] UserMaster_UserFilterDTO UserMaster_UserFilterDTO)
@@ -36,7 +45,7 @@ namespace WeGift.Controllers.user.user_master
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            UserFilter UserFilter = ConvertFilterDTOtoFilterEntity(UserMaster_UserFilterDTO);
+            UserFilter UserFilter = ConvertFilterDTOToFilterEntity(UserMaster_UserFilterDTO);
 
             return await UserService.Count(UserFilter);
         }
@@ -47,7 +56,7 @@ namespace WeGift.Controllers.user.user_master
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            UserFilter UserFilter = ConvertFilterDTOtoFilterEntity(UserMaster_UserFilterDTO);
+            UserFilter UserFilter = ConvertFilterDTOToFilterEntity(UserMaster_UserFilterDTO);
 
             List<User> Users = await UserService.List(UserFilter);
 
@@ -65,7 +74,7 @@ namespace WeGift.Controllers.user.user_master
         }
 
 
-        public UserFilter ConvertFilterDTOtoFilterEntity(UserMaster_UserFilterDTO UserMaster_UserFilterDTO)
+        public UserFilter ConvertFilterDTOToFilterEntity(UserMaster_UserFilterDTO UserMaster_UserFilterDTO)
         {
             UserFilter UserFilter = new UserFilter();
             
@@ -74,5 +83,7 @@ namespace WeGift.Controllers.user.user_master
             UserFilter.Password = UserMaster_UserFilterDTO.Password;
             return UserFilter;
         }
+        
+        
     }
 }

@@ -37,7 +37,19 @@ namespace CodeGeneration.App
                 return "long?";
             return null;
         }
-
+        protected string GetReferenceType(Type type)
+        {
+            string primitiveType = GetPrimitiveType(type);
+            if (string.IsNullOrEmpty(primitiveType) && type.Name != typeof(ICollection<>).Name)
+                return GetClassName(type);
+            return null;
+        }
+        protected string GetListType(Type type)
+        {
+            if (type.Name == typeof(ICollection<>).Name)
+                return GetClassName(type.GetGenericArguments().FirstOrDefault());
+            return null;
+        }
         protected string GetFilterType(Type type)
         {
             if (type.FullName == typeof(Guid).FullName)

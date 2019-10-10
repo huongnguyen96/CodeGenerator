@@ -1,4 +1,5 @@
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,35 @@ using WeGift.Services.MCategory;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
+
+
 namespace WeGift.Controllers.category.category_master
 {
     public class CategoryMasterRoute : Root
     {
-        public const string FE = "category/category-master";
+        public const string FE = "/category/category-master";
         private const string Default = Base + FE;
         public const string Count = Default + "/count";
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
+        
     }
 
     public class CategoryMasterController : ApiController
     {
+        
+        
         private ICategoryService CategoryService;
 
         public CategoryMasterController(
+            
             ICategoryService CategoryService
         )
         {
+            
             this.CategoryService = CategoryService;
         }
+
 
         [Route(CategoryMasterRoute.Count), HttpPost]
         public async Task<int> Count([FromBody] CategoryMaster_CategoryFilterDTO CategoryMaster_CategoryFilterDTO)
@@ -36,7 +45,7 @@ namespace WeGift.Controllers.category.category_master
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            CategoryFilter CategoryFilter = ConvertFilterDTOtoFilterEntity(CategoryMaster_CategoryFilterDTO);
+            CategoryFilter CategoryFilter = ConvertFilterDTOToFilterEntity(CategoryMaster_CategoryFilterDTO);
 
             return await CategoryService.Count(CategoryFilter);
         }
@@ -47,7 +56,7 @@ namespace WeGift.Controllers.category.category_master
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            CategoryFilter CategoryFilter = ConvertFilterDTOtoFilterEntity(CategoryMaster_CategoryFilterDTO);
+            CategoryFilter CategoryFilter = ConvertFilterDTOToFilterEntity(CategoryMaster_CategoryFilterDTO);
 
             List<Category> Categorys = await CategoryService.List(CategoryFilter);
 
@@ -65,7 +74,7 @@ namespace WeGift.Controllers.category.category_master
         }
 
 
-        public CategoryFilter ConvertFilterDTOtoFilterEntity(CategoryMaster_CategoryFilterDTO CategoryMaster_CategoryFilterDTO)
+        public CategoryFilter ConvertFilterDTOToFilterEntity(CategoryMaster_CategoryFilterDTO CategoryMaster_CategoryFilterDTO)
         {
             CategoryFilter CategoryFilter = new CategoryFilter();
             
@@ -74,5 +83,7 @@ namespace WeGift.Controllers.category.category_master
             CategoryFilter.Name = CategoryMaster_CategoryFilterDTO.Name;
             return CategoryFilter;
         }
+        
+        
     }
 }

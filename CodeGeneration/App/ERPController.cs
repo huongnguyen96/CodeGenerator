@@ -18,15 +18,17 @@ namespace CodeGeneration.App
             .Assembly.GetTypes()
             .Where(t => t.Name.EndsWith("DAO") && !t.IsAbstract).ToList();
 
-
-            EntityGeneration EntityGeneration = new EntityGeneration("WeGift", types);
+            string Namespace = "WeGift";
+            EntityGeneration EntityGeneration = new EntityGeneration(Namespace, types);
             EntityGeneration.Build();
-            RepositoryGeneration RepositoryGeneration = new RepositoryGeneration("WeGift", "WGContext", types);
+            RepositoryGeneration RepositoryGeneration = new RepositoryGeneration(Namespace, "WGContext", types);
             RepositoryGeneration.Build();
-            ServiceGenerator ServiceGenerator = new ServiceGenerator("WeGift", types);
+            ServiceGenerator ServiceGenerator = new ServiceGenerator(Namespace, types);
             ServiceGenerator.Build();
-            ControllerGenerator ControllerGenerator = new ControllerGenerator("WeGift", "", types);
-            ControllerGenerator.Build();
+            ControllerGenerator_Master ControllerGenerator_Master = new ControllerGenerator_Master(Namespace, "", types);
+            ControllerGenerator_Master.Build();
+            ControllerGenerator_Detail ControllerGenerator_Detail = new ControllerGenerator_Detail(Namespace, "", types);
+            ControllerGenerator_Detail.Build();
             return;
         }
     }

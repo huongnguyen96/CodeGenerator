@@ -1,4 +1,5 @@
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,40 @@ using WeGift.Services.MWarehouse;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
+using WeGift.Services.MUser;
+
+
 namespace WeGift.Controllers.warehouse.warehouse_master
 {
     public class WarehouseMasterRoute : Root
     {
-        public const string FE = "warehouse/warehouse-master";
+        public const string FE = "/warehouse/warehouse-master";
         private const string Default = Base + FE;
         public const string Count = Default + "/count";
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
+        
+        public const string SingleListUser="/single-list-user";
     }
 
     public class WarehouseMasterController : ApiController
     {
+        
+        
+        private IUserService UserService;
         private IWarehouseService WarehouseService;
 
         public WarehouseMasterController(
+            
+            IUserService UserService,
             IWarehouseService WarehouseService
         )
         {
+            
+            this.UserService = UserService;
             this.WarehouseService = WarehouseService;
         }
+
 
         [Route(WarehouseMasterRoute.Count), HttpPost]
         public async Task<int> Count([FromBody] WarehouseMaster_WarehouseFilterDTO WarehouseMaster_WarehouseFilterDTO)
@@ -36,7 +50,7 @@ namespace WeGift.Controllers.warehouse.warehouse_master
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            WarehouseFilter WarehouseFilter = ConvertFilterDTOtoFilterEntity(WarehouseMaster_WarehouseFilterDTO);
+            WarehouseFilter WarehouseFilter = ConvertFilterDTOToFilterEntity(WarehouseMaster_WarehouseFilterDTO);
 
             return await WarehouseService.Count(WarehouseFilter);
         }
@@ -47,7 +61,7 @@ namespace WeGift.Controllers.warehouse.warehouse_master
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            WarehouseFilter WarehouseFilter = ConvertFilterDTOtoFilterEntity(WarehouseMaster_WarehouseFilterDTO);
+            WarehouseFilter WarehouseFilter = ConvertFilterDTOToFilterEntity(WarehouseMaster_WarehouseFilterDTO);
 
             List<Warehouse> Warehouses = await WarehouseService.List(WarehouseFilter);
 
@@ -65,7 +79,7 @@ namespace WeGift.Controllers.warehouse.warehouse_master
         }
 
 
-        public WarehouseFilter ConvertFilterDTOtoFilterEntity(WarehouseMaster_WarehouseFilterDTO WarehouseMaster_WarehouseFilterDTO)
+        public WarehouseFilter ConvertFilterDTOToFilterEntity(WarehouseMaster_WarehouseFilterDTO WarehouseMaster_WarehouseFilterDTO)
         {
             WarehouseFilter WarehouseFilter = new WarehouseFilter();
             
@@ -75,5 +89,27 @@ namespace WeGift.Controllers.warehouse.warehouse_master
             WarehouseFilter.Name = WarehouseMaster_WarehouseFilterDTO.Name;
             return WarehouseFilter;
         }
+        
+        
+        [Route(WarehouseMasterRoute.SingleListUser), HttpPost]
+        public async Task<List<WarehouseMaster_UserDTO>> SingleListUser([FromBody] WarehouseMaster_UserFilterDTO WarehouseMaster_UserFilterDTO)
+        {
+            UserFilter UserFilter = new UserFilter();
+            UserFilter.Skip = 0;
+            UserFilter.Take = 10;
+            UserFilter.OrderBy = UserOrder.Id;
+            UserFilter.OrderType = OrderType.ASC;
+            UserFilter.Selects = UserSelect.ALL;
+            
+            UserFilter.Id = WarehouseMaster_UserFilterDTO.Id;
+            UserFilter.Username = WarehouseMaster_UserFilterDTO.Username;
+            UserFilter.Password = WarehouseMaster_UserFilterDTO.Password;
+
+            List<User> Users = await UserService.List(UserFilter);
+            List<WarehouseMaster_UserDTO> WarehouseMaster_UserDTOs = Users
+                .Select(x => new WarehouseMaster_UserDTO(x)).ToList();
+            return WarehouseMaster_UserDTOs;
+        }
+
     }
 }
