@@ -5,7 +5,7 @@ namespace Common
 {
     public interface ICurrentContext : IServiceScoped
     {
-        Guid UserId { get; set; }
+        long UserId { get; set; }
         string UserName { get; set; }
         bool IsSuperAdmin { get; set; }
         int TimeZone { get; set; }
@@ -15,7 +15,7 @@ namespace Common
     }
     public class CurrentContext : ICurrentContext
     {
-        public Guid UserId { get; set; }
+        public long UserId { get; set; }
         public string UserName { get; set; }
         public bool IsSuperAdmin { get; set; }
         public int TimeZone { get; set; }

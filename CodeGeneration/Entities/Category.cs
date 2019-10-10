@@ -5,7 +5,7 @@ using Common;
 
 namespace WeGift.Entities
 {
-    public class Item : DataEntity
+    public class Category : DataEntity
     {
         
         public long Id { get; set; }
@@ -14,7 +14,7 @@ namespace WeGift.Entities
         public List<Category_Item> Category_Items { get; set; }
     }
 
-    public class ItemFilter : FilterEntity
+    public class CategoryFilter : FilterEntity
     {
         
             public LongFilter Id { get; set; }
@@ -23,11 +23,11 @@ namespace WeGift.Entities
             public List<long> Ids { get; set; }
             public List<long> ExceptIds { get; set; }
 
-        public ItemOrder OrderBy {get; set;}
-        public ItemSelect Selects {get; set;}
+        public CategoryOrder OrderBy {get; set;}
+        public CategorySelect Selects {get; set;}
     }
 
-    public enum ItemOrder
+    public enum CategoryOrder
     {
         
         Id = 1,
@@ -35,7 +35,7 @@ namespace WeGift.Entities
         Name = 3,
     }
 
-    public enum ItemSelect:long
+    public enum CategorySelect:long
     {
         ALL = E.ALL,
         

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CodeGeneration.Repositories.Models
 {
-    public partial class ItemDAO
+    public partial class CategoryDAO
     {
-        public ItemDAO()
+        public CategoryDAO()
         {
             Category_Items = new HashSet<Category_ItemDAO>();
         }
