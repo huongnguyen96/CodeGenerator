@@ -2,18 +2,19 @@
 using WeGift.Entities;
 using Common;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
-namespace WeGift.Controllers.warehouse.warehouse_list
+namespace WeGift.Controllers.warehouse.warehouse_master
 {
-    public class WarehouseList_UserDTO : DataDTO
+    public class WarehouseMaster_UserDTO : DataDTO
     {
         
         public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public WarehouseList_UserDTO() {}
-        public WarehouseList_UserDTO(User User)
+        public WarehouseMaster_UserDTO() {}
+        public WarehouseMaster_UserDTO(User User)
         {
             
             this.Id = User.Id;
@@ -22,7 +23,7 @@ namespace WeGift.Controllers.warehouse.warehouse_list
         }
     }
 
-    public class WarehouseList_UserFilterDTO : FilterDTO
+    public class WarehouseMaster_UserFilterDTO : FilterDTO
     {
         
         public LongFilter Id { get; set; }

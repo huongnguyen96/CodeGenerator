@@ -2,18 +2,19 @@
 using WeGift.Entities;
 using Common;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
-namespace WeGift.Controllers.category.category_list
+namespace WeGift.Controllers.category.category_master
 {
-    public class CategoryList_CategoryDTO : DataDTO
+    public class CategoryMaster_CategoryDTO : DataDTO
     {
         
         public long Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public CategoryList_CategoryDTO() {}
-        public CategoryList_CategoryDTO(Category Category)
+        public CategoryMaster_CategoryDTO() {}
+        public CategoryMaster_CategoryDTO(Category Category)
         {
             
             this.Id = Category.Id;
@@ -22,7 +23,7 @@ namespace WeGift.Controllers.category.category_list
         }
     }
 
-    public class CategoryList_CategoryFilterDTO : FilterDTO
+    public class CategoryMaster_CategoryFilterDTO : FilterDTO
     {
         
         public LongFilter Id { get; set; }

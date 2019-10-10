@@ -7,13 +7,9 @@
 
   <ItemGroup>
     <Compile Remove="CodeTemplates\**" />
-    <Compile Remove="Controllers\**" />
     <Content Remove="CodeTemplates\**" />
-    <Content Remove="Controllers\**" />
     <EmbeddedResource Remove="CodeTemplates\**" />
-    <EmbeddedResource Remove="Controllers\**" />
     <None Remove="CodeTemplates\**" />
-    <None Remove="Controllers\**" />
   </ItemGroup>
 
   <ItemGroup>

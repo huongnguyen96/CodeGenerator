@@ -60,12 +60,12 @@ namespace {Namespace}.Controllers
         private void BuildListPage(Type type)
         {
             string ClassName = type.Name.Substring(0, type.Name.Length - 3);
-            string NamespaceList = BuildNamespace(ClassName) + "." + BuildNamespace(ClassName) + "_list";
-            string RouteList = BuildFolderPath(ClassName) + "/" + BuildFolderPath(ClassName) + "-list";
+            string NamespaceList = BuildNamespace(ClassName) + "." + BuildNamespace(ClassName) + "_master";
+            string RouteList = BuildFolderPath(ClassName) + "/" + BuildFolderPath(ClassName) + "-master";
             string path = Path.Combine(Controllers, RouteList);
-            string controllerPath = Path.Combine(path, ClassName + "ListController.cs");
+            string controllerPath = Path.Combine(path, ClassName + "MasterController.cs");
             Directory.CreateDirectory(path);
-            BuilList_MainDTO(type, NamespaceList, path);
+            BuildList_MainDTO(type, NamespaceList, path);
 
             string content = $@"
 using System;
@@ -79,7 +79,7 @@ using {Namespace}.Entities;
 
 namespace {Namespace}.Controllers.{NamespaceList}
 {{
-    public class {ClassName}ListRoute : Root
+    public class {ClassName}MasterRoute : Root
     {{
         public const string FE = ""{RouteList}"";
         private const string Default = Base + FE;
@@ -88,53 +88,53 @@ namespace {Namespace}.Controllers.{NamespaceList}
         public const string Get = Default + ""/get"";
     }}
 
-    public class {ClassName}ListController : ApiController
+    public class {ClassName}MasterController : ApiController
     {{
         private I{ClassName}Service {ClassName}Service;
 
-        public {ClassName}ListController(
+        public {ClassName}MasterController(
             I{ClassName}Service {ClassName}Service
         )
         {{
             this.{ClassName}Service = {ClassName}Service;
         }}
 
-        [Route({ClassName}ListRoute.Count), HttpPost]
-        public async Task<int> Count([FromBody] {ClassName}List_{ClassName}FilterDTO {ClassName}List_{ClassName}FilterDTO)
+        [Route({ClassName}MasterRoute.Count), HttpPost]
+        public async Task<int> Count([FromBody] {ClassName}Master_{ClassName}FilterDTO {ClassName}Master_{ClassName}FilterDTO)
         {{
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            {ClassName}Filter {ClassName}Filter = ConvertFilterDTOtoFilterEntity({ClassName}List_{ClassName}FilterDTO);
+            {ClassName}Filter {ClassName}Filter = ConvertFilterDTOtoFilterEntity({ClassName}Master_{ClassName}FilterDTO);
 
             return await {ClassName}Service.Count({ClassName}Filter);
         }}
 
-        [Route({ClassName}ListRoute.List), HttpPost]
-        public async Task<List<{ClassName}List_{ClassName}DTO>> List([FromBody] {ClassName}List_{ClassName}FilterDTO {ClassName}List_{ClassName}FilterDTO)
+        [Route({ClassName}MasterRoute.List), HttpPost]
+        public async Task<List<{ClassName}Master_{ClassName}DTO>> List([FromBody] {ClassName}Master_{ClassName}FilterDTO {ClassName}Master_{ClassName}FilterDTO)
         {{
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            {ClassName}Filter {ClassName}Filter = ConvertFilterDTOtoFilterEntity({ClassName}List_{ClassName}FilterDTO);
+            {ClassName}Filter {ClassName}Filter = ConvertFilterDTOtoFilterEntity({ClassName}Master_{ClassName}FilterDTO);
 
             List<{ClassName}> {ClassName}s = await {ClassName}Service.List({ClassName}Filter);
 
-            return {ClassName}s.Select(c => new {ClassName}List_{ClassName}DTO(c)).ToList();
+            return {ClassName}s.Select(c => new {ClassName}Master_{ClassName}DTO(c)).ToList();
         }}
 
-        [Route({ClassName}ListRoute.Get), HttpPost]
-        public async Task<{ClassName}List_{ClassName}DTO> Get([FromBody]{ClassName}List_{ClassName}DTO {ClassName}List_{ClassName}DTO)
+        [Route({ClassName}MasterRoute.Get), HttpPost]
+        public async Task<{ClassName}Master_{ClassName}DTO> Get([FromBody]{ClassName}Master_{ClassName}DTO {ClassName}Master_{ClassName}DTO)
         {{
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            {ClassName} {ClassName} = await {ClassName}Service.Get({ClassName}List_{ClassName}DTO.Id);
-            return new {ClassName}List_{ClassName}DTO({ClassName});
+            {ClassName} {ClassName} = await {ClassName}Service.Get({ClassName}Master_{ClassName}DTO.Id);
+            return new {ClassName}Master_{ClassName}DTO({ClassName});
         }}
 
 
-        public {ClassName}Filter ConvertFilterDTOtoFilterEntity({ClassName}List_{ClassName}FilterDTO {ClassName}List_{ClassName}FilterDTO)
+        public {ClassName}Filter ConvertFilterDTOtoFilterEntity({ClassName}Master_{ClassName}FilterDTO {ClassName}Master_{ClassName}FilterDTO)
         {{
             {ClassName}Filter {ClassName}Filter = new {ClassName}Filter();
             {ConvertFilterDTOToFilterEntity(type)}
@@ -165,7 +165,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                content += MappingProperty($"{ClassName}", $"{ClassName}List_{ClassName}DTO", PropertyInfo.Name);
+                content += MappingProperty($"{ClassName}", $"{ClassName}Master_{ClassName}DTO", PropertyInfo.Name);
             }
             return content;
         }
@@ -178,7 +178,10 @@ namespace {Namespace}.Controllers.{NamespaceList}
 
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                content += MappingProperty($"{ClassName}Filter", $"{ClassName}List_{ClassName}FilterDTO", PropertyInfo.Name);
+                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
+                if (string.IsNullOrEmpty(primitiveType))
+                    continue;
+                content += MappingProperty($"{ClassName}Filter", $"{ClassName}Master_{ClassName}FilterDTO", PropertyInfo.Name);
             }
             return content;
         }

@@ -8,7 +8,7 @@ namespace CodeGeneration.App
 {
     public partial class ControllerGenerator
     {
-        private void BuilList_MainDTO(Type type, string NamespaceList, string path)
+        private void BuildList_MainDTO(Type type, string NamespaceList, string path)
         {
             string ClassName = GetClassName(type);
             BuilList_DTO(ClassName, type, NamespaceList, path);
@@ -45,26 +45,27 @@ namespace CodeGeneration.App
         private void BuilList_DTO(string MainClassName, Type type, string NamespaceList, string path, bool IsMainClass = true)
         {
             string ClassName = GetClassName(type);
-            path = Path.Combine(path, $@"{MainClassName}List_{ClassName}DTO.cs");
+            path = Path.Combine(path, $@"{MainClassName}Master_{ClassName}DTO.cs");
             string content = $@"
 using {Namespace}.Entities;
 using Common;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace {Namespace}.Controllers.{NamespaceList}
 {{
-    public class {MainClassName}List_{ClassName}DTO : DataDTO
+    public class {MainClassName}Master_{ClassName}DTO : DataDTO
     {{
-        {ListDeclareProperty(type, IsMainClass)}
-        public {MainClassName}List_{ClassName}DTO() {{}}
-        public {MainClassName}List_{ClassName}DTO({ClassName} {ClassName})
+        {ListDeclareProperty(MainClassName, type, IsMainClass)}
+        public {MainClassName}Master_{ClassName}DTO() {{}}
+        public {MainClassName}Master_{ClassName}DTO({ClassName} {ClassName})
         {{
-            {ListConstructorMapping(type, IsMainClass)}
+            {ListConstructorMapping(MainClassName, type, IsMainClass)}
         }}
     }}
 
-    public class {MainClassName}List_{ClassName}FilterDTO : FilterDTO
+    public class {MainClassName}Master_{ClassName}FilterDTO : FilterDTO
     {{
         {ListDeclareFilter(type, IsMainClass)}
     }}
@@ -73,7 +74,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             File.WriteAllText(path, content);
         }
 
-        private string ListDeclareProperty(Type type, bool IsMainClass = true)
+        private string ListDeclareProperty(string MainClassName, Type type, bool IsMainClass = true)
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
@@ -87,12 +88,17 @@ namespace {Namespace}.Controllers.{NamespaceList}
                         if (PropertyInfo.PropertyType.Name == typeof(ICollection<>).Name)
                         {
                             string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
-                            typeName = $"List<{typeName}>";
+                            if (typeName == MainClassName)
+                                continue;
+                            typeName = $"List<{MainClassName}Master_{typeName}DTO>";
                             content += DeclareProperty(typeName, PropertyInfo.Name);
                         }
                         else
                         {
                             string typeName = GetClassName(PropertyInfo.PropertyType);
+                            if (typeName == MainClassName)
+                                continue;
+                            typeName = $"{MainClassName}Master_{typeName}DTO";
                             content += DeclareProperty(typeName, PropertyInfo.Name);
                         }
                     }
@@ -109,7 +115,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
 
             return content;
         }
-        private string ListConstructorMapping(Type type, bool IsMainClass = true)
+        private string ListConstructorMapping(string MainClassName, Type type, bool IsMainClass = true)
         {
             string content = string.Empty;
             string ClassName = GetClassName(type);
@@ -124,15 +130,19 @@ namespace {Namespace}.Controllers.{NamespaceList}
                         if (PropertyInfo.PropertyType.Name == typeof(ICollection<>).Name)
                         {
                             string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
+                            if (typeName == MainClassName)
+                                continue;
                             content += $@"
-            this.{PropertyInfo.Name} = {ClassName}.{PropertyInfo.Name}?.Select(x => new {ClassName}List_{typeName}DTO(x)).ToList();
+            this.{PropertyInfo.Name} = {ClassName}.{PropertyInfo.Name}?.Select(x => new {ClassName}Master_{typeName}DTO(x)).ToList();
 ";
                         }
                         else
                         {
                             string typeName = GetClassName(PropertyInfo.PropertyType);
+                            if (typeName == MainClassName)
+                                continue;
                             content += $@"
-            this.{PropertyInfo.Name} = new {ClassName}List_{typeName}DTO({ClassName}.{PropertyInfo.Name});
+            this.{PropertyInfo.Name} = new {ClassName}Master_{typeName}DTO({ClassName}.{PropertyInfo.Name});
 ";
                         }
                     }
