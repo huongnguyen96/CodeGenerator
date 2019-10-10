@@ -4,7 +4,7 @@ using Common;
 using System;
 using System.Collections.Generic;
 
-namespace WeGift.Controllers.item.itemList
+namespace WeGift.Controllers.item.item_list
 {
     public class ItemList_ItemDTO : DataDTO
     {
@@ -24,5 +24,9 @@ namespace WeGift.Controllers.item.itemList
 
     public class ItemList_ItemFilterDTO : FilterDTO
     {
+        
+        public LongFilter Id { get; set; }
+        public StringFilter Code { get; set; }
+        public StringFilter Name { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CodeGeneration.Repositories.Models
 {
@@ -10,6 +8,7 @@ namespace CodeGeneration.Repositories.Models
         public virtual DbSet<Category_ItemDAO> Category_Item { get; set; }
         public virtual DbSet<ItemDAO> Item { get; set; }
         public virtual DbSet<UserDAO> User { get; set; }
+        public virtual DbSet<WarehouseDAO> Warehouse { get; set; }
 
         public WGContext(DbContextOptions<WGContext> options) : base(options)
         {
@@ -64,6 +63,21 @@ namespace CodeGeneration.Repositories.Models
                 entity.Property(e => e.Password).HasMaxLength(500);
 
                 entity.Property(e => e.Username).HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<WarehouseDAO>(entity =>
+            {
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.HasOne(d => d.Manager)
+                    .WithMany(p => p.Warehouses)
+                    .HasForeignKey(d => d.ManagerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Warehouse_User");
             });
 
             OnModelCreatingExt(modelBuilder);

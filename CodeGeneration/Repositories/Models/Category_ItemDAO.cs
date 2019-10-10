@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CodeGeneration.Repositories.Models
+﻿namespace CodeGeneration.Repositories.Models
 {
     public partial class Category_ItemDAO
     {

@@ -21,6 +21,8 @@ namespace WeGift.Repositories
 
         IUserRepository UserRepository { get; }
 
+        IWarehouseRepository WarehouseRepository { get; }
+
     }
     public class UOW : IUOW
     {
@@ -36,6 +38,8 @@ namespace WeGift.Repositories
 
         public IUserRepository UserRepository { get; private set; }
 
+        public IWarehouseRepository WarehouseRepository { get; private set; }
+
 
         public UOW(WGContext WGContext, ICurrentContext CurrentContext)
         {
@@ -50,6 +54,8 @@ namespace WeGift.Repositories
             ItemRepository = new ItemRepository(WGContext, CurrentContext);
 
             UserRepository = new UserRepository(WGContext, CurrentContext);
+
+            WarehouseRepository = new WarehouseRepository(WGContext, CurrentContext);
 
         }
         public async Task Begin()

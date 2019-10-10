@@ -5,42 +5,46 @@ using Common;
 
 namespace WeGift.Entities
 {
-    public class Item : DataEntity
+    public class Warehouse : DataEntity
     {
         
         public long Id { get; set; }
+        public long ManagerId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public List<Category_Item> Category_Items { get; set; }
+        public User Manager { get; set; }
     }
 
-    public class ItemFilter : FilterEntity
+    public class WarehouseFilter : FilterEntity
     {
         
         public LongFilter Id { get; set; }
+        public LongFilter ManagerId { get; set; }
         public StringFilter Code { get; set; }
         public StringFilter Name { get; set; }
         public List<long> Ids { get; set; }
         public List<long> ExceptIds { get; set; }
 
-        public ItemOrder OrderBy {get; set;}
-        public ItemSelect Selects {get; set;}
+        public WarehouseOrder OrderBy {get; set;}
+        public WarehouseSelect Selects {get; set;}
     }
 
-    public enum ItemOrder
+    public enum WarehouseOrder
     {
         
         Id = 1,
-        Code = 2,
-        Name = 3,
+        Manager = 2,
+        Code = 3,
+        Name = 4,
     }
 
-    public enum ItemSelect:long
+    public enum WarehouseSelect:long
     {
         ALL = E.ALL,
         
         Id = E._1,
-        Code = E._2,
-        Name = E._3,
+        Manager = E._2,
+        Code = E._3,
+        Name = E._4,
     }
 }

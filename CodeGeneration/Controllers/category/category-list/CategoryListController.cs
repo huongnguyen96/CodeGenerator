@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeGift.Services.MCategoryService;
+using Common;
+using WeGift.Services.MCategory;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
-namespace WeGift.Controllers.category.categoryList
+namespace WeGift.Controllers.category.category_list
 {
     public class CategoryListRoute : Root
     {
@@ -35,7 +36,7 @@ namespace WeGift.Controllers.category.categoryList
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            CategoryFilter CategoryFilter = ConvertFilterDTOtoFilterBO(CategoryList_CategoryFilterDTO);
+            CategoryFilter CategoryFilter = ConvertFilterDTOtoFilterEntity(CategoryList_CategoryFilterDTO);
 
             return await CategoryService.Count(CategoryFilter);
         }
@@ -48,7 +49,7 @@ namespace WeGift.Controllers.category.categoryList
 
             CategoryFilter CategoryFilter = ConvertFilterDTOtoFilterEntity(CategoryList_CategoryFilterDTO);
 
-            List<Category> Categorys = await CategoryService.List(CustomerFilter);
+            List<Category> Categorys = await CategoryService.List(CategoryFilter);
 
             return Categorys.Select(c => new CategoryList_CategoryDTO(c)).ToList();
         }
@@ -60,13 +61,17 @@ namespace WeGift.Controllers.category.categoryList
                 throw new MessageException(ModelState);
 
             Category Category = await CategoryService.Get(CategoryList_CategoryDTO.Id);
-            return new CategoryList_CategoryDTO(Customer);
+            return new CategoryList_CategoryDTO(Category);
         }
 
 
-        public CategoryFilter ConvertFilterDTOtoFilterEntity(CategoryList_CategoryFilterDTO CategoryFilter_CategoryDTO)
+        public CategoryFilter ConvertFilterDTOtoFilterEntity(CategoryList_CategoryFilterDTO CategoryList_CategoryFilterDTO)
         {
             CategoryFilter CategoryFilter = new CategoryFilter();
+            
+            CategoryFilter.Id = CategoryList_CategoryFilterDTO.Id;
+            CategoryFilter.Code = CategoryList_CategoryFilterDTO.Code;
+            CategoryFilter.Name = CategoryList_CategoryFilterDTO.Name;
             return CategoryFilter;
         }
     }

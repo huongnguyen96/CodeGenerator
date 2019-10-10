@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace Common
+﻿namespace Common
 {
     public interface IServiceScoped
     {

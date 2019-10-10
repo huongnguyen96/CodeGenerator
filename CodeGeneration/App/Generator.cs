@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace CodeGeneration.App
 {
@@ -84,6 +84,11 @@ namespace CodeGeneration.App
         protected string GetClassName(Type type)
         {
             return type.Name.Substring(0, type.Name.Length - 3);
+        }
+
+        protected List<PropertyInfo> ListProperties(Type type)
+        {
+            return type.GetProperties().Where(p => !p.Name.Contains("_")).ToList();
         }
     }
 }

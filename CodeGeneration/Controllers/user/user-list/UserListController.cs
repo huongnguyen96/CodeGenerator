@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeGift.Services.MUserService;
+using Common;
+using WeGift.Services.MUser;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
-namespace WeGift.Controllers.user.userList
+namespace WeGift.Controllers.user.user_list
 {
     public class UserListRoute : Root
     {
@@ -35,7 +36,7 @@ namespace WeGift.Controllers.user.userList
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            UserFilter UserFilter = ConvertFilterDTOtoFilterBO(UserList_UserFilterDTO);
+            UserFilter UserFilter = ConvertFilterDTOtoFilterEntity(UserList_UserFilterDTO);
 
             return await UserService.Count(UserFilter);
         }
@@ -48,7 +49,7 @@ namespace WeGift.Controllers.user.userList
 
             UserFilter UserFilter = ConvertFilterDTOtoFilterEntity(UserList_UserFilterDTO);
 
-            List<User> Users = await UserService.List(CustomerFilter);
+            List<User> Users = await UserService.List(UserFilter);
 
             return Users.Select(c => new UserList_UserDTO(c)).ToList();
         }
@@ -60,13 +61,18 @@ namespace WeGift.Controllers.user.userList
                 throw new MessageException(ModelState);
 
             User User = await UserService.Get(UserList_UserDTO.Id);
-            return new UserList_UserDTO(Customer);
+            return new UserList_UserDTO(User);
         }
 
 
-        public UserFilter ConvertFilterDTOtoFilterEntity(UserList_UserFilterDTO UserFilter_UserDTO)
+        public UserFilter ConvertFilterDTOtoFilterEntity(UserList_UserFilterDTO UserList_UserFilterDTO)
         {
             UserFilter UserFilter = new UserFilter();
+            
+            UserFilter.Id = UserList_UserFilterDTO.Id;
+            UserFilter.Username = UserList_UserFilterDTO.Username;
+            UserFilter.Password = UserList_UserFilterDTO.Password;
+            UserFilter.Warehouses = UserList_UserFilterDTO.Warehouses;
             return UserFilter;
         }
     }

@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Configs\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

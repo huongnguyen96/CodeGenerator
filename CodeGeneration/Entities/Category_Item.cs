@@ -17,8 +17,8 @@ namespace WeGift.Entities
     public class Category_ItemFilter : FilterEntity
     {
         
-            public LongFilter CategoryId { get; set; }
-            public LongFilter ItemId { get; set; }
+        public LongFilter CategoryId { get; set; }
+        public LongFilter ItemId { get; set; }
         public Category_ItemOrder OrderBy {get; set;}
         public Category_ItemSelect Selects {get; set;}
     }

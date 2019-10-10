@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeGift.Services.MItemService;
+using Common;
+using WeGift.Services.MItem;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
-namespace WeGift.Controllers.item.itemList
+namespace WeGift.Controllers.item.item_list
 {
     public class ItemListRoute : Root
     {
@@ -35,7 +36,7 @@ namespace WeGift.Controllers.item.itemList
             if (!ModelState.IsValid)
                 throw new MessageException(ModelState);
 
-            ItemFilter ItemFilter = ConvertFilterDTOtoFilterBO(ItemList_ItemFilterDTO);
+            ItemFilter ItemFilter = ConvertFilterDTOtoFilterEntity(ItemList_ItemFilterDTO);
 
             return await ItemService.Count(ItemFilter);
         }
@@ -48,7 +49,7 @@ namespace WeGift.Controllers.item.itemList
 
             ItemFilter ItemFilter = ConvertFilterDTOtoFilterEntity(ItemList_ItemFilterDTO);
 
-            List<Item> Items = await ItemService.List(CustomerFilter);
+            List<Item> Items = await ItemService.List(ItemFilter);
 
             return Items.Select(c => new ItemList_ItemDTO(c)).ToList();
         }
@@ -60,13 +61,17 @@ namespace WeGift.Controllers.item.itemList
                 throw new MessageException(ModelState);
 
             Item Item = await ItemService.Get(ItemList_ItemDTO.Id);
-            return new ItemList_ItemDTO(Customer);
+            return new ItemList_ItemDTO(Item);
         }
 
 
-        public ItemFilter ConvertFilterDTOtoFilterEntity(ItemList_ItemFilterDTO ItemFilter_ItemDTO)
+        public ItemFilter ConvertFilterDTOtoFilterEntity(ItemList_ItemFilterDTO ItemList_ItemFilterDTO)
         {
             ItemFilter ItemFilter = new ItemFilter();
+            
+            ItemFilter.Id = ItemList_ItemFilterDTO.Id;
+            ItemFilter.Code = ItemList_ItemFilterDTO.Code;
+            ItemFilter.Name = ItemList_ItemFilterDTO.Name;
             return ItemFilter;
         }
     }

@@ -17,11 +17,11 @@ namespace WeGift.Entities
     public class CategoryFilter : FilterEntity
     {
         
-            public LongFilter Id { get; set; }
-            public StringFilter Code { get; set; }
-            public StringFilter Name { get; set; }
-            public List<long> Ids { get; set; }
-            public List<long> ExceptIds { get; set; }
+        public LongFilter Id { get; set; }
+        public StringFilter Code { get; set; }
+        public StringFilter Name { get; set; }
+        public List<long> Ids { get; set; }
+        public List<long> ExceptIds { get; set; }
 
         public CategoryOrder OrderBy {get; set;}
         public CategorySelect Selects {get; set;}

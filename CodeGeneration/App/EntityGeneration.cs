@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace CodeGeneration.App
 {
@@ -115,14 +114,14 @@ namespace {Namespace}.{Entities}
                     continue;
 
                 PropertyString += $@"
-            public {primitiveType} {PropertyInfo.Name} {{ get; set; }}";
+        public {primitiveType} {PropertyInfo.Name} {{ get; set; }}";
 
             }
             if (PropertyInfoes.Any(p => p.Name == "Id"))
             {
                 PropertyString += $@"
-            public List<long> Ids {{ get; set; }}
-            public List<long> ExceptIds {{ get; set; }}
+        public List<long> Ids {{ get; set; }}
+        public List<long> ExceptIds {{ get; set; }}
 ";
             }
             return PropertyString;
