@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CodeGeneration.App
 {
-    public class Generator
+    public class BEGenerator
     {
         protected string GetPrimitiveType(Type type)
         {
@@ -101,6 +103,27 @@ namespace CodeGeneration.App
         protected List<PropertyInfo> ListProperties(Type type)
         {
             return type.GetProperties().Where(p => !p.Name.Contains("_")).ToList();
+        }
+
+        protected string CamelCase(string str)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(Char.ToUpper(str[0]));
+            builder.Append(str.Substring(1, str.Length - 1));
+            return builder.ToString();
+        }
+
+        protected string SnakeCase(string str)
+        {
+            List<string> split = Regex.Split(str, @"(?<!^)(?=[A-Z])").Select(s => s.ToLower().Trim()).ToList();
+            string result = string.Join("_", split);
+            return result;
+        }
+        protected string KebabCase(string str)
+        {
+            List<string> split = Regex.Split(str, @"(?<!^)(?=[A-Z])").Select(s => s.ToLower().Trim()).ToList();
+            string result = string.Join("-", split);
+            return result;
         }
     }
 }

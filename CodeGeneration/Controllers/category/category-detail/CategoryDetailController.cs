@@ -9,8 +9,6 @@ using WeGift.Services.MCategory;
 using Microsoft.AspNetCore.Mvc;
 using WeGift.Entities;
 
-
-
 namespace WeGift.Controllers.category.category_detail
 {
     public class CategoryDetailRoute : Root

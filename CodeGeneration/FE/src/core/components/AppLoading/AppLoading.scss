@@ -1,0 +1,11 @@
+#root {
+  > .ant-spin-nested-loading {
+    > .ant-spin-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

@@ -7,14 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace CodeGeneration.App
 {
-    public partial class ControllerGenerator_Detail : Generator
+    public partial class BEControllerGenerator_Detail : BEGenerator
     {
         private string Namespace { get; set; }
         public string RootRoute { get; set; }
         private List<Type> Classes { get; set; }
 
         public const string Controllers = "Controllers";
-        public ControllerGenerator_Detail(string Namespace, string RootRoute, List<Type> Classes)
+        public BEControllerGenerator_Detail(string Namespace, string RootRoute, List<Type> Classes)
         {
             if (!Directory.Exists(Controllers))
                 Directory.CreateDirectory(Controllers);
@@ -31,8 +31,8 @@ namespace CodeGeneration.App
                     continue;
 
                 string ClassName = GetClassName(type);
-                string NamespaceList = BuildNamespace(ClassName) + "." + BuildNamespace(ClassName) + "_detail";
-                string RouteList = $"{BuildFolderPath(ClassName)}/{BuildFolderPath(ClassName)}-detail";
+                string NamespaceList = SnakeCase(ClassName) + "." + SnakeCase(ClassName) + "_detail";
+                string RouteList = $"{KebabCase(ClassName)}/{KebabCase(ClassName)}-detail";
                 string path = Path.Combine(Controllers, RouteList);
                 string controllerPath = Path.Combine(path, ClassName + "DetailController.cs");
                 Directory.CreateDirectory(path);
@@ -132,20 +132,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             }
         }
 
-      
-
-        private string BuildFolderPath(string ClassName)
-        {
-            List<string> split = Regex.Split(ClassName, @"(?<!^)(?=[A-Z])").Select(s => s.ToLower().Trim()).ToList();
-            string result = string.Join("-", split);
-            return result;
-        }
-        private string BuildNamespace(string ClassName)
-        {
-            List<string> split = Regex.Split(ClassName, @"(?<!^)(?=[A-Z])").Select(s => s.ToLower().Trim()).ToList();
-            string result = string.Join("_", split);
-            return result;
-        }
+     
         private string ConvertDTOToEntity(Type type)
         {
             string ClassName = type.Name.Substring(0, type.Name.Length - 3);
@@ -404,7 +391,7 @@ using {Namespace}.Entities;
                 if (string.IsNullOrEmpty(referenceType))
                     continue;
                 content += $@"
-        public const string SingleList{referenceType}=""/single-list-{BuildFolderPath(referenceType)}"";";
+        public const string SingleList{referenceType}=""/single-list-{KebabCase(referenceType)}"";";
             }
             return content;
         }

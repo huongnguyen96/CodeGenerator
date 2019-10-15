@@ -1,0 +1,56 @@
+$marginX: 1rem;
+$marginY: 1rem;
+
+#root {
+  .ant-spin-nested-loading {
+    .ant-spin-container {
+      > .ant-layout {
+        height: 100vh !important;
+        display: flex;
+        flex-direction: column;
+
+        .ant-layout-header {
+          background: #ffffff;
+        }
+
+        .ant-layout.ant-layout-has-sider {
+          flex-grow: 1;
+
+          .ant-layout-sider {
+            overflow-y: auto;
+
+            .ant-menu {
+              .ant-menu-item:first-of-type {
+                margin-top: 0;
+              }
+
+              .ant-menu-item:last-of-type {
+                margin-bottom: 0;
+              }
+            }
+          }
+
+          .ant-layout-content {
+            margin: $marginY $marginX;
+
+            .ant-card {
+              margin-top: 0.5rem;
+            }
+
+            .ant-card:first-child {
+              margin-top: unset;
+            }
+          }
+
+          .ant-layout-footer {
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            justify-items: center;
+          }
+        }
+      }
+    }
+  }
+}

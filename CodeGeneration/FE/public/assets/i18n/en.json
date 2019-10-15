@@ -1,0 +1,73 @@
+{
+  "general": {
+    "loading": "",
+    "actions": {
+      "edit": ""
+    }
+  },
+  "filters": {
+    "types": {
+      "after": "",
+      "before": "",
+      "contains": "",
+      "endsWith": "",
+      "equals": "",
+      "from": "",
+      "greaterThan": "",
+      "greaterThanOrEqualTo": "",
+      "lessThan": "",
+      "lessThanOrEqualTo": "",
+      "notEqualTo": "",
+      "startsWith": "",
+      "to": ""
+    }
+  },
+  "provinces": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": "",
+      "districts": {
+        "title": "",
+        "code": "",
+        "name": ""
+      }
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      }
+    },
+    "name": "",
+    "title": "",
+    "actions": ""
+  },
+  "buttons": {
+    "save": ""
+  },
+  "login": {
+    "username": {
+      "errors": {
+        "required": ""
+      },
+      "placeholder": ""
+    },
+    "password": {
+      "errors": {
+        "required": ""
+      },
+      "placeholder": ""
+    },
+    "remember": "",
+    "forgotPassword": "",
+    "login": "",
+    "or": "",
+    "registerNow": ""
+  }
+}

@@ -4,12 +4,12 @@ using System.IO;
 
 namespace CodeGeneration.App
 {
-    public class ServiceGenerator : Generator
+    public class BEServiceGenerator : BEGenerator
     {
         private string Namespace { get; set; }
         private List<Type> Classes { get; set; }
         private const string Services = "Services";
-        public ServiceGenerator(string Namespace, List<Type> Classes)
+        public BEServiceGenerator(string Namespace, List<Type> Classes)
         {
             if (!Directory.Exists(Services))
                 Directory.CreateDirectory(Services);

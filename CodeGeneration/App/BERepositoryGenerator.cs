@@ -6,14 +6,14 @@ using System.Reflection;
 
 namespace CodeGeneration.App
 {
-    public class RepositoryGeneration : Generator
+    public class BERepositoryGenerator : BEGenerator
     {
         private string Namespace { get; set; }
         public string DbContext { get; set; }
         private List<Type> Classes { get; set; }
         private const string Repositories = "Repositories";
 
-        public RepositoryGeneration(string Namespace, string DbContext, List<Type> Classes)
+        public BERepositoryGenerator(string Namespace, string DbContext, List<Type> Classes)
         {
             if (!Directory.Exists(Repositories))
                 Directory.CreateDirectory(Repositories);

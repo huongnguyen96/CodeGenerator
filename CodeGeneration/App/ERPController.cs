@@ -19,16 +19,19 @@ namespace CodeGeneration.App
             .Where(t => t.Name.EndsWith("DAO") && !t.IsAbstract).ToList();
 
             string Namespace = "WeGift";
-            EntityGeneration EntityGeneration = new EntityGeneration(Namespace, types);
-            EntityGeneration.Build();
-            RepositoryGeneration RepositoryGeneration = new RepositoryGeneration(Namespace, "WGContext", types);
-            RepositoryGeneration.Build();
-            ServiceGenerator ServiceGenerator = new ServiceGenerator(Namespace, types);
-            ServiceGenerator.Build();
-            ControllerGenerator_Master ControllerGenerator_Master = new ControllerGenerator_Master(Namespace, "", types);
-            ControllerGenerator_Master.Build();
-            ControllerGenerator_Detail ControllerGenerator_Detail = new ControllerGenerator_Detail(Namespace, "", types);
-            ControllerGenerator_Detail.Build();
+            //BEEntityGeneration EntityGeneration = new BEEntityGeneration(Namespace, types);
+            //EntityGeneration.Build();
+            //BERepositoryGenerator RepositoryGeneration = new BERepositoryGenerator(Namespace, "WGContext", types);
+            //RepositoryGeneration.Build();
+            //BEServiceGenerator ServiceGenerator = new BEServiceGenerator(Namespace, types);
+            //ServiceGenerator.Build();
+            //BEControllerGenerator_Master ControllerGenerator_Master = new BEControllerGenerator_Master(Namespace, "", types);
+            //ControllerGenerator_Master.Build();
+            //BEControllerGenerator_Detail ControllerGenerator_Detail = new BEControllerGenerator_Detail(Namespace, "", types);
+            //ControllerGenerator_Detail.Build();
+
+            FEEntityGenerator FEEntityGenerator = new FEEntityGenerator(types);
+            FEEntityGenerator.Build();
             return;
         }
     }

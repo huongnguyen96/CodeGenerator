@@ -6,13 +6,13 @@ using System.Reflection;
 
 namespace CodeGeneration.App
 {
-    public class EntityGeneration : Generator
+    public class BEEntityGeneration : BEGenerator
     {
         private string Namespace { get; set; }
         private List<Type> Classes { get; set; }
         private const string Entities = "Entities";
 
-        public EntityGeneration(string Namespace, List<Type> Classes)
+        public BEEntityGeneration(string Namespace, List<Type> Classes)
         {
             if (!Directory.Exists(Entities))
                 Directory.CreateDirectory(Entities);

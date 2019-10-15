@@ -1,0 +1,18 @@
+{
+  "name": "default-layout",
+  "main": "DefaultLayout.tsx",
+  "menu": [
+    {
+      "title": "Dashboard",
+      "path": "/",
+      "icon": "dashboard",
+      "exact": true
+    },
+    {
+      "title": "Provinces",
+      "path": "/admin/provinces",
+      "icon": "dashboard",
+      "exact": false
+    }
+  ]
+}

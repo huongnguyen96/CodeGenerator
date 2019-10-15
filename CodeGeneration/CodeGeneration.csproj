@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="CodeTemplates\**" />
+    <Compile Remove="FE\**" />
     <Content Remove="CodeTemplates\**" />
+    <Content Remove="FE\**" />
     <EmbeddedResource Remove="CodeTemplates\**" />
+    <EmbeddedResource Remove="FE\**" />
     <None Remove="CodeTemplates\**" />
+    <None Remove="FE\**" />
   </ItemGroup>
 
   <ItemGroup>

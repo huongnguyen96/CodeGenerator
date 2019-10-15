@@ -7,14 +7,14 @@ using System.Text.RegularExpressions;
 
 namespace CodeGeneration.App
 {
-    public partial class ControllerGenerator_Master : Generator
+    public partial class BEControllerGenerator_Master : BEGenerator
     {
         private string Namespace { get; set; }
         public string RootRoute { get; set; }
         private List<Type> Classes { get; set; }
 
         public const string Controllers = "Controllers";
-        public ControllerGenerator_Master(string Namespace, string RootRoute, List<Type> Classes)
+        public BEControllerGenerator_Master(string Namespace, string RootRoute, List<Type> Classes)
         {
             if (!Directory.Exists(Controllers))
                 Directory.CreateDirectory(Controllers);
@@ -53,8 +53,8 @@ namespace {Namespace}.Controllers
                     continue;
 
                 string ClassName = GetClassName(type);
-                string NamespaceList = BuildNamespace(ClassName) + "." + BuildNamespace(ClassName) + "_master";
-                string RouteList = $"{BuildFolderPath(ClassName)}/{BuildFolderPath(ClassName)}-master";
+                string NamespaceList = SnakeCase(ClassName) + "." + SnakeCase(ClassName) + "_master";
+                string RouteList = $"{KebabCase(ClassName)}/{KebabCase(ClassName)}-master";
                 string path = Path.Combine(Controllers, RouteList);
                 string controllerPath = Path.Combine(path, ClassName + "MasterController.cs");
                 Directory.CreateDirectory(path);
@@ -127,19 +127,6 @@ namespace {Namespace}.Controllers.{NamespaceList}
 ";
                 File.WriteAllText(controllerPath, content);
             }
-        }
-
-        private string BuildFolderPath(string ClassName)
-        {
-            List<string> split = Regex.Split(ClassName, @"(?<!^)(?=[A-Z])").Select(s => s.ToLower().Trim()).ToList();
-            string result = string.Join("-", split);
-            return result;
-        }
-        private string BuildNamespace(string ClassName)
-        {
-            List<string> split = Regex.Split(ClassName, @"(?<!^)(?=[A-Z])").Select(s => s.ToLower().Trim()).ToList();
-            string result = string.Join("_", split);
-            return result;
         }
 
         private string ConvertFilterDTOToFilterEntity(Type type)
@@ -396,7 +383,7 @@ using {Namespace}.Entities;
                 if (string.IsNullOrEmpty(referenceType))
                     continue;
                 content += $@"
-        public const string SingleList{referenceType}=""/single-list-{BuildFolderPath(referenceType)}"";";
+        public const string SingleList{referenceType}=""/single-list-{KebabCase(referenceType)}"";";
             }
             return content;
         }

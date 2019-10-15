@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +26,6 @@ namespace WeGift.Controllers.warehouse.warehouse_detail
 
     public class WarehouseDetailController : ApiController
     {
-        
-        
         private IUserService UserService;
         private IWarehouseService WarehouseService;
 
