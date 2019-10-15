@@ -29,8 +29,8 @@ namespace WeGift.Controllers.user.user_detail
     public class UserDetail_UserFilterDTO : FilterDTO
     {
         
-        public LongFilter Id { get; set; }
-        public StringFilter Username { get; set; }
-        public StringFilter Password { get; set; }
+        public long? Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

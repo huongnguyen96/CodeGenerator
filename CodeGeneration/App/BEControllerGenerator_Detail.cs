@@ -156,10 +156,10 @@ namespace {Namespace}.Controllers.{NamespaceList}
 
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
+                string filterType = GetDTOFilterType(PropertyInfo.PropertyType);
+                if (string.IsNullOrEmpty(filterType))
                     continue;
-                content += MappingProperty($"{ClassName}Filter", $"{MainClassName}Detail_{ClassName}FilterDTO", PropertyInfo.Name);
+                content += MappingDTOFilter($"{ClassName}Filter", $"{MainClassName}Detail_{ClassName}FilterDTO", PropertyInfo.Name, filterType);
             }
             return content;
         }
@@ -305,7 +305,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string filterType = GetFilterType(PropertyInfo.PropertyType);
+                string filterType = GetDTOFilterType(PropertyInfo.PropertyType);
                 if (string.IsNullOrEmpty(filterType))
                 {
                     continue;

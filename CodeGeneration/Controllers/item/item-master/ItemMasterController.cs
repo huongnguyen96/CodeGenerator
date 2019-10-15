@@ -78,9 +78,9 @@ namespace WeGift.Controllers.item.item_master
         {
             ItemFilter ItemFilter = new ItemFilter();
             
-            ItemFilter.Id = ItemMaster_ItemFilterDTO.Id;
-            ItemFilter.Code = ItemMaster_ItemFilterDTO.Code;
-            ItemFilter.Name = ItemMaster_ItemFilterDTO.Name;
+            ItemFilter.Id = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.Id };
+            ItemFilter.Code = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.Code };
+            ItemFilter.Name = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.Name };
             return ItemFilter;
         }
         

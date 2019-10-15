@@ -83,10 +83,10 @@ namespace WeGift.Controllers.warehouse.warehouse_master
         {
             WarehouseFilter WarehouseFilter = new WarehouseFilter();
             
-            WarehouseFilter.Id = WarehouseMaster_WarehouseFilterDTO.Id;
-            WarehouseFilter.ManagerId = WarehouseMaster_WarehouseFilterDTO.ManagerId;
-            WarehouseFilter.Code = WarehouseMaster_WarehouseFilterDTO.Code;
-            WarehouseFilter.Name = WarehouseMaster_WarehouseFilterDTO.Name;
+            WarehouseFilter.Id = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.Id };
+            WarehouseFilter.ManagerId = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.ManagerId };
+            WarehouseFilter.Code = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Code };
+            WarehouseFilter.Name = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Name };
             return WarehouseFilter;
         }
         
@@ -101,9 +101,9 @@ namespace WeGift.Controllers.warehouse.warehouse_master
             UserFilter.OrderType = OrderType.ASC;
             UserFilter.Selects = UserSelect.ALL;
             
-            UserFilter.Id = WarehouseMaster_UserFilterDTO.Id;
-            UserFilter.Username = WarehouseMaster_UserFilterDTO.Username;
-            UserFilter.Password = WarehouseMaster_UserFilterDTO.Password;
+            UserFilter.Id = new LongFilter{ Equal = WarehouseMaster_UserFilterDTO.Id };
+            UserFilter.Username = new StringFilter{ StartsWith = WarehouseMaster_UserFilterDTO.Username };
+            UserFilter.Password = new StringFilter{ StartsWith = WarehouseMaster_UserFilterDTO.Password };
 
             List<User> Users = await UserService.List(UserFilter);
             List<WarehouseMaster_UserDTO> WarehouseMaster_UserDTOs = Users

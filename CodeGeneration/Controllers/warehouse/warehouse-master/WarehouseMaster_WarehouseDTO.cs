@@ -31,9 +31,9 @@ namespace WeGift.Controllers.warehouse.warehouse_master
     public class WarehouseMaster_WarehouseFilterDTO : FilterDTO
     {
         
-        public LongFilter Id { get; set; }
-        public LongFilter ManagerId { get; set; }
-        public StringFilter Code { get; set; }
-        public StringFilter Name { get; set; }
+        public long? Id { get; set; }
+        public long? ManagerId { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -26,8 +26,8 @@ namespace WeGift.Controllers.category.category_detail
     public class CategoryDetail_CategoryFilterDTO : FilterDTO
     {
         
-        public LongFilter Id { get; set; }
-        public StringFilter Code { get; set; }
-        public StringFilter Name { get; set; }
+        public long? Id { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
     }
 }

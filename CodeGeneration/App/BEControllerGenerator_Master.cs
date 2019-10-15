@@ -137,10 +137,10 @@ namespace {Namespace}.Controllers.{NamespaceList}
 
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
+                string filterType = GetDTOFilterType(PropertyInfo.PropertyType);
+                if (string.IsNullOrEmpty(filterType))
                     continue;
-                content += MappingProperty($"{ClassName}Filter", $"{ClassName}Master_{ClassName}FilterDTO", PropertyInfo.Name);
+                content += MappingDTOFilter($"{ClassName}Filter", $"{ClassName}Master_{ClassName}FilterDTO", PropertyInfo.Name, filterType);
             }
             return content;
         }
@@ -297,7 +297,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string filterType = GetFilterType(PropertyInfo.PropertyType);
+                string filterType = GetDTOFilterType(PropertyInfo.PropertyType);
                 if (string.IsNullOrEmpty(filterType))
                 {
                     continue;
@@ -402,10 +402,10 @@ using {Namespace}.Entities;
                 List<PropertyInfo> Children = ListProperties(PropertyInfo.PropertyType);
                 foreach (PropertyInfo Child in Children)
                 {
-                    string primitiveType = GetPrimitiveType(Child.PropertyType);
-                    if (string.IsNullOrEmpty(primitiveType))
+                    string filterType = GetDTOFilterType(Child.PropertyType);
+                    if (string.IsNullOrEmpty(filterType))
                         continue;
-                    filterMapping += MappingProperty($"{referenceType}Filter", $"{ClassName}Master_{referenceType}FilterDTO", Child.Name);
+                    filterMapping += MappingDTOFilter($"{referenceType}Filter", $"{ClassName}Master_{referenceType}FilterDTO", Child.Name, filterType);
                 }
                 content += $@"
         [Route({ClassName}MasterRoute.SingleList{referenceType}), HttpPost]

@@ -1,3 +1,5 @@
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace WeGift.Controllers.warehouse.warehouse_detail
 
     public class WarehouseDetailController : ApiController
     {
+        
+        
         private IUserService UserService;
         private IWarehouseService WarehouseService;
 
@@ -122,9 +126,9 @@ namespace WeGift.Controllers.warehouse.warehouse_detail
             UserFilter.OrderType = OrderType.ASC;
             UserFilter.Selects = UserSelect.ALL;
             
-            UserFilter.Id = WarehouseDetail_UserFilterDTO.Id;
-            UserFilter.Username = WarehouseDetail_UserFilterDTO.Username;
-            UserFilter.Password = WarehouseDetail_UserFilterDTO.Password;
+            UserFilter.Id = new LongFilter{ Equal = WarehouseDetail_UserFilterDTO.Id };
+            UserFilter.Username = new StringFilter{ StartsWith = WarehouseDetail_UserFilterDTO.Username };
+            UserFilter.Password = new StringFilter{ StartsWith = WarehouseDetail_UserFilterDTO.Password };
 
             List<User> Users = await UserService.List(UserFilter);
             List<WarehouseDetail_UserDTO> WarehouseDetail_UserDTOs = Users

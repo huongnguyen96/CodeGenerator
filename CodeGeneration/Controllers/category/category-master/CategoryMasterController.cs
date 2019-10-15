@@ -78,9 +78,9 @@ namespace WeGift.Controllers.category.category_master
         {
             CategoryFilter CategoryFilter = new CategoryFilter();
             
-            CategoryFilter.Id = CategoryMaster_CategoryFilterDTO.Id;
-            CategoryFilter.Code = CategoryMaster_CategoryFilterDTO.Code;
-            CategoryFilter.Name = CategoryMaster_CategoryFilterDTO.Name;
+            CategoryFilter.Id = new LongFilter{ Equal = CategoryMaster_CategoryFilterDTO.Id };
+            CategoryFilter.Code = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Code };
+            CategoryFilter.Name = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Name };
             return CategoryFilter;
         }
         

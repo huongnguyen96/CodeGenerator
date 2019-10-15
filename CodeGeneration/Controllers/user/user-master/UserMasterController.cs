@@ -78,9 +78,9 @@ namespace WeGift.Controllers.user.user_master
         {
             UserFilter UserFilter = new UserFilter();
             
-            UserFilter.Id = UserMaster_UserFilterDTO.Id;
-            UserFilter.Username = UserMaster_UserFilterDTO.Username;
-            UserFilter.Password = UserMaster_UserFilterDTO.Password;
+            UserFilter.Id = new LongFilter{ Equal = UserMaster_UserFilterDTO.Id };
+            UserFilter.Username = new StringFilter{ StartsWith = UserMaster_UserFilterDTO.Username };
+            UserFilter.Password = new StringFilter{ StartsWith = UserMaster_UserFilterDTO.Password };
             return UserFilter;
         }
         

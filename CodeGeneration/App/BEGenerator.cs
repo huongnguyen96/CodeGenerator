@@ -82,7 +82,36 @@ namespace CodeGeneration.App
                 return "LongFilter";
             return null;
         }
-
+        protected string GetDTOFilterType(Type type)
+        {
+            if (type.FullName == typeof(Guid).FullName)
+                return "Guid?";
+            if (type.FullName == typeof(Guid?).FullName)
+                return "Guid?";
+            if (type.FullName == typeof(int).FullName)
+                return "int?";
+            if (type.FullName == typeof(int?).FullName)
+                return "int?";
+            if (type.FullName == typeof(decimal).FullName)
+                return "decimal?";
+            if (type.FullName == typeof(decimal?).FullName)
+                return "decimal?";
+            if (type.FullName == typeof(double).FullName)
+                return "double?";
+            if (type.FullName == typeof(double?).FullName)
+                return "double?";
+            if (type.FullName == typeof(string).FullName)
+                return "string";
+            if (type.FullName == typeof(DateTime).FullName)
+                return "DateTime?";
+            if (type.FullName == typeof(DateTime?).FullName)
+                return "DateTime?";
+            if (type.FullName == typeof(long).FullName)
+                return "long?";
+            if (type.FullName == typeof(long?).FullName)
+                return "long?";
+            return null;
+        }
         protected string DeclareProperty(string type, string property)
         {
             return $@"
@@ -93,6 +122,33 @@ namespace CodeGeneration.App
         {
             return $@"
             {target}.{property} = {source}.{property};";
+        }
+
+        protected string MappingDTOFilter(string target, string source, string property, string filterType)
+        {
+            string content = string.Empty;
+            if (filterType == "Guid?")
+                content += $@"
+            {target}.{property} = new GuidFilter{{ Equal = {source}.{property} }};";
+            if (filterType == "long?")
+                content += $@"
+            {target}.{property} = new LongFilter{{ Equal = {source}.{property} }};";
+            if (filterType == "int?")
+                content += $@"
+            {target}.{property} = new IntFilter{{ Equal = {source}.{property} }};\n";
+            if (filterType == "decimal?")
+                content += $@"
+            {target}.{property} = new DecimalFilter{{ Equal = {source}.{property} }};";
+            if (filterType == "double?")
+                content += $@"
+            {target}.{property} = new DoubleFilter{{ Equal = {source}.{property} }};";
+            if (filterType == "DateTime?")
+                content += $@"
+            {target}.{property} = new DateTimeFilter{{ Equal = {source}.{property} }};";
+            if (filterType == "string")
+                content += $@"
+            {target}.{property} = new StringFilter{{ StartsWith = {source}.{property} }};";
+            return content;
         }
 
         protected string GetClassName(Type type)
