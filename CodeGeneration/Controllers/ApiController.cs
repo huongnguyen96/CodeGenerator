@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-namespace WeGift.Controllers
+namespace WG.Controllers
 {
     public class Root
     {

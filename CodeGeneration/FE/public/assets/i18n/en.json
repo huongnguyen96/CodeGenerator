@@ -11,13 +11,16 @@
       "before": "",
       "contains": "",
       "endsWith": "",
-      "equals": "",
+      "equal": "",
       "from": "",
-      "greaterThan": "",
-      "greaterThanOrEqualTo": "",
-      "lessThan": "",
-      "lessThanOrEqualTo": "",
-      "notEqualTo": "",
+      "greater": "",
+      "greaterEqual": "",
+      "less": "",
+      "lessEqual": "",
+      "notContains": "",
+      "notEndsWith": "",
+      "notEqual": "",
+      "notStartsWith": "",
       "startsWith": "",
       "to": ""
     }
@@ -46,6 +49,7 @@
     },
     "name": "",
     "title": "",
+    "index": "",
     "actions": ""
   },
   "buttons": {

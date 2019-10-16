@@ -1,13 +1,14 @@
 import Card from 'antd/lib/card';
 import Table from 'antd/lib/table';
 import {useList} from 'core/hooks/useList';
+import {renderIndex} from 'helpers/renderIndex';
 import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
-import provincesRepository from '../ProvincesRepository';
 import './ProvinceList.scss';
+import provinceListRepository from './ProvinceListRepository';
 
 const {Column} = Table;
 
@@ -17,8 +18,8 @@ function ProvinceList() {
   const [provinces, total, loading] = useList<Province, ProvinceSearch>(
     [],
     search,
-    provincesRepository.list,
-    provincesRepository.count,
+    provinceListRepository.list,
+    provinceListRepository.count,
   );
 
   return (
@@ -37,6 +38,11 @@ function ProvinceList() {
                  }));
                },
              }}>
+        <Column key="index"
+                title={translate('provinces.index')}
+                render={renderIndex<Province, ProvinceSearch>(search)}
+                sorter
+        />
         <Column key="code"
                 dataIndex="code"
                 title={translate('provinces.code')}

@@ -1,19 +1,14 @@
 
 import {Search} from 'core/entities/Search';
 
-import {NumberFilter} from 'filters/NumberFilter';
-
-import {TextFilter} from 'filters/TextFilter';
-
-
 export class WarehouseSearch extends Search {
   
-  public id: NumberFilter = new NumberFilter();
+  public id?: number;
 
-  public managerId: NumberFilter = new NumberFilter();
+  public managerId?: number;
 
-  public code: TextFilter = new TextFilter();
+  public code?: string;
 
-  public name: TextFilter = new TextFilter();
+  public name?: string;
 ;
 }

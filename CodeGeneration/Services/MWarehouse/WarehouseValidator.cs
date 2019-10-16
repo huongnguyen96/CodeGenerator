@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
-using WeGift.Entities;
-using WeGift.Repositories;
+using WG.Entities;
+using WG.Repositories;
 
-namespace WeGift.Services.MWarehouse
+namespace WG.Services.MWarehouse
 {
     public interface IWarehouseValidator : IServiceScoped
     {

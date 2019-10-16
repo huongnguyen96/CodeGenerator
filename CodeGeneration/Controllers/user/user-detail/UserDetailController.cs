@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
-using WeGift.Services.MUser;
+using WG.Services.MUser;
 using Microsoft.AspNetCore.Mvc;
-using WeGift.Entities;
+using WG.Entities;
 
 
 
-namespace WeGift.Controllers.user.user_detail
+namespace WG.Controllers.user.user_detail
 {
     public class UserDetailRoute : Root
     {

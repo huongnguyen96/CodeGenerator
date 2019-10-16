@@ -1,6 +1,8 @@
 import {Model} from './Model';
 
 export class Enum extends Model {
+  public id?: string;
+
   public code?: string;
 
   public name?: string;

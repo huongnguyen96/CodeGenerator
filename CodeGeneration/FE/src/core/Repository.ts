@@ -1,18 +1,12 @@
-import Axios from 'axios-observable';
-import {httpService} from 'services';
+import {requestConfig} from 'config/http';
+import {HttpService} from 'services';
 
 export abstract class Repository {
-  protected httpService: Axios = httpService;
+  protected httpService: HttpService;
 
-  protected baseURL: string = process.env.REACT_APP_BASE_URL;
-
-  protected constructor(baseURL?: string) {
-    if (baseURL) {
-      this.baseURL = baseURL;
-    }
+  protected constructor() {
+    this.httpService = HttpService.create(requestConfig);
   }
-
-  public getURL = (pathname: string) => `${this.baseURL}/${pathname}`;
 }
 
 export default Repository;

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface IAuditLogRepository
     {

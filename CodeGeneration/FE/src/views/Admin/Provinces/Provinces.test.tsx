@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {MemoryRouter} from 'react-router';
 import Provinces from './Provinces';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Provinces/>, div);
+  ReactDOM.render(
+    <MemoryRouter>
+      <Provinces/>
+    </MemoryRouter>,
+    div,
+  );
   ReactDOM.unmountComponentAtNode(div);
 });

@@ -1,5 +1,5 @@
+import i18nextConfig from 'config/i18next';
 import {InitOptions as I18nOptions} from 'i18next';
-import i18nextConfig from './i18next';
 
 /**
  * React global hooks

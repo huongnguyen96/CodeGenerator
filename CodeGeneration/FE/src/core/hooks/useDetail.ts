@@ -1,7 +1,7 @@
+import {Model} from 'core/entities/Model';
 import {useEffect, useState} from 'react';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
-import {Model} from '..';
 
 export function useDetail<T extends Model>(id: string, getter: (id: string) => Observable<T>): [T, boolean] {
   const [loading, setLoading] = useState<boolean>(false);

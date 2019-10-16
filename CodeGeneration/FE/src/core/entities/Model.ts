@@ -1,11 +1,12 @@
 export abstract class Model {
 
+  public errors?: {
     [key: string]: any;
-    errors: any;
-    protected constructor(model?: Model) {
+  };
 
-        if (model) {
-            Object.assign(this, model);
-        }
+  protected constructor(model?: Model) {
+    if (model) {
+      Object.assign(this, model);
     }
+  }
 }

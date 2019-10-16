@@ -1,14 +1,14 @@
 
 using Common;
-using WeGift.Entities;
-using WeGift.Repositories;
+using WG.Entities;
+using WG.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Services.MItem
+namespace WG.Services.MItem
 {
     public interface IItemService : IServiceScoped
     {

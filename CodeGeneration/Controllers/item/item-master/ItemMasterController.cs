@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
-using WeGift.Services.MItem;
+using WG.Services.MItem;
 using Microsoft.AspNetCore.Mvc;
-using WeGift.Entities;
+using WG.Entities;
 
 
 
-namespace WeGift.Controllers.item.item_master
+namespace WG.Controllers.item.item_master
 {
     public class ItemMasterRoute : Root
     {

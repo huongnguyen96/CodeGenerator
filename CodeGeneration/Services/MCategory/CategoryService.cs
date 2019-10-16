@@ -1,14 +1,14 @@
 
 using Common;
-using WeGift.Entities;
-using WeGift.Repositories;
+using WG.Entities;
+using WG.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Services.MCategory
+namespace WG.Services.MCategory
 {
     public interface ICategoryService : IServiceScoped
     {

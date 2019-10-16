@@ -1,11 +1,11 @@
 
-using WeGift.Entities;
+using WG.Entities;
 using Common;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace WeGift.Controllers.warehouse.warehouse_master
+namespace WG.Controllers.warehouse.warehouse_master
 {
     public class WarehouseMaster_WarehouseDTO : DataDTO
     {

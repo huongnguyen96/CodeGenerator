@@ -1,6 +1,6 @@
 
 using Common;
-using WeGift.Entities;
+using WG.Entities;
 using CodeGeneration.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface IWarehouseRepository
     {
@@ -22,11 +22,11 @@ namespace WeGift.Repositories
     }
     public class WarehouseRepository : IWarehouseRepository
     {
-        private WGContext WGContext;
+        private DataContext DataContext;
         private ICurrentContext CurrentContext;
-        public WarehouseRepository(WGContext WGContext, ICurrentContext CurrentContext)
+        public WarehouseRepository(DataContext DataContext, ICurrentContext CurrentContext)
         {
-            this.WGContext = WGContext;
+            this.DataContext = DataContext;
             this.CurrentContext = CurrentContext;
         }
 
@@ -109,7 +109,7 @@ namespace WeGift.Repositories
 
         public async Task<int> Count(WarehouseFilter filter)
         {
-            IQueryable <WarehouseDAO> WarehouseDAOs = WGContext.Warehouse;
+            IQueryable <WarehouseDAO> WarehouseDAOs = DataContext.Warehouse;
             WarehouseDAOs = DynamicFilter(WarehouseDAOs, filter);
             return await WarehouseDAOs.CountAsync();
         }
@@ -117,7 +117,7 @@ namespace WeGift.Repositories
         public async Task<List<Warehouse>> List(WarehouseFilter filter)
         {
             if (filter == null) return new List<Warehouse>();
-            IQueryable<WarehouseDAO> WarehouseDAOs = WGContext.Warehouse;
+            IQueryable<WarehouseDAO> WarehouseDAOs = DataContext.Warehouse;
             WarehouseDAOs = DynamicFilter(WarehouseDAOs, filter);
             WarehouseDAOs = DynamicOrder(WarehouseDAOs, filter);
             var Warehouses = await DynamicSelect(WarehouseDAOs, filter);
@@ -127,7 +127,7 @@ namespace WeGift.Repositories
         
         public async Task<Warehouse> Get(long Id)
         {
-            Warehouse Warehouse = await WGContext.Warehouse.Where(x => x.Id == Id).Select(WarehouseDAO => new Warehouse()
+            Warehouse Warehouse = await DataContext.Warehouse.Where(x => x.Id == Id).Select(WarehouseDAO => new Warehouse()
             {
                  
                 Id = WarehouseDAO.Id,
@@ -147,8 +147,8 @@ namespace WeGift.Repositories
             WarehouseDAO.Code = Warehouse.Code;
             WarehouseDAO.Name = Warehouse.Name;
             
-            await WGContext.Warehouse.AddAsync(WarehouseDAO);
-            await WGContext.SaveChangesAsync();
+            await DataContext.Warehouse.AddAsync(WarehouseDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
@@ -156,22 +156,22 @@ namespace WeGift.Repositories
         
         public async Task<bool> Update(Warehouse Warehouse)
         {
-            WarehouseDAO WarehouseDAO = WGContext.Warehouse.Where(x => x.Id == Warehouse.Id).FirstOrDefault();
+            WarehouseDAO WarehouseDAO = DataContext.Warehouse.Where(x => x.Id == Warehouse.Id).FirstOrDefault();
             
             WarehouseDAO.Id = Warehouse.Id;
             WarehouseDAO.ManagerId = Warehouse.ManagerId;
             WarehouseDAO.Code = Warehouse.Code;
             WarehouseDAO.Name = Warehouse.Name;
-            await WGContext.SaveChangesAsync();
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
         
         public async Task<bool> Delete(Warehouse Warehouse)
         {
-            WarehouseDAO WarehouseDAO = await WGContext.Warehouse.Where(x => x.Id == Warehouse.Id).FirstOrDefaultAsync();
-            WGContext.Warehouse.Remove(WarehouseDAO);
-            await WGContext.SaveChangesAsync();
+            WarehouseDAO WarehouseDAO = await DataContext.Warehouse.Where(x => x.Id == Warehouse.Id).FirstOrDefaultAsync();
+            DataContext.Warehouse.Remove(WarehouseDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 

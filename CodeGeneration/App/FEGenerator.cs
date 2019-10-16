@@ -106,6 +106,13 @@ namespace CodeGeneration.App
         {
             return type.GetProperties().Where(p => !p.Name.Contains("_")).ToList();
         }
+        protected string PascalCase(string str)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(Char.ToUpper(str[0]));
+            builder.Append(str.Substring(1, str.Length - 1));
+            return builder.ToString();
+        }
 
         protected string CamelCase(string str)
         {

@@ -3,7 +3,7 @@ using Common;
 using System.Threading.Tasks;
 using CodeGeneration.Repositories.Models;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface IUOW : IServiceScoped
     {
@@ -26,7 +26,7 @@ namespace WeGift.Repositories
     }
     public class UOW : IUOW
     {
-        private WGContext WGContext;
+        private DataContext DataContext;
         public IAuditLogRepository AuditLogRepository { get; private set; }
         public ISystemLogRepository SystemLogRepository { get; private set; }
         
@@ -41,37 +41,37 @@ namespace WeGift.Repositories
         public IWarehouseRepository WarehouseRepository { get; private set; }
 
 
-        public UOW(WGContext WGContext, ICurrentContext CurrentContext)
+        public UOW(DataContext DataContext, ICurrentContext CurrentContext)
         {
-            this.WGContext = WGContext;
+            this.DataContext = DataContext;
             AuditLogRepository = new AuditLogRepository(CurrentContext);
             SystemLogRepository = new SystemLogRepository(CurrentContext);
             
-            CategoryRepository = new CategoryRepository(WGContext, CurrentContext);
+            CategoryRepository = new CategoryRepository(DataContext, CurrentContext);
 
-            Category_ItemRepository = new Category_ItemRepository(WGContext, CurrentContext);
+            Category_ItemRepository = new Category_ItemRepository(DataContext, CurrentContext);
 
-            ItemRepository = new ItemRepository(WGContext, CurrentContext);
+            ItemRepository = new ItemRepository(DataContext, CurrentContext);
 
-            UserRepository = new UserRepository(WGContext, CurrentContext);
+            UserRepository = new UserRepository(DataContext, CurrentContext);
 
-            WarehouseRepository = new WarehouseRepository(WGContext, CurrentContext);
+            WarehouseRepository = new WarehouseRepository(DataContext, CurrentContext);
 
         }
         public async Task Begin()
         {
-            await WGContext.Database.BeginTransactionAsync();
+            await DataContext.Database.BeginTransactionAsync();
         }
 
         public Task Commit()
         {
-            WGContext.Database.CommitTransaction();
+            DataContext.Database.CommitTransaction();
             return Task.CompletedTask;
         }
 
         public Task Rollback()
         {
-            WGContext.Database.RollbackTransaction();
+            DataContext.Database.RollbackTransaction();
             return Task.CompletedTask;
         }
     }

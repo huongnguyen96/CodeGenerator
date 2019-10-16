@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import {initReactI18next} from 'react-i18next';
 import {setGlobal} from 'reactn';
 import './index.scss';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './service-worker';
 
 Promise.all([
   setGlobal(globalData),

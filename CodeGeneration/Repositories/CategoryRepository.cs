@@ -1,6 +1,6 @@
 
 using Common;
-using WeGift.Entities;
+using WG.Entities;
 using CodeGeneration.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface ICategoryRepository
     {
@@ -22,11 +22,11 @@ namespace WeGift.Repositories
     }
     public class CategoryRepository : ICategoryRepository
     {
-        private WGContext WGContext;
+        private DataContext DataContext;
         private ICurrentContext CurrentContext;
-        public CategoryRepository(WGContext WGContext, ICurrentContext CurrentContext)
+        public CategoryRepository(DataContext DataContext, ICurrentContext CurrentContext)
         {
-            this.WGContext = WGContext;
+            this.DataContext = DataContext;
             this.CurrentContext = CurrentContext;
         }
 
@@ -100,7 +100,7 @@ namespace WeGift.Repositories
 
         public async Task<int> Count(CategoryFilter filter)
         {
-            IQueryable <CategoryDAO> CategoryDAOs = WGContext.Category;
+            IQueryable <CategoryDAO> CategoryDAOs = DataContext.Category;
             CategoryDAOs = DynamicFilter(CategoryDAOs, filter);
             return await CategoryDAOs.CountAsync();
         }
@@ -108,7 +108,7 @@ namespace WeGift.Repositories
         public async Task<List<Category>> List(CategoryFilter filter)
         {
             if (filter == null) return new List<Category>();
-            IQueryable<CategoryDAO> CategoryDAOs = WGContext.Category;
+            IQueryable<CategoryDAO> CategoryDAOs = DataContext.Category;
             CategoryDAOs = DynamicFilter(CategoryDAOs, filter);
             CategoryDAOs = DynamicOrder(CategoryDAOs, filter);
             var Categorys = await DynamicSelect(CategoryDAOs, filter);
@@ -118,7 +118,7 @@ namespace WeGift.Repositories
         
         public async Task<Category> Get(long Id)
         {
-            Category Category = await WGContext.Category.Where(x => x.Id == Id).Select(CategoryDAO => new Category()
+            Category Category = await DataContext.Category.Where(x => x.Id == Id).Select(CategoryDAO => new Category()
             {
                  
                 Id = CategoryDAO.Id,
@@ -136,8 +136,8 @@ namespace WeGift.Repositories
             CategoryDAO.Code = Category.Code;
             CategoryDAO.Name = Category.Name;
             
-            await WGContext.Category.AddAsync(CategoryDAO);
-            await WGContext.SaveChangesAsync();
+            await DataContext.Category.AddAsync(CategoryDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
@@ -145,21 +145,21 @@ namespace WeGift.Repositories
         
         public async Task<bool> Update(Category Category)
         {
-            CategoryDAO CategoryDAO = WGContext.Category.Where(x => x.Id == Category.Id).FirstOrDefault();
+            CategoryDAO CategoryDAO = DataContext.Category.Where(x => x.Id == Category.Id).FirstOrDefault();
             
             CategoryDAO.Id = Category.Id;
             CategoryDAO.Code = Category.Code;
             CategoryDAO.Name = Category.Name;
-            await WGContext.SaveChangesAsync();
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
         
         public async Task<bool> Delete(Category Category)
         {
-            CategoryDAO CategoryDAO = await WGContext.Category.Where(x => x.Id == Category.Id).FirstOrDefaultAsync();
-            WGContext.Category.Remove(CategoryDAO);
-            await WGContext.SaveChangesAsync();
+            CategoryDAO CategoryDAO = await DataContext.Category.Where(x => x.Id == Category.Id).FirstOrDefaultAsync();
+            DataContext.Category.Remove(CategoryDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 

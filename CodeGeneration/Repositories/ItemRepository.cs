@@ -1,6 +1,6 @@
 
 using Common;
-using WeGift.Entities;
+using WG.Entities;
 using CodeGeneration.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface IItemRepository
     {
@@ -22,11 +22,11 @@ namespace WeGift.Repositories
     }
     public class ItemRepository : IItemRepository
     {
-        private WGContext WGContext;
+        private DataContext DataContext;
         private ICurrentContext CurrentContext;
-        public ItemRepository(WGContext WGContext, ICurrentContext CurrentContext)
+        public ItemRepository(DataContext DataContext, ICurrentContext CurrentContext)
         {
-            this.WGContext = WGContext;
+            this.DataContext = DataContext;
             this.CurrentContext = CurrentContext;
         }
 
@@ -100,7 +100,7 @@ namespace WeGift.Repositories
 
         public async Task<int> Count(ItemFilter filter)
         {
-            IQueryable <ItemDAO> ItemDAOs = WGContext.Item;
+            IQueryable <ItemDAO> ItemDAOs = DataContext.Item;
             ItemDAOs = DynamicFilter(ItemDAOs, filter);
             return await ItemDAOs.CountAsync();
         }
@@ -108,7 +108,7 @@ namespace WeGift.Repositories
         public async Task<List<Item>> List(ItemFilter filter)
         {
             if (filter == null) return new List<Item>();
-            IQueryable<ItemDAO> ItemDAOs = WGContext.Item;
+            IQueryable<ItemDAO> ItemDAOs = DataContext.Item;
             ItemDAOs = DynamicFilter(ItemDAOs, filter);
             ItemDAOs = DynamicOrder(ItemDAOs, filter);
             var Items = await DynamicSelect(ItemDAOs, filter);
@@ -118,7 +118,7 @@ namespace WeGift.Repositories
         
         public async Task<Item> Get(long Id)
         {
-            Item Item = await WGContext.Item.Where(x => x.Id == Id).Select(ItemDAO => new Item()
+            Item Item = await DataContext.Item.Where(x => x.Id == Id).Select(ItemDAO => new Item()
             {
                  
                 Id = ItemDAO.Id,
@@ -136,8 +136,8 @@ namespace WeGift.Repositories
             ItemDAO.Code = Item.Code;
             ItemDAO.Name = Item.Name;
             
-            await WGContext.Item.AddAsync(ItemDAO);
-            await WGContext.SaveChangesAsync();
+            await DataContext.Item.AddAsync(ItemDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
@@ -145,21 +145,21 @@ namespace WeGift.Repositories
         
         public async Task<bool> Update(Item Item)
         {
-            ItemDAO ItemDAO = WGContext.Item.Where(x => x.Id == Item.Id).FirstOrDefault();
+            ItemDAO ItemDAO = DataContext.Item.Where(x => x.Id == Item.Id).FirstOrDefault();
             
             ItemDAO.Id = Item.Id;
             ItemDAO.Code = Item.Code;
             ItemDAO.Name = Item.Name;
-            await WGContext.SaveChangesAsync();
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
         
         public async Task<bool> Delete(Item Item)
         {
-            ItemDAO ItemDAO = await WGContext.Item.Where(x => x.Id == Item.Id).FirstOrDefaultAsync();
-            WGContext.Item.Remove(ItemDAO);
-            await WGContext.SaveChangesAsync();
+            ItemDAO ItemDAO = await DataContext.Item.Where(x => x.Id == Item.Id).FirstOrDefaultAsync();
+            DataContext.Item.Remove(ItemDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 

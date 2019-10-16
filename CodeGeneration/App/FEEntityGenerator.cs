@@ -119,7 +119,6 @@ $@"
             string contents =
 $@"
 import {{Search}} from 'core/entities/Search';
-{BuildImportSearch(type)}
 
 export class {ClassName}Search extends Search {{
   {BuildDeclareSearch(type)};
@@ -128,32 +127,6 @@ export class {ClassName}Search extends Search {{
             File.WriteAllText(path, contents);
         }
 
-        public string BuildImportSearch(Type type)
-        {
-            string contents = string.Empty;
-            List<PropertyInfo> PropertyInfoes = ListProperties(type);
-            List<string> filterTypes = new List<string>();
-            foreach (PropertyInfo PropertyInfo in PropertyInfoes)
-            {
-                if (PropertyInfo.Name.Contains("_"))
-                    continue;
-                string filterType = GetFilterType(PropertyInfo.PropertyType);
-                filterTypes.Add(filterType);
-               
-            }
-            filterTypes = filterTypes.Distinct().ToList();
-            foreach (string filterType in filterTypes)
-            {
-                if (!string.IsNullOrEmpty(filterType))
-                {
-                    contents +=
-                        $@"
-import {{{filterType}}} from 'filters/{filterType}';
-";
-                }
-            }
-            return contents;
-        }
 
         public string BuildDeclareSearch(Type type)
         {
@@ -166,10 +139,9 @@ import {{{filterType}}} from 'filters/{filterType}';
                 string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
                 if (!string.IsNullOrEmpty(primitiveType))
                 {
-                    string filterType = GetFilterType(PropertyInfo.PropertyType);
                     contents +=
                         $@"
-  public {CamelCase(PropertyInfo.Name)}: {filterType} = new {filterType}();
+  public {CamelCase(PropertyInfo.Name)}?: {primitiveType};
 ";
                 }
             }

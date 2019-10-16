@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Common;
 
-namespace WeGift.Entities
+namespace WG.Entities
 {
     public class Category : DataEntity
     {

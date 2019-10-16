@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CodeGeneration.Repositories.Models
 {
-    public partial class WGContext : DbContext
+    public partial class DataContext : DbContext
     {
         public virtual DbSet<CategoryDAO> Category { get; set; }
         public virtual DbSet<Category_ItemDAO> Category_Item { get; set; }
@@ -10,7 +12,7 @@ namespace CodeGeneration.Repositories.Models
         public virtual DbSet<UserDAO> User { get; set; }
         public virtual DbSet<WarehouseDAO> Warehouse { get; set; }
 
-        public WGContext(DbContextOptions<WGContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 

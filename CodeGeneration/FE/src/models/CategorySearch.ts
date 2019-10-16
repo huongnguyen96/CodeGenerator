@@ -1,17 +1,12 @@
 
 import {Search} from 'core/entities/Search';
 
-import {NumberFilter} from 'filters/NumberFilter';
-
-import {TextFilter} from 'filters/TextFilter';
-
-
 export class CategorySearch extends Search {
   
-  public id: NumberFilter = new NumberFilter();
+  public id?: number;
 
-  public code: TextFilter = new TextFilter();
+  public code?: string;
 
-  public name: TextFilter = new TextFilter();
+  public name?: string;
 ;
 }

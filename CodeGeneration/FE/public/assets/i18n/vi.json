@@ -11,13 +11,16 @@
       "before": "Trước",
       "contains": "Chứa",
       "endsWith": "Kết thúc với",
-      "equals": "Bằng",
+      "equal": "Bằng",
       "from": "Từ",
-      "greaterThan": "Lớn hơn",
-      "greaterThanOrEqualTo": "Lớn hơn hoặc bằng",
-      "lessThan": "Nhỏ hơn",
-      "lessThanOrEqualTo": "Nhỏ hơn hoặc bằng",
-      "notEqualTo": "Khác",
+      "greater": "Lớn hơn",
+      "greaterEqual": "Lớn hơn hoặc bằng",
+      "less": "Nhỏ hơn",
+      "lessEqual": "Nhỏ hơn hoặc bằng",
+      "notContains": "Không chứa",
+      "notEndsWith": "Không kết thúc với",
+      "notEqual": "Khác",
+      "notStartsWith": "Không bắt đầu với",
       "startsWith": "Bắt đầu với",
       "to": "Đến"
     }
@@ -25,27 +28,28 @@
   "provinces": {
     "update": {
       "success": "Cập nhật thành công",
-      "error": "Cập nhật lỗi"
+      "error": "Cập nhật thất bại"
     },
     "detail": {
       "title": "Thông tin tỉnh thành",
       "districts": {
-        "title": "Danh sách quận, huyện",
-        "code": "Mã quận, huyện",
-        "name": "Tên quận, huyện"
+        "title": "STT",
+        "code": "Mã quận/huyện",
+        "name": "Tên quận/huyện"
       }
     },
-    "code": "Mã tỉnh thành",
+    "code": "Mã tỉnh/thành",
     "errors": {
       "code": {
-        "required": "Mã tỉnh thành là bắt buộc"
+        "required": "Mã tỉnh thành bắt buộc"
       },
       "name": {
-        "required": "Tên tỉnh thành là bắt buộc"
+        "required": "Tên tỉnh thành bắt buộc"
       }
     },
     "name": "Tên tỉnh thành",
-    "title": "Chi tiết tỉnh thành",
+    "title": "Quản lý tỉnh thành",
+    "index": "STT",
     "actions": "Tác vụ"
   },
   "buttons": {
@@ -54,7 +58,7 @@
   "login": {
     "username": {
       "errors": {
-        "required": "Tên người dùng là bắt buộc"
+        "required": "Tên người dùng bắt buộc"
       },
       "placeholder": "Tên người dùng"
     },
@@ -67,7 +71,7 @@
     "remember": "Ghi nhớ",
     "forgotPassword": "Quên mật khẩu",
     "login": "Đăng nhập",
-    "or": "hoặ",
-    "registerNow": "Đăng ký"
+    "or": "hoặc",
+    "registerNow": "Đăng ký tài khoản"
   }
 }

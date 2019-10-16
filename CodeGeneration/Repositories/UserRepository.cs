@@ -1,6 +1,6 @@
 
 using Common;
-using WeGift.Entities;
+using WG.Entities;
 using CodeGeneration.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface IUserRepository
     {
@@ -22,11 +22,11 @@ namespace WeGift.Repositories
     }
     public class UserRepository : IUserRepository
     {
-        private WGContext WGContext;
+        private DataContext DataContext;
         private ICurrentContext CurrentContext;
-        public UserRepository(WGContext WGContext, ICurrentContext CurrentContext)
+        public UserRepository(DataContext DataContext, ICurrentContext CurrentContext)
         {
-            this.WGContext = WGContext;
+            this.DataContext = DataContext;
             this.CurrentContext = CurrentContext;
         }
 
@@ -100,7 +100,7 @@ namespace WeGift.Repositories
 
         public async Task<int> Count(UserFilter filter)
         {
-            IQueryable <UserDAO> UserDAOs = WGContext.User;
+            IQueryable <UserDAO> UserDAOs = DataContext.User;
             UserDAOs = DynamicFilter(UserDAOs, filter);
             return await UserDAOs.CountAsync();
         }
@@ -108,7 +108,7 @@ namespace WeGift.Repositories
         public async Task<List<User>> List(UserFilter filter)
         {
             if (filter == null) return new List<User>();
-            IQueryable<UserDAO> UserDAOs = WGContext.User;
+            IQueryable<UserDAO> UserDAOs = DataContext.User;
             UserDAOs = DynamicFilter(UserDAOs, filter);
             UserDAOs = DynamicOrder(UserDAOs, filter);
             var Users = await DynamicSelect(UserDAOs, filter);
@@ -118,7 +118,7 @@ namespace WeGift.Repositories
         
         public async Task<User> Get(long Id)
         {
-            User User = await WGContext.User.Where(x => x.Id == Id).Select(UserDAO => new User()
+            User User = await DataContext.User.Where(x => x.Id == Id).Select(UserDAO => new User()
             {
                  
                 Id = UserDAO.Id,
@@ -136,8 +136,8 @@ namespace WeGift.Repositories
             UserDAO.Username = User.Username;
             UserDAO.Password = User.Password;
             
-            await WGContext.User.AddAsync(UserDAO);
-            await WGContext.SaveChangesAsync();
+            await DataContext.User.AddAsync(UserDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
@@ -145,21 +145,21 @@ namespace WeGift.Repositories
         
         public async Task<bool> Update(User User)
         {
-            UserDAO UserDAO = WGContext.User.Where(x => x.Id == User.Id).FirstOrDefault();
+            UserDAO UserDAO = DataContext.User.Where(x => x.Id == User.Id).FirstOrDefault();
             
             UserDAO.Id = User.Id;
             UserDAO.Username = User.Username;
             UserDAO.Password = User.Password;
-            await WGContext.SaveChangesAsync();
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
         
         public async Task<bool> Delete(User User)
         {
-            UserDAO UserDAO = await WGContext.User.Where(x => x.Id == User.Id).FirstOrDefaultAsync();
-            WGContext.User.Remove(UserDAO);
-            await WGContext.SaveChangesAsync();
+            UserDAO UserDAO = await DataContext.User.Where(x => x.Id == User.Id).FirstOrDefaultAsync();
+            DataContext.User.Remove(UserDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 

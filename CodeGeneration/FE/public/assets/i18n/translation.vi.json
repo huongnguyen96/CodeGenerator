@@ -1,0 +1,73 @@
+{
+  "general": {
+    "loading": "Đang tải",
+    "actions": {
+      "edit": "Sửa"
+    }
+  },
+  "filters": {
+    "types": {
+      "after": "Sau",
+      "before": "Trước",
+      "contains": "Chứa",
+      "endsWith": "Kết thúc với",
+      "equals": "Bằng",
+      "from": "Từ",
+      "greaterThan": "Lớn hơn",
+      "greaterThanOrEqualTo": "Lớn hơn hoặc bằng",
+      "lessThan": "Nhỏ hơn",
+      "lessThanOrEqualTo": "Nhỏ hơn hoặc bằng",
+      "notEqualTo": "Khác",
+      "startsWith": "Bắt đầu với",
+      "to": "Đến"
+    }
+  },
+  "provinces": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật lỗi"
+    },
+    "detail": {
+      "title": "Thông tin tỉnh thành",
+      "districts": {
+        "title": "Danh sách quận, huyện",
+        "code": "Mã quận, huyện",
+        "name": "Tên quận, huyện"
+      }
+    },
+    "code": "Mã tỉnh thành",
+    "errors": {
+      "code": {
+        "required": "Mã tỉnh thành là bắt buộc"
+      },
+      "name": {
+        "required": "Tên tỉnh thành là bắt buộc"
+      }
+    },
+    "name": "Tên tỉnh thành",
+    "title": "Chi tiết tỉnh thành",
+    "actions": "Tác vụ"
+  },
+  "buttons": {
+    "save": "Lưu"
+  },
+  "login": {
+    "username": {
+      "errors": {
+        "required": "Tên người dùng là bắt buộc"
+      },
+      "placeholder": "Tên người dùng"
+    },
+    "password": {
+      "errors": {
+        "required": "Mật khẩu là bắt buộc"
+      },
+      "placeholder": "Mật khẩu"
+    },
+    "remember": "Ghi nhớ",
+    "forgotPassword": "Quên mật khẩu",
+    "login": "Đăng nhập",
+    "or": "hoặ",
+    "registerNow": "Đăng ký"
+  }
+}

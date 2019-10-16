@@ -1,4 +1,4 @@
-import {IFilterType} from 'core/index';
+import {IFilterType} from 'core';
 import {marker as translate} from 'helpers/translate';
 
 class Before implements IFilterType {

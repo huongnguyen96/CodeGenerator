@@ -1,7 +1,7 @@
+import {Model, Search} from 'core';
 import {useEffect, useState} from 'react';
 import {forkJoin, Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
-import {Model, Search} from '..';
 
 export function useList<T extends Model, TSearch extends Search>(
   defaultList: T[],

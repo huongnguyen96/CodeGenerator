@@ -1,11 +1,11 @@
 
-using WeGift.Entities;
+using WG.Entities;
 using Common;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace WeGift.Controllers.category.category_detail
+namespace WG.Controllers.category.category_detail
 {
     public class CategoryDetail_CategoryDTO : DataDTO
     {

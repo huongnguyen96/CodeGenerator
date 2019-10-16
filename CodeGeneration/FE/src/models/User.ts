@@ -1,18 +1,9 @@
-import {Model} from 'core';
-
-import {Warehouse} from 'models/Warehouse';
+import {Model} from 'core/entities/Model';
 
 export class User extends Model {
-   
-  public id?: number;
- 
   public username?: string;
- 
-  public password?: string;
-  
-  public warehouses?: Warehouse[];
 
-  public constructor(user?: User) {
-    super(user);
-  }
+  public password?: string;
+
+  public email?: string;
 }

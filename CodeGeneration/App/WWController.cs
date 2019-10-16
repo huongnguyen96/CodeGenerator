@@ -5,23 +5,21 @@ using System.Linq;
 
 namespace CodeGeneration.App
 {
-    [Route("api/ERPGeneration")]
+    [Route("api/WWGeneration")]
     [ApiController]
-    public class ERPController : ControllerBase
+    public class WWController : ControllerBase
     {
-        public const string Entities = "Entities";
-        // GET api/values
         [HttpGet]
         public void Get()
         {
-            List<Type> types = typeof(ERPController)
+            List<Type> types = typeof(WWController)
             .Assembly.GetTypes()
             .Where(t => t.Name.EndsWith("DAO") && !t.IsAbstract).ToList();
 
-            string Namespace = "WeGift";
+            string Namespace = "WG";
             BEEntityGeneration EntityGeneration = new BEEntityGeneration(Namespace, types);
             EntityGeneration.Build();
-            BERepositoryGenerator RepositoryGeneration = new BERepositoryGenerator(Namespace, "WGContext", types);
+            BERepositoryGenerator RepositoryGeneration = new BERepositoryGenerator(Namespace, "DataContext", types);
             RepositoryGeneration.Build();
             BEServiceGenerator ServiceGenerator = new BEServiceGenerator(Namespace, types);
             ServiceGenerator.Build();
@@ -32,6 +30,10 @@ namespace CodeGeneration.App
 
             FEEntityGenerator FEEntityGenerator = new FEEntityGenerator(types);
             FEEntityGenerator.Build();
+            FEView_MasterGenerator FEView_MasterGenerator = new FEView_MasterGenerator(types);
+            FEView_MasterGenerator.Build();
+            FEView_DetailGenerator FEView_DetailGenerator = new FEView_DetailGenerator(types);
+            FEView_DetailGenerator.Build();
             return;
         }
     }

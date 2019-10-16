@@ -1,1 +1,1 @@
-dotnet ef dbcontext scaffold  "data source=.;initial catalog=WeGift;persist security info=True;user id=sa;password=123456a@;multipleactiveresultsets=True;" Microsoft.EntityFrameworkCore.SqlServer -c WGContext  -o Repositories/Models -f --no-build --use-database-names --json
+dotnet ef dbcontext scaffold  "data source=.;initial catalog=WeGift;persist security info=True;user id=sa;password=123456a@;multipleactiveresultsets=True;" Microsoft.EntityFrameworkCore.SqlServer -c DataContext  -o Repositories/Models -f --no-build --use-database-names --json

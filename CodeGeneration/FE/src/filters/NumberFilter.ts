@@ -1,28 +1,28 @@
 import {Filter, IFilterType} from 'core';
-import {Equals, GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo, NotEqualsTo} from 'core/filters/types';
+import {Equals, GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo, NotEqualTo} from 'core/filters/types';
 
 export class NumberFilter extends Filter {
 
   public static readonly types: IFilterType[] = [
     Equals,
-    NotEqualsTo,
+    NotEqualTo,
     GreaterThanOrEqualTo,
     GreaterThan,
     LessThanOrEqualTo,
     LessThan,
   ];
 
-  public equals: number = null;
+  public equal: number = null;
 
-  public notEqualTo: number = null;
+  public notEqual: number = null;
 
-  public greaterThan: number = null;
+  public greater: number = null;
 
-  public lessThan: number = null;
+  public less: number = null;
 
-  public greaterThanOrEqualTo: number = null;
+  public greaterEqual: number = null;
 
-  public lessThanOrEqualTo: number = null;
+  public lessEqual: number = null;
 
   public constructor(numberFilter?: NumberFilter) {
     super(numberFilter);

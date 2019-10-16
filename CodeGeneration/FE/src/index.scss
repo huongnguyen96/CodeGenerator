@@ -1,31 +1,9 @@
-@import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/css/font-awesome.min.css";
 @import "~simple-line-icons/css/simple-line-icons.css";
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import "~antd/dist/antd.min.css";
-
-::-webkit-scrollbar {
-
-  ::-webkit-scrollbar-button {
-
-  }
-
-  ::-webkit-scrollbar-corner {
-
-  }
-
-  ::-webkit-scrollbar-thumb {
-
-  }
-
-  ::-webkit-scrollbar-track {
-
-  }
-
-  ::-webkit-scrollbar-track-piece {
-
-  }
-}
+@import "scss/bootstrap";
+@import "scss/ant-design";
+@import "scss/material-design";
+@import "scss/patials/scrollbar";
 
 .table-actions {
   width: 120px;

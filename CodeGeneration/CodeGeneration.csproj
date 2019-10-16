@@ -7,13 +7,34 @@
 
   <ItemGroup>
     <Compile Remove="CodeTemplates\**" />
+    <Compile Remove="Controllers\**" />
     <Compile Remove="FE\**" />
+    <Compile Remove="Repositories\**" />
+    <Compile Remove="Services\**" />
     <Content Remove="CodeTemplates\**" />
+    <Content Remove="Controllers\**" />
     <Content Remove="FE\**" />
+    <Content Remove="Repositories\**" />
+    <Content Remove="Services\**" />
     <EmbeddedResource Remove="CodeTemplates\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="FE\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EmbeddedResource Remove="Services\**" />
     <None Remove="CodeTemplates\**" />
+    <None Remove="Controllers\**" />
     <None Remove="FE\**" />
+    <None Remove="Repositories\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Repositories\Models\CategoryDAO.cs" />
+    <Compile Include="Repositories\Models\Category_ItemDAO.cs" />
+    <Compile Include="Repositories\Models\DataContext.cs" />
+    <Compile Include="Repositories\Models\ItemDAO.cs" />
+    <Compile Include="Repositories\Models\UserDAO.cs" />
+    <Compile Include="Repositories\Models\WarehouseDAO.cs" />
   </ItemGroup>
 
   <ItemGroup>

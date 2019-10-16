@@ -1,5 +1,5 @@
 import {Filter, IFilterType} from 'core';
-import {After, Before, Equals, From, NotEqualsTo, To} from 'core/filters/types';
+import {Equals, GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo, NotEqualTo} from 'core/filters/types';
 
 export type DateType = string | Date;
 
@@ -7,24 +7,24 @@ export class DateFilter extends Filter {
 
   public static readonly types: IFilterType[] = [
     Equals,
-    NotEqualsTo,
-    After,
-    Before,
-    From,
-    To,
+    NotEqualTo,
+    GreaterThan,
+    GreaterThanOrEqualTo,
+    LessThan,
+    LessThanOrEqualTo,
   ];
 
-  public equals: DateType = null;
+  public equal: DateType = null;
 
-  public notEqualTo: DateType = null;
+  public notEqual: DateType = null;
 
-  public after: DateType = null;
+  public greater: number = null;
 
-  public before: DateType = null;
+  public less: number = null;
 
-  public from: DateType = null;
+  public greaterEqual: number = null;
 
-  public to: DateType = null;
+  public lessEqual: number = null;
 
   public constructor(dateFilter?: DateFilter) {
     super(dateFilter);

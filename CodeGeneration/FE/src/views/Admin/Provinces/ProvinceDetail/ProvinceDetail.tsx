@@ -4,15 +4,17 @@ import Card from 'antd/lib/card';
 import Form from 'antd/lib/form';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
+import {Pagination} from 'core/entities/Pagination';
 import {useDetail} from 'core/hooks/useDetail';
+import {useLocalPagination} from 'core/hooks/useLocalPagination';
 import {notification} from 'helpers';
 import {Province} from 'models/Province';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
 import {finalize} from 'rxjs/operators';
-import provincesRepository from '../ProvincesRepository';
 import './ProvinceDetail.scss';
+import provinceDetailRepository from './ProvinceDetailRepository';
 
 const {Item} = Form;
 const {Column} = Table;
@@ -29,8 +31,9 @@ function ProvinceDetail(props) {
 
   const [translate] = useTranslation();
 
-  const [province, loading] = useDetail<Province>(id, provincesRepository.get);
+  const [province, loading] = useDetail<Province>(id, provinceDetailRepository.get);
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
+  const pagination: Pagination = useLocalPagination();
 
   function handleSubmit() {
     form.validateFields((validationError: Error, validatedProvince: Province) => {
@@ -38,7 +41,7 @@ function ProvinceDetail(props) {
         return;
       }
       setPageSpinning(true);
-      provincesRepository.save(validatedProvince)
+      provinceDetailRepository.save(validatedProvince)
         .pipe(
           finalize(() => {
             setPageSpinning(false);
@@ -110,6 +113,7 @@ function ProvinceDetail(props) {
       <Card title={translate('provinces.detail.districts.title')}>
         <Table dataSource={province ? province.districts : []}
                rowKey="id"
+               pagination={pagination}
                loading={loading}>
           <Column key="code" dataIndex="code" title={translate('provinces.detail.districts.code')}/>
           <Column key="name" dataIndex="name" title={translate('provinces.detail.districts.name')}/>

@@ -1,6 +1,6 @@
 
 using Common;
-using WeGift.Entities;
+using WG.Entities;
 using CodeGeneration.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeGift.Repositories
+namespace WG.Repositories
 {
     public interface ICategory_ItemRepository
     {
@@ -22,11 +22,11 @@ namespace WeGift.Repositories
     }
     public class Category_ItemRepository : ICategory_ItemRepository
     {
-        private WGContext WGContext;
+        private DataContext DataContext;
         private ICurrentContext CurrentContext;
-        public Category_ItemRepository(WGContext WGContext, ICurrentContext CurrentContext)
+        public Category_ItemRepository(DataContext DataContext, ICurrentContext CurrentContext)
         {
-            this.WGContext = WGContext;
+            this.DataContext = DataContext;
             this.CurrentContext = CurrentContext;
         }
 
@@ -87,7 +87,7 @@ namespace WeGift.Repositories
 
         public async Task<int> Count(Category_ItemFilter filter)
         {
-            IQueryable <Category_ItemDAO> Category_ItemDAOs = WGContext.Category_Item;
+            IQueryable <Category_ItemDAO> Category_ItemDAOs = DataContext.Category_Item;
             Category_ItemDAOs = DynamicFilter(Category_ItemDAOs, filter);
             return await Category_ItemDAOs.CountAsync();
         }
@@ -95,7 +95,7 @@ namespace WeGift.Repositories
         public async Task<List<Category_Item>> List(Category_ItemFilter filter)
         {
             if (filter == null) return new List<Category_Item>();
-            IQueryable<Category_ItemDAO> Category_ItemDAOs = WGContext.Category_Item;
+            IQueryable<Category_ItemDAO> Category_ItemDAOs = DataContext.Category_Item;
             Category_ItemDAOs = DynamicFilter(Category_ItemDAOs, filter);
             Category_ItemDAOs = DynamicOrder(Category_ItemDAOs, filter);
             var Category_Items = await DynamicSelect(Category_ItemDAOs, filter);
@@ -105,7 +105,7 @@ namespace WeGift.Repositories
         
         public async Task<Category_Item> Get(long CategoryId, long ItemId)
         {
-            Category_Item Category_Item = await WGContext.Category_Item.Where(x => x.CategoryId == CategoryId && x.ItemId == ItemId).Select(Category_ItemDAO => new Category_Item()
+            Category_Item Category_Item = await DataContext.Category_Item.Where(x => x.CategoryId == CategoryId && x.ItemId == ItemId).Select(Category_ItemDAO => new Category_Item()
             {
                  
                 CategoryId = Category_ItemDAO.CategoryId,
@@ -121,8 +121,8 @@ namespace WeGift.Repositories
             Category_ItemDAO.CategoryId = Category_Item.CategoryId;
             Category_ItemDAO.ItemId = Category_Item.ItemId;
             
-            await WGContext.Category_Item.AddAsync(Category_ItemDAO);
-            await WGContext.SaveChangesAsync();
+            await DataContext.Category_Item.AddAsync(Category_ItemDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
@@ -130,20 +130,20 @@ namespace WeGift.Repositories
         
         public async Task<bool> Update(Category_Item Category_Item)
         {
-            Category_ItemDAO Category_ItemDAO = WGContext.Category_Item.Where(x => x.CategoryId == Category_Item.CategoryId && x.ItemId == Category_Item.ItemId).FirstOrDefault();
+            Category_ItemDAO Category_ItemDAO = DataContext.Category_Item.Where(x => x.CategoryId == Category_Item.CategoryId && x.ItemId == Category_Item.ItemId).FirstOrDefault();
             
             Category_ItemDAO.CategoryId = Category_Item.CategoryId;
             Category_ItemDAO.ItemId = Category_Item.ItemId;
-            await WGContext.SaveChangesAsync();
+            await DataContext.SaveChangesAsync();
             return true;
         }
 
         
         public async Task<bool> Delete(Category_Item Category_Item)
         {
-            Category_ItemDAO Category_ItemDAO = await WGContext.Category_Item.Where(x => x.CategoryId == Category_Item.CategoryId && x.ItemId == Category_Item.ItemId).FirstOrDefaultAsync();
-            WGContext.Category_Item.Remove(Category_ItemDAO);
-            await WGContext.SaveChangesAsync();
+            Category_ItemDAO Category_ItemDAO = await DataContext.Category_Item.Where(x => x.CategoryId == Category_Item.CategoryId && x.ItemId == Category_Item.ItemId).FirstOrDefaultAsync();
+            DataContext.Category_Item.Remove(Category_ItemDAO);
+            await DataContext.SaveChangesAsync();
             return true;
         }
 

@@ -1,11 +1,11 @@
 
-using WeGift.Entities;
+using WG.Entities;
 using Common;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace WeGift.Controllers.item.item_master
+namespace WG.Controllers.item.item_master
 {
     public class ItemMaster_ItemDTO : DataDTO
     {
