@@ -1,6 +1,6 @@
-import {MemoryRouter} from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {MemoryRouter} from 'react-router-dom';
 import DistrictList from './DistrictList';
 
 it('renders without crashing', () => {

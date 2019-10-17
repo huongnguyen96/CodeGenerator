@@ -2,9 +2,9 @@ import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
 import {District} from 'models/District';
 import {Province} from 'models/Province';
+import {ProvinceSearch} from 'models/ProvinceSearch';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ProvinceSearch} from '../../../../models/ProvinceSearch';
 
 export class DistrictDetailRepository extends Repository {
   public constructor() {
@@ -12,10 +12,10 @@ export class DistrictDetailRepository extends Repository {
     this.httpService.setBasePath('/api/districts');
   }
 
-  public get = (id: string): Observable<Province> => {
-    return this.httpService.get(`/${id}`)
+  public get = (id: string): Observable<District> => {
+    return this.httpService.get<District>(`/${id}`)
       .pipe(
-        map((response: AxiosResponse<Province>) => response.data),
+        map((response: AxiosResponse<District>) => response.data),
       );
   };
 

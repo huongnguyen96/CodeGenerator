@@ -1,20 +1,19 @@
 import {IRoute} from 'core/IRoute';
 import Districts from 'views/Admin/Districts';
-import Provinces from 'views/Admin/Provinces';
 import Dashboard from 'views/Dashboard';
+import {
+  ADMIN_DISTRICTS_ROUTE,
+  HOME_ROUTE,
+} from './route-consts';
 
 export const routes: IRoute[] = [
   {
-    path: '/',
+    path: HOME_ROUTE,
     component: Dashboard,
     exact: true,
   },
   {
-    path: '/admin/provinces',
-    component: Provinces,
-  },
-  {
-    path: '/admin/districts',
+    path: ADMIN_DISTRICTS_ROUTE,
     component: Districts,
   },
 ];

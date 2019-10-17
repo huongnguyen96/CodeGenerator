@@ -3,3 +3,23 @@
 .ant-select {
   width: 100%;
 }
+
+.ant-card {
+  .ant-card-title {
+    display: flex;
+    justify-content: space-between;
+
+    .ant-card-title-actions {
+      display: flex;
+      justify-content: flex-end;
+
+      .ant-btn {
+        margin-right: 0.5rem;
+      }
+
+      .ant-btn:last-child {
+        margin-right: unset;
+      }
+    }
+  }
+}

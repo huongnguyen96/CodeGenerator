@@ -9,12 +9,6 @@
       "exact": true
     },
     {
-      "title": "Provinces",
-      "path": "/admin/provinces",
-      "icon": "dashboard",
-      "exact": false
-    },
-    {
       "title": "Districts",
       "path": "/admin/districts",
       "icon": "dashboard",

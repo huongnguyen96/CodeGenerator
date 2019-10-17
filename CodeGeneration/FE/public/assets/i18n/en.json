@@ -1,4 +1,17 @@
 {
+  "buttons": {
+    "add": "",
+    "save": "",
+    "cancel": "",
+    "clear": ""
+  },
+  "components": {
+    "singleSelect": {
+      "errors": {
+        "searchFieldRequired": ""
+      }
+    }
+  },
   "general": {
     "loading": "",
     "actions": {
@@ -25,7 +38,7 @@
       "to": ""
     }
   },
-  "provinces": {
+  "districts": {
     "update": {
       "success": "",
       "error": ""
@@ -48,12 +61,10 @@
       }
     },
     "name": "",
-    "title": "",
+    "province": "",
     "index": "",
-    "actions": ""
-  },
-  "buttons": {
-    "save": ""
+    "actions": "",
+    "title": ""
   },
   "login": {
     "username": {

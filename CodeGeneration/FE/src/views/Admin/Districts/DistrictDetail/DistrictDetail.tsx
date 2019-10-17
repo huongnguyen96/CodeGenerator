@@ -1,20 +1,20 @@
-import {Input} from 'antd';
-import Button from 'antd/lib/button';
 import Card from 'antd/lib/card';
 import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
-import {Pagination} from 'core/entities/Pagination';
+import CardTitle from 'components/CardTitle';
+import SingleSelect, {Option} from 'components/SingleSelect';
+import {ADMIN_DISTRICTS_ROUTE} from 'config/route-consts';
 import {useDetail} from 'core/hooks/useDetail';
-import {useLocalPagination} from 'core/hooks/useLocalPagination';
+import {usePagination} from 'core/hooks/usePagination';
 import {notification} from 'helpers';
 import {District} from 'models/District';
+import {ProvinceSearch} from 'models/ProvinceSearch';
+import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
-import {finalize} from 'rxjs/operators';
-import SingleSelect from '../../../../components/SingleSelect/SingleSelect';
-import {ProvinceSearch} from '../../../../models/ProvinceSearch';
 import './DistrictDetail.scss';
 import districtDetailRepository from './DistrictDetailRepository';
 
@@ -32,32 +32,28 @@ function DistrictDetail(props) {
   } = props;
 
   const [translate] = useTranslation();
+  const [pageSpinning, setPageSpinning] = useState<boolean>(false);
+  const [district, loading] = useDetail<District>(id, districtDetailRepository.get, new District());
   const [provinceSearch, setProvinceSearch] = useState<ProvinceSearch>(new ProvinceSearch());
 
-  const [district, loading] = useDetail<District>(id, districtDetailRepository.get);
-  const [pageSpinning, setPageSpinning] = useState<boolean>(false);
-  const pagination: Pagination = useLocalPagination();
+  const [pagination] = usePagination();
 
   function handleSubmit() {
-    form.validateFields((validationError: Error, validatedDistrict: District) => {
+    form.validateFields((validationError: Error, district: District) => {
       if (validationError) {
         return;
       }
       setPageSpinning(true);
-      districtDetailRepository.save(validatedDistrict)
-        .pipe(
-          finalize(() => {
-            setPageSpinning(false);
-          }),
-        )
+      districtDetailRepository.save(district)
         .subscribe(
           () => {
             notification.success({
               message: translate('districts.update.success'),
             });
-            props.history.push('/admin/districts');
+            props.history.push(path.join(ADMIN_DISTRICTS_ROUTE));
           },
           (error: Error) => {
+            setPageSpinning(false);
             notification.error({
               message: translate('districts.update.error'),
               description: error.message,
@@ -67,27 +63,33 @@ function DistrictDetail(props) {
     });
   }
 
+  function backToList() {
+    props.history.push(path.join(ADMIN_DISTRICTS_ROUTE));
+  }
+
   return (
     <Spin spinning={pageSpinning}>
-      <Card title={(
-        <div className="d-flex">
-          {translate('districts.detail.title')}
-          <div className="flex-grow-1 d-flex justify-content-end">
-            <Button type="primary" loading={pageSpinning} onClick={handleSubmit}>
-              {translate('buttons.save')}
-            </Button>
-          </div>
-        </div>
-      )}
-            loading={loading}>
+      <Card
+        loading={loading}
+        title={
+          <CardTitle
+            title={translate('districts.detail.title', {
+              name: district.name,
+            })}
+            allowSave
+            onSave={handleSubmit}
+            allowCancel
+            onCancel={backToList}
+          />
+        }>
         {form.getFieldDecorator('id', {
-          initialValue: district ? district.id : null,
+          initialValue: district.id,
         })(
           <Input type="hidden"/>,
         )}
         <Item label={translate('districts.code')}>
           {form.getFieldDecorator('code', {
-            initialValue: district ? district.code : null,
+            initialValue: district.code,
             rules: [
               {
                 required: true,
@@ -100,7 +102,7 @@ function DistrictDetail(props) {
         </Item>
         <Item label={translate('districts.name')}>
           {form.getFieldDecorator('name', {
-            initialValue: district ? district.name : null,
+            initialValue: district.name,
             rules: [
               {
                 required: true,
@@ -111,24 +113,38 @@ function DistrictDetail(props) {
             <Input type="text"/>,
           )}
         </Item>
-        <Item label={translate('districts.province')}>
-          {form.getFieldDecorator('province', {
-            initialValue: district ? district.province.id : null,
-            rules: [],
+        <Item label={translate('districts.province')} required>
+          {form.getFieldDecorator('provinceId', {
+            initialValue: district.province ? district.province.id : null,
           })(
             <SingleSelect getList={districtDetailRepository.listProvince}
-                          search={provinceSearch}/>,
+                          search={provinceSearch}
+                          searchField="name"
+                          showSearch
+                          setSearch={setProvinceSearch}>
+              {district.province && (
+                <Option value={district.province.id}>
+                  {district.province.name}
+                </Option>
+              )}
+            </SingleSelect>,
           )}
         </Item>
       </Card>
 
-      <Card title={translate('districts.detail.districts.title')}>
-        <Table dataSource={district ? district.wards : []}
+      <Card title={translate('districts.detail.wards.title')}>
+        <Table dataSource={district.wards}
                rowKey="id"
                pagination={pagination}
                loading={loading}>
-          <Column key="code" dataIndex="code" title={translate('districts.detail.districts.code')}/>
-          <Column key="name" dataIndex="name" title={translate('districts.detail.districts.name')}/>
+          <Column key="code"
+                  dataIndex="code"
+                  title={translate('districts.detail.wards.code')}
+          />
+          <Column key="name"
+                  dataIndex="name"
+                  title={translate('districts.detail.wards.name')}
+          />
         </Table>
       </Card>
     </Spin>

@@ -1,7 +1,7 @@
 import RouterRender from 'core/components/RouterRender';
 import {IRoute} from 'core/IRoute';
 import React, {FC, lazy, Suspense} from 'react';
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router-dom';
 
 const Page = lazy(() => import('views/Pages/ErrorPage'));
 const DefaultLayout = lazy(() => import('layouts/DefaultLayout'));

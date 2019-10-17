@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MemoryRouter} from 'react-router-dom';
-import Districts from './Districts';
+import CardTitle from './CardTitle';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter>
-      <Districts/>
+      <CardTitle title="Should render card title"/>
     </MemoryRouter>,
     div,
   );

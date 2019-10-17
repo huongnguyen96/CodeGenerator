@@ -1,8 +1,22 @@
 {
+  "buttons": {
+    "add": "Thêm",
+    "save": "Lưu",
+    "cancel": "Hủy bỏ",
+    "clear": "Bỏ lọc"
+  },
+  "components": {
+    "singleSelect": {
+      "errors": {
+        "searchFieldRequired": "Tên trường tìm kiếm là bắt buộc"
+      }
+    }
+  },
   "general": {
     "loading": "Đang tải",
     "actions": {
-      "edit": "Sửa"
+      "edit": "Sửa",
+      "delete": "Xóa"
     }
   },
   "filters": {
@@ -25,35 +39,33 @@
       "to": "Đến"
     }
   },
-  "provinces": {
+  "districts": {
     "update": {
       "success": "Cập nhật thành công",
       "error": "Cập nhật thất bại"
     },
     "detail": {
-      "title": "Thông tin tỉnh thành",
-      "districts": {
-        "title": "STT",
-        "code": "Mã quận/huyện",
-        "name": "Tên quận/huyện"
+      "title": "Thông tin {{name}}",
+      "wards": {
+        "title": "Danh sách xã phường",
+        "code": "Mã xã/phường",
+        "name": "Tên xã/phường"
       }
     },
-    "code": "Mã tỉnh/thành",
+    "code": "Mã quận huyện",
     "errors": {
       "code": {
-        "required": "Mã tỉnh thành bắt buộc"
+        "required": "Mã quận/huyện là bắt buộc"
       },
       "name": {
-        "required": "Tên tỉnh thành bắt buộc"
+        "required": "Tên quận/huyện là bắt buộc"
       }
     },
-    "name": "Tên tỉnh thành",
-    "title": "Quản lý tỉnh thành",
+    "name": "Tên quận huyện",
+    "province": "Tỉnh thành",
     "index": "STT",
-    "actions": "Tác vụ"
-  },
-  "buttons": {
-    "save": "Lưu"
+    "actions": "Tác vụ",
+    "title": "Quản lý quận/huyện"
   },
   "login": {
     "username": {

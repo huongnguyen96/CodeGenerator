@@ -1,9 +1,9 @@
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
+import {District} from 'models/District';
+import {DistrictSearch} from 'models/DistrictSearch';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {District} from '../../../../models/District';
-import {DistrictSearch} from '../../../../models/DistrictSearch';
 
 export class DistrictListRepository extends Repository {
   public constructor() {
@@ -26,6 +26,13 @@ export class DistrictListRepository extends Repository {
     })
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
+      );
+  };
+
+  public delete = (id: string): Observable<District> => {
+    return this.httpService.delete<District>(`/${id}`)
+      .pipe(
+        map((response: AxiosResponse<District>) => response.data),
       );
   };
 }

@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {Axios} from 'axios-observable';
 import {requestConfig} from 'config/http';
-import {notification} from 'helpers/notification';
+import {notification} from 'helpers';
 
 export class HttpService extends Axios {
 

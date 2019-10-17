@@ -11,6 +11,8 @@ export class District extends Model {
 
   public province?: Province;
 
+  public provinceId: string;
+
   public wards?: Ward[];
 
   public constructor(district?: District) {
