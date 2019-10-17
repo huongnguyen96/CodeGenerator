@@ -260,29 +260,7 @@ namespace {Namespace}.Repositories
             }
             return content;
         }
-        private string BuildSelectProperty(Type type)
-        {
-            string ClassName = type.Name.Substring(0, type.Name.Length - 3);
-            string PropertyString = string.Empty;
-            List<PropertyInfo> PropertyInfoes = type.GetProperties().ToList();
-            foreach (PropertyInfo PropertyInfo in PropertyInfoes)
-            {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
-                    continue;
-                string SelectProperty = string.Empty;
-                if (PropertyInfo.Name.EndsWith("Id") && PropertyInfo.Name.Length > 2)
-                    SelectProperty = PropertyInfo.Name.Substring(0, PropertyInfo.Name.Length - 2);
-                else
-                    SelectProperty = PropertyInfo.Name;
-                if (string.IsNullOrEmpty(primitiveType))
-                    continue;
-                PropertyString += $@"
-                {PropertyInfo.Name} = filter.Selects.Contains({ClassName}Select.{SelectProperty}) ? q.{PropertyInfo.Name} : default({primitiveType}),";
-            }
-            return PropertyString;
-        }
-
+ 
         private string BuildMappingDAOToEntity(Type type)
         {
             string ClassName = type.Name.Substring(0, type.Name.Length - 3);
@@ -293,10 +271,30 @@ namespace {Namespace}.Repositories
                 if (PropertyInfo.Name == "Disabled")
                     continue;
                 string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
-                    continue;
-                PropertyString += $@"
+                if (!string.IsNullOrEmpty(primitiveType))
+                {
+                    PropertyString += $@"
                 {PropertyInfo.Name} = {ClassName}DAO.{PropertyInfo.Name},";
+                }
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(referenceType))
+                {
+                    List<PropertyInfo> Children = ListProperties(PropertyInfo.PropertyType);
+                    string mapping = string.Empty;
+                    foreach(PropertyInfo Child in Children)
+                    {
+                        string childPrimitiveType = GetPrimitiveType(Child.PropertyType);
+                        if (string.IsNullOrEmpty(childPrimitiveType))
+                            continue;
+                        mapping += $@"
+                    {Child.Name} = {ClassName}DAO.{PropertyInfo.Name}.{Child.Name},";
+                    }
+                    PropertyString += $@"
+                {PropertyInfo.Name} = {ClassName}DAO.{PropertyInfo.Name} == null ? null : new {referenceType}
+                {{
+                    {mapping}
+                }},";
+                }
             }
             return PropertyString;
         }
@@ -319,6 +317,37 @@ namespace {Namespace}.Repositories
                 PropertyString += MappingProperty(ClassName + "DAO", ClassName, PropertyInfo.Name);
             }
             return PropertyString;
+        }
+
+        private string BuildFilterProperty(Type type)
+        {
+            string FilterString = string.Empty;
+            List<PropertyInfo> PropertyInfoes = type.GetProperties().ToList();
+            foreach (PropertyInfo PropertyInfo in PropertyInfoes)
+            {
+                if (PropertyInfo.PropertyType.FullName == typeof(bool?).FullName)
+                {
+                    FilterString += $@"
+            if (filter.{PropertyInfo.Name}.HasValue)
+                query = query.Where(q => q.{PropertyInfo.Name} == filter.{PropertyInfo.Name}.Value);";
+                }
+
+                string primitiveType = GetFilterType(PropertyInfo.PropertyType);
+                if (string.IsNullOrEmpty(primitiveType))
+                    continue;
+
+                FilterString += $@"
+            if (filter.{PropertyInfo.Name} != null)
+                query = query.Where(q => q.{PropertyInfo.Name}, filter.{PropertyInfo.Name});";
+
+            }
+            if (PropertyInfoes.Any(p => p.Name == "Id"))
+                FilterString += $@"
+            if (filter.Ids != null)
+                query = query.Where(q => filter.Ids.Contains(q.Id));
+            if (filter.ExceptIds != null)
+                query = query.Where(q => !filter.ExceptIds.Contains(q.Id));";
+            return FilterString;
         }
 
         private string BuildOrderProperty(Type type, string OrderType)
@@ -372,35 +401,46 @@ namespace {Namespace}.Repositories
             return PropertyString;
         }
 
-        private string BuildFilterProperty(Type type)
+        private string BuildSelectProperty(Type type)
         {
-            string FilterString = string.Empty;
+            string ClassName = type.Name.Substring(0, type.Name.Length - 3);
+            string PropertyString = string.Empty;
             List<PropertyInfo> PropertyInfoes = type.GetProperties().ToList();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                if (PropertyInfo.PropertyType.FullName == typeof(bool?).FullName)
+                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(primitiveType))
                 {
-                    FilterString += $@"
-            if (filter.{PropertyInfo.Name}.HasValue)
-                query = query.Where(q => q.{PropertyInfo.Name} == filter.{PropertyInfo.Name}.Value);";
+                    string SelectProperty = string.Empty;
+                    if (PropertyInfo.Name.EndsWith("Id") && PropertyInfo.Name.Length > 2)
+                        SelectProperty = PropertyInfo.Name.Substring(0, PropertyInfo.Name.Length - 2);
+                    else
+                        SelectProperty = PropertyInfo.Name;
+                    PropertyString += $@"
+                {PropertyInfo.Name} = filter.Selects.Contains({ClassName}Select.{SelectProperty}) ? q.{PropertyInfo.Name} : default({primitiveType}),";
                 }
 
-                string primitiveType = GetFilterType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
-                    continue;
-
-                FilterString += $@"
-            if (filter.{PropertyInfo.Name} != null)
-                query = query.Where(q => q.{PropertyInfo.Name}, filter.{PropertyInfo.Name});";
-
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(referenceType))
+                {
+                    List<PropertyInfo> Children = ListProperties(PropertyInfo.PropertyType);
+                    string mapping = string.Empty;
+                    foreach (PropertyInfo Child in Children)
+                    {
+                        string childPrimitiveType = GetPrimitiveType(Child.PropertyType);
+                        if (string.IsNullOrEmpty(childPrimitiveType))
+                            continue;
+                        mapping += $@"
+                    {Child.Name} = q.{PropertyInfo.Name}.{Child.Name},";
+                    }
+                    PropertyString += $@"
+                {PropertyInfo.Name} = filter.Selects.Contains({ClassName}Select.{PropertyInfo.Name}) && q.{PropertyInfo.Name} != null ? new {referenceType}
+                {{
+                    {mapping}
+                }} : null,";
+                }
             }
-            if (PropertyInfoes.Any(p => p.Name == "Id"))
-                FilterString += $@"
-            if (filter.Ids != null)
-                query = query.Where(q => filter.Ids.Contains(q.Id));
-            if (filter.ExceptIds != null)
-                query = query.Where(q => !filter.ExceptIds.Contains(q.Id));";
-            return FilterString;
+            return PropertyString;
         }
 
         private string GetOrderType(Type type)

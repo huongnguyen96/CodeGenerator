@@ -81,6 +81,28 @@ namespace WG.Repositories
                 
                 CategoryId = filter.Selects.Contains(Category_ItemSelect.Category) ? q.CategoryId : default(long),
                 ItemId = filter.Selects.Contains(Category_ItemSelect.Item) ? q.ItemId : default(long),
+                Category = filter.Selects.Contains(Category_ItemSelect.Category) && q.Category != null ? new Category
+                {
+                    
+                    Id = q.Category.Id,
+                    Code = q.Category.Code,
+                    Name = q.Category.Name,
+                } : null,
+                Item = filter.Selects.Contains(Category_ItemSelect.Item) && q.Item != null ? new Item
+                {
+                    
+                    Id = q.Item.Id,
+                    Code = q.Item.Code,
+                    Name = q.Item.Name,
+                    SKU = q.Item.SKU,
+                    TypeId = q.Item.TypeId,
+                    PurchasePrice = q.Item.PurchasePrice,
+                    SalePrice = q.Item.SalePrice,
+                    Description = q.Item.Description,
+                    StatusId = q.Item.StatusId,
+                    UnitOfMeasureId = q.Item.UnitOfMeasureId,
+                    SupplierId = q.Item.SupplierId,
+                } : null,
             }).ToListAsync();
             return Category_Items;
         }
@@ -110,6 +132,28 @@ namespace WG.Repositories
                  
                 CategoryId = Category_ItemDAO.CategoryId,
                 ItemId = Category_ItemDAO.ItemId,
+                Category = Category_ItemDAO.Category == null ? null : new Category
+                {
+                    
+                    Id = Category_ItemDAO.Category.Id,
+                    Code = Category_ItemDAO.Category.Code,
+                    Name = Category_ItemDAO.Category.Name,
+                },
+                Item = Category_ItemDAO.Item == null ? null : new Item
+                {
+                    
+                    Id = Category_ItemDAO.Item.Id,
+                    Code = Category_ItemDAO.Item.Code,
+                    Name = Category_ItemDAO.Item.Name,
+                    SKU = Category_ItemDAO.Item.SKU,
+                    TypeId = Category_ItemDAO.Item.TypeId,
+                    PurchasePrice = Category_ItemDAO.Item.PurchasePrice,
+                    SalePrice = Category_ItemDAO.Item.SalePrice,
+                    Description = Category_ItemDAO.Item.Description,
+                    StatusId = Category_ItemDAO.Item.StatusId,
+                    UnitOfMeasureId = Category_ItemDAO.Item.UnitOfMeasureId,
+                    SupplierId = Category_ItemDAO.Item.SupplierId,
+                },
             }).FirstOrDefaultAsync();
             return Category_Item;
         }

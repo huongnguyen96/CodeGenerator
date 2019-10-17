@@ -9,6 +9,11 @@ namespace CodeGeneration.Repositories.Models
         public virtual DbSet<CategoryDAO> Category { get; set; }
         public virtual DbSet<Category_ItemDAO> Category_Item { get; set; }
         public virtual DbSet<ItemDAO> Item { get; set; }
+        public virtual DbSet<ItemStatusDAO> ItemStatus { get; set; }
+        public virtual DbSet<ItemStockDAO> ItemStock { get; set; }
+        public virtual DbSet<ItemTypeDAO> ItemType { get; set; }
+        public virtual DbSet<ItemUnitOfMeasureDAO> ItemUnitOfMeasure { get; set; }
+        public virtual DbSet<SupplierDAO> Supplier { get; set; }
         public virtual DbSet<UserDAO> User { get; set; }
         public virtual DbSet<WarehouseDAO> Warehouse { get; set; }
 
@@ -55,9 +60,99 @@ namespace CodeGeneration.Repositories.Models
 
             modelBuilder.Entity<ItemDAO>(entity =>
             {
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Description).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(500);
+
+                entity.Property(e => e.PurchasePrice).HasColumnType("decimal(18, 4)");
+
+                entity.Property(e => e.SKU).HasMaxLength(500);
+
+                entity.Property(e => e.SalePrice).HasColumnType("decimal(18, 4)");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.StatusId)
+                    .HasConstraintName("FK_Item_ItemStatus");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_Supplier");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.TypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_ItemType");
+
+                entity.HasOne(d => d.UnitOfMeasure)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.UnitOfMeasureId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_ItemUnitOfMeasure");
+            });
+
+            modelBuilder.Entity<ItemStatusDAO>(entity =>
+            {
                 entity.Property(e => e.Code).HasMaxLength(50);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ItemStockDAO>(entity =>
+            {
+                entity.Property(e => e.Quantity).HasColumnType("decimal(18, 4)");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.ItemStocks)
+                    .HasForeignKey(d => d.ItemId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemStock_Item");
+
+                entity.HasOne(d => d.UnitOfMeasure)
+                    .WithMany(p => p.ItemStocks)
+                    .HasForeignKey(d => d.UnitOfMeasureId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemStock_ItemUnitOfMeasure");
+
+                entity.HasOne(d => d.Warehouse)
+                    .WithMany(p => p.ItemStocks)
+                    .HasForeignKey(d => d.WarehouseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ItemStock_Warehouse");
+            });
+
+            modelBuilder.Entity<ItemTypeDAO>(entity =>
+            {
+                entity.Property(e => e.Code).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ItemUnitOfMeasureDAO>(entity =>
+            {
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Name).HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<SupplierDAO>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(500);
+
+                entity.Property(e => e.ContactPerson).HasMaxLength(500);
+
+                entity.Property(e => e.Name).HasMaxLength(500);
+
+                entity.Property(e => e.Phone).HasMaxLength(500);
             });
 
             modelBuilder.Entity<UserDAO>(entity =>
@@ -69,17 +164,19 @@ namespace CodeGeneration.Repositories.Models
 
             modelBuilder.Entity<WarehouseDAO>(entity =>
             {
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Address).HasMaxLength(500);
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Email).HasMaxLength(500);
 
-                entity.HasOne(d => d.Manager)
+                entity.Property(e => e.Name).HasMaxLength(500);
+
+                entity.Property(e => e.Phone).HasMaxLength(500);
+
+                entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.Warehouses)
-                    .HasForeignKey(d => d.ManagerId)
+                    .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Warehouse_User");
+                    .HasConstraintName("FK_Warehouse_Supplier");
             });
 
             OnModelCreatingExt(modelBuilder);

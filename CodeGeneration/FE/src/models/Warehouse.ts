@@ -1,18 +1,25 @@
 import {Model} from 'core';
 
-import {User} from 'models/User';
+import {Supplier} from 'models/Supplier';
+import {ItemStock} from 'models/ItemStock';
 
 export class Warehouse extends Model {
    
   public id?: number;
  
-  public managerId?: number;
- 
-  public code?: string;
- 
   public name?: string;
+ 
+  public phone?: string;
+ 
+  public email?: string;
+ 
+  public address?: string;
+ 
+  public supplierId?: number;
 
-  public manager?: User;
+  public supplier?: Supplier;
+  
+  public itemStocks?: ItemStock[];
 
   public constructor(warehouse?: Warehouse) {
     super(warehouse);

@@ -6,8 +6,6 @@ import {map} from 'rxjs/operators';
 import {User} from 'models/User';
 import {UserSearch} from 'models/UserSearch';
 
-import {Warehouse} from 'models/Warehouse';
-import {WarehouseSearch} from 'models/WarehouseSearch';
 
 export class UserMasterRepository extends Repository {
   public constructor() {
@@ -36,12 +34,6 @@ export class UserMasterRepository extends Repository {
       );
   };
   
-  public singleList = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
-    return this.httpService.post('/single-list-warehouse',warehouseSearch)
-      .pipe(
-        map((response: AxiosResponse<Warehouse[]>) => response.data),
-      );
-  };
 }
 
 export default new UserMasterRepository();

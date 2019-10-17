@@ -8,5 +8,21 @@ export class ItemSearch extends Search {
   public code?: string;
 
   public name?: string;
+
+  public sKU?: string;
+
+  public typeId?: number;
+
+  public purchasePrice?: number;
+
+  public salePrice?: number;
+
+  public description?: string;
+
+  public statusId?: number;
+
+  public unitOfMeasureId?: number;
+
+  public supplierId?: number;
 ;
 }

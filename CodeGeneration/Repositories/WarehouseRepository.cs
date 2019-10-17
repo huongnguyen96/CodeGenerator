@@ -37,12 +37,16 @@ namespace WG.Repositories
             
             if (filter.Id != null)
                 query = query.Where(q => q.Id, filter.Id);
-            if (filter.ManagerId != null)
-                query = query.Where(q => q.ManagerId, filter.ManagerId);
-            if (filter.Code != null)
-                query = query.Where(q => q.Code, filter.Code);
             if (filter.Name != null)
                 query = query.Where(q => q.Name, filter.Name);
+            if (filter.Phone != null)
+                query = query.Where(q => q.Phone, filter.Phone);
+            if (filter.Email != null)
+                query = query.Where(q => q.Email, filter.Email);
+            if (filter.Address != null)
+                query = query.Where(q => q.Address, filter.Address);
+            if (filter.SupplierId != null)
+                query = query.Where(q => q.SupplierId, filter.SupplierId);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -60,14 +64,20 @@ namespace WG.Repositories
                         case WarehouseOrder.Id:
                             query = query.OrderBy(q => q.Id);
                             break;
-                        case WarehouseOrder.Manager:
-                            query = query.OrderBy(q => q.Manager.Id);
-                            break;
-                        case WarehouseOrder.Code:
-                            query = query.OrderBy(q => q.Code);
-                            break;
                         case WarehouseOrder.Name:
                             query = query.OrderBy(q => q.Name);
+                            break;
+                        case WarehouseOrder.Phone:
+                            query = query.OrderBy(q => q.Phone);
+                            break;
+                        case WarehouseOrder.Email:
+                            query = query.OrderBy(q => q.Email);
+                            break;
+                        case WarehouseOrder.Address:
+                            query = query.OrderBy(q => q.Address);
+                            break;
+                        case WarehouseOrder.Supplier:
+                            query = query.OrderBy(q => q.Supplier.Id);
                             break;
                     }
                     break;
@@ -78,14 +88,20 @@ namespace WG.Repositories
                         case WarehouseOrder.Id:
                             query = query.OrderByDescending(q => q.Id);
                             break;
-                        case WarehouseOrder.Manager:
-                            query = query.OrderByDescending(q => q.Manager.Id);
-                            break;
-                        case WarehouseOrder.Code:
-                            query = query.OrderByDescending(q => q.Code);
-                            break;
                         case WarehouseOrder.Name:
                             query = query.OrderByDescending(q => q.Name);
+                            break;
+                        case WarehouseOrder.Phone:
+                            query = query.OrderByDescending(q => q.Phone);
+                            break;
+                        case WarehouseOrder.Email:
+                            query = query.OrderByDescending(q => q.Email);
+                            break;
+                        case WarehouseOrder.Address:
+                            query = query.OrderByDescending(q => q.Address);
+                            break;
+                        case WarehouseOrder.Supplier:
+                            query = query.OrderByDescending(q => q.Supplier.Id);
                             break;
                     }
                     break;
@@ -100,9 +116,20 @@ namespace WG.Repositories
             {
                 
                 Id = filter.Selects.Contains(WarehouseSelect.Id) ? q.Id : default(long),
-                ManagerId = filter.Selects.Contains(WarehouseSelect.Manager) ? q.ManagerId : default(long),
-                Code = filter.Selects.Contains(WarehouseSelect.Code) ? q.Code : default(string),
                 Name = filter.Selects.Contains(WarehouseSelect.Name) ? q.Name : default(string),
+                Phone = filter.Selects.Contains(WarehouseSelect.Phone) ? q.Phone : default(string),
+                Email = filter.Selects.Contains(WarehouseSelect.Email) ? q.Email : default(string),
+                Address = filter.Selects.Contains(WarehouseSelect.Address) ? q.Address : default(string),
+                SupplierId = filter.Selects.Contains(WarehouseSelect.Supplier) ? q.SupplierId : default(long),
+                Supplier = filter.Selects.Contains(WarehouseSelect.Supplier) && q.Supplier != null ? new Supplier
+                {
+                    
+                    Id = q.Supplier.Id,
+                    Name = q.Supplier.Name,
+                    Phone = q.Supplier.Phone,
+                    ContactPerson = q.Supplier.ContactPerson,
+                    Address = q.Supplier.Address,
+                } : null,
             }).ToListAsync();
             return Warehouses;
         }
@@ -131,9 +158,20 @@ namespace WG.Repositories
             {
                  
                 Id = WarehouseDAO.Id,
-                ManagerId = WarehouseDAO.ManagerId,
-                Code = WarehouseDAO.Code,
                 Name = WarehouseDAO.Name,
+                Phone = WarehouseDAO.Phone,
+                Email = WarehouseDAO.Email,
+                Address = WarehouseDAO.Address,
+                SupplierId = WarehouseDAO.SupplierId,
+                Supplier = WarehouseDAO.Supplier == null ? null : new Supplier
+                {
+                    
+                    Id = WarehouseDAO.Supplier.Id,
+                    Name = WarehouseDAO.Supplier.Name,
+                    Phone = WarehouseDAO.Supplier.Phone,
+                    ContactPerson = WarehouseDAO.Supplier.ContactPerson,
+                    Address = WarehouseDAO.Supplier.Address,
+                },
             }).FirstOrDefaultAsync();
             return Warehouse;
         }
@@ -143,9 +181,11 @@ namespace WG.Repositories
             WarehouseDAO WarehouseDAO = new WarehouseDAO();
             
             WarehouseDAO.Id = Warehouse.Id;
-            WarehouseDAO.ManagerId = Warehouse.ManagerId;
-            WarehouseDAO.Code = Warehouse.Code;
             WarehouseDAO.Name = Warehouse.Name;
+            WarehouseDAO.Phone = Warehouse.Phone;
+            WarehouseDAO.Email = Warehouse.Email;
+            WarehouseDAO.Address = Warehouse.Address;
+            WarehouseDAO.SupplierId = Warehouse.SupplierId;
             
             await DataContext.Warehouse.AddAsync(WarehouseDAO);
             await DataContext.SaveChangesAsync();
@@ -159,9 +199,11 @@ namespace WG.Repositories
             WarehouseDAO WarehouseDAO = DataContext.Warehouse.Where(x => x.Id == Warehouse.Id).FirstOrDefault();
             
             WarehouseDAO.Id = Warehouse.Id;
-            WarehouseDAO.ManagerId = Warehouse.ManagerId;
-            WarehouseDAO.Code = Warehouse.Code;
             WarehouseDAO.Name = Warehouse.Name;
+            WarehouseDAO.Phone = Warehouse.Phone;
+            WarehouseDAO.Email = Warehouse.Email;
+            WarehouseDAO.Address = Warehouse.Address;
+            WarehouseDAO.SupplierId = Warehouse.SupplierId;
             await DataContext.SaveChangesAsync();
             return true;
         }

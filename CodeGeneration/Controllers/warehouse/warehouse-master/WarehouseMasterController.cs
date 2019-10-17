@@ -9,7 +9,7 @@ using WG.Services.MWarehouse;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MUser;
+using WG.Services.MSupplier;
 
 
 namespace WG.Controllers.warehouse.warehouse_master
@@ -22,24 +22,24 @@ namespace WG.Controllers.warehouse.warehouse_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListUser="/single-list-user";
+        public const string SingleListSupplier="/single-list-supplier";
     }
 
     public class WarehouseMasterController : ApiController
     {
         
         
-        private IUserService UserService;
+        private ISupplierService SupplierService;
         private IWarehouseService WarehouseService;
 
         public WarehouseMasterController(
             
-            IUserService UserService,
+            ISupplierService SupplierService,
             IWarehouseService WarehouseService
         )
         {
             
-            this.UserService = UserService;
+            this.SupplierService = SupplierService;
             this.WarehouseService = WarehouseService;
         }
 
@@ -84,31 +84,35 @@ namespace WG.Controllers.warehouse.warehouse_master
             WarehouseFilter WarehouseFilter = new WarehouseFilter();
             
             WarehouseFilter.Id = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.Id };
-            WarehouseFilter.ManagerId = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.ManagerId };
-            WarehouseFilter.Code = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Code };
             WarehouseFilter.Name = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Name };
+            WarehouseFilter.Phone = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Phone };
+            WarehouseFilter.Email = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Email };
+            WarehouseFilter.Address = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Address };
+            WarehouseFilter.SupplierId = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.SupplierId };
             return WarehouseFilter;
         }
         
         
-        [Route(WarehouseMasterRoute.SingleListUser), HttpPost]
-        public async Task<List<WarehouseMaster_UserDTO>> SingleListUser([FromBody] WarehouseMaster_UserFilterDTO WarehouseMaster_UserFilterDTO)
+        [Route(WarehouseMasterRoute.SingleListSupplier), HttpPost]
+        public async Task<List<WarehouseMaster_SupplierDTO>> SingleListSupplier([FromBody] WarehouseMaster_SupplierFilterDTO WarehouseMaster_SupplierFilterDTO)
         {
-            UserFilter UserFilter = new UserFilter();
-            UserFilter.Skip = 0;
-            UserFilter.Take = 10;
-            UserFilter.OrderBy = UserOrder.Id;
-            UserFilter.OrderType = OrderType.ASC;
-            UserFilter.Selects = UserSelect.ALL;
+            SupplierFilter SupplierFilter = new SupplierFilter();
+            SupplierFilter.Skip = 0;
+            SupplierFilter.Take = 20;
+            SupplierFilter.OrderBy = SupplierOrder.Id;
+            SupplierFilter.OrderType = OrderType.ASC;
+            SupplierFilter.Selects = SupplierSelect.ALL;
             
-            UserFilter.Id = new LongFilter{ Equal = WarehouseMaster_UserFilterDTO.Id };
-            UserFilter.Username = new StringFilter{ StartsWith = WarehouseMaster_UserFilterDTO.Username };
-            UserFilter.Password = new StringFilter{ StartsWith = WarehouseMaster_UserFilterDTO.Password };
+            SupplierFilter.Id = new LongFilter{ Equal = WarehouseMaster_SupplierFilterDTO.Id };
+            SupplierFilter.Name = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.Name };
+            SupplierFilter.Phone = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.Phone };
+            SupplierFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.ContactPerson };
+            SupplierFilter.Address = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.Address };
 
-            List<User> Users = await UserService.List(UserFilter);
-            List<WarehouseMaster_UserDTO> WarehouseMaster_UserDTOs = Users
-                .Select(x => new WarehouseMaster_UserDTO(x)).ToList();
-            return WarehouseMaster_UserDTOs;
+            List<Supplier> Suppliers = await SupplierService.List(SupplierFilter);
+            List<WarehouseMaster_SupplierDTO> WarehouseMaster_SupplierDTOs = Suppliers
+                .Select(x => new WarehouseMaster_SupplierDTO(x)).ToList();
+            return WarehouseMaster_SupplierDTOs;
         }
 
     }

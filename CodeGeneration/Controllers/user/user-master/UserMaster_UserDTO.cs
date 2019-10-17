@@ -13,7 +13,6 @@ namespace WG.Controllers.user.user_master
         public long Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public List<UserMaster_WarehouseDTO> Warehouses { get; set; }
         public UserMaster_UserDTO() {}
         public UserMaster_UserDTO(User User)
         {
@@ -21,8 +20,6 @@ namespace WG.Controllers.user.user_master
             this.Id = User.Id;
             this.Username = User.Username;
             this.Password = User.Password;
-            this.Warehouses = User.Warehouses?.Select(x => new UserMaster_WarehouseDTO(x)).ToList();
-
         }
     }
 

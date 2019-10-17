@@ -132,7 +132,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             }
         }
 
-     
+
         private string ConvertDTOToEntity(Type type)
         {
             string ClassName = type.Name.Substring(0, type.Name.Length - 3);
@@ -167,38 +167,34 @@ namespace {Namespace}.Controllers.{NamespaceList}
         private void BuildList_MainDTO(Type type, string NamespaceList, string path)
         {
             string ClassName = GetClassName(type);
-            BuildDTO(ClassName, type, NamespaceList, path);
+            BuildDTO(ClassName, type, NamespaceList, path, 1);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(referenceType))
                 {
-                    if (PropertyInfo.PropertyType.Name == typeof(ICollection<>).Name)
+                    BuildDTO(ClassName, PropertyInfo.PropertyType, NamespaceList, path, 3);
+                }
+                string listType = GetListType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(listType))
+                {
+                    Type list = PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault();
+                    BuildDTO(ClassName, list, NamespaceList, path, 2);
+                    List<PropertyInfo> Children = ListProperties(list);
+                    foreach (PropertyInfo Child in Children)
                     {
-                        Type listType = PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault();
-                        if (PropertyInfoes.Any(p => p.PropertyType.Name == listType.Name))
-                            continue;
-                        BuildDTO(ClassName, listType, NamespaceList, path);
-                        List<PropertyInfo> Children = ListProperties(listType);
-                        foreach (PropertyInfo Child in Children)
+                        string childReferenceType = GetReferenceType(Child.PropertyType);
+                        if (!string.IsNullOrEmpty(childReferenceType))
                         {
-                            string childPrimitiveType = GetPrimitiveType(Child.PropertyType);
-                            if (string.IsNullOrEmpty(childPrimitiveType) && type.Name != Child.PropertyType.Name && !PropertyInfoes.Any(p => p.Name == Child.PropertyType.Name))
-                            {
-                                BuildDTO(ClassName, Child.PropertyType, NamespaceList, path, false);
-                            }
+                            BuildDTO(ClassName, Child.PropertyType, NamespaceList, path, 3);
                         }
-                    }
-                    else
-                    {
-                        BuildDTO(ClassName, PropertyInfo.PropertyType, NamespaceList, path, false);
                     }
                 }
             }
         }
 
-        private void BuildDTO(string MainClassName, Type type, string NamespaceList, string path, bool IsMainClass = true)
+        private void BuildDTO(string MainClassName, Type type, string NamespaceList, string path, int level)
         {
             string ClassName = GetClassName(type);
             path = Path.Combine(path, $@"{MainClassName}Detail_{ClassName}DTO.cs");
@@ -213,24 +209,24 @@ namespace {Namespace}.Controllers.{NamespaceList}
 {{
     public class {MainClassName}Detail_{ClassName}DTO : DataDTO
     {{
-        {DTODeclareProperty(MainClassName, type, IsMainClass)}
+        {DTODeclareProperty(MainClassName, type, level)}
         public {MainClassName}Detail_{ClassName}DTO() {{}}
         public {MainClassName}Detail_{ClassName}DTO({ClassName} {ClassName})
         {{
-            {DTOConstructorMapping(MainClassName, type, IsMainClass)}
+            {DTOConstructorMapping(MainClassName, type, level)}
         }}
     }}
 
     public class {MainClassName}Detail_{ClassName}FilterDTO : FilterDTO
     {{
-        {DTODeclareFilter(type, IsMainClass)}
+        {DTODeclareFilter(type, level)}
     }}
 }}
 ";
             File.WriteAllText(path, content);
         }
 
-        private string DTODeclareProperty(string MainClassName, Type type, bool IsMainClass = true)
+        private string DTODeclareProperty(string MainClassName, Type type, int level)
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
@@ -243,7 +239,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
                 {
                     content += DeclareProperty(primitiveType, PropertyInfo.Name);
                 }
-                if (!string.IsNullOrEmpty(referenceType) && IsMainClass)
+                if (!string.IsNullOrEmpty(referenceType) && (level == 1 || level == 2))
                 {
                     string typeName = GetClassName(PropertyInfo.PropertyType);
                     if (typeName == MainClassName)
@@ -251,7 +247,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
                     typeName = $"{MainClassName}Detail_{typeName}DTO";
                     content += DeclareProperty(typeName, PropertyInfo.Name);
                 }
-                if (!string.IsNullOrEmpty(listType) && IsMainClass)
+                if (!string.IsNullOrEmpty(listType) && level == 1)
                 {
                     string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
                     if (typeName == MainClassName)
@@ -263,7 +259,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
 
             return content;
         }
-        private string DTOConstructorMapping(string MainClassName, Type type, bool IsMainClass = true)
+        private string DTOConstructorMapping(string MainClassName, Type type, int level)
         {
             string content = string.Empty;
             string ClassName = GetClassName(type);
@@ -278,28 +274,28 @@ namespace {Namespace}.Controllers.{NamespaceList}
                 {
                     content += MappingProperty("this", ClassName, PropertyInfo.Name);
                 }
-                if (!string.IsNullOrEmpty(referenceType) && IsMainClass)
+                if (!string.IsNullOrEmpty(referenceType) && (level == 1 || level == 2))
                 {
                     string typeName = GetClassName(PropertyInfo.PropertyType);
                     if (typeName == MainClassName)
                         continue;
                     content += $@"
-            this.{PropertyInfo.Name} = new {ClassName}Detail_{typeName}DTO({ClassName}.{PropertyInfo.Name});
+            this.{PropertyInfo.Name} = new {MainClassName}Detail_{typeName}DTO({ClassName}.{PropertyInfo.Name});
 ";
                 }
-                if (!string.IsNullOrEmpty(listType) && IsMainClass)
+                if (!string.IsNullOrEmpty(listType) && level == 1)
                 {
                     string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
                     if (typeName == MainClassName)
                         continue;
                     content += $@"
-            this.{PropertyInfo.Name} = {ClassName}.{PropertyInfo.Name}?.Select(x => new {ClassName}Detail_{typeName}DTO(x)).ToList();
+            this.{PropertyInfo.Name} = {ClassName}.{PropertyInfo.Name}?.Select(x => new {MainClassName}Detail_{typeName}DTO(x)).ToList();
 ";
                 }
             }
             return content;
         }
-        private string DTODeclareFilter(Type type, bool IsMainClass = true)
+        private string DTODeclareFilter(Type type, int level)
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
@@ -413,7 +409,7 @@ using {Namespace}.Entities;
         {{
             {referenceType}Filter {referenceType}Filter = new {referenceType}Filter();
             {referenceType}Filter.Skip = 0;
-            {referenceType}Filter.Take = 10;
+            {referenceType}Filter.Take = 20;
             {referenceType}Filter.OrderBy = {referenceType}Order.Id;
             {referenceType}Filter.OrderType = OrderType.ASC;
             {referenceType}Filter.Selects = {referenceType}Select.ALL;

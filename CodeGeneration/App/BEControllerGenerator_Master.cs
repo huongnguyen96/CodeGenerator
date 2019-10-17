@@ -148,38 +148,34 @@ namespace {Namespace}.Controllers.{NamespaceList}
         private void BuildList_MainDTO(Type type, string NamespaceList, string path)
         {
             string ClassName = GetClassName(type);
-            BuildDTO(ClassName, type, NamespaceList, path);
+            BuildDTO(ClassName, type, NamespaceList, path, 1);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(referenceType))
                 {
-                    if (PropertyInfo.PropertyType.Name == typeof(ICollection<>).Name)
+                    BuildDTO(ClassName, PropertyInfo.PropertyType, NamespaceList, path, 3);
+                }
+                string listType = GetListType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(listType))
+                {
+                    Type list = PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault();
+                    BuildDTO(ClassName, list, NamespaceList, path, 2);
+                    List<PropertyInfo> Children = ListProperties(list);
+                    foreach (PropertyInfo Child in Children)
                     {
-                        Type listType = PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault();
-                        if (PropertyInfoes.Any(p => p.PropertyType.Name == listType.Name))
-                            continue;
-                        BuildDTO(ClassName, listType, NamespaceList, path);
-                        List<PropertyInfo> Children = ListProperties(listType);
-                        foreach (PropertyInfo Child in Children)
+                        string childReferenceType = GetReferenceType(Child.PropertyType);
+                        if (!string.IsNullOrEmpty(childReferenceType))
                         {
-                            string childPrimitiveType = GetPrimitiveType(Child.PropertyType);
-                            if (string.IsNullOrEmpty(childPrimitiveType) && type.Name != Child.PropertyType.Name && !PropertyInfoes.Any(p => p.Name == Child.PropertyType.Name))
-                            {
-                                BuildDTO(ClassName, Child.PropertyType, NamespaceList, path, false);
-                            }
+                            BuildDTO(ClassName, Child.PropertyType, NamespaceList, path, 3);
                         }
-                    }
-                    else
-                    {
-                        BuildDTO(ClassName, PropertyInfo.PropertyType, NamespaceList, path, false);
                     }
                 }
             }
         }
 
-        private void BuildDTO(string MainClassName, Type type, string NamespaceList, string path, bool IsMainClass = true)
+        private void BuildDTO(string MainClassName, Type type, string NamespaceList, string path, int level)
         {
             string ClassName = GetClassName(type);
             path = Path.Combine(path, $@"{MainClassName}Master_{ClassName}DTO.cs");
@@ -194,65 +190,57 @@ namespace {Namespace}.Controllers.{NamespaceList}
 {{
     public class {MainClassName}Master_{ClassName}DTO : DataDTO
     {{
-        {DeclareProperty(MainClassName, type, IsMainClass)}
+        {DeclareProperty(MainClassName, type, level)}
         public {MainClassName}Master_{ClassName}DTO() {{}}
         public {MainClassName}Master_{ClassName}DTO({ClassName} {ClassName})
         {{
-            {ConstructorMapping(MainClassName, type, IsMainClass)}
+            {ConstructorMapping(MainClassName, type, level)}
         }}
     }}
 
     public class {MainClassName}Master_{ClassName}FilterDTO : FilterDTO
     {{
-        {DeclareFilter(type, IsMainClass)}
+        {DeclareFilter(type, level)}
     }}
 }}
 ";
             File.WriteAllText(path, content);
         }
 
-        private string DeclareProperty(string MainClassName, Type type, bool IsMainClass = true)
+        private string DeclareProperty(string MainClassName, Type type,int level)
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
-                {
-                    if (IsMainClass)
-                    {
-                        if (PropertyInfo.PropertyType.Name == typeof(ICollection<>).Name)
-                        {
-                            string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
-                            if (typeName == MainClassName)
-                                continue;
-                            typeName = $"List<{MainClassName}Master_{typeName}DTO>";
-                            content += DeclareProperty(typeName, PropertyInfo.Name);
-                        }
-                        else
-                        {
-                            string typeName = GetClassName(PropertyInfo.PropertyType);
-                            if (typeName == MainClassName)
-                                continue;
-                            typeName = $"{MainClassName}Master_{typeName}DTO";
-                            content += DeclareProperty(typeName, PropertyInfo.Name);
-                        }
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                string listType = GetListType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(primitiveType))
                 {
                     content += DeclareProperty(primitiveType, PropertyInfo.Name);
+                }
+                if (!string.IsNullOrEmpty(referenceType) && (level == 1 || level == 2))
+                {
+                    string typeName = GetClassName(PropertyInfo.PropertyType);
+                    if (typeName == MainClassName)
+                        continue;
+                    typeName = $"{MainClassName}Master_{typeName}DTO";
+                    content += DeclareProperty(typeName, PropertyInfo.Name);
+                }
+                if (!string.IsNullOrEmpty(listType) && level == 1)
+                {
+                    string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
+                    if (typeName == MainClassName)
+                        continue;
+                    typeName = $"List<{MainClassName}Detail_{typeName}DTO>";
+                    content += DeclareProperty(typeName, PropertyInfo.Name);
                 }
             }
 
             return content;
         }
-        private string ConstructorMapping(string MainClassName, Type type, bool IsMainClass = true)
+        private string ConstructorMapping(string MainClassName, Type type, int level)
         {
             string content = string.Empty;
             string ClassName = GetClassName(type);
@@ -260,38 +248,35 @@ namespace {Namespace}.Controllers.{NamespaceList}
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType))
-                {
-                    if (IsMainClass)
-                    {
-                        if (PropertyInfo.PropertyType.Name == typeof(ICollection<>).Name)
-                        {
-                            string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
-                            if (typeName == MainClassName)
-                                continue;
-                            content += $@"
-            this.{PropertyInfo.Name} = {ClassName}.{PropertyInfo.Name}?.Select(x => new {ClassName}Master_{typeName}DTO(x)).ToList();
-";
-                        }
-                        else
-                        {
-                            string typeName = GetClassName(PropertyInfo.PropertyType);
-                            if (typeName == MainClassName)
-                                continue;
-                            content += $@"
-            this.{PropertyInfo.Name} = new {ClassName}Master_{typeName}DTO({ClassName}.{PropertyInfo.Name});
-";
-                        }
-                    }
-                }
-                else
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                string listType = GetListType(PropertyInfo.PropertyType);
+
+                if (!string.IsNullOrEmpty(primitiveType))
                 {
                     content += MappingProperty("this", ClassName, PropertyInfo.Name);
+                }
+                if (!string.IsNullOrEmpty(referenceType) && (level == 1 || level == 2))
+                {
+                    string typeName = GetClassName(PropertyInfo.PropertyType);
+                    if (typeName == MainClassName)
+                        continue;
+                    content += $@"
+            this.{PropertyInfo.Name} = new {MainClassName}Master_{typeName}DTO({ClassName}.{PropertyInfo.Name});
+";
+                }
+                if (!string.IsNullOrEmpty(listType) && level == 1)
+                {
+                    string typeName = GetClassName(PropertyInfo.PropertyType.GetGenericArguments().FirstOrDefault());
+                    if (typeName == MainClassName)
+                        continue;
+                    content += $@"
+            this.{PropertyInfo.Name} = {ClassName}.{PropertyInfo.Name}?.Select(x => new {MainClassName}Master_{typeName}DTO(x)).ToList();
+";
                 }
             }
             return content;
         }
-        private string DeclareFilter(Type type, bool IsMainClass = true)
+        private string DeclareFilter(Type type, int level)
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
@@ -413,7 +398,7 @@ using {Namespace}.Entities;
         {{
             {referenceType}Filter {referenceType}Filter = new {referenceType}Filter();
             {referenceType}Filter.Skip = 0;
-            {referenceType}Filter.Take = 10;
+            {referenceType}Filter.Take = 20;
             {referenceType}Filter.OrderBy = {referenceType}Order.Id;
             {referenceType}Filter.OrderType = OrderType.ASC;
             {referenceType}Filter.Selects = {referenceType}Select.ALL;

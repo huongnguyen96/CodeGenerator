@@ -9,7 +9,7 @@ using WG.Services.MWarehouse;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MUser;
+using WG.Services.MSupplier;
 
 
 namespace WG.Controllers.warehouse.warehouse_detail
@@ -23,24 +23,24 @@ namespace WG.Controllers.warehouse.warehouse_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListUser="/single-list-user";
+        public const string SingleListSupplier="/single-list-supplier";
     }
 
     public class WarehouseDetailController : ApiController
     {
         
         
-        private IUserService UserService;
+        private ISupplierService SupplierService;
         private IWarehouseService WarehouseService;
 
         public WarehouseDetailController(
             
-            IUserService UserService,
+            ISupplierService SupplierService,
             IWarehouseService WarehouseService
         )
         {
             
-            this.UserService = UserService;
+            this.SupplierService = SupplierService;
             this.WarehouseService = WarehouseService;
         }
 
@@ -109,31 +109,35 @@ namespace WG.Controllers.warehouse.warehouse_detail
             Warehouse Warehouse = new Warehouse();
             
             Warehouse.Id = WarehouseDetail_WarehouseDTO.Id;
-            Warehouse.ManagerId = WarehouseDetail_WarehouseDTO.ManagerId;
-            Warehouse.Code = WarehouseDetail_WarehouseDTO.Code;
             Warehouse.Name = WarehouseDetail_WarehouseDTO.Name;
+            Warehouse.Phone = WarehouseDetail_WarehouseDTO.Phone;
+            Warehouse.Email = WarehouseDetail_WarehouseDTO.Email;
+            Warehouse.Address = WarehouseDetail_WarehouseDTO.Address;
+            Warehouse.SupplierId = WarehouseDetail_WarehouseDTO.SupplierId;
             return Warehouse;
         }
         
         
-        [Route(WarehouseDetailRoute.SingleListUser), HttpPost]
-        public async Task<List<WarehouseDetail_UserDTO>> SingleListUser([FromBody] WarehouseDetail_UserFilterDTO WarehouseDetail_UserFilterDTO)
+        [Route(WarehouseDetailRoute.SingleListSupplier), HttpPost]
+        public async Task<List<WarehouseDetail_SupplierDTO>> SingleListSupplier([FromBody] WarehouseDetail_SupplierFilterDTO WarehouseDetail_SupplierFilterDTO)
         {
-            UserFilter UserFilter = new UserFilter();
-            UserFilter.Skip = 0;
-            UserFilter.Take = 10;
-            UserFilter.OrderBy = UserOrder.Id;
-            UserFilter.OrderType = OrderType.ASC;
-            UserFilter.Selects = UserSelect.ALL;
+            SupplierFilter SupplierFilter = new SupplierFilter();
+            SupplierFilter.Skip = 0;
+            SupplierFilter.Take = 20;
+            SupplierFilter.OrderBy = SupplierOrder.Id;
+            SupplierFilter.OrderType = OrderType.ASC;
+            SupplierFilter.Selects = SupplierSelect.ALL;
             
-            UserFilter.Id = new LongFilter{ Equal = WarehouseDetail_UserFilterDTO.Id };
-            UserFilter.Username = new StringFilter{ StartsWith = WarehouseDetail_UserFilterDTO.Username };
-            UserFilter.Password = new StringFilter{ StartsWith = WarehouseDetail_UserFilterDTO.Password };
+            SupplierFilter.Id = new LongFilter{ Equal = WarehouseDetail_SupplierFilterDTO.Id };
+            SupplierFilter.Name = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.Name };
+            SupplierFilter.Phone = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.Phone };
+            SupplierFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.ContactPerson };
+            SupplierFilter.Address = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.Address };
 
-            List<User> Users = await UserService.List(UserFilter);
-            List<WarehouseDetail_UserDTO> WarehouseDetail_UserDTOs = Users
-                .Select(x => new WarehouseDetail_UserDTO(x)).ToList();
-            return WarehouseDetail_UserDTOs;
+            List<Supplier> Suppliers = await SupplierService.List(SupplierFilter);
+            List<WarehouseDetail_SupplierDTO> WarehouseDetail_SupplierDTOs = Suppliers
+                .Select(x => new WarehouseDetail_SupplierDTO(x)).ToList();
+            return WarehouseDetail_SupplierDTOs;
         }
 
     }

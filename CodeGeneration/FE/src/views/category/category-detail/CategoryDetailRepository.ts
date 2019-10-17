@@ -27,13 +27,13 @@ export class CategoryDetailRepository extends Repository {
       );
   };
   public update = (category: Category): Observable<Category> => {
-    return this.httpService.post<Category>(`/create`, category)
+    return this.httpService.post<Category>(`/update`, category)
       .pipe(
         map((response: AxiosResponse<Category>) => response.data),
       );
   };
   public delete = (category: Category): Observable<Category> => {
-    return this.httpService.post<Category>(`/create`, category)
+    return this.httpService.post<Category>(`/delete`, category)
       .pipe(
         map((response: AxiosResponse<Category>) => response.data),
       );

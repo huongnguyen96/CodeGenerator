@@ -11,20 +11,21 @@ namespace WG.Controllers.warehouse.warehouse_detail
     {
         
         public long Id { get; set; }
-        public long ManagerId { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
-        public WarehouseDetail_UserDTO Manager { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public long SupplierId { get; set; }
         public WarehouseDetail_WarehouseDTO() {}
         public WarehouseDetail_WarehouseDTO(Warehouse Warehouse)
         {
             
             this.Id = Warehouse.Id;
-            this.ManagerId = Warehouse.ManagerId;
-            this.Code = Warehouse.Code;
             this.Name = Warehouse.Name;
-            this.Manager = new WarehouseDetail_UserDTO(Warehouse.Manager);
-
+            this.Phone = Warehouse.Phone;
+            this.Email = Warehouse.Email;
+            this.Address = Warehouse.Address;
+            this.SupplierId = Warehouse.SupplierId;
         }
     }
 
@@ -32,8 +33,10 @@ namespace WG.Controllers.warehouse.warehouse_detail
     {
         
         public long? Id { get; set; }
-        public long? ManagerId { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public long? SupplierId { get; set; }
     }
 }

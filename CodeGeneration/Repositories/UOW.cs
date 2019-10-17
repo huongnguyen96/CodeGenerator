@@ -19,6 +19,16 @@ namespace WG.Repositories
 
         IItemRepository ItemRepository { get; }
 
+        IItemStatusRepository ItemStatusRepository { get; }
+
+        IItemStockRepository ItemStockRepository { get; }
+
+        IItemTypeRepository ItemTypeRepository { get; }
+
+        IItemUnitOfMeasureRepository ItemUnitOfMeasureRepository { get; }
+
+        ISupplierRepository SupplierRepository { get; }
+
         IUserRepository UserRepository { get; }
 
         IWarehouseRepository WarehouseRepository { get; }
@@ -36,6 +46,16 @@ namespace WG.Repositories
 
         public IItemRepository ItemRepository { get; private set; }
 
+        public IItemStatusRepository ItemStatusRepository { get; private set; }
+
+        public IItemStockRepository ItemStockRepository { get; private set; }
+
+        public IItemTypeRepository ItemTypeRepository { get; private set; }
+
+        public IItemUnitOfMeasureRepository ItemUnitOfMeasureRepository { get; private set; }
+
+        public ISupplierRepository SupplierRepository { get; private set; }
+
         public IUserRepository UserRepository { get; private set; }
 
         public IWarehouseRepository WarehouseRepository { get; private set; }
@@ -52,6 +72,16 @@ namespace WG.Repositories
             Category_ItemRepository = new Category_ItemRepository(DataContext, CurrentContext);
 
             ItemRepository = new ItemRepository(DataContext, CurrentContext);
+
+            ItemStatusRepository = new ItemStatusRepository(DataContext, CurrentContext);
+
+            ItemStockRepository = new ItemStockRepository(DataContext, CurrentContext);
+
+            ItemTypeRepository = new ItemTypeRepository(DataContext, CurrentContext);
+
+            ItemUnitOfMeasureRepository = new ItemUnitOfMeasureRepository(DataContext, CurrentContext);
+
+            SupplierRepository = new SupplierRepository(DataContext, CurrentContext);
 
             UserRepository = new UserRepository(DataContext, CurrentContext);
 

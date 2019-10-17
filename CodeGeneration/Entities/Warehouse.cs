@@ -9,19 +9,24 @@ namespace WG.Entities
     {
         
         public long Id { get; set; }
-        public long ManagerId { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
-        public User Manager { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public long SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
+        public List<ItemStock> ItemStocks { get; set; }
     }
 
     public class WarehouseFilter : FilterEntity
     {
         
         public LongFilter Id { get; set; }
-        public LongFilter ManagerId { get; set; }
-        public StringFilter Code { get; set; }
         public StringFilter Name { get; set; }
+        public StringFilter Phone { get; set; }
+        public StringFilter Email { get; set; }
+        public StringFilter Address { get; set; }
+        public LongFilter SupplierId { get; set; }
         public List<long> Ids { get; set; }
         public List<long> ExceptIds { get; set; }
 
@@ -33,9 +38,11 @@ namespace WG.Entities
     {
         
         Id = 1,
-        Manager = 2,
-        Code = 3,
-        Name = 4,
+        Name = 2,
+        Phone = 3,
+        Email = 4,
+        Address = 5,
+        Supplier = 6,
     }
 
     public enum WarehouseSelect:long
@@ -43,8 +50,10 @@ namespace WG.Entities
         ALL = E.ALL,
         
         Id = E._1,
-        Manager = E._2,
-        Code = E._3,
-        Name = E._4,
+        Name = E._2,
+        Phone = E._3,
+        Email = E._4,
+        Address = E._5,
+        Supplier = E._6,
     }
 }

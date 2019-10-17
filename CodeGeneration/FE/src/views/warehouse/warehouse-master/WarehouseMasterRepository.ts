@@ -6,8 +6,10 @@ import {map} from 'rxjs/operators';
 import {Warehouse} from 'models/Warehouse';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
-import {User} from 'models/User';
-import {UserSearch} from 'models/UserSearch';
+import {Supplier} from 'models/Supplier';
+import {SupplierSearch} from 'models/SupplierSearch';
+import {ItemStock} from 'models/ItemStock';
+import {ItemStockSearch} from 'models/ItemStockSearch';
 
 export class WarehouseMasterRepository extends Repository {
   public constructor() {
@@ -36,10 +38,16 @@ export class WarehouseMasterRepository extends Repository {
       );
   };
   
-  public singleListUser = (userSearch: UserSearch): Observable<User[]> => {
-    return this.httpService.post('/single-list-user',userSearch)
+  public singleListSupplier = (supplierSearch: SupplierSearch): Observable<Supplier[]> => {
+    return this.httpService.post('/single-list-supplier',supplierSearch)
       .pipe(
-        map((response: AxiosResponse<User[]>) => response.data),
+        map((response: AxiosResponse<Supplier[]>) => response.data),
+      );
+  };
+  public singleList = (itemStockSearch: ItemStockSearch): Observable<ItemStock[]> => {
+    return this.httpService.post('/single-list-item-stock',itemStockSearch)
+      .pipe(
+        map((response: AxiosResponse<ItemStock[]>) => response.data),
       );
   };
 }

@@ -6,8 +6,6 @@ import {map} from 'rxjs/operators';
 import {User} from 'models/User';
 import {UserSearch} from 'models/UserSearch';
 
-import {Warehouse} from 'models/Warehouse';
-import {WarehouseSearch} from 'models/WarehouseSearch';
 
 export class UserDetailRepository extends Repository {
   public constructor() {
@@ -29,13 +27,13 @@ export class UserDetailRepository extends Repository {
       );
   };
   public update = (user: User): Observable<User> => {
-    return this.httpService.post<User>(`/create`, user)
+    return this.httpService.post<User>(`/update`, user)
       .pipe(
         map((response: AxiosResponse<User>) => response.data),
       );
   };
   public delete = (user: User): Observable<User> => {
-    return this.httpService.post<User>(`/create`, user)
+    return this.httpService.post<User>(`/delete`, user)
       .pipe(
         map((response: AxiosResponse<User>) => response.data),
       );
@@ -45,12 +43,6 @@ export class UserDetailRepository extends Repository {
     return user.id ? this.update(user) : this.create(user);
   };
   
-  public singleList = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
-    return this.httpService.post('/single-list-warehouse',warehouseSearch)
-      .pipe(
-        map((response: AxiosResponse<Warehouse[]>) => response.data),
-      );
-  };
 }
 
 export default new UserDetailRepository();
