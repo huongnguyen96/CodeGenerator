@@ -48,44 +48,44 @@ import {{ Link,RouteComponentProps, withRouter }} from 'react-router-dom';
 
 import './{ClassName}Master.scss';
 import {CamelCase(ClassName)}MasterRepository from './{ClassName}MasterRepository';
-import {{ {ClassName}_ROUTE }} from 'config/route-consts';
-import {{ District }} from 'models/District';
-import {{ DistrictSearch }} from 'models/DistrictSearch';
+import {{ {UpperCase(ClassName)}_ROUTE }} from 'config/route-consts';
+import {{ {ClassName} }} from 'models/{ClassName}';
+import {{ {ClassName}Search }} from 'models/{ClassName}Search';
 
 const {{Column}} = Table;
 
 function {ClassName}Master(props: RouteComponentProps) {{
   function handleAdd() {{
-    props.history.push(path.join(ADMIN_DISTRICTS_ROUTE, 'add'));
+    props.history.push(path.join({UpperCase(ClassName)}_ROUTE, 'add'));
   }}
 
   function handleClear() {{
     clearFiltersAndSorters();
-    setSearch(new DistrictSearch());
+    setSearch(new {ClassName}Search());
   }}
 
   function reloadList() {{
-    setSearch(new DistrictSearch(search));
+    setSearch(new {ClassName}Search(search));
   }}
 
   function handleDelete(id: string) {{
     return () => {{
       confirm({{
-        title: translate('districts.deletion.title'),
-        content: translate('districts.deletion.content'),
+        title: translate('{CamelCase(ClassName)}Master.deletion.title'),
+        content: translate('{CamelCase(ClassName)}Master.deletion.content'),
         okType: 'danger',
         onOk: () => {{
-          districtListRepository.delete(id)
+          {ClassName}MasterRepository.delete(id)
             .subscribe(
               () => {{
                 notification.success({{
-                  message: translate('districts.deletion.success'),
+                  message: translate('{CamelCase(ClassName)}Master.deletion.success'),
                 }});
                 reloadList();
               }},
               (error: Error) => {{
                 notification.error({{
-                  message: translate('districts.deletion.error'),
+                  message: translate('{CamelCase(ClassName)}Master.deletion.error'),
                   description: error.message,
                 }});
               }},
@@ -96,32 +96,32 @@ function {ClassName}Master(props: RouteComponentProps) {{
   }}
 
   const [translate] = useTranslation();
-  const [search, setSearch] = useState<DistrictSearch>(new DistrictSearch());
+  const [search, setSearch] = useState<{ClassName}Search>(new {ClassName}Search());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
     handleChange,
     clearFiltersAndSorters,
-  ] = useList<District, DistrictSearch>(
+  ] = useList<{ClassName}, {ClassName}Search>(
     search,
     setSearch,
-    districtListRepository.list,
-    districtListRepository.count,
+    {CamelCase(ClassName)}MasterRepository.list,
+    {CamelCase(ClassName)}Repository.count,
   );
 
   return (
     <Card title={{
-      <CardTitle title={{translate('districts.title')}}
+      <CardTitle title={{translate('{CamelCase(ClassName)}Master.title')}}
                  allowAdd
                  onAdd={{handleAdd}}
                  allowClear
                  onClear={{handleClear}}
       />
     }}>
-      <Table dataSource={{districts}}
+      <Table dataSource={{list}}
              rowKey=""id""
              loading={{loading}}
              onChange={{handleChange}}
@@ -130,27 +130,16 @@ function {ClassName}Master(props: RouteComponentProps) {{
              }}
       >
         <Column key=""index""
-                title={{translate('districts.index')}}
-                render={{renderIndex<District, DistrictSearch>(search)}}
+                title={{translate('{CamelCase(ClassName)}Master.index')}}
+                render={{renderIndex<{ClassName}, {ClassName}Search>(search)}}
         />
-        <Column key=""code""
-                dataIndex=""code""
-                title={{translate('districts.code')}}
-                sorter
-                sortOrder={{getColumnSortOrder<District>('code', sorter)}}
-        />
-        <Column key=""name""
-                dataIndex=""name""
-                title={{translate('districts.name')}}
-                sorter
-                sortOrder={{getColumnSortOrder<District>('name', sorter)}}
-        />
+        {BuildColumn(type)}
         <Column key=""actions""
                 dataIndex=""id""
                 render={{(id: string) => {{
                   return (
                     <>
-                      <Link to={{path.join(ADMIN_DISTRICTS_ROUTE, id)}}>
+                      <Link to={{path.join({UpperCase(ClassName)}_ROUTE, id)}}>
                         {{translate('general.actions.edit')}}
                       </Link>
                       <Button htmlType=""button"" type=""link"" onClick={{handleDelete(id)}}>
@@ -165,9 +154,50 @@ function {ClassName}Master(props: RouteComponentProps) {{
   );
 }}
 
-export default withRouter(DistrictList);
-
+export default withRouter({ClassName}Master);
 ";
+            string path = Path.Combine(folder, $"{ClassName}Master.tsx");
+            File.WriteAllText(path, contents);
+        }
+
+        private string BuildColumn(Type type)
+        {
+            string contents = string.Empty;
+            string ClassName = GetClassName(type);
+            List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            foreach (PropertyInfo PropertyInfo in PropertyInfoes)
+            {
+                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(primitiveType))
+                {
+                    contents += $@"
+         <Column key=""{CamelCase(PropertyInfo.Name)}""
+                dataIndex=""{CamelCase(PropertyInfo.Name)}""
+                title={{translate('{CamelCase(ClassName)}Master.{CamelCase(PropertyInfo.Name)}')}}
+                sorter
+                sortOrder={{getColumnSortOrder<{ClassName}>('{CamelCase(PropertyInfo.Name)}', sorter)}}
+        />";
+                }
+                if (!string.IsNullOrEmpty(referenceType))
+                {
+                    contents += $@"
+         <Column key=""{CamelCase(PropertyInfo.Name)}""
+                dataIndex=""{CamelCase(PropertyInfo.Name)}""
+                title={{translate('{CamelCase(ClassName)}Master.{CamelCase(PropertyInfo.Name)}')}}
+                sorter
+                sortOrder={{getColumnSortOrder<{ClassName}>('{CamelCase(PropertyInfo.Name)}', sorter)}}
+                render={{({CamelCase(PropertyInfo.Name)}: {PropertyInfo.Name}) => {{
+                       return (
+                         <>
+                           {{{CamelCase(PropertyInfo.Name)}.name}}
+                         </>
+                       );
+                     }}}}
+        />";
+                }
+            }
+            return contents;
         }
 
         private void BuildRepository(Type type)
