@@ -47,13 +47,13 @@ export class ItemUnitOfMeasureDetailRepository extends Repository {
     return itemUnitOfMeasure.id ? this.update(itemUnitOfMeasure) : this.create(itemUnitOfMeasure);
   };
   
-  public singleList = (itemStockSearch: ItemStockSearch): Observable<ItemStock[]> => {
+  public singleListItemStock = (itemStockSearch: ItemStockSearch): Observable<ItemStock[]> => {
     return this.httpService.post('/single-list-item-stock',itemStockSearch)
       .pipe(
         map((response: AxiosResponse<ItemStock[]>) => response.data),
       );
   };
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
+  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
     return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),

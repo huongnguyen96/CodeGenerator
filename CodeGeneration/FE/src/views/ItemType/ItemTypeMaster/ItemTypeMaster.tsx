@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function ItemTypeMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(ItemType_ROUTE, 'add'));
+    props.history.push(path.join(ITEM_TYPE_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function ItemTypeMaster(props: RouteComponentProps) {
         content: translate('itemTypeMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          itemTypeMasterRepository.delete(id)
+          ItemTypeMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function ItemTypeMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<ItemTypeSearch>(new ItemTypeSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function ItemTypeMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemTypeMasterRepository.list,
-    itemTypeMasterRepository.count,
+    itemTypeRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function ItemTypeMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,19 +98,19 @@ function ItemTypeMaster(props: RouteComponentProps) {
                 render={renderIndex<ItemType, ItemTypeSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('itemTypeMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemType>('id', sorter)}
         />
-        <Column key="code"    
+         <Column key="code"
                 dataIndex="code"
                 title={translate('itemTypeMaster.code')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemType>('code', sorter)}
         />
-        <Column key="name"    
+         <Column key="name"
                 dataIndex="name"
                 title={translate('itemTypeMaster.name')}
                 sorter

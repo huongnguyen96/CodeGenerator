@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(ItemUnitOfMeasure_ROUTE, 'add'));
+    props.history.push(path.join(ITEM_UNIT_OF_MEASURE_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
         content: translate('itemUnitOfMeasureMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          itemUnitOfMeasureMasterRepository.delete(id)
+          ItemUnitOfMeasureMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<ItemUnitOfMeasureSearch>(new ItemUnitOfMeasureSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemUnitOfMeasureMasterRepository.list,
-    itemUnitOfMeasureMasterRepository.count,
+    itemUnitOfMeasureRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,19 +98,19 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
                 render={renderIndex<ItemUnitOfMeasure, ItemUnitOfMeasureSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('itemUnitOfMeasureMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemUnitOfMeasure>('id', sorter)}
         />
-        <Column key="code"    
+         <Column key="code"
                 dataIndex="code"
                 title={translate('itemUnitOfMeasureMaster.code')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemUnitOfMeasure>('code', sorter)}
         />
-        <Column key="name"    
+         <Column key="name"
                 dataIndex="name"
                 title={translate('itemUnitOfMeasureMaster.name')}
                 sorter

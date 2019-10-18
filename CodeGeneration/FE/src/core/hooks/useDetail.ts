@@ -6,7 +6,7 @@ import {finalize} from 'rxjs/operators';
 
 export function useDetail<T extends Model>(
   id: string,
-  getter: (id: string) => Observable<T>,
+  getter: (id: any) => Observable<T>,
   defaultValue: T = null,
 ): [T, boolean, (t: T) => void] {
   const [loading, setLoading] = useState<boolean>(false);

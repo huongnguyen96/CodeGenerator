@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function WarehouseMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(Warehouse_ROUTE, 'add'));
+    props.history.push(path.join(WAREHOUSE_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function WarehouseMaster(props: RouteComponentProps) {
         content: translate('warehouseMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          warehouseMasterRepository.delete(id)
+          WarehouseMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function WarehouseMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<WarehouseSearch>(new WarehouseSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function WarehouseMaster(props: RouteComponentProps) {
     search,
     setSearch,
     warehouseMasterRepository.list,
-    warehouseMasterRepository.count,
+    warehouseRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function WarehouseMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,54 +98,54 @@ function WarehouseMaster(props: RouteComponentProps) {
                 render={renderIndex<Warehouse, WarehouseSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('warehouseMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('id', sorter)}
         />
-        <Column key="name"    
+         <Column key="name"
                 dataIndex="name"
                 title={translate('warehouseMaster.name')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('name', sorter)}
         />
-        <Column key="phone"    
+         <Column key="phone"
                 dataIndex="phone"
                 title={translate('warehouseMaster.phone')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('phone', sorter)}
         />
-        <Column key="email"    
+         <Column key="email"
                 dataIndex="email"
                 title={translate('warehouseMaster.email')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('email', sorter)}
         />
-        <Column key="address"    
+         <Column key="address"
                 dataIndex="address"
                 title={translate('warehouseMaster.address')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('address', sorter)}
         />
-        <Column key="supplierId"    
+         <Column key="supplierId"
                 dataIndex="supplierId"
                 title={translate('warehouseMaster.supplierId')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('supplierId', sorter)}
         />
-        <Column key="supplier"    
+         <Column key="supplier"
                 dataIndex="supplier"
                 title={translate('warehouseMaster.supplier')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('supplier', sorter)}
                 render={(supplier: Supplier) => {
-                   return (
-                     <>
-                       {supplier.name}
-                     </>
-                   );
-                 }
+                       return (
+                         <>
+                           {supplier.name}
+                         </>
+                       );
+                     }}
         />
         <Column key="actions"
                 dataIndex="id"

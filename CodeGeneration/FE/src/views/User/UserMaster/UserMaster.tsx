@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function UserMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(User_ROUTE, 'add'));
+    props.history.push(path.join(USER_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function UserMaster(props: RouteComponentProps) {
         content: translate('userMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          userMasterRepository.delete(id)
+          UserMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function UserMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<UserSearch>(new UserSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function UserMaster(props: RouteComponentProps) {
     search,
     setSearch,
     userMasterRepository.list,
-    userMasterRepository.count,
+    userRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function UserMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,19 +98,19 @@ function UserMaster(props: RouteComponentProps) {
                 render={renderIndex<User, UserSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('userMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<User>('id', sorter)}
         />
-        <Column key="username"    
+         <Column key="username"
                 dataIndex="username"
                 title={translate('userMaster.username')}
                 sorter
                 sortOrder={getColumnSortOrder<User>('username', sorter)}
         />
-        <Column key="password"    
+         <Column key="password"
                 dataIndex="password"
                 title={translate('userMaster.password')}
                 sorter

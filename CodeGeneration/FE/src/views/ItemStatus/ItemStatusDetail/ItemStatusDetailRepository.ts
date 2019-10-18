@@ -45,7 +45,7 @@ export class ItemStatusDetailRepository extends Repository {
     return itemStatus.id ? this.update(itemStatus) : this.create(itemStatus);
   };
   
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
+  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
     return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),

@@ -45,7 +45,7 @@ export class ItemTypeDetailRepository extends Repository {
     return itemType.id ? this.update(itemType) : this.create(itemType);
   };
   
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
+  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
     return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),

@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function CategoryMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(Category_ROUTE, 'add'));
+    props.history.push(path.join(CATEGORY_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function CategoryMaster(props: RouteComponentProps) {
         content: translate('categoryMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          categoryMasterRepository.delete(id)
+          CategoryMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function CategoryMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<CategorySearch>(new CategorySearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function CategoryMaster(props: RouteComponentProps) {
     search,
     setSearch,
     categoryMasterRepository.list,
-    categoryMasterRepository.count,
+    categoryRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function CategoryMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,19 +98,19 @@ function CategoryMaster(props: RouteComponentProps) {
                 render={renderIndex<Category, CategorySearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('categoryMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<Category>('id', sorter)}
         />
-        <Column key="code"    
+         <Column key="code"
                 dataIndex="code"
                 title={translate('categoryMaster.code')}
                 sorter
                 sortOrder={getColumnSortOrder<Category>('code', sorter)}
         />
-        <Column key="name"    
+         <Column key="name"
                 dataIndex="name"
                 title={translate('categoryMaster.name')}
                 sorter

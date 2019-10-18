@@ -47,13 +47,13 @@ export class SupplierDetailRepository extends Repository {
     return supplier.id ? this.update(supplier) : this.create(supplier);
   };
   
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
+  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
     return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
-  public singleList = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
+  public singleListWarehouse = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
     return this.httpService.post('/single-list-warehouse',warehouseSearch)
       .pipe(
         map((response: AxiosResponse<Warehouse[]>) => response.data),

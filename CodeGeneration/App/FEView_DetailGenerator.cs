@@ -34,8 +34,195 @@ namespace CodeGeneration.App
             string ClassName = GetClassName(type);
             string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
             Directory.CreateDirectory(folder);
-            string contents = $@"
+
+            string ImportReference = string.Empty;
+            string ConstReference = string.Empty;
+            string PrimitiveItem = string.Empty;
+            string ReferenceItem = string.Empty;
+            List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            foreach (PropertyInfo PropertyInfo in PropertyInfoes)
+            {
+                if (PropertyInfo.Name.Contains("_") || PropertyInfo.Name.Equals("Id"))
+                    continue;
+                string prmitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(prmitiveType))
+                {
+                    if (prmitiveType.Contains("Date"))
+                    {
+                        PrimitiveItem += $@"
+        <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
+          {{
+            form.getFieldDecorator(
+                'name', 
+                {{
+                    initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
+                    rules: [
+                    ],
+                }}
+            )
+            (<DatePicker/>)
+          }}
+        </Form.Item>
 ";
+                    }
+                    else
+                    {
+                        PrimitiveItem += $@"
+        <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
+          {{form.getFieldDecorator('code', {{
+            initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
+            rules: [
+              {{
+                required: true,
+                message: translate('{CamelCase(ClassName)}Detail.errors.{CamelCase(PropertyInfo.Name)}.required'),
+              }},
+            ],
+          }})(
+            <Input type=""text""/>,
+          )}}
+        </Form.Item>
+";
+                    }
+                }
+                if (!string.IsNullOrEmpty(referenceType))
+                {
+                    ImportReference += $@"
+import {{{referenceType}Search}} from 'models/{referenceType}Search';";
+
+                    ConstReference += $@"
+  const [{CamelCase(referenceType)}Search, set{referenceType}Search] = useState<{referenceType}Search>(new {referenceType}Search());";
+
+                    ReferenceItem += $@"
+        <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
+            {{
+                form.getFieldDecorator(
+                    '{CamelCase(PropertyInfo.Name)}Id', 
+                    {{
+                        initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)} 
+                            ? {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.id 
+                            : null,
+                    }}
+                )
+                (
+                    <SingleSelect getList={{{CamelCase(ClassName)}DetailRepository.singleList{referenceType}}}
+                                  search={{{CamelCase(referenceType)}Search}}
+                                  searchField=""name""
+                                  showSearch
+                                  setSearch={{set{referenceType}Search}}>
+                      {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)} && (
+                        <Option value={{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.id}}>
+                          {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.name}}
+                        </Option>
+                      )}}
+                    </SingleSelect>,
+                )
+            }}
+        </Form.Item>";
+                }
+            }
+
+            string contents = $@"
+import Card from 'antd/lib/card';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import DatePicker from 'antd/lib/date-picker';
+import Spin from 'antd/lib/spin';
+import Table from 'antd/lib/table';
+import CardTitle from 'components/CardTitle';
+import SingleSelect, {{Option}} from 'components/SingleSelect';
+import {{useDetail}} from 'core/hooks/useDetail';
+import {{usePagination}} from 'core/hooks/usePagination';
+import {{notification}} from 'helpers';
+import path from 'path';
+import React, {{useState}} from 'react';
+import {{useTranslation}} from 'react-i18next';
+import {{withRouter}} from 'react-router-dom';
+
+import {{{UpperCase(ClassName)}_ROUTE}} from 'config/route-consts';
+import {{{ClassName}}} from 'models/{ClassName}';
+import './{ClassName}Detail.scss';
+import {CamelCase(ClassName)}DetailRepository from './{ClassName}DetailRepository';
+{ImportReference}
+
+const {{Column}} = Table;
+
+function {ClassName}Detail(props) {{
+  const {{
+    form,
+    match: {{
+      params: {{
+        id,
+      }},
+    }},
+  }} = props;
+
+  const [translate] = useTranslation();
+  const [pageSpinning, setPageSpinning] = useState<boolean>(false);
+  const [{CamelCase(ClassName)}, loading] = useDetail<{ClassName}>(id, {CamelCase(ClassName)}DetailRepository.get, new {ClassName}());
+  {ConstReference}
+
+  const [pagination] = usePagination();
+
+  function handleSubmit() {{
+    form.validateFields((validationError: Error, district: District) => {{
+      if (validationError) {{
+        return;
+      }}
+      setPageSpinning(true);
+      {CamelCase(ClassName)}DetailRepository.save({CamelCase(ClassName)})
+        .subscribe(
+          () => {{
+            notification.success({{
+              message: translate('{CamelCase(ClassName)}Detail.update.success'),
+            }});
+            props.history.push(path.join({UpperCase(ClassName)}_ROUTE));
+          }},
+          (error: Error) => {{
+            setPageSpinning(false);
+            notification.error({{
+              message: translate('{CamelCase(ClassName)}Detail.update.error'),
+              description: error.message,
+            }});
+          }},
+        )}};
+    }});
+  }}
+
+  function backToList() {{
+    props.history.push(path.join({UpperCase(ClassName)}_ROUTE));
+  }}
+
+  return (
+    <Spin spinning={{pageSpinning}}>
+      <Card
+        loading={{loading}}
+        title={{
+          <CardTitle
+            title={{translate('{CamelCase(ClassName)}Detail.detail.title', {{
+              name: {CamelCase(ClassName)}.name,
+            }})}}
+            allowSave
+            onSave={{handleSubmit}}
+            allowCancel
+            onCancel={{backToList}}
+          />
+        }}>
+        {{form.getFieldDecorator('id', {{
+          initialValue: {CamelCase(ClassName)}.id,
+        }})(
+          <Input type=""hidden""/>,
+        )}}
+        {PrimitiveItem}
+        {ReferenceItem}
+      </Card>
+    </Spin>
+  );
+}}
+
+export default Form.create()(withRouter({ClassName}Detail));";
+            string path = Path.Combine(folder, $"{ClassName}Detail.tsx");
+            File.WriteAllText(path, contents);
         }
 
         private void BuildRepository(Type type)
@@ -185,7 +372,7 @@ import {{{listType}Search}} from 'models/{listType}Search';";
                 if (!string.IsNullOrEmpty(listType))
                 {
                     contents += $@"
-  public singleList{referenceType} = ({CamelCase(listType)}Search: {listType}Search): Observable<{listType}[]> => {{
+  public singleList{listType} = ({CamelCase(listType)}Search: {listType}Search): Observable<{listType}[]> => {{
     return this.httpService.post('/single-list-{KebabCase(listType)}',{CamelCase(listType)}Search)
       .pipe(
         map((response: AxiosResponse<{listType}[]>) => response.data),

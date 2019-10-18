@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function SupplierMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(Supplier_ROUTE, 'add'));
+    props.history.push(path.join(SUPPLIER_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function SupplierMaster(props: RouteComponentProps) {
         content: translate('supplierMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          supplierMasterRepository.delete(id)
+          SupplierMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function SupplierMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<SupplierSearch>(new SupplierSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function SupplierMaster(props: RouteComponentProps) {
     search,
     setSearch,
     supplierMasterRepository.list,
-    supplierMasterRepository.count,
+    supplierRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function SupplierMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,31 +98,31 @@ function SupplierMaster(props: RouteComponentProps) {
                 render={renderIndex<Supplier, SupplierSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('supplierMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<Supplier>('id', sorter)}
         />
-        <Column key="name"    
+         <Column key="name"
                 dataIndex="name"
                 title={translate('supplierMaster.name')}
                 sorter
                 sortOrder={getColumnSortOrder<Supplier>('name', sorter)}
         />
-        <Column key="phone"    
+         <Column key="phone"
                 dataIndex="phone"
                 title={translate('supplierMaster.phone')}
                 sorter
                 sortOrder={getColumnSortOrder<Supplier>('phone', sorter)}
         />
-        <Column key="contactPerson"    
+         <Column key="contactPerson"
                 dataIndex="contactPerson"
                 title={translate('supplierMaster.contactPerson')}
                 sorter
                 sortOrder={getColumnSortOrder<Supplier>('contactPerson', sorter)}
         />
-        <Column key="address"    
+         <Column key="address"
                 dataIndex="address"
                 title={translate('supplierMaster.address')}
                 sorter

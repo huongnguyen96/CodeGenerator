@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function ItemStatusMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(ItemStatus_ROUTE, 'add'));
+    props.history.push(path.join(ITEM_STATUS_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function ItemStatusMaster(props: RouteComponentProps) {
         content: translate('itemStatusMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          itemStatusMasterRepository.delete(id)
+          ItemStatusMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function ItemStatusMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<ItemStatusSearch>(new ItemStatusSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function ItemStatusMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemStatusMasterRepository.list,
-    itemStatusMasterRepository.count,
+    itemStatusRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function ItemStatusMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,19 +98,19 @@ function ItemStatusMaster(props: RouteComponentProps) {
                 render={renderIndex<ItemStatus, ItemStatusSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('itemStatusMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStatus>('id', sorter)}
         />
-        <Column key="code"    
+         <Column key="code"
                 dataIndex="code"
                 title={translate('itemStatusMaster.code')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStatus>('code', sorter)}
         />
-        <Column key="name"    
+         <Column key="name"
                 dataIndex="name"
                 title={translate('itemStatusMaster.name')}
                 sorter

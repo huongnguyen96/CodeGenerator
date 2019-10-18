@@ -20,7 +20,7 @@ const {Column} = Table;
 
 function ItemStockMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(ItemStock_ROUTE, 'add'));
+    props.history.push(path.join(ITEM_STOCK_ROUTE, 'add'));
   }
 
   function handleClear() {
@@ -39,7 +39,7 @@ function ItemStockMaster(props: RouteComponentProps) {
         content: translate('itemStockMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          itemStockMasterRepository.delete(id)
+          ItemStockMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
@@ -63,7 +63,7 @@ function ItemStockMaster(props: RouteComponentProps) {
   const [search, setSearch] = useState<ItemStockSearch>(new ItemStockSearch());
 
   const [
-    districts,
+    list,
     total,
     loading,
     sorter,
@@ -73,7 +73,7 @@ function ItemStockMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemStockMasterRepository.list,
-    itemStockMasterRepository.count,
+    itemStockRepository.count,
   );
 
   return (
@@ -85,7 +85,7 @@ function ItemStockMaster(props: RouteComponentProps) {
                  onClear={handleClear}
       />
     }>
-      <Table dataSource={districts}
+      <Table dataSource={list}
              rowKey="id"
              loading={loading}
              onChange={handleChange}
@@ -98,74 +98,74 @@ function ItemStockMaster(props: RouteComponentProps) {
                 render={renderIndex<ItemStock, ItemStockSearch>(search)}
         />
         
-        <Column key="id"    
+         <Column key="id"
                 dataIndex="id"
                 title={translate('itemStockMaster.id')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('id', sorter)}
         />
-        <Column key="itemId"    
+         <Column key="itemId"
                 dataIndex="itemId"
                 title={translate('itemStockMaster.itemId')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('itemId', sorter)}
         />
-        <Column key="warehouseId"    
+         <Column key="warehouseId"
                 dataIndex="warehouseId"
                 title={translate('itemStockMaster.warehouseId')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('warehouseId', sorter)}
         />
-        <Column key="unitOfMeasureId"    
+         <Column key="unitOfMeasureId"
                 dataIndex="unitOfMeasureId"
                 title={translate('itemStockMaster.unitOfMeasureId')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('unitOfMeasureId', sorter)}
         />
-        <Column key="quantity"    
+         <Column key="quantity"
                 dataIndex="quantity"
                 title={translate('itemStockMaster.quantity')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('quantity', sorter)}
         />
-        <Column key="item"    
+         <Column key="item"
                 dataIndex="item"
                 title={translate('itemStockMaster.item')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('item', sorter)}
                 render={(item: Item) => {
-                   return (
-                     <>
-                       {item.name}
-                     </>
-                   );
-                 }
+                       return (
+                         <>
+                           {item.name}
+                         </>
+                       );
+                     }}
         />
-        <Column key="unitOfMeasure"    
+         <Column key="unitOfMeasure"
                 dataIndex="unitOfMeasure"
                 title={translate('itemStockMaster.unitOfMeasure')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('unitOfMeasure', sorter)}
                 render={(unitOfMeasure: UnitOfMeasure) => {
-                   return (
-                     <>
-                       {unitOfMeasure.name}
-                     </>
-                   );
-                 }
+                       return (
+                         <>
+                           {unitOfMeasure.name}
+                         </>
+                       );
+                     }}
         />
-        <Column key="warehouse"    
+         <Column key="warehouse"
                 dataIndex="warehouse"
                 title={translate('itemStockMaster.warehouse')}
                 sorter
                 sortOrder={getColumnSortOrder<ItemStock>('warehouse', sorter)}
                 render={(warehouse: Warehouse) => {
-                   return (
-                     <>
-                       {warehouse.name}
-                     </>
-                   );
-                 }
+                       return (
+                         <>
+                           {warehouse.name}
+                         </>
+                       );
+                     }}
         />
         <Column key="actions"
                 dataIndex="id"

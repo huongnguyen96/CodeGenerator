@@ -77,7 +77,7 @@ export class ItemDetailRepository extends Repository {
         map((response: AxiosResponse<ItemUnitOfMeasure[]>) => response.data),
       );
   };
-  public singleList = (itemStockSearch: ItemStockSearch): Observable<ItemStock[]> => {
+  public singleListItemStock = (itemStockSearch: ItemStockSearch): Observable<ItemStock[]> => {
     return this.httpService.post('/single-list-item-stock',itemStockSearch)
       .pipe(
         map((response: AxiosResponse<ItemStock[]>) => response.data),
