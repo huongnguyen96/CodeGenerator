@@ -134,5 +134,10 @@ namespace CodeGeneration.App
             string result = string.Join("-", split);
             return result;
         }
+
+        public string UpperCase(string str)
+        {
+            return SnakeCase(str).ToUpper();
+        }
     }
 }

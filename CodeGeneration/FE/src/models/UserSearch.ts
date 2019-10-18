@@ -1,8 +1,12 @@
+
 import {Search} from 'core/entities/Search';
-import {TextFilter} from 'filters/TextFilter';
 
 export class UserSearch extends Search {
-  public username: TextFilter = new TextFilter();
+  
+  public id?: number;
 
-  public email: TextFilter = new TextFilter();
+  public username?: string;
+
+  public password?: string;
+;
 }

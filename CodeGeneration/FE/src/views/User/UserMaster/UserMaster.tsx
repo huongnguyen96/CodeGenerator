@@ -1,54 +1,55 @@
+
 import Button from 'antd/lib/button';
 import Card from 'antd/lib/card';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle/CardTitle';
 import {useList} from 'core/hooks/useList';
-import {confirm, getColumnSortOrder, notification, renderIndex} from 'helpers';
+import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './DistrictList.scss';
-import districtListRepository from './DistrictListRepository';
-import { ADMIN_DISTRICTS_ROUTE } from 'config/route-consts';
-import { District } from 'models/District';
-import { DistrictSearch } from 'models/DistrictSearch';
+import './UserMaster.scss';
+import userMasterRepository from './UserMasterRepository';
+import { USER_ROUTE } from 'config/route-consts';
+import { User } from 'models/User';
+import { UserSearch } from 'models/UserSearch';
 
 const {Column} = Table;
 
-function DistrictList(props: RouteComponentProps) {
+function UserMaster(props: RouteComponentProps) {
   function handleAdd() {
-    props.history.push(path.join(ADMIN_DISTRICTS_ROUTE, 'add'));
+    props.history.push(path.join(User_ROUTE, 'add'));
   }
 
   function handleClear() {
     clearFiltersAndSorters();
-    setSearch(new DistrictSearch());
+    setSearch(new UserSearch());
   }
 
   function reloadList() {
-    setSearch(new DistrictSearch(search));
+    setSearch(new UserSearch(search));
   }
 
   function handleDelete(id: string) {
     return () => {
       confirm({
-        title: translate('districts.deletion.title'),
-        content: translate('districts.deletion.content'),
+        title: translate('userMaster.deletion.title'),
+        content: translate('userMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          districtListRepository.delete(id)
+          userMasterRepository.delete(id)
             .subscribe(
               () => {
                 notification.success({
-                  message: translate('districts.deletion.success'),
+                  message: translate('userMaster.deletion.success'),
                 });
                 reloadList();
               },
               (error: Error) => {
                 notification.error({
-                  message: translate('districts.deletion.error'),
+                  message: translate('userMaster.deletion.error'),
                   description: error.message,
                 });
               },
@@ -59,7 +60,7 @@ function DistrictList(props: RouteComponentProps) {
   }
 
   const [translate] = useTranslation();
-  const [search, setSearch] = useState<DistrictSearch>(new DistrictSearch());
+  const [search, setSearch] = useState<UserSearch>(new UserSearch());
 
   const [
     districts,
@@ -68,16 +69,16 @@ function DistrictList(props: RouteComponentProps) {
     sorter,
     handleChange,
     clearFiltersAndSorters,
-  ] = useList<District, DistrictSearch>(
+  ] = useList<User, UserSearch>(
     search,
     setSearch,
-    districtListRepository.list,
-    districtListRepository.count,
+    userMasterRepository.list,
+    userMasterRepository.count,
   );
 
   return (
     <Card title={
-      <CardTitle title={translate('districts.title')}
+      <CardTitle title={translate('userMaster.title')}
                  allowAdd
                  onAdd={handleAdd}
                  allowClear
@@ -88,32 +89,39 @@ function DistrictList(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={{
+             pagination={
                total,
-             }}
+             }
       >
         <Column key="index"
-                title={translate('districts.index')}
-                render={renderIndex<District, DistrictSearch>(search)}
+                title={translate('userMaster.index')}
+                render={renderIndex<User, UserSearch>(search)}
         />
-        <Column key="code"
-                dataIndex="code"
-                title={translate('districts.code')}
+        
+        <Column key="id"    
+                dataIndex="id"
+                title={translate('userMaster.id')}
                 sorter
-                sortOrder={getColumnSortOrder<District>('code', sorter)}
+                sortOrder={getColumnSortOrder<User>('id', sorter)}
         />
-        <Column key="name"
-                dataIndex="name"
-                title={translate('districts.name')}
+        <Column key="username"    
+                dataIndex="username"
+                title={translate('userMaster.username')}
                 sorter
-                sortOrder={getColumnSortOrder<District>('name', sorter)}
+                sortOrder={getColumnSortOrder<User>('username', sorter)}
+        />
+        <Column key="password"    
+                dataIndex="password"
+                title={translate('userMaster.password')}
+                sorter
+                sortOrder={getColumnSortOrder<User>('password', sorter)}
         />
         <Column key="actions"
                 dataIndex="id"
                 render={(id: string) => {
                   return (
                     <>
-                      <Link to={path.join(ADMIN_DISTRICTS_ROUTE, id)}>
+                      <Link to={path.join(USER_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(id)}>
@@ -128,4 +136,4 @@ function DistrictList(props: RouteComponentProps) {
   );
 }
 
-export default withRouter(DistrictList);
+export default withRouter(UserMaster);

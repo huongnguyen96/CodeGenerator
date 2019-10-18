@@ -24,13 +24,15 @@ namespace CodeGeneration.App
                 BuildView(type);
                 BuildRepository(type);
                 BuildCss(type);
+                BuildPackageJson(type);
+                BuildTest(type);
             }
         }
 
         private void BuildView(Type type)
         {
             string ClassName = GetClassName(type);
-            string folder = Path.Combine(rootPath, "views", KebabCase(ClassName), KebabCase(ClassName) + "-detail");
+            string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
             Directory.CreateDirectory(folder);
             string contents = $@"
 ";
@@ -39,7 +41,7 @@ namespace CodeGeneration.App
         private void BuildRepository(Type type)
         {
             string ClassName = GetClassName(type);
-            string folder = Path.Combine(rootPath, "views", KebabCase(ClassName), KebabCase(ClassName) + "-detail");
+            string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
             Directory.CreateDirectory(folder);
             string contents = $@"
 import {{AxiosResponse}} from 'axios';
@@ -96,10 +98,45 @@ export default new {ClassName}DetailRepository();";
         private void BuildCss(Type type)
         {
             string ClassName = GetClassName(type);
-            string folder = Path.Combine(rootPath, "views", KebabCase(ClassName), KebabCase(ClassName) + "-detail");
+            string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
             Directory.CreateDirectory(folder);
             string contents = $@"";
             string path = Path.Combine(folder, $"{ClassName}Detail.scss");
+            File.WriteAllText(path, contents);
+        }
+        private void BuildPackageJson(Type type)
+        {
+            string ClassName = GetClassName(type);
+            string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
+            string contents = $@"
+{{
+  ""main"": ""{ClassName}Detail.tsx""
+}}";
+            string path = Path.Combine(folder, $"package.json");
+            File.WriteAllText(path, contents);
+        }
+        private void BuildTest(Type type)
+        {
+            string ClassName = GetClassName(type);
+            string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
+            string contents = $@"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {{MemoryRouter}} from 'react-router-dom';
+import {ClassName}Detail from './{ClassName}Detail';
+
+it('renders without crashing', () => {{
+  const div = document.createElement('div');
+  ReactDOM.render(
+    <MemoryRouter>
+      <{ClassName}Detail/>
+    </MemoryRouter>,
+    div,
+  );
+  ReactDOM.unmountComponentAtNode(div);
+}});
+";
+            string path = Path.Combine(folder, $"{ClassName}Detail.test.tsx");
             File.WriteAllText(path, contents);
         }
 

@@ -30,6 +30,8 @@ namespace CodeGeneration.App
 
             FEEntityGenerator FEEntityGenerator = new FEEntityGenerator(types);
             FEEntityGenerator.Build();
+            FEViewGenerator FEViewGenerator = new FEViewGenerator(types);
+            FEViewGenerator.Build();
             FEView_MasterGenerator FEView_MasterGenerator = new FEView_MasterGenerator(types);
             FEView_MasterGenerator.Build();
             FEView_DetailGenerator FEView_DetailGenerator = new FEView_DetailGenerator(types);
