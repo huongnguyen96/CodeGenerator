@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {ItemStock} from 'models/ItemStock';
 import {ItemStockSearch} from 'models/ItemStockSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
@@ -25,7 +25,7 @@ export class ItemStockDetailRepository extends Repository {
         map((response: AxiosResponse<ItemStock>) => response.data),
       );
   };
-  
+
   public create = (itemStock: ItemStock): Observable<ItemStock> => {
     return this.httpService.post<ItemStock>(`/create`, itemStock)
       .pipe(
@@ -44,25 +44,25 @@ export class ItemStockDetailRepository extends Repository {
         map((response: AxiosResponse<ItemStock>) => response.data),
       );
   };
-  
+
   public save = (itemStock: ItemStock): Observable<ItemStock> => {
     return itemStock.id ? this.update(itemStock) : this.create(itemStock);
   };
-  
+
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+    return this.httpService.post('/single-list-item', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
   public singleListItemUnitOfMeasure = (itemUnitOfMeasureSearch: ItemUnitOfMeasureSearch): Observable<ItemUnitOfMeasure[]> => {
-    return this.httpService.post('/single-list-item-unit-of-measure',itemUnitOfMeasureSearch)
+    return this.httpService.post('/single-list-item-unit-of-measure', itemUnitOfMeasureSearch)
       .pipe(
         map((response: AxiosResponse<ItemUnitOfMeasure[]>) => response.data),
       );
   };
   public singleListWarehouse = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
-    return this.httpService.post('/single-list-warehouse',warehouseSearch)
+    return this.httpService.post('/single-list-warehouse', warehouseSearch)
       .pipe(
         map((response: AxiosResponse<Warehouse[]>) => response.data),
       );

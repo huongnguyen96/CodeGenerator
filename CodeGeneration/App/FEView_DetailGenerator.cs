@@ -145,8 +145,6 @@ import './{ClassName}Detail.scss';
 import {CamelCase(ClassName)}DetailRepository from './{ClassName}DetailRepository';
 {ImportReference}
 
-const {{Column}} = Table;
-
 function {ClassName}Detail(props) {{
   const {{
     form,
@@ -162,10 +160,8 @@ function {ClassName}Detail(props) {{
   const [{CamelCase(ClassName)}, loading] = useDetail<{ClassName}>(id, {CamelCase(ClassName)}DetailRepository.get, new {ClassName}());
   {ConstReference}
 
-  const [pagination] = usePagination();
-
   function handleSubmit() {{
-    form.validateFields((validationError: Error, district: District) => {{
+    form.validateFields((validationError: Error, {CamelCase(ClassName)}: {ClassName}) => {{
       if (validationError) {{
         return;
       }}
@@ -185,7 +181,7 @@ function {ClassName}Detail(props) {{
               description: error.message,
             }});
           }},
-        )}};
+        );
     }});
   }}
 
@@ -200,7 +196,6 @@ function {ClassName}Detail(props) {{
         title={{
           <CardTitle
             title={{translate('{CamelCase(ClassName)}Detail.detail.title', {{
-              name: {CamelCase(ClassName)}.name,
             }})}}
             allowSave
             onSave={{handleSubmit}}
@@ -312,15 +307,17 @@ import ReactDOM from 'react-dom';
 import {{MemoryRouter}} from 'react-router-dom';
 import {ClassName}Detail from './{ClassName}Detail';
 
-it('renders without crashing', () => {{
-  const div = document.createElement('div');
-  ReactDOM.render(
-    <MemoryRouter>
-      <{ClassName}Detail/>
-    </MemoryRouter>,
-    div,
-  );
-  ReactDOM.unmountComponentAtNode(div);
+describe('{ClassName}Detail', () => {{
+  it('renders without crashing', () => {{
+      const div = document.createElement('div');
+      ReactDOM.render(
+        <MemoryRouter>
+          <{ClassName}Detail/>
+        </MemoryRouter>,
+        div,
+      );
+      ReactDOM.unmountComponentAtNode(div);
+    }});  
 }});
 ";
             string path = Path.Combine(folder, $"{ClassName}Detail.test.tsx");

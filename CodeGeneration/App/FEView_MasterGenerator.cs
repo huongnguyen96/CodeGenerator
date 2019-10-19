@@ -68,14 +68,14 @@ function {ClassName}Master(props: RouteComponentProps) {{
     setSearch(new {ClassName}Search(search));
   }}
 
-  function handleDelete(id: string) {{
+  function handleDelete({CamelCase(ClassName)}: {ClassName}) {{
     return () => {{
       confirm({{
         title: translate('{CamelCase(ClassName)}Master.deletion.title'),
         content: translate('{CamelCase(ClassName)}Master.deletion.content'),
         okType: 'danger',
         onOk: () => {{
-          {ClassName}MasterRepository.delete(id)
+          {CamelCase(ClassName)}MasterRepository.delete({CamelCase(ClassName)})
             .subscribe(
               () => {{
                 notification.success({{
@@ -109,7 +109,7 @@ function {ClassName}Master(props: RouteComponentProps) {{
     search,
     setSearch,
     {CamelCase(ClassName)}MasterRepository.list,
-    {CamelCase(ClassName)}Repository.count,
+    {CamelCase(ClassName)}MasterRepository.count,
   );
 
   return (
@@ -125,9 +125,9 @@ function {ClassName}Master(props: RouteComponentProps) {{
              rowKey=""id""
              loading={{loading}}
              onChange={{handleChange}}
-             pagination={{
+             pagination={{{{
                total,
-             }}
+             }}}}
       >
         <Column key=""index""
                 title={{translate('{CamelCase(ClassName)}Master.index')}}
@@ -136,13 +136,13 @@ function {ClassName}Master(props: RouteComponentProps) {{
         {BuildColumn(type)}
         <Column key=""actions""
                 dataIndex=""id""
-                render={{(id: string) => {{
+                render={{(id: string, {CamelCase(ClassName)}: {ClassName}) => {{
                   return (
                     <>
                       <Link to={{path.join({UpperCase(ClassName)}_ROUTE, id)}}>
                         {{translate('general.actions.edit')}}
                       </Link>
-                      <Button htmlType=""button"" type=""link"" onClick={{handleDelete(id)}}>
+                      <Button htmlType=""button"" type=""link"" onClick={{handleDelete({CamelCase(ClassName)})}}>
                         {{translate('general.actions.delete')}}
                       </Button>
                     </>
@@ -240,6 +240,13 @@ export class {ClassName}MasterRepository extends Repository {{
         map((response: AxiosResponse<{ClassName}>) => response.data),
       );
   }};
+    
+  public delete = ({CamelCase(ClassName)}: {ClassName}): Observable<{ClassName}> => {{
+    return this.httpService.post<{ClassName}>(`/delete`, {CamelCase(ClassName)})
+      .pipe(
+        map((response: AxiosResponse<{ClassName}>) => response.data),
+      );
+  }};
   {BuildSingleListMethod(type)}
 }}
 
@@ -278,15 +285,17 @@ import ReactDOM from 'react-dom';
 import {{MemoryRouter}} from 'react-router-dom';
 import {ClassName}Master from './{ClassName}Master';
 
-it('renders without crashing', () => {{
-  const div = document.createElement('div');
-  ReactDOM.render(
-    <MemoryRouter>
-      <{ClassName}Master/>
-    </MemoryRouter>,
-    div,
-  );
-  ReactDOM.unmountComponentAtNode(div);
+describe('{ClassName}Master', () => {{
+    it('renders without crashing', () => {{
+      const div = document.createElement('div');
+      ReactDOM.render(
+        <MemoryRouter>
+          <{ClassName}Master/>
+        </MemoryRouter>,
+        div,
+      );
+      ReactDOM.unmountComponentAtNode(div);
+    }});
 }});
 ";
             string path = Path.Combine(folder, $"{ClassName}Master.test.tsx");

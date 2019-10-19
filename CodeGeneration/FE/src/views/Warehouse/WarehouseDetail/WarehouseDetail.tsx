@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -22,8 +22,6 @@ import warehouseDetailRepository from './WarehouseDetailRepository';
 
 import {SupplierSearch} from 'models/SupplierSearch';
 
-const {Column} = Table;
-
 function WarehouseDetail(props) {
   const {
     form,
@@ -37,13 +35,11 @@ function WarehouseDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [warehouse, loading] = useDetail<Warehouse>(id, warehouseDetailRepository.get, new Warehouse());
-  
+
   const [supplierSearch, setSupplierSearch] = useState<SupplierSearch>(new SupplierSearch());
 
-  const [pagination] = usePagination();
-
   function handleSubmit() {
-    form.validateFields((validationError: Error, district: District) => {
+    form.validateFields((validationError: Error, warehouse: Warehouse) => {
       if (validationError) {
         return;
       }
@@ -63,7 +59,7 @@ function WarehouseDetail(props) {
               description: error.message,
             });
           },
-        )};
+        );
     });
   }
 
@@ -78,7 +74,6 @@ function WarehouseDetail(props) {
         title={
           <CardTitle
             title={translate('warehouseDetail.detail.title', {
-              name: warehouse.name,
             })}
             allowSave
             onSave={handleSubmit}
@@ -91,7 +86,7 @@ function WarehouseDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('warehouseDetail.name')}>
           {form.getFieldDecorator('code', {
             initialValue: warehouse.name,
@@ -162,16 +157,15 @@ function WarehouseDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('warehouseDetail.supplier')}>
             {
                 form.getFieldDecorator(
-                    'supplierId', 
+                    'supplierId',
                     {
-                        initialValue: warehouse.supplier 
-                            ? warehouse.supplier.id 
+                        initialValue: warehouse.supplier
+                            ? warehouse.supplier.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={warehouseDetailRepository.singleListSupplier}

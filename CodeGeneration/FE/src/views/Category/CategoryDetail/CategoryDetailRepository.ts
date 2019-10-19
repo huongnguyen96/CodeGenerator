@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class CategoryDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class CategoryDetailRepository extends Repository {
         map((response: AxiosResponse<Category>) => response.data),
       );
   };
-  
+
   public create = (category: Category): Observable<Category> => {
     return this.httpService.post<Category>(`/create`, category)
       .pipe(
@@ -38,11 +37,11 @@ export class CategoryDetailRepository extends Repository {
         map((response: AxiosResponse<Category>) => response.data),
       );
   };
-  
+
   public save = (category: Category): Observable<Category> => {
     return category.id ? this.update(category) : this.create(category);
   };
-  
+
 }
 
 export default new CategoryDetailRepository();

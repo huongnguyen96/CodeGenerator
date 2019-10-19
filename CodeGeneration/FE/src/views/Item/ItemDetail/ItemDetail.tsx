@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,11 +21,9 @@ import './ItemDetail.scss';
 import itemDetailRepository from './ItemDetailRepository';
 
 import {ItemStatusSearch} from 'models/ItemStatusSearch';
-import {SupplierSearch} from 'models/SupplierSearch';
 import {ItemTypeSearch} from 'models/ItemTypeSearch';
 import {ItemUnitOfMeasureSearch} from 'models/ItemUnitOfMeasureSearch';
-
-const {Column} = Table;
+import {SupplierSearch} from 'models/SupplierSearch';
 
 function ItemDetail(props) {
   const {
@@ -40,16 +38,14 @@ function ItemDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [item, loading] = useDetail<Item>(id, itemDetailRepository.get, new Item());
-  
+
   const [itemStatusSearch, setItemStatusSearch] = useState<ItemStatusSearch>(new ItemStatusSearch());
   const [supplierSearch, setSupplierSearch] = useState<SupplierSearch>(new SupplierSearch());
   const [itemTypeSearch, setItemTypeSearch] = useState<ItemTypeSearch>(new ItemTypeSearch());
   const [itemUnitOfMeasureSearch, setItemUnitOfMeasureSearch] = useState<ItemUnitOfMeasureSearch>(new ItemUnitOfMeasureSearch());
 
-  const [pagination] = usePagination();
-
   function handleSubmit() {
-    form.validateFields((validationError: Error, district: District) => {
+    form.validateFields((validationError: Error, item: Item) => {
       if (validationError) {
         return;
       }
@@ -69,7 +65,7 @@ function ItemDetail(props) {
               description: error.message,
             });
           },
-        )};
+        );
     });
   }
 
@@ -84,7 +80,6 @@ function ItemDetail(props) {
         title={
           <CardTitle
             title={translate('itemDetail.detail.title', {
-              name: item.name,
             })}
             allowSave
             onSave={handleSubmit}
@@ -97,7 +92,7 @@ function ItemDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('itemDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: item.code,
@@ -238,16 +233,15 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('itemDetail.status')}>
             {
                 form.getFieldDecorator(
-                    'statusId', 
+                    'statusId',
                     {
-                        initialValue: item.status 
-                            ? item.status.id 
+                        initialValue: item.status
+                            ? item.status.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListItemStatus}
@@ -267,12 +261,12 @@ function ItemDetail(props) {
         <Form.Item label={translate('itemDetail.supplier')}>
             {
                 form.getFieldDecorator(
-                    'supplierId', 
+                    'supplierId',
                     {
-                        initialValue: item.supplier 
-                            ? item.supplier.id 
+                        initialValue: item.supplier
+                            ? item.supplier.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListSupplier}
@@ -292,12 +286,12 @@ function ItemDetail(props) {
         <Form.Item label={translate('itemDetail.type')}>
             {
                 form.getFieldDecorator(
-                    'typeId', 
+                    'typeId',
                     {
-                        initialValue: item.type 
-                            ? item.type.id 
+                        initialValue: item.type
+                            ? item.type.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListItemType}
@@ -317,12 +311,12 @@ function ItemDetail(props) {
         <Form.Item label={translate('itemDetail.unitOfMeasure')}>
             {
                 form.getFieldDecorator(
-                    'unitOfMeasureId', 
+                    'unitOfMeasureId',
                     {
-                        initialValue: item.unitOfMeasure 
-                            ? item.unitOfMeasure.id 
+                        initialValue: item.unitOfMeasure
+                            ? item.unitOfMeasure.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListItemUnitOfMeasure}

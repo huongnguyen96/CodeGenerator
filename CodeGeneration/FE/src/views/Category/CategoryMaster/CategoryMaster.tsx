@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './CategoryMaster.scss';
-import categoryMasterRepository from './CategoryMasterRepository';
 import { CATEGORY_ROUTE } from 'config/route-consts';
 import { Category } from 'models/Category';
 import { CategorySearch } from 'models/CategorySearch';
+import './CategoryMaster.scss';
+import categoryMasterRepository from './CategoryMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function CategoryMaster(props: RouteComponentProps) {
     setSearch(new CategorySearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(category: Category) {
     return () => {
       confirm({
         title: translate('categoryMaster.deletion.title'),
         content: translate('categoryMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          CategoryMasterRepository.delete(id)
+          categoryMasterRepository.delete(category)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function CategoryMaster(props: RouteComponentProps) {
     search,
     setSearch,
     categoryMasterRepository.list,
-    categoryRepository.count,
+    categoryMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function CategoryMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('categoryMaster.index')}
                 render={renderIndex<Category, CategorySearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('categoryMaster.id')}
@@ -118,13 +118,13 @@ function CategoryMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, category: Category) => {
                   return (
                     <>
                       <Link to={path.join(CATEGORY_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(category)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

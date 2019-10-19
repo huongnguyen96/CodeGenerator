@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -24,8 +24,6 @@ import {ItemSearch} from 'models/ItemSearch';
 import {ItemUnitOfMeasureSearch} from 'models/ItemUnitOfMeasureSearch';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
-const {Column} = Table;
-
 function ItemStockDetail(props) {
   const {
     form,
@@ -39,15 +37,13 @@ function ItemStockDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [itemStock, loading] = useDetail<ItemStock>(id, itemStockDetailRepository.get, new ItemStock());
-  
+
   const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
   const [itemUnitOfMeasureSearch, setItemUnitOfMeasureSearch] = useState<ItemUnitOfMeasureSearch>(new ItemUnitOfMeasureSearch());
   const [warehouseSearch, setWarehouseSearch] = useState<WarehouseSearch>(new WarehouseSearch());
 
-  const [pagination] = usePagination();
-
   function handleSubmit() {
-    form.validateFields((validationError: Error, district: District) => {
+    form.validateFields((validationError: Error, itemStock: ItemStock) => {
       if (validationError) {
         return;
       }
@@ -67,7 +63,7 @@ function ItemStockDetail(props) {
               description: error.message,
             });
           },
-        )};
+        );
     });
   }
 
@@ -82,7 +78,6 @@ function ItemStockDetail(props) {
         title={
           <CardTitle
             title={translate('itemStockDetail.detail.title', {
-              name: itemStock.name,
             })}
             allowSave
             onSave={handleSubmit}
@@ -95,7 +90,7 @@ function ItemStockDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('itemStockDetail.itemId')}>
           {form.getFieldDecorator('code', {
             initialValue: itemStock.itemId,
@@ -152,16 +147,15 @@ function ItemStockDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('itemStockDetail.item')}>
             {
                 form.getFieldDecorator(
-                    'itemId', 
+                    'itemId',
                     {
-                        initialValue: itemStock.item 
-                            ? itemStock.item.id 
+                        initialValue: itemStock.item
+                            ? itemStock.item.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemStockDetailRepository.singleListItem}
@@ -181,12 +175,12 @@ function ItemStockDetail(props) {
         <Form.Item label={translate('itemStockDetail.unitOfMeasure')}>
             {
                 form.getFieldDecorator(
-                    'unitOfMeasureId', 
+                    'unitOfMeasureId',
                     {
-                        initialValue: itemStock.unitOfMeasure 
-                            ? itemStock.unitOfMeasure.id 
+                        initialValue: itemStock.unitOfMeasure
+                            ? itemStock.unitOfMeasure.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemStockDetailRepository.singleListItemUnitOfMeasure}
@@ -206,12 +200,12 @@ function ItemStockDetail(props) {
         <Form.Item label={translate('itemStockDetail.warehouse')}>
             {
                 form.getFieldDecorator(
-                    'warehouseId', 
+                    'warehouseId',
                     {
-                        initialValue: itemStock.warehouse 
-                            ? itemStock.warehouse.id 
+                        initialValue: itemStock.warehouse
+                            ? itemStock.warehouse.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemStockDetailRepository.singleListWarehouse}

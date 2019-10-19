@@ -1,15 +1,15 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {ItemUnitOfMeasure} from 'models/ItemUnitOfMeasure';
 import {ItemUnitOfMeasureSearch} from 'models/ItemUnitOfMeasureSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import {ItemStock} from 'models/ItemStock';
-import {ItemStockSearch} from 'models/ItemStockSearch';
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
+import {ItemStock} from 'models/ItemStock';
+import {ItemStockSearch} from 'models/ItemStockSearch';
 
 export class ItemUnitOfMeasureDetailRepository extends Repository {
   public constructor() {
@@ -23,7 +23,7 @@ export class ItemUnitOfMeasureDetailRepository extends Repository {
         map((response: AxiosResponse<ItemUnitOfMeasure>) => response.data),
       );
   };
-  
+
   public create = (itemUnitOfMeasure: ItemUnitOfMeasure): Observable<ItemUnitOfMeasure> => {
     return this.httpService.post<ItemUnitOfMeasure>(`/create`, itemUnitOfMeasure)
       .pipe(
@@ -42,19 +42,19 @@ export class ItemUnitOfMeasureDetailRepository extends Repository {
         map((response: AxiosResponse<ItemUnitOfMeasure>) => response.data),
       );
   };
-  
+
   public save = (itemUnitOfMeasure: ItemUnitOfMeasure): Observable<ItemUnitOfMeasure> => {
     return itemUnitOfMeasure.id ? this.update(itemUnitOfMeasure) : this.create(itemUnitOfMeasure);
   };
-  
+
   public singleListItemStock = (itemStockSearch: ItemStockSearch): Observable<ItemStock[]> => {
-    return this.httpService.post('/single-list-item-stock',itemStockSearch)
+    return this.httpService.post('/single-list-item-stock', itemStockSearch)
       .pipe(
         map((response: AxiosResponse<ItemStock[]>) => response.data),
       );
   };
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+    return this.httpService.post('/single-list-item', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );

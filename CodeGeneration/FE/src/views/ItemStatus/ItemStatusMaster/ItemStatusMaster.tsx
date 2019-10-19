@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ItemStatusMaster.scss';
-import itemStatusMasterRepository from './ItemStatusMasterRepository';
 import { ITEM_STATUS_ROUTE } from 'config/route-consts';
 import { ItemStatus } from 'models/ItemStatus';
 import { ItemStatusSearch } from 'models/ItemStatusSearch';
+import './ItemStatusMaster.scss';
+import itemStatusMasterRepository from './ItemStatusMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function ItemStatusMaster(props: RouteComponentProps) {
     setSearch(new ItemStatusSearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(itemStatus: ItemStatus) {
     return () => {
       confirm({
         title: translate('itemStatusMaster.deletion.title'),
         content: translate('itemStatusMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          ItemStatusMasterRepository.delete(id)
+          itemStatusMasterRepository.delete(itemStatus)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function ItemStatusMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemStatusMasterRepository.list,
-    itemStatusRepository.count,
+    itemStatusMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function ItemStatusMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('itemStatusMaster.index')}
                 render={renderIndex<ItemStatus, ItemStatusSearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('itemStatusMaster.id')}
@@ -118,13 +118,13 @@ function ItemStatusMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, itemStatus: ItemStatus) => {
                   return (
                     <>
                       <Link to={path.join(ITEM_STATUS_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(itemStatus)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ItemMaster.scss';
-import itemMasterRepository from './ItemMasterRepository';
 import { ITEM_ROUTE } from 'config/route-consts';
 import { Item } from 'models/Item';
 import { ItemSearch } from 'models/ItemSearch';
+import './ItemMaster.scss';
+import itemMasterRepository from './ItemMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function ItemMaster(props: RouteComponentProps) {
     setSearch(new ItemSearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(item: Item) {
     return () => {
       confirm({
         title: translate('itemMaster.deletion.title'),
         content: translate('itemMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          ItemMasterRepository.delete(id)
+          itemMasterRepository.delete(item)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function ItemMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemMasterRepository.list,
-    itemRepository.count,
+    itemMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function ItemMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('itemMaster.index')}
                 render={renderIndex<Item, ItemSearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('itemMaster.id')}
@@ -218,13 +218,13 @@ function ItemMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, item: Item) => {
                   return (
                     <>
                       <Link to={path.join(ITEM_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(item)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

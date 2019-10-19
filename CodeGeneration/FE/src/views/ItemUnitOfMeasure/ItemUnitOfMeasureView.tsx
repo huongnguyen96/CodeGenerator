@@ -2,10 +2,10 @@
 import {ITEM_UNIT_OF_MEASURE_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import ItemUnitOfMeasureDetail from './ItemUnitOfMeasureDetail';
 import ItemUnitOfMeasureMaster from './ItemUnitOfMeasureMaster';
-import './ItemUnitOfMeasure.scss';
+import './ItemUnitOfMeasureView.scss';
 
 function ItemUnitOfMeasureView() {
   return (

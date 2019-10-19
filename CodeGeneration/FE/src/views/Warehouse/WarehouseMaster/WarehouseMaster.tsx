@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './WarehouseMaster.scss';
-import warehouseMasterRepository from './WarehouseMasterRepository';
 import { WAREHOUSE_ROUTE } from 'config/route-consts';
 import { Warehouse } from 'models/Warehouse';
 import { WarehouseSearch } from 'models/WarehouseSearch';
+import './WarehouseMaster.scss';
+import warehouseMasterRepository from './WarehouseMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function WarehouseMaster(props: RouteComponentProps) {
     setSearch(new WarehouseSearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(warehouse: Warehouse) {
     return () => {
       confirm({
         title: translate('warehouseMaster.deletion.title'),
         content: translate('warehouseMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          WarehouseMasterRepository.delete(id)
+          warehouseMasterRepository.delete(warehouse)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function WarehouseMaster(props: RouteComponentProps) {
     search,
     setSearch,
     warehouseMasterRepository.list,
-    warehouseRepository.count,
+    warehouseMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function WarehouseMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('warehouseMaster.index')}
                 render={renderIndex<Warehouse, WarehouseSearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('warehouseMaster.id')}
@@ -149,13 +149,13 @@ function WarehouseMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, warehouse: Warehouse) => {
                   return (
                     <>
                       <Link to={path.join(WAREHOUSE_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(warehouse)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

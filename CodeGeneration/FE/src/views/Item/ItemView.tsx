@@ -2,10 +2,10 @@
 import {ITEM_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import ItemDetail from './ItemDetail';
 import ItemMaster from './ItemMaster';
-import './Item.scss';
+import './ItemView.scss';
 
 function ItemView() {
   return (

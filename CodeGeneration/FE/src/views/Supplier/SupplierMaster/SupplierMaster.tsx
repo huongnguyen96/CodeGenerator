@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './SupplierMaster.scss';
-import supplierMasterRepository from './SupplierMasterRepository';
 import { SUPPLIER_ROUTE } from 'config/route-consts';
 import { Supplier } from 'models/Supplier';
 import { SupplierSearch } from 'models/SupplierSearch';
+import './SupplierMaster.scss';
+import supplierMasterRepository from './SupplierMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function SupplierMaster(props: RouteComponentProps) {
     setSearch(new SupplierSearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(supplier: Supplier) {
     return () => {
       confirm({
         title: translate('supplierMaster.deletion.title'),
         content: translate('supplierMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          SupplierMasterRepository.delete(id)
+          supplierMasterRepository.delete(supplier)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function SupplierMaster(props: RouteComponentProps) {
     search,
     setSearch,
     supplierMasterRepository.list,
-    supplierRepository.count,
+    supplierMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function SupplierMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('supplierMaster.index')}
                 render={renderIndex<Supplier, SupplierSearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('supplierMaster.id')}
@@ -130,13 +130,13 @@ function SupplierMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, supplier: Supplier) => {
                   return (
                     <>
                       <Link to={path.join(SUPPLIER_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(supplier)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

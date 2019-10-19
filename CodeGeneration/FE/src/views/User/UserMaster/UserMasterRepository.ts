@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {User} from 'models/User';
 import {UserSearch} from 'models/UserSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class UserMasterRepository extends Repository {
   public constructor() {
@@ -14,14 +13,14 @@ export class UserMasterRepository extends Repository {
   }
 
   public count = (userSearch: UserSearch): Observable<number> => {
-    return this.httpService.post('/count',userSearch)
+    return this.httpService.post('/count', userSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (userSearch: UserSearch): Observable<User[]> => {
-    return this.httpService.post('/list',userSearch)
+    return this.httpService.post('/list', userSearch)
       .pipe(
         map((response: AxiosResponse<User[]>) => response.data),
       );
@@ -33,7 +32,14 @@ export class UserMasterRepository extends Repository {
         map((response: AxiosResponse<User>) => response.data),
       );
   };
-  
+
+  public delete = (user: User): Observable<User> => {
+    return this.httpService.post<User>(`/delete`, user)
+      .pipe(
+        map((response: AxiosResponse<User>) => response.data),
+      );
+  };
+
 }
 
 export default new UserMasterRepository();

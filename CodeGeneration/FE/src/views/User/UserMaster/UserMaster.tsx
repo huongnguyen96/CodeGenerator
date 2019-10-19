@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './UserMaster.scss';
-import userMasterRepository from './UserMasterRepository';
 import { USER_ROUTE } from 'config/route-consts';
 import { User } from 'models/User';
 import { UserSearch } from 'models/UserSearch';
+import './UserMaster.scss';
+import userMasterRepository from './UserMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function UserMaster(props: RouteComponentProps) {
     setSearch(new UserSearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(user: User) {
     return () => {
       confirm({
         title: translate('userMaster.deletion.title'),
         content: translate('userMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          UserMasterRepository.delete(id)
+          userMasterRepository.delete(user)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function UserMaster(props: RouteComponentProps) {
     search,
     setSearch,
     userMasterRepository.list,
-    userRepository.count,
+    userMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function UserMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('userMaster.index')}
                 render={renderIndex<User, UserSearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('userMaster.id')}
@@ -118,13 +118,13 @@ function UserMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, user: User) => {
                   return (
                     <>
                       <Link to={path.join(USER_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(user)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

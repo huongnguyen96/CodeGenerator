@@ -2,10 +2,10 @@
 import {USER_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import UserDetail from './UserDetail';
 import UserMaster from './UserMaster';
-import './User.scss';
+import './UserView.scss';
 
 function UserView() {
   return (

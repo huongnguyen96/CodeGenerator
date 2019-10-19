@@ -2,10 +2,10 @@
 import {WAREHOUSE_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import WarehouseDetail from './WarehouseDetail';
 import WarehouseMaster from './WarehouseMaster';
-import './Warehouse.scss';
+import './WarehouseView.scss';
 
 function WarehouseView() {
   return (

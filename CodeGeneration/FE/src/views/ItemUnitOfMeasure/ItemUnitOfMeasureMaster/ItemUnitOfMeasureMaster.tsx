@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ItemUnitOfMeasureMaster.scss';
-import itemUnitOfMeasureMasterRepository from './ItemUnitOfMeasureMasterRepository';
 import { ITEM_UNIT_OF_MEASURE_ROUTE } from 'config/route-consts';
 import { ItemUnitOfMeasure } from 'models/ItemUnitOfMeasure';
 import { ItemUnitOfMeasureSearch } from 'models/ItemUnitOfMeasureSearch';
+import './ItemUnitOfMeasureMaster.scss';
+import itemUnitOfMeasureMasterRepository from './ItemUnitOfMeasureMasterRepository';
 
 const {Column} = Table;
 
@@ -32,14 +32,14 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
     setSearch(new ItemUnitOfMeasureSearch(search));
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(itemUnitOfMeasure: ItemUnitOfMeasure) {
     return () => {
       confirm({
         title: translate('itemUnitOfMeasureMaster.deletion.title'),
         content: translate('itemUnitOfMeasureMaster.deletion.content'),
         okType: 'danger',
         onOk: () => {
-          ItemUnitOfMeasureMasterRepository.delete(id)
+          itemUnitOfMeasureMasterRepository.delete(itemUnitOfMeasure)
             .subscribe(
               () => {
                 notification.success({
@@ -73,7 +73,7 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
     search,
     setSearch,
     itemUnitOfMeasureMasterRepository.list,
-    itemUnitOfMeasureRepository.count,
+    itemUnitOfMeasureMasterRepository.count,
   );
 
   return (
@@ -89,15 +89,15 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
              rowKey="id"
              loading={loading}
              onChange={handleChange}
-             pagination={
+             pagination={{
                total,
-             }
+             }}
       >
         <Column key="index"
                 title={translate('itemUnitOfMeasureMaster.index')}
                 render={renderIndex<ItemUnitOfMeasure, ItemUnitOfMeasureSearch>(search)}
         />
-        
+
          <Column key="id"
                 dataIndex="id"
                 title={translate('itemUnitOfMeasureMaster.id')}
@@ -118,13 +118,13 @@ function ItemUnitOfMeasureMaster(props: RouteComponentProps) {
         />
         <Column key="actions"
                 dataIndex="id"
-                render={(id: string) => {
+                render={(id: string, itemUnitOfMeasure: ItemUnitOfMeasure) => {
                   return (
                     <>
                       <Link to={path.join(ITEM_UNIT_OF_MEASURE_ROUTE, id)}>
                         {translate('general.actions.edit')}
                       </Link>
-                      <Button htmlType="button" type="link" onClick={handleDelete(id)}>
+                      <Button htmlType="button" type="link" onClick={handleDelete(itemUnitOfMeasure)}>
                         {translate('general.actions.delete')}
                       </Button>
                     </>

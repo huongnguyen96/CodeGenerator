@@ -66,7 +66,7 @@ import React from 'react';
 import {{Route,Switch, withRouter}} from 'react-router-dom';
 import {ClassName}Detail from './{ClassName}Detail';
 import {ClassName}Master from './{ClassName}Master';
-import './{ClassName}.scss';
+import './{ClassName}View.scss';
 
 function {ClassName}View() {{
   return (
@@ -105,15 +105,17 @@ import ReactDOM from 'react-dom';
 import {{MemoryRouter}} from 'react-router-dom';
 import {ClassName}View from './{ClassName}View';
 
-it('renders without crashing', () => {{
-  const div = document.createElement('div');
-  ReactDOM.render(
-    <MemoryRouter>
-      <{ClassName}View/>
-    </MemoryRouter>,
-    div,
-  );
-  ReactDOM.unmountComponentAtNode(div);
+describe('{ClassName}Master', () => {{
+    it('renders without crashing', () => {{
+      const div = document.createElement('div');
+      ReactDOM.render(
+        <MemoryRouter>
+          <{ClassName}View/>
+        </MemoryRouter>,
+        div,
+      );
+      ReactDOM.unmountComponentAtNode(div);
+    }});
 }});
 ";
             string path = Path.Combine(folder, $"{ClassName}View.test.tsx");

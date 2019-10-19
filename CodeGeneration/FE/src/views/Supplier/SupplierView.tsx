@@ -2,10 +2,10 @@
 import {SUPPLIER_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import SupplierDetail from './SupplierDetail';
 import SupplierMaster from './SupplierMaster';
-import './Supplier.scss';
+import './SupplierView.scss';
 
 function SupplierView() {
   return (

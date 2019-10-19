@@ -69,7 +69,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "extract": "i18next-scanner",
     "storybook": "start-storybook -p 6006"

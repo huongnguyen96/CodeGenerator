@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -20,9 +20,6 @@ import {Supplier} from 'models/Supplier';
 import './SupplierDetail.scss';
 import supplierDetailRepository from './SupplierDetailRepository';
 
-
-const {Column} = Table;
-
 function SupplierDetail(props) {
   const {
     form,
@@ -36,12 +33,9 @@ function SupplierDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [supplier, loading] = useDetail<Supplier>(id, supplierDetailRepository.get, new Supplier());
-  
-
-  const [pagination] = usePagination();
 
   function handleSubmit() {
-    form.validateFields((validationError: Error, district: District) => {
+    form.validateFields((validationError: Error, supplier: Supplier) => {
       if (validationError) {
         return;
       }
@@ -61,7 +55,7 @@ function SupplierDetail(props) {
               description: error.message,
             });
           },
-        )};
+        );
     });
   }
 
@@ -76,7 +70,6 @@ function SupplierDetail(props) {
         title={
           <CardTitle
             title={translate('supplierDetail.detail.title', {
-              name: supplier.name,
             })}
             allowSave
             onSave={handleSubmit}
@@ -89,7 +82,7 @@ function SupplierDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('supplierDetail.name')}>
           {form.getFieldDecorator('code', {
             initialValue: supplier.name,
@@ -146,7 +139,6 @@ function SupplierDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -20,9 +20,6 @@ import {ItemUnitOfMeasure} from 'models/ItemUnitOfMeasure';
 import './ItemUnitOfMeasureDetail.scss';
 import itemUnitOfMeasureDetailRepository from './ItemUnitOfMeasureDetailRepository';
 
-
-const {Column} = Table;
-
 function ItemUnitOfMeasureDetail(props) {
   const {
     form,
@@ -36,12 +33,9 @@ function ItemUnitOfMeasureDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [itemUnitOfMeasure, loading] = useDetail<ItemUnitOfMeasure>(id, itemUnitOfMeasureDetailRepository.get, new ItemUnitOfMeasure());
-  
-
-  const [pagination] = usePagination();
 
   function handleSubmit() {
-    form.validateFields((validationError: Error, district: District) => {
+    form.validateFields((validationError: Error, itemUnitOfMeasure: ItemUnitOfMeasure) => {
       if (validationError) {
         return;
       }
@@ -61,7 +55,7 @@ function ItemUnitOfMeasureDetail(props) {
               description: error.message,
             });
           },
-        )};
+        );
     });
   }
 
@@ -76,7 +70,6 @@ function ItemUnitOfMeasureDetail(props) {
         title={
           <CardTitle
             title={translate('itemUnitOfMeasureDetail.detail.title', {
-              name: itemUnitOfMeasure.name,
             })}
             allowSave
             onSave={handleSubmit}
@@ -89,7 +82,7 @@ function ItemUnitOfMeasureDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('itemUnitOfMeasureDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: itemUnitOfMeasure.code,
@@ -118,7 +111,6 @@ function ItemUnitOfMeasureDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

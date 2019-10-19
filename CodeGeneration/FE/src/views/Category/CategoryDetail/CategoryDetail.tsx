@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -20,9 +20,6 @@ import {Category} from 'models/Category';
 import './CategoryDetail.scss';
 import categoryDetailRepository from './CategoryDetailRepository';
 
-
-const {Column} = Table;
-
 function CategoryDetail(props) {
   const {
     form,
@@ -36,12 +33,9 @@ function CategoryDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [category, loading] = useDetail<Category>(id, categoryDetailRepository.get, new Category());
-  
-
-  const [pagination] = usePagination();
 
   function handleSubmit() {
-    form.validateFields((validationError: Error, district: District) => {
+    form.validateFields((validationError: Error, category: Category) => {
       if (validationError) {
         return;
       }
@@ -61,7 +55,7 @@ function CategoryDetail(props) {
               description: error.message,
             });
           },
-        )};
+        );
     });
   }
 
@@ -76,7 +70,6 @@ function CategoryDetail(props) {
         title={
           <CardTitle
             title={translate('categoryDetail.detail.title', {
-              name: category.name,
             })}
             allowSave
             onSave={handleSubmit}
@@ -89,7 +82,7 @@ function CategoryDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('categoryDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: category.code,
@@ -118,7 +111,6 @@ function CategoryDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

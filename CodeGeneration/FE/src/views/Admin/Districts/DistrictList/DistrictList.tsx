@@ -9,11 +9,11 @@ import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './DistrictList.scss';
-import districtListRepository from './DistrictListRepository';
 import { ADMIN_DISTRICTS_ROUTE } from 'config/route-consts';
 import { District } from 'models/District';
 import { DistrictSearch } from 'models/DistrictSearch';
+import './DistrictList.scss';
+import districtListRepository from './DistrictListRepository';
 
 const {Column} = Table;
 
