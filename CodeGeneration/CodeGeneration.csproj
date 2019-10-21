@@ -8,43 +8,12 @@
   <ItemGroup>
     <Compile Remove="CodeTemplates\**" />
     <Compile Remove="FE\**" />
-    <Compile Remove="Repositories\**" />
     <Content Remove="CodeTemplates\**" />
     <Content Remove="FE\**" />
-    <Content Remove="Repositories\**" />
     <EmbeddedResource Remove="CodeTemplates\**" />
     <EmbeddedResource Remove="FE\**" />
-    <EmbeddedResource Remove="Repositories\**" />
     <None Remove="CodeTemplates\**" />
     <None Remove="FE\**" />
-    <None Remove="Repositories\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Repositories\AuditLogRepository.cs" />
-    <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\Category_ItemRepository.cs" />
-    <Compile Include="Repositories\ItemRepository.cs" />
-    <Compile Include="Repositories\ItemStatusRepository.cs" />
-    <Compile Include="Repositories\ItemStockRepository.cs" />
-    <Compile Include="Repositories\ItemTypeRepository.cs" />
-    <Compile Include="Repositories\ItemUnitOfMeasureRepository.cs" />
-    <Compile Include="Repositories\Models\CategoryDAO.cs" />
-    <Compile Include="Repositories\Models\Category_ItemDAO.cs" />
-    <Compile Include="Repositories\Models\DataContext.cs" />
-    <Compile Include="Repositories\Models\ItemDAO.cs" />
-    <Compile Include="Repositories\Models\ItemStatusDAO.cs" />
-    <Compile Include="Repositories\Models\ItemStockDAO.cs" />
-    <Compile Include="Repositories\Models\ItemTypeDAO.cs" />
-    <Compile Include="Repositories\Models\ItemUnitOfMeasureDAO.cs" />
-    <Compile Include="Repositories\Models\SupplierDAO.cs" />
-    <Compile Include="Repositories\Models\UserDAO.cs" />
-    <Compile Include="Repositories\Models\WarehouseDAO.cs" />
-    <Compile Include="Repositories\SupplierRepository.cs" />
-    <Compile Include="Repositories\SystemLogRepository.cs" />
-    <Compile Include="Repositories\UOW.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\WarehouseRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

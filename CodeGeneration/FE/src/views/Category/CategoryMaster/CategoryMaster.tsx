@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
 
+import './CategoryMaster.scss';
+import categoryMasterRepository from './CategoryMasterRepository';
 import { CATEGORY_ROUTE } from 'config/route-consts';
 import { Category } from 'models/Category';
 import { CategorySearch } from 'models/CategorySearch';
-import './CategoryMaster.scss';
-import categoryMasterRepository from './CategoryMasterRepository';
 
 const {Column} = Table;
 
@@ -97,7 +97,7 @@ function CategoryMaster(props: RouteComponentProps) {
                 title={translate('categoryMaster.index')}
                 render={renderIndex<Category, CategorySearch>(search)}
         />
-
+        
          <Column key="id"
                 dataIndex="id"
                 title={translate('categoryMaster.id')}
@@ -115,6 +115,31 @@ function CategoryMaster(props: RouteComponentProps) {
                 title={translate('categoryMaster.name')}
                 sorter
                 sortOrder={getColumnSortOrder<Category>('name', sorter)}
+        />
+         <Column key="parentId"
+                dataIndex="parentId"
+                title={translate('categoryMaster.parentId')}
+                sorter
+                sortOrder={getColumnSortOrder<Category>('parentId', sorter)}
+        />
+         <Column key="icon"
+                dataIndex="icon"
+                title={translate('categoryMaster.icon')}
+                sorter
+                sortOrder={getColumnSortOrder<Category>('icon', sorter)}
+        />
+         <Column key="parent"
+                dataIndex="parent"
+                title={translate('categoryMaster.parent')}
+                sorter
+                sortOrder={getColumnSortOrder<Category>('parent', sorter)}
+                render={(parent: Parent) => {
+                       return (
+                         <>
+                           {parent.name}
+                         </>
+                       );
+                     }}
         />
         <Column key="actions"
                 dataIndex="id"

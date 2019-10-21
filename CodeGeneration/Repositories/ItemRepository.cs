@@ -43,20 +43,18 @@ namespace WG.Repositories
                 query = query.Where(q => q.Name, filter.Name);
             if (filter.SKU != null)
                 query = query.Where(q => q.SKU, filter.SKU);
-            if (filter.TypeId != null)
-                query = query.Where(q => q.TypeId, filter.TypeId);
-            if (filter.PurchasePrice != null)
-                query = query.Where(q => q.PurchasePrice, filter.PurchasePrice);
-            if (filter.SalePrice != null)
-                query = query.Where(q => q.SalePrice, filter.SalePrice);
             if (filter.Description != null)
                 query = query.Where(q => q.Description, filter.Description);
+            if (filter.TypeId != null)
+                query = query.Where(q => q.TypeId, filter.TypeId);
             if (filter.StatusId != null)
                 query = query.Where(q => q.StatusId, filter.StatusId);
-            if (filter.UnitOfMeasureId != null)
-                query = query.Where(q => q.UnitOfMeasureId, filter.UnitOfMeasureId);
-            if (filter.SupplierId != null)
-                query = query.Where(q => q.SupplierId, filter.SupplierId);
+            if (filter.PartnerId != null)
+                query = query.Where(q => q.PartnerId, filter.PartnerId);
+            if (filter.CategoryId != null)
+                query = query.Where(q => q.CategoryId, filter.CategoryId);
+            if (filter.BrandId != null)
+                query = query.Where(q => q.BrandId, filter.BrandId);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -83,26 +81,23 @@ namespace WG.Repositories
                         case ItemOrder.SKU:
                             query = query.OrderBy(q => q.SKU);
                             break;
-                        case ItemOrder.Type:
-                            query = query.OrderBy(q => q.Type.Id);
-                            break;
-                        case ItemOrder.PurchasePrice:
-                            query = query.OrderBy(q => q.PurchasePrice);
-                            break;
-                        case ItemOrder.SalePrice:
-                            query = query.OrderBy(q => q.SalePrice);
-                            break;
                         case ItemOrder.Description:
                             query = query.OrderBy(q => q.Description);
+                            break;
+                        case ItemOrder.Type:
+                            query = query.OrderBy(q => q.Type.Id);
                             break;
                         case ItemOrder.Status:
                             query = query.OrderBy(q => q.Status.Id);
                             break;
-                        case ItemOrder.UnitOfMeasure:
-                            query = query.OrderBy(q => q.UnitOfMeasure.Id);
+                        case ItemOrder.Partner:
+                            query = query.OrderBy(q => q.Partner.Id);
                             break;
-                        case ItemOrder.Supplier:
-                            query = query.OrderBy(q => q.Supplier.Id);
+                        case ItemOrder.Category:
+                            query = query.OrderBy(q => q.Category.Id);
+                            break;
+                        case ItemOrder.Brand:
+                            query = query.OrderBy(q => q.Brand.Id);
                             break;
                     }
                     break;
@@ -122,26 +117,23 @@ namespace WG.Repositories
                         case ItemOrder.SKU:
                             query = query.OrderByDescending(q => q.SKU);
                             break;
-                        case ItemOrder.Type:
-                            query = query.OrderByDescending(q => q.Type.Id);
-                            break;
-                        case ItemOrder.PurchasePrice:
-                            query = query.OrderByDescending(q => q.PurchasePrice);
-                            break;
-                        case ItemOrder.SalePrice:
-                            query = query.OrderByDescending(q => q.SalePrice);
-                            break;
                         case ItemOrder.Description:
                             query = query.OrderByDescending(q => q.Description);
+                            break;
+                        case ItemOrder.Type:
+                            query = query.OrderByDescending(q => q.Type.Id);
                             break;
                         case ItemOrder.Status:
                             query = query.OrderByDescending(q => q.Status.Id);
                             break;
-                        case ItemOrder.UnitOfMeasure:
-                            query = query.OrderByDescending(q => q.UnitOfMeasure.Id);
+                        case ItemOrder.Partner:
+                            query = query.OrderByDescending(q => q.Partner.Id);
                             break;
-                        case ItemOrder.Supplier:
-                            query = query.OrderByDescending(q => q.Supplier.Id);
+                        case ItemOrder.Category:
+                            query = query.OrderByDescending(q => q.Category.Id);
+                            break;
+                        case ItemOrder.Brand:
+                            query = query.OrderByDescending(q => q.Brand.Id);
                             break;
                     }
                     break;
@@ -159,13 +151,37 @@ namespace WG.Repositories
                 Code = filter.Selects.Contains(ItemSelect.Code) ? q.Code : default(string),
                 Name = filter.Selects.Contains(ItemSelect.Name) ? q.Name : default(string),
                 SKU = filter.Selects.Contains(ItemSelect.SKU) ? q.SKU : default(string),
-                TypeId = filter.Selects.Contains(ItemSelect.Type) ? q.TypeId : default(long),
-                PurchasePrice = filter.Selects.Contains(ItemSelect.PurchasePrice) ? q.PurchasePrice : default(decimal?),
-                SalePrice = filter.Selects.Contains(ItemSelect.SalePrice) ? q.SalePrice : default(decimal?),
                 Description = filter.Selects.Contains(ItemSelect.Description) ? q.Description : default(string),
-                StatusId = filter.Selects.Contains(ItemSelect.Status) ? q.StatusId : default(long?),
-                UnitOfMeasureId = filter.Selects.Contains(ItemSelect.UnitOfMeasure) ? q.UnitOfMeasureId : default(long),
-                SupplierId = filter.Selects.Contains(ItemSelect.Supplier) ? q.SupplierId : default(long),
+                TypeId = filter.Selects.Contains(ItemSelect.Type) ? q.TypeId : default(long),
+                StatusId = filter.Selects.Contains(ItemSelect.Status) ? q.StatusId : default(long),
+                PartnerId = filter.Selects.Contains(ItemSelect.Partner) ? q.PartnerId : default(long),
+                CategoryId = filter.Selects.Contains(ItemSelect.Category) ? q.CategoryId : default(long),
+                BrandId = filter.Selects.Contains(ItemSelect.Brand) ? q.BrandId : default(long),
+                Brand = filter.Selects.Contains(ItemSelect.Brand) && q.Brand != null ? new Brand
+                {
+                    
+                    Id = q.Brand.Id,
+                    Name = q.Brand.Name,
+                    CategoryId = q.Brand.CategoryId,
+                } : null,
+                Category = filter.Selects.Contains(ItemSelect.Category) && q.Category != null ? new Category
+                {
+                    
+                    Id = q.Category.Id,
+                    Code = q.Category.Code,
+                    Name = q.Category.Name,
+                    ParentId = q.Category.ParentId,
+                    Icon = q.Category.Icon,
+                } : null,
+                Partner = filter.Selects.Contains(ItemSelect.Partner) && q.Partner != null ? new Partner
+                {
+                    
+                    Id = q.Partner.Id,
+                    Name = q.Partner.Name,
+                    Phone = q.Partner.Phone,
+                    ContactPerson = q.Partner.ContactPerson,
+                    Address = q.Partner.Address,
+                } : null,
                 Status = filter.Selects.Contains(ItemSelect.Status) && q.Status != null ? new ItemStatus
                 {
                     
@@ -173,28 +189,12 @@ namespace WG.Repositories
                     Code = q.Status.Code,
                     Name = q.Status.Name,
                 } : null,
-                Supplier = filter.Selects.Contains(ItemSelect.Supplier) && q.Supplier != null ? new Supplier
-                {
-                    
-                    Id = q.Supplier.Id,
-                    Name = q.Supplier.Name,
-                    Phone = q.Supplier.Phone,
-                    ContactPerson = q.Supplier.ContactPerson,
-                    Address = q.Supplier.Address,
-                } : null,
                 Type = filter.Selects.Contains(ItemSelect.Type) && q.Type != null ? new ItemType
                 {
                     
                     Id = q.Type.Id,
                     Code = q.Type.Code,
                     Name = q.Type.Name,
-                } : null,
-                UnitOfMeasure = filter.Selects.Contains(ItemSelect.UnitOfMeasure) && q.UnitOfMeasure != null ? new ItemUnitOfMeasure
-                {
-                    
-                    Id = q.UnitOfMeasure.Id,
-                    Code = q.UnitOfMeasure.Code,
-                    Name = q.UnitOfMeasure.Name,
                 } : null,
             }).ToListAsync();
             return Items;
@@ -227,13 +227,37 @@ namespace WG.Repositories
                 Code = ItemDAO.Code,
                 Name = ItemDAO.Name,
                 SKU = ItemDAO.SKU,
-                TypeId = ItemDAO.TypeId,
-                PurchasePrice = ItemDAO.PurchasePrice,
-                SalePrice = ItemDAO.SalePrice,
                 Description = ItemDAO.Description,
+                TypeId = ItemDAO.TypeId,
                 StatusId = ItemDAO.StatusId,
-                UnitOfMeasureId = ItemDAO.UnitOfMeasureId,
-                SupplierId = ItemDAO.SupplierId,
+                PartnerId = ItemDAO.PartnerId,
+                CategoryId = ItemDAO.CategoryId,
+                BrandId = ItemDAO.BrandId,
+                Brand = ItemDAO.Brand == null ? null : new Brand
+                {
+                    
+                    Id = ItemDAO.Brand.Id,
+                    Name = ItemDAO.Brand.Name,
+                    CategoryId = ItemDAO.Brand.CategoryId,
+                },
+                Category = ItemDAO.Category == null ? null : new Category
+                {
+                    
+                    Id = ItemDAO.Category.Id,
+                    Code = ItemDAO.Category.Code,
+                    Name = ItemDAO.Category.Name,
+                    ParentId = ItemDAO.Category.ParentId,
+                    Icon = ItemDAO.Category.Icon,
+                },
+                Partner = ItemDAO.Partner == null ? null : new Partner
+                {
+                    
+                    Id = ItemDAO.Partner.Id,
+                    Name = ItemDAO.Partner.Name,
+                    Phone = ItemDAO.Partner.Phone,
+                    ContactPerson = ItemDAO.Partner.ContactPerson,
+                    Address = ItemDAO.Partner.Address,
+                },
                 Status = ItemDAO.Status == null ? null : new ItemStatus
                 {
                     
@@ -241,28 +265,12 @@ namespace WG.Repositories
                     Code = ItemDAO.Status.Code,
                     Name = ItemDAO.Status.Name,
                 },
-                Supplier = ItemDAO.Supplier == null ? null : new Supplier
-                {
-                    
-                    Id = ItemDAO.Supplier.Id,
-                    Name = ItemDAO.Supplier.Name,
-                    Phone = ItemDAO.Supplier.Phone,
-                    ContactPerson = ItemDAO.Supplier.ContactPerson,
-                    Address = ItemDAO.Supplier.Address,
-                },
                 Type = ItemDAO.Type == null ? null : new ItemType
                 {
                     
                     Id = ItemDAO.Type.Id,
                     Code = ItemDAO.Type.Code,
                     Name = ItemDAO.Type.Name,
-                },
-                UnitOfMeasure = ItemDAO.UnitOfMeasure == null ? null : new ItemUnitOfMeasure
-                {
-                    
-                    Id = ItemDAO.UnitOfMeasure.Id,
-                    Code = ItemDAO.UnitOfMeasure.Code,
-                    Name = ItemDAO.UnitOfMeasure.Name,
                 },
             }).FirstOrDefaultAsync();
             return Item;
@@ -276,13 +284,12 @@ namespace WG.Repositories
             ItemDAO.Code = Item.Code;
             ItemDAO.Name = Item.Name;
             ItemDAO.SKU = Item.SKU;
-            ItemDAO.TypeId = Item.TypeId;
-            ItemDAO.PurchasePrice = Item.PurchasePrice;
-            ItemDAO.SalePrice = Item.SalePrice;
             ItemDAO.Description = Item.Description;
+            ItemDAO.TypeId = Item.TypeId;
             ItemDAO.StatusId = Item.StatusId;
-            ItemDAO.UnitOfMeasureId = Item.UnitOfMeasureId;
-            ItemDAO.SupplierId = Item.SupplierId;
+            ItemDAO.PartnerId = Item.PartnerId;
+            ItemDAO.CategoryId = Item.CategoryId;
+            ItemDAO.BrandId = Item.BrandId;
             
             await DataContext.Item.AddAsync(ItemDAO);
             await DataContext.SaveChangesAsync();
@@ -299,13 +306,12 @@ namespace WG.Repositories
             ItemDAO.Code = Item.Code;
             ItemDAO.Name = Item.Name;
             ItemDAO.SKU = Item.SKU;
-            ItemDAO.TypeId = Item.TypeId;
-            ItemDAO.PurchasePrice = Item.PurchasePrice;
-            ItemDAO.SalePrice = Item.SalePrice;
             ItemDAO.Description = Item.Description;
+            ItemDAO.TypeId = Item.TypeId;
             ItemDAO.StatusId = Item.StatusId;
-            ItemDAO.UnitOfMeasureId = Item.UnitOfMeasureId;
-            ItemDAO.SupplierId = Item.SupplierId;
+            ItemDAO.PartnerId = Item.PartnerId;
+            ItemDAO.CategoryId = Item.CategoryId;
+            ItemDAO.BrandId = Item.BrandId;
             await DataContext.SaveChangesAsync();
             return true;
         }

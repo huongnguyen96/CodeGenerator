@@ -1,7 +1,7 @@
 import {Model} from 'core';
 
-import {Supplier} from 'models/Supplier';
-import {ItemStock} from 'models/ItemStock';
+import {Partner} from 'models/Partner';
+import {Stock} from 'models/Stock';
 
 export class Warehouse extends Model {
    
@@ -15,11 +15,11 @@ export class Warehouse extends Model {
  
   public address?: string;
  
-  public supplierId?: number;
+  public partnerId?: number;
 
-  public supplier?: Supplier;
+  public partner?: Partner;
   
-  public itemStocks?: ItemStock[];
+  public stocks?: Stock[];
 
   public constructor(warehouse?: Warehouse) {
     super(warehouse);

@@ -9,6 +9,7 @@ using WG.Services.MCategory;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
+using WG.Services.MCategory;
 
 
 namespace WG.Controllers.category.category_master
@@ -21,6 +22,7 @@ namespace WG.Controllers.category.category_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
+        public const string SingleListCategory="/single-list-category";
     }
 
     public class CategoryMasterController : ApiController
@@ -81,9 +83,33 @@ namespace WG.Controllers.category.category_master
             CategoryFilter.Id = new LongFilter{ Equal = CategoryMaster_CategoryFilterDTO.Id };
             CategoryFilter.Code = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Code };
             CategoryFilter.Name = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Name };
+            CategoryFilter.ParentId = new LongFilter{ Equal = CategoryMaster_CategoryFilterDTO.ParentId };
+            CategoryFilter.Icon = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Icon };
             return CategoryFilter;
         }
         
         
+        [Route(CategoryMasterRoute.SingleListCategory), HttpPost]
+        public async Task<List<CategoryMaster_CategoryDTO>> SingleListCategory([FromBody] CategoryMaster_CategoryFilterDTO CategoryMaster_CategoryFilterDTO)
+        {
+            CategoryFilter CategoryFilter = new CategoryFilter();
+            CategoryFilter.Skip = 0;
+            CategoryFilter.Take = 20;
+            CategoryFilter.OrderBy = CategoryOrder.Id;
+            CategoryFilter.OrderType = OrderType.ASC;
+            CategoryFilter.Selects = CategorySelect.ALL;
+            
+            CategoryFilter.Id = new LongFilter{ Equal = CategoryMaster_CategoryFilterDTO.Id };
+            CategoryFilter.Code = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Code };
+            CategoryFilter.Name = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Name };
+            CategoryFilter.ParentId = new LongFilter{ Equal = CategoryMaster_CategoryFilterDTO.ParentId };
+            CategoryFilter.Icon = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Icon };
+
+            List<Category> Categorys = await CategoryService.List(CategoryFilter);
+            List<CategoryMaster_CategoryDTO> CategoryMaster_CategoryDTOs = Categorys
+                .Select(x => new CategoryMaster_CategoryDTO(x)).ToList();
+            return CategoryMaster_CategoryDTOs;
+        }
+
     }
 }

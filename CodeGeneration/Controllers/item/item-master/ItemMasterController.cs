@@ -9,10 +9,11 @@ using WG.Services.MItem;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
+using WG.Services.MBrand;
+using WG.Services.MCategory;
+using WG.Services.MPartner;
 using WG.Services.MItemStatus;
-using WG.Services.MSupplier;
 using WG.Services.MItemType;
-using WG.Services.MItemUnitOfMeasure;
 
 
 namespace WG.Controllers.item.item_master
@@ -25,36 +26,40 @@ namespace WG.Controllers.item.item_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
+        public const string SingleListBrand="/single-list-brand";
+        public const string SingleListCategory="/single-list-category";
+        public const string SingleListPartner="/single-list-partner";
         public const string SingleListItemStatus="/single-list-item-status";
-        public const string SingleListSupplier="/single-list-supplier";
         public const string SingleListItemType="/single-list-item-type";
-        public const string SingleListItemUnitOfMeasure="/single-list-item-unit-of-measure";
     }
 
     public class ItemMasterController : ApiController
     {
         
         
+        private IBrandService BrandService;
+        private ICategoryService CategoryService;
+        private IPartnerService PartnerService;
         private IItemStatusService ItemStatusService;
-        private ISupplierService SupplierService;
         private IItemTypeService ItemTypeService;
-        private IItemUnitOfMeasureService ItemUnitOfMeasureService;
         private IItemService ItemService;
 
         public ItemMasterController(
             
+            IBrandService BrandService,
+            ICategoryService CategoryService,
+            IPartnerService PartnerService,
             IItemStatusService ItemStatusService,
-            ISupplierService SupplierService,
             IItemTypeService ItemTypeService,
-            IItemUnitOfMeasureService ItemUnitOfMeasureService,
             IItemService ItemService
         )
         {
             
+            this.BrandService = BrandService;
+            this.CategoryService = CategoryService;
+            this.PartnerService = PartnerService;
             this.ItemStatusService = ItemStatusService;
-            this.SupplierService = SupplierService;
             this.ItemTypeService = ItemTypeService;
-            this.ItemUnitOfMeasureService = ItemUnitOfMeasureService;
             this.ItemService = ItemService;
         }
 
@@ -102,17 +107,80 @@ namespace WG.Controllers.item.item_master
             ItemFilter.Code = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.Code };
             ItemFilter.Name = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.Name };
             ItemFilter.SKU = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.SKU };
-            ItemFilter.TypeId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.TypeId };
-            ItemFilter.PurchasePrice = new DecimalFilter{ Equal = ItemMaster_ItemFilterDTO.PurchasePrice };
-            ItemFilter.SalePrice = new DecimalFilter{ Equal = ItemMaster_ItemFilterDTO.SalePrice };
             ItemFilter.Description = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.Description };
+            ItemFilter.TypeId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.TypeId };
             ItemFilter.StatusId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.StatusId };
-            ItemFilter.UnitOfMeasureId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.UnitOfMeasureId };
-            ItemFilter.SupplierId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.SupplierId };
+            ItemFilter.PartnerId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.PartnerId };
+            ItemFilter.CategoryId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.CategoryId };
+            ItemFilter.BrandId = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.BrandId };
             return ItemFilter;
         }
         
         
+        [Route(ItemMasterRoute.SingleListBrand), HttpPost]
+        public async Task<List<ItemMaster_BrandDTO>> SingleListBrand([FromBody] ItemMaster_BrandFilterDTO ItemMaster_BrandFilterDTO)
+        {
+            BrandFilter BrandFilter = new BrandFilter();
+            BrandFilter.Skip = 0;
+            BrandFilter.Take = 20;
+            BrandFilter.OrderBy = BrandOrder.Id;
+            BrandFilter.OrderType = OrderType.ASC;
+            BrandFilter.Selects = BrandSelect.ALL;
+            
+            BrandFilter.Id = new LongFilter{ Equal = ItemMaster_BrandFilterDTO.Id };
+            BrandFilter.Name = new StringFilter{ StartsWith = ItemMaster_BrandFilterDTO.Name };
+            BrandFilter.CategoryId = new LongFilter{ Equal = ItemMaster_BrandFilterDTO.CategoryId };
+
+            List<Brand> Brands = await BrandService.List(BrandFilter);
+            List<ItemMaster_BrandDTO> ItemMaster_BrandDTOs = Brands
+                .Select(x => new ItemMaster_BrandDTO(x)).ToList();
+            return ItemMaster_BrandDTOs;
+        }
+
+        [Route(ItemMasterRoute.SingleListCategory), HttpPost]
+        public async Task<List<ItemMaster_CategoryDTO>> SingleListCategory([FromBody] ItemMaster_CategoryFilterDTO ItemMaster_CategoryFilterDTO)
+        {
+            CategoryFilter CategoryFilter = new CategoryFilter();
+            CategoryFilter.Skip = 0;
+            CategoryFilter.Take = 20;
+            CategoryFilter.OrderBy = CategoryOrder.Id;
+            CategoryFilter.OrderType = OrderType.ASC;
+            CategoryFilter.Selects = CategorySelect.ALL;
+            
+            CategoryFilter.Id = new LongFilter{ Equal = ItemMaster_CategoryFilterDTO.Id };
+            CategoryFilter.Code = new StringFilter{ StartsWith = ItemMaster_CategoryFilterDTO.Code };
+            CategoryFilter.Name = new StringFilter{ StartsWith = ItemMaster_CategoryFilterDTO.Name };
+            CategoryFilter.ParentId = new LongFilter{ Equal = ItemMaster_CategoryFilterDTO.ParentId };
+            CategoryFilter.Icon = new StringFilter{ StartsWith = ItemMaster_CategoryFilterDTO.Icon };
+
+            List<Category> Categorys = await CategoryService.List(CategoryFilter);
+            List<ItemMaster_CategoryDTO> ItemMaster_CategoryDTOs = Categorys
+                .Select(x => new ItemMaster_CategoryDTO(x)).ToList();
+            return ItemMaster_CategoryDTOs;
+        }
+
+        [Route(ItemMasterRoute.SingleListPartner), HttpPost]
+        public async Task<List<ItemMaster_PartnerDTO>> SingleListPartner([FromBody] ItemMaster_PartnerFilterDTO ItemMaster_PartnerFilterDTO)
+        {
+            PartnerFilter PartnerFilter = new PartnerFilter();
+            PartnerFilter.Skip = 0;
+            PartnerFilter.Take = 20;
+            PartnerFilter.OrderBy = PartnerOrder.Id;
+            PartnerFilter.OrderType = OrderType.ASC;
+            PartnerFilter.Selects = PartnerSelect.ALL;
+            
+            PartnerFilter.Id = new LongFilter{ Equal = ItemMaster_PartnerFilterDTO.Id };
+            PartnerFilter.Name = new StringFilter{ StartsWith = ItemMaster_PartnerFilterDTO.Name };
+            PartnerFilter.Phone = new StringFilter{ StartsWith = ItemMaster_PartnerFilterDTO.Phone };
+            PartnerFilter.ContactPerson = new StringFilter{ StartsWith = ItemMaster_PartnerFilterDTO.ContactPerson };
+            PartnerFilter.Address = new StringFilter{ StartsWith = ItemMaster_PartnerFilterDTO.Address };
+
+            List<Partner> Partners = await PartnerService.List(PartnerFilter);
+            List<ItemMaster_PartnerDTO> ItemMaster_PartnerDTOs = Partners
+                .Select(x => new ItemMaster_PartnerDTO(x)).ToList();
+            return ItemMaster_PartnerDTOs;
+        }
+
         [Route(ItemMasterRoute.SingleListItemStatus), HttpPost]
         public async Task<List<ItemMaster_ItemStatusDTO>> SingleListItemStatus([FromBody] ItemMaster_ItemStatusFilterDTO ItemMaster_ItemStatusFilterDTO)
         {
@@ -133,28 +201,6 @@ namespace WG.Controllers.item.item_master
             return ItemMaster_ItemStatusDTOs;
         }
 
-        [Route(ItemMasterRoute.SingleListSupplier), HttpPost]
-        public async Task<List<ItemMaster_SupplierDTO>> SingleListSupplier([FromBody] ItemMaster_SupplierFilterDTO ItemMaster_SupplierFilterDTO)
-        {
-            SupplierFilter SupplierFilter = new SupplierFilter();
-            SupplierFilter.Skip = 0;
-            SupplierFilter.Take = 20;
-            SupplierFilter.OrderBy = SupplierOrder.Id;
-            SupplierFilter.OrderType = OrderType.ASC;
-            SupplierFilter.Selects = SupplierSelect.ALL;
-            
-            SupplierFilter.Id = new LongFilter{ Equal = ItemMaster_SupplierFilterDTO.Id };
-            SupplierFilter.Name = new StringFilter{ StartsWith = ItemMaster_SupplierFilterDTO.Name };
-            SupplierFilter.Phone = new StringFilter{ StartsWith = ItemMaster_SupplierFilterDTO.Phone };
-            SupplierFilter.ContactPerson = new StringFilter{ StartsWith = ItemMaster_SupplierFilterDTO.ContactPerson };
-            SupplierFilter.Address = new StringFilter{ StartsWith = ItemMaster_SupplierFilterDTO.Address };
-
-            List<Supplier> Suppliers = await SupplierService.List(SupplierFilter);
-            List<ItemMaster_SupplierDTO> ItemMaster_SupplierDTOs = Suppliers
-                .Select(x => new ItemMaster_SupplierDTO(x)).ToList();
-            return ItemMaster_SupplierDTOs;
-        }
-
         [Route(ItemMasterRoute.SingleListItemType), HttpPost]
         public async Task<List<ItemMaster_ItemTypeDTO>> SingleListItemType([FromBody] ItemMaster_ItemTypeFilterDTO ItemMaster_ItemTypeFilterDTO)
         {
@@ -173,26 +219,6 @@ namespace WG.Controllers.item.item_master
             List<ItemMaster_ItemTypeDTO> ItemMaster_ItemTypeDTOs = ItemTypes
                 .Select(x => new ItemMaster_ItemTypeDTO(x)).ToList();
             return ItemMaster_ItemTypeDTOs;
-        }
-
-        [Route(ItemMasterRoute.SingleListItemUnitOfMeasure), HttpPost]
-        public async Task<List<ItemMaster_ItemUnitOfMeasureDTO>> SingleListItemUnitOfMeasure([FromBody] ItemMaster_ItemUnitOfMeasureFilterDTO ItemMaster_ItemUnitOfMeasureFilterDTO)
-        {
-            ItemUnitOfMeasureFilter ItemUnitOfMeasureFilter = new ItemUnitOfMeasureFilter();
-            ItemUnitOfMeasureFilter.Skip = 0;
-            ItemUnitOfMeasureFilter.Take = 20;
-            ItemUnitOfMeasureFilter.OrderBy = ItemUnitOfMeasureOrder.Id;
-            ItemUnitOfMeasureFilter.OrderType = OrderType.ASC;
-            ItemUnitOfMeasureFilter.Selects = ItemUnitOfMeasureSelect.ALL;
-            
-            ItemUnitOfMeasureFilter.Id = new LongFilter{ Equal = ItemMaster_ItemUnitOfMeasureFilterDTO.Id };
-            ItemUnitOfMeasureFilter.Code = new StringFilter{ StartsWith = ItemMaster_ItemUnitOfMeasureFilterDTO.Code };
-            ItemUnitOfMeasureFilter.Name = new StringFilter{ StartsWith = ItemMaster_ItemUnitOfMeasureFilterDTO.Name };
-
-            List<ItemUnitOfMeasure> ItemUnitOfMeasures = await ItemUnitOfMeasureService.List(ItemUnitOfMeasureFilter);
-            List<ItemMaster_ItemUnitOfMeasureDTO> ItemMaster_ItemUnitOfMeasureDTOs = ItemUnitOfMeasures
-                .Select(x => new ItemMaster_ItemUnitOfMeasureDTO(x)).ToList();
-            return ItemMaster_ItemUnitOfMeasureDTOs;
         }
 
     }

@@ -14,16 +14,16 @@ namespace WG.Controllers.item_type.item_type_detail
         public string Code { get; set; }
         public string Name { get; set; }
         public string SKU { get; set; }
-        public long TypeId { get; set; }
-        public decimal? PurchasePrice { get; set; }
-        public decimal? SalePrice { get; set; }
         public string Description { get; set; }
-        public long? StatusId { get; set; }
-        public long UnitOfMeasureId { get; set; }
-        public long SupplierId { get; set; }
+        public long TypeId { get; set; }
+        public long StatusId { get; set; }
+        public long PartnerId { get; set; }
+        public long CategoryId { get; set; }
+        public long BrandId { get; set; }
+        public ItemTypeDetail_BrandDTO Brand { get; set; }
+        public ItemTypeDetail_CategoryDTO Category { get; set; }
+        public ItemTypeDetail_PartnerDTO Partner { get; set; }
         public ItemTypeDetail_ItemStatusDTO Status { get; set; }
-        public ItemTypeDetail_SupplierDTO Supplier { get; set; }
-        public ItemTypeDetail_ItemUnitOfMeasureDTO UnitOfMeasure { get; set; }
         public ItemTypeDetail_ItemDTO() {}
         public ItemTypeDetail_ItemDTO(Item Item)
         {
@@ -32,18 +32,19 @@ namespace WG.Controllers.item_type.item_type_detail
             this.Code = Item.Code;
             this.Name = Item.Name;
             this.SKU = Item.SKU;
-            this.TypeId = Item.TypeId;
-            this.PurchasePrice = Item.PurchasePrice;
-            this.SalePrice = Item.SalePrice;
             this.Description = Item.Description;
+            this.TypeId = Item.TypeId;
             this.StatusId = Item.StatusId;
-            this.UnitOfMeasureId = Item.UnitOfMeasureId;
-            this.SupplierId = Item.SupplierId;
+            this.PartnerId = Item.PartnerId;
+            this.CategoryId = Item.CategoryId;
+            this.BrandId = Item.BrandId;
+            this.Brand = new ItemTypeDetail_BrandDTO(Item.Brand);
+
+            this.Category = new ItemTypeDetail_CategoryDTO(Item.Category);
+
+            this.Partner = new ItemTypeDetail_PartnerDTO(Item.Partner);
+
             this.Status = new ItemTypeDetail_ItemStatusDTO(Item.Status);
-
-            this.Supplier = new ItemTypeDetail_SupplierDTO(Item.Supplier);
-
-            this.UnitOfMeasure = new ItemTypeDetail_ItemUnitOfMeasureDTO(Item.UnitOfMeasure);
 
         }
     }
@@ -55,12 +56,11 @@ namespace WG.Controllers.item_type.item_type_detail
         public string Code { get; set; }
         public string Name { get; set; }
         public string SKU { get; set; }
-        public long? TypeId { get; set; }
-        public decimal? PurchasePrice { get; set; }
-        public decimal? SalePrice { get; set; }
         public string Description { get; set; }
+        public long? TypeId { get; set; }
         public long? StatusId { get; set; }
-        public long? UnitOfMeasureId { get; set; }
-        public long? SupplierId { get; set; }
+        public long? PartnerId { get; set; }
+        public long? CategoryId { get; set; }
+        public long? BrandId { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
-import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
+import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -20,6 +20,7 @@ import {ItemType} from 'models/ItemType';
 import './ItemTypeDetail.scss';
 import itemTypeDetailRepository from './ItemTypeDetailRepository';
 
+
 function ItemTypeDetail(props) {
   const {
     form,
@@ -33,6 +34,7 @@ function ItemTypeDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [itemType, loading] = useDetail<ItemType>(id, itemTypeDetailRepository.get, new ItemType());
+  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, itemType: ItemType) => {
@@ -82,7 +84,7 @@ function ItemTypeDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-
+        
         <Form.Item label={translate('itemTypeDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: itemType.code,
@@ -111,6 +113,7 @@ function ItemTypeDetail(props) {
           )}
         </Form.Item>
 
+        
       </Card>
     </Spin>
   );

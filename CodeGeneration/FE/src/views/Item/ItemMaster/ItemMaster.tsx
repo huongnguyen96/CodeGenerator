@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
 
+import './ItemMaster.scss';
+import itemMasterRepository from './ItemMasterRepository';
 import { ITEM_ROUTE } from 'config/route-consts';
 import { Item } from 'models/Item';
 import { ItemSearch } from 'models/ItemSearch';
-import './ItemMaster.scss';
-import itemMasterRepository from './ItemMasterRepository';
 
 const {Column} = Table;
 
@@ -97,7 +97,7 @@ function ItemMaster(props: RouteComponentProps) {
                 title={translate('itemMaster.index')}
                 render={renderIndex<Item, ItemSearch>(search)}
         />
-
+        
          <Column key="id"
                 dataIndex="id"
                 title={translate('itemMaster.id')}
@@ -122,29 +122,17 @@ function ItemMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Item>('sKU', sorter)}
         />
-         <Column key="typeId"
-                dataIndex="typeId"
-                title={translate('itemMaster.typeId')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('typeId', sorter)}
-        />
-         <Column key="purchasePrice"
-                dataIndex="purchasePrice"
-                title={translate('itemMaster.purchasePrice')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('purchasePrice', sorter)}
-        />
-         <Column key="salePrice"
-                dataIndex="salePrice"
-                title={translate('itemMaster.salePrice')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('salePrice', sorter)}
-        />
          <Column key="description"
                 dataIndex="description"
                 title={translate('itemMaster.description')}
                 sorter
                 sortOrder={getColumnSortOrder<Item>('description', sorter)}
+        />
+         <Column key="typeId"
+                dataIndex="typeId"
+                title={translate('itemMaster.typeId')}
+                sorter
+                sortOrder={getColumnSortOrder<Item>('typeId', sorter)}
         />
          <Column key="statusId"
                 dataIndex="statusId"
@@ -152,17 +140,62 @@ function ItemMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Item>('statusId', sorter)}
         />
-         <Column key="unitOfMeasureId"
-                dataIndex="unitOfMeasureId"
-                title={translate('itemMaster.unitOfMeasureId')}
+         <Column key="partnerId"
+                dataIndex="partnerId"
+                title={translate('itemMaster.partnerId')}
                 sorter
-                sortOrder={getColumnSortOrder<Item>('unitOfMeasureId', sorter)}
+                sortOrder={getColumnSortOrder<Item>('partnerId', sorter)}
         />
-         <Column key="supplierId"
-                dataIndex="supplierId"
-                title={translate('itemMaster.supplierId')}
+         <Column key="categoryId"
+                dataIndex="categoryId"
+                title={translate('itemMaster.categoryId')}
                 sorter
-                sortOrder={getColumnSortOrder<Item>('supplierId', sorter)}
+                sortOrder={getColumnSortOrder<Item>('categoryId', sorter)}
+        />
+         <Column key="brandId"
+                dataIndex="brandId"
+                title={translate('itemMaster.brandId')}
+                sorter
+                sortOrder={getColumnSortOrder<Item>('brandId', sorter)}
+        />
+         <Column key="brand"
+                dataIndex="brand"
+                title={translate('itemMaster.brand')}
+                sorter
+                sortOrder={getColumnSortOrder<Item>('brand', sorter)}
+                render={(brand: Brand) => {
+                       return (
+                         <>
+                           {brand.name}
+                         </>
+                       );
+                     }}
+        />
+         <Column key="category"
+                dataIndex="category"
+                title={translate('itemMaster.category')}
+                sorter
+                sortOrder={getColumnSortOrder<Item>('category', sorter)}
+                render={(category: Category) => {
+                       return (
+                         <>
+                           {category.name}
+                         </>
+                       );
+                     }}
+        />
+         <Column key="partner"
+                dataIndex="partner"
+                title={translate('itemMaster.partner')}
+                sorter
+                sortOrder={getColumnSortOrder<Item>('partner', sorter)}
+                render={(partner: Partner) => {
+                       return (
+                         <>
+                           {partner.name}
+                         </>
+                       );
+                     }}
         />
          <Column key="status"
                 dataIndex="status"
@@ -177,19 +210,6 @@ function ItemMaster(props: RouteComponentProps) {
                        );
                      }}
         />
-         <Column key="supplier"
-                dataIndex="supplier"
-                title={translate('itemMaster.supplier')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('supplier', sorter)}
-                render={(supplier: Supplier) => {
-                       return (
-                         <>
-                           {supplier.name}
-                         </>
-                       );
-                     }}
-        />
          <Column key="type"
                 dataIndex="type"
                 title={translate('itemMaster.type')}
@@ -199,19 +219,6 @@ function ItemMaster(props: RouteComponentProps) {
                        return (
                          <>
                            {type.name}
-                         </>
-                       );
-                     }}
-        />
-         <Column key="unitOfMeasure"
-                dataIndex="unitOfMeasure"
-                title={translate('itemMaster.unitOfMeasure')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('unitOfMeasure', sorter)}
-                render={(unitOfMeasure: UnitOfMeasure) => {
-                       return (
-                         <>
-                           {unitOfMeasure.name}
                          </>
                        );
                      }}

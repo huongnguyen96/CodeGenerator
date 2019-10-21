@@ -7,7 +7,7 @@ namespace CodeGeneration.Repositories.Models
     {
         public WarehouseDAO()
         {
-            ItemStocks = new HashSet<ItemStockDAO>();
+            Stocks = new HashSet<StockDAO>();
         }
 
         public long Id { get; set; }
@@ -15,9 +15,9 @@ namespace CodeGeneration.Repositories.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public long SupplierId { get; set; }
+        public long PartnerId { get; set; }
 
-        public virtual SupplierDAO Supplier { get; set; }
-        public virtual ICollection<ItemStockDAO> ItemStocks { get; set; }
+        public virtual PartnerDAO Partner { get; set; }
+        public virtual ICollection<StockDAO> Stocks { get; set; }
     }
 }

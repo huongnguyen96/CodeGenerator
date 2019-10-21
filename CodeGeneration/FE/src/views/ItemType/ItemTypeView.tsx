@@ -2,7 +2,7 @@
 import {ITEM_TYPE_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route,Switch, withRouter} from 'react-router-dom';
 import ItemTypeDetail from './ItemTypeDetail';
 import ItemTypeMaster from './ItemTypeMaster';
 import './ItemTypeView.scss';

@@ -2,7 +2,7 @@
 import {ITEM_STATUS_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route,Switch, withRouter} from 'react-router-dom';
 import ItemStatusDetail from './ItemStatusDetail';
 import ItemStatusMaster from './ItemStatusMaster';
 import './ItemStatusView.scss';

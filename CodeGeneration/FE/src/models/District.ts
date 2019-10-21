@@ -1,18 +1,23 @@
 import {Model} from 'core';
+
 import {Province} from 'models/Province';
-import {Ward} from './Ward';
+import {ShippingAddress} from 'models/ShippingAddress';
+import {Ward} from 'models/Ward';
 
 export class District extends Model {
-  public id: string;
-
-  public code: string;
-
-  public name: string;
+   
+  public id?: number;
+ 
+  public name?: string;
+ 
+  public orderNumber?: number;
+ 
+  public provinceId?: number;
 
   public province?: Province;
-
-  public provinceId: string;
-
+  
+  public shippingAddresses?: ShippingAddress[];
+  
   public wards?: Ward[];
 
   public constructor(district?: District) {

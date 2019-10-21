@@ -8,5 +8,9 @@ export class CategorySearch extends Search {
   public code?: string;
 
   public name?: string;
+
+  public parentId?: number;
+
+  public icon?: string;
 ;
 }

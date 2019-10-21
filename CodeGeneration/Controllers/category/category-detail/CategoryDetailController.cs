@@ -9,6 +9,7 @@ using WG.Services.MCategory;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
+using WG.Services.MCategory;
 
 
 namespace WG.Controllers.category.category_detail
@@ -22,6 +23,7 @@ namespace WG.Controllers.category.category_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
+        public const string SingleListCategory="/single-list-category";
     }
 
     public class CategoryDetailController : ApiController
@@ -106,9 +108,33 @@ namespace WG.Controllers.category.category_detail
             Category.Id = CategoryDetail_CategoryDTO.Id;
             Category.Code = CategoryDetail_CategoryDTO.Code;
             Category.Name = CategoryDetail_CategoryDTO.Name;
+            Category.ParentId = CategoryDetail_CategoryDTO.ParentId;
+            Category.Icon = CategoryDetail_CategoryDTO.Icon;
             return Category;
         }
         
         
+        [Route(CategoryDetailRoute.SingleListCategory), HttpPost]
+        public async Task<List<CategoryDetail_CategoryDTO>> SingleListCategory([FromBody] CategoryDetail_CategoryFilterDTO CategoryDetail_CategoryFilterDTO)
+        {
+            CategoryFilter CategoryFilter = new CategoryFilter();
+            CategoryFilter.Skip = 0;
+            CategoryFilter.Take = 20;
+            CategoryFilter.OrderBy = CategoryOrder.Id;
+            CategoryFilter.OrderType = OrderType.ASC;
+            CategoryFilter.Selects = CategorySelect.ALL;
+            
+            CategoryFilter.Id = new LongFilter{ Equal = CategoryDetail_CategoryFilterDTO.Id };
+            CategoryFilter.Code = new StringFilter{ StartsWith = CategoryDetail_CategoryFilterDTO.Code };
+            CategoryFilter.Name = new StringFilter{ StartsWith = CategoryDetail_CategoryFilterDTO.Name };
+            CategoryFilter.ParentId = new LongFilter{ Equal = CategoryDetail_CategoryFilterDTO.ParentId };
+            CategoryFilter.Icon = new StringFilter{ StartsWith = CategoryDetail_CategoryFilterDTO.Icon };
+
+            List<Category> Categorys = await CategoryService.List(CategoryFilter);
+            List<CategoryDetail_CategoryDTO> CategoryDetail_CategoryDTOs = Categorys
+                .Select(x => new CategoryDetail_CategoryDTO(x)).ToList();
+            return CategoryDetail_CategoryDTOs;
+        }
+
     }
 }

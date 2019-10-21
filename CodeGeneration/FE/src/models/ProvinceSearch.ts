@@ -1,9 +1,12 @@
+
 import {Search} from 'core/entities/Search';
 
 export class ProvinceSearch extends Search {
-  public id: string;
+  
+  public id?: number;
 
-  public code: string;
+  public name?: string;
 
-  public name: string;
+  public orderNumber?: number;
+;
 }

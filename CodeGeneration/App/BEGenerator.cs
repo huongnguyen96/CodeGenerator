@@ -37,6 +37,10 @@ namespace CodeGeneration.App
                 return "long";
             if (type.FullName == typeof(long?).FullName)
                 return "long?";
+            if (type.FullName == typeof(bool).FullName)
+                return "bool";
+            if (type.FullName == typeof(bool?).FullName)
+                return "bool?";
             return null;
         }
         protected string GetReferenceType(Type type)

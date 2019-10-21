@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
 
+import './ItemTypeMaster.scss';
+import itemTypeMasterRepository from './ItemTypeMasterRepository';
 import { ITEM_TYPE_ROUTE } from 'config/route-consts';
 import { ItemType } from 'models/ItemType';
 import { ItemTypeSearch } from 'models/ItemTypeSearch';
-import './ItemTypeMaster.scss';
-import itemTypeMasterRepository from './ItemTypeMasterRepository';
 
 const {Column} = Table;
 
@@ -97,7 +97,7 @@ function ItemTypeMaster(props: RouteComponentProps) {
                 title={translate('itemTypeMaster.index')}
                 render={renderIndex<ItemType, ItemTypeSearch>(search)}
         />
-
+        
          <Column key="id"
                 dataIndex="id"
                 title={translate('itemTypeMaster.id')}

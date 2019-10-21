@@ -306,22 +306,24 @@ describe('{ClassName}Master', () => {{
         {
             string contents = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(referenceType))
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
                 {
+                    referenceTypes.Add(referenceType);
                     contents += $@"
 import {{{referenceType}}} from 'models/{referenceType}';
 import {{{referenceType}Search}} from 'models/{referenceType}Search';";
                 }
-                string listType = GetListType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(listType))
-                {
-                    contents += $@"
-import {{{listType}}} from 'models/{listType}';
-import {{{listType}Search}} from 'models/{listType}Search';";
-                }
+//                string listType = GetListType(PropertyInfo.PropertyType);
+//                if (!string.IsNullOrEmpty(listType))
+//                {
+//                    contents += $@"
+//import {{{listType}}} from 'models/{listType}';
+//import {{{listType}Search}} from 'models/{listType}Search';";
+//                }
             }
             return contents;
         }
@@ -330,11 +332,13 @@ import {{{listType}Search}} from 'models/{listType}Search';";
         {
             string contents = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(referenceType))
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
                 {
+                    referenceTypes.Add(referenceType);
                     contents += $@"
   public singleList{referenceType} = ({CamelCase(referenceType)}Search: {referenceType}Search): Observable<{referenceType}[]> => {{
     return this.httpService.post('/single-list-{KebabCase(referenceType)}',{CamelCase(referenceType)}Search)

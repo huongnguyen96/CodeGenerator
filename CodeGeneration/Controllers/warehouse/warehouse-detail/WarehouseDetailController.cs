@@ -9,7 +9,7 @@ using WG.Services.MWarehouse;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MSupplier;
+using WG.Services.MPartner;
 
 
 namespace WG.Controllers.warehouse.warehouse_detail
@@ -23,24 +23,24 @@ namespace WG.Controllers.warehouse.warehouse_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListSupplier="/single-list-supplier";
+        public const string SingleListPartner="/single-list-partner";
     }
 
     public class WarehouseDetailController : ApiController
     {
         
         
-        private ISupplierService SupplierService;
+        private IPartnerService PartnerService;
         private IWarehouseService WarehouseService;
 
         public WarehouseDetailController(
             
-            ISupplierService SupplierService,
+            IPartnerService PartnerService,
             IWarehouseService WarehouseService
         )
         {
             
-            this.SupplierService = SupplierService;
+            this.PartnerService = PartnerService;
             this.WarehouseService = WarehouseService;
         }
 
@@ -113,31 +113,31 @@ namespace WG.Controllers.warehouse.warehouse_detail
             Warehouse.Phone = WarehouseDetail_WarehouseDTO.Phone;
             Warehouse.Email = WarehouseDetail_WarehouseDTO.Email;
             Warehouse.Address = WarehouseDetail_WarehouseDTO.Address;
-            Warehouse.SupplierId = WarehouseDetail_WarehouseDTO.SupplierId;
+            Warehouse.PartnerId = WarehouseDetail_WarehouseDTO.PartnerId;
             return Warehouse;
         }
         
         
-        [Route(WarehouseDetailRoute.SingleListSupplier), HttpPost]
-        public async Task<List<WarehouseDetail_SupplierDTO>> SingleListSupplier([FromBody] WarehouseDetail_SupplierFilterDTO WarehouseDetail_SupplierFilterDTO)
+        [Route(WarehouseDetailRoute.SingleListPartner), HttpPost]
+        public async Task<List<WarehouseDetail_PartnerDTO>> SingleListPartner([FromBody] WarehouseDetail_PartnerFilterDTO WarehouseDetail_PartnerFilterDTO)
         {
-            SupplierFilter SupplierFilter = new SupplierFilter();
-            SupplierFilter.Skip = 0;
-            SupplierFilter.Take = 20;
-            SupplierFilter.OrderBy = SupplierOrder.Id;
-            SupplierFilter.OrderType = OrderType.ASC;
-            SupplierFilter.Selects = SupplierSelect.ALL;
+            PartnerFilter PartnerFilter = new PartnerFilter();
+            PartnerFilter.Skip = 0;
+            PartnerFilter.Take = 20;
+            PartnerFilter.OrderBy = PartnerOrder.Id;
+            PartnerFilter.OrderType = OrderType.ASC;
+            PartnerFilter.Selects = PartnerSelect.ALL;
             
-            SupplierFilter.Id = new LongFilter{ Equal = WarehouseDetail_SupplierFilterDTO.Id };
-            SupplierFilter.Name = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.Name };
-            SupplierFilter.Phone = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.Phone };
-            SupplierFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.ContactPerson };
-            SupplierFilter.Address = new StringFilter{ StartsWith = WarehouseDetail_SupplierFilterDTO.Address };
+            PartnerFilter.Id = new LongFilter{ Equal = WarehouseDetail_PartnerFilterDTO.Id };
+            PartnerFilter.Name = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.Name };
+            PartnerFilter.Phone = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.Phone };
+            PartnerFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.ContactPerson };
+            PartnerFilter.Address = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.Address };
 
-            List<Supplier> Suppliers = await SupplierService.List(SupplierFilter);
-            List<WarehouseDetail_SupplierDTO> WarehouseDetail_SupplierDTOs = Suppliers
-                .Select(x => new WarehouseDetail_SupplierDTO(x)).ToList();
-            return WarehouseDetail_SupplierDTOs;
+            List<Partner> Partners = await PartnerService.List(PartnerFilter);
+            List<WarehouseDetail_PartnerDTO> WarehouseDetail_PartnerDTOs = Partners
+                .Select(x => new WarehouseDetail_PartnerDTO(x)).ToList();
+            return WarehouseDetail_PartnerDTOs;
         }
 
     }

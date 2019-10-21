@@ -41,6 +41,10 @@ namespace WG.Repositories
                 query = query.Where(q => q.Code, filter.Code);
             if (filter.Name != null)
                 query = query.Where(q => q.Name, filter.Name);
+            if (filter.ParentId != null)
+                query = query.Where(q => q.ParentId, filter.ParentId);
+            if (filter.Icon != null)
+                query = query.Where(q => q.Icon, filter.Icon);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -64,6 +68,12 @@ namespace WG.Repositories
                         case CategoryOrder.Name:
                             query = query.OrderBy(q => q.Name);
                             break;
+                        case CategoryOrder.Parent:
+                            query = query.OrderBy(q => q.Parent.Id);
+                            break;
+                        case CategoryOrder.Icon:
+                            query = query.OrderBy(q => q.Icon);
+                            break;
                     }
                     break;
                 case OrderType.DESC:
@@ -78,6 +88,12 @@ namespace WG.Repositories
                             break;
                         case CategoryOrder.Name:
                             query = query.OrderByDescending(q => q.Name);
+                            break;
+                        case CategoryOrder.Parent:
+                            query = query.OrderByDescending(q => q.Parent.Id);
+                            break;
+                        case CategoryOrder.Icon:
+                            query = query.OrderByDescending(q => q.Icon);
                             break;
                     }
                     break;
@@ -94,6 +110,17 @@ namespace WG.Repositories
                 Id = filter.Selects.Contains(CategorySelect.Id) ? q.Id : default(long),
                 Code = filter.Selects.Contains(CategorySelect.Code) ? q.Code : default(string),
                 Name = filter.Selects.Contains(CategorySelect.Name) ? q.Name : default(string),
+                ParentId = filter.Selects.Contains(CategorySelect.Parent) ? q.ParentId : default(long?),
+                Icon = filter.Selects.Contains(CategorySelect.Icon) ? q.Icon : default(string),
+                Parent = filter.Selects.Contains(CategorySelect.Parent) && q.Parent != null ? new Category
+                {
+                    
+                    Id = q.Parent.Id,
+                    Code = q.Parent.Code,
+                    Name = q.Parent.Name,
+                    ParentId = q.Parent.ParentId,
+                    Icon = q.Parent.Icon,
+                } : null,
             }).ToListAsync();
             return Categorys;
         }
@@ -124,6 +151,17 @@ namespace WG.Repositories
                 Id = CategoryDAO.Id,
                 Code = CategoryDAO.Code,
                 Name = CategoryDAO.Name,
+                ParentId = CategoryDAO.ParentId,
+                Icon = CategoryDAO.Icon,
+                Parent = CategoryDAO.Parent == null ? null : new Category
+                {
+                    
+                    Id = CategoryDAO.Parent.Id,
+                    Code = CategoryDAO.Parent.Code,
+                    Name = CategoryDAO.Parent.Name,
+                    ParentId = CategoryDAO.Parent.ParentId,
+                    Icon = CategoryDAO.Parent.Icon,
+                },
             }).FirstOrDefaultAsync();
             return Category;
         }
@@ -135,6 +173,8 @@ namespace WG.Repositories
             CategoryDAO.Id = Category.Id;
             CategoryDAO.Code = Category.Code;
             CategoryDAO.Name = Category.Name;
+            CategoryDAO.ParentId = Category.ParentId;
+            CategoryDAO.Icon = Category.Icon;
             
             await DataContext.Category.AddAsync(CategoryDAO);
             await DataContext.SaveChangesAsync();
@@ -150,6 +190,8 @@ namespace WG.Repositories
             CategoryDAO.Id = Category.Id;
             CategoryDAO.Code = Category.Code;
             CategoryDAO.Name = Category.Name;
+            CategoryDAO.ParentId = Category.ParentId;
+            CategoryDAO.Icon = Category.Icon;
             await DataContext.SaveChangesAsync();
             return true;
         }

@@ -15,7 +15,7 @@ namespace WG.Controllers.warehouse.warehouse_master
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public long SupplierId { get; set; }
+        public long PartnerId { get; set; }
         public WarehouseMaster_WarehouseDTO() {}
         public WarehouseMaster_WarehouseDTO(Warehouse Warehouse)
         {
@@ -25,7 +25,7 @@ namespace WG.Controllers.warehouse.warehouse_master
             this.Phone = Warehouse.Phone;
             this.Email = Warehouse.Email;
             this.Address = Warehouse.Address;
-            this.SupplierId = Warehouse.SupplierId;
+            this.PartnerId = Warehouse.PartnerId;
         }
     }
 
@@ -37,6 +37,6 @@ namespace WG.Controllers.warehouse.warehouse_master
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public long? SupplierId { get; set; }
+        public long? PartnerId { get; set; }
     }
 }

@@ -45,8 +45,8 @@ namespace WG.Repositories
                 query = query.Where(q => q.Email, filter.Email);
             if (filter.Address != null)
                 query = query.Where(q => q.Address, filter.Address);
-            if (filter.SupplierId != null)
-                query = query.Where(q => q.SupplierId, filter.SupplierId);
+            if (filter.PartnerId != null)
+                query = query.Where(q => q.PartnerId, filter.PartnerId);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -76,8 +76,8 @@ namespace WG.Repositories
                         case WarehouseOrder.Address:
                             query = query.OrderBy(q => q.Address);
                             break;
-                        case WarehouseOrder.Supplier:
-                            query = query.OrderBy(q => q.Supplier.Id);
+                        case WarehouseOrder.Partner:
+                            query = query.OrderBy(q => q.Partner.Id);
                             break;
                     }
                     break;
@@ -100,8 +100,8 @@ namespace WG.Repositories
                         case WarehouseOrder.Address:
                             query = query.OrderByDescending(q => q.Address);
                             break;
-                        case WarehouseOrder.Supplier:
-                            query = query.OrderByDescending(q => q.Supplier.Id);
+                        case WarehouseOrder.Partner:
+                            query = query.OrderByDescending(q => q.Partner.Id);
                             break;
                     }
                     break;
@@ -120,15 +120,15 @@ namespace WG.Repositories
                 Phone = filter.Selects.Contains(WarehouseSelect.Phone) ? q.Phone : default(string),
                 Email = filter.Selects.Contains(WarehouseSelect.Email) ? q.Email : default(string),
                 Address = filter.Selects.Contains(WarehouseSelect.Address) ? q.Address : default(string),
-                SupplierId = filter.Selects.Contains(WarehouseSelect.Supplier) ? q.SupplierId : default(long),
-                Supplier = filter.Selects.Contains(WarehouseSelect.Supplier) && q.Supplier != null ? new Supplier
+                PartnerId = filter.Selects.Contains(WarehouseSelect.Partner) ? q.PartnerId : default(long),
+                Partner = filter.Selects.Contains(WarehouseSelect.Partner) && q.Partner != null ? new Partner
                 {
                     
-                    Id = q.Supplier.Id,
-                    Name = q.Supplier.Name,
-                    Phone = q.Supplier.Phone,
-                    ContactPerson = q.Supplier.ContactPerson,
-                    Address = q.Supplier.Address,
+                    Id = q.Partner.Id,
+                    Name = q.Partner.Name,
+                    Phone = q.Partner.Phone,
+                    ContactPerson = q.Partner.ContactPerson,
+                    Address = q.Partner.Address,
                 } : null,
             }).ToListAsync();
             return Warehouses;
@@ -162,15 +162,15 @@ namespace WG.Repositories
                 Phone = WarehouseDAO.Phone,
                 Email = WarehouseDAO.Email,
                 Address = WarehouseDAO.Address,
-                SupplierId = WarehouseDAO.SupplierId,
-                Supplier = WarehouseDAO.Supplier == null ? null : new Supplier
+                PartnerId = WarehouseDAO.PartnerId,
+                Partner = WarehouseDAO.Partner == null ? null : new Partner
                 {
                     
-                    Id = WarehouseDAO.Supplier.Id,
-                    Name = WarehouseDAO.Supplier.Name,
-                    Phone = WarehouseDAO.Supplier.Phone,
-                    ContactPerson = WarehouseDAO.Supplier.ContactPerson,
-                    Address = WarehouseDAO.Supplier.Address,
+                    Id = WarehouseDAO.Partner.Id,
+                    Name = WarehouseDAO.Partner.Name,
+                    Phone = WarehouseDAO.Partner.Phone,
+                    ContactPerson = WarehouseDAO.Partner.ContactPerson,
+                    Address = WarehouseDAO.Partner.Address,
                 },
             }).FirstOrDefaultAsync();
             return Warehouse;
@@ -185,7 +185,7 @@ namespace WG.Repositories
             WarehouseDAO.Phone = Warehouse.Phone;
             WarehouseDAO.Email = Warehouse.Email;
             WarehouseDAO.Address = Warehouse.Address;
-            WarehouseDAO.SupplierId = Warehouse.SupplierId;
+            WarehouseDAO.PartnerId = Warehouse.PartnerId;
             
             await DataContext.Warehouse.AddAsync(WarehouseDAO);
             await DataContext.SaveChangesAsync();
@@ -203,7 +203,7 @@ namespace WG.Repositories
             WarehouseDAO.Phone = Warehouse.Phone;
             WarehouseDAO.Email = Warehouse.Email;
             WarehouseDAO.Address = Warehouse.Address;
-            WarehouseDAO.SupplierId = Warehouse.SupplierId;
+            WarehouseDAO.PartnerId = Warehouse.PartnerId;
             await DataContext.SaveChangesAsync();
             return true;
         }

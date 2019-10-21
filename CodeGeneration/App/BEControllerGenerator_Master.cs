@@ -207,7 +207,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
             File.WriteAllText(path, content);
         }
 
-        private string DeclareProperty(string MainClassName, Type type,int level)
+        private string DeclareProperty(string MainClassName, Type type, int level)
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
@@ -302,18 +302,20 @@ namespace {Namespace}.Controllers.{NamespaceList}
             string declareService = string.Empty;
             string declareParameter = string.Empty;
             string mappingService = string.Empty;
+            List<string> referenceTypes = new List<string>();
+            referenceTypes.Add(ClassName);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType) && PropertyInfo.PropertyType.Name != typeof(ICollection<>).Name)
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
                 {
-                    string typeName = GetClassName(PropertyInfo.PropertyType);
+                    referenceTypes.Add(referenceType);
                     declareService += $@"
-        private I{typeName}Service {typeName}Service;";
+        private I{referenceType}Service {referenceType}Service;";
                     declareParameter += $@"
-            I{typeName}Service {typeName}Service,";
+            I{referenceType}Service {referenceType}Service,";
                     mappingService += $@"
-            this.{typeName}Service = {typeName}Service;";
+            this.{referenceType}Service = {referenceType}Service;";
                 }
             }
             string content = $@"
@@ -362,13 +364,16 @@ using {Namespace}.Entities;
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(referenceType))
-                    continue;
-                content += $@"
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
+                {
+                    referenceTypes.Add(referenceType);
+                    content += $@"
         public const string SingleList{referenceType}=""/single-list-{KebabCase(referenceType)}"";";
+                }
             }
             return content;
         }
@@ -378,21 +383,23 @@ using {Namespace}.Entities;
             string content = string.Empty;
             string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(referenceType))
-                    continue;
-                string filterMapping = string.Empty;
-                List<PropertyInfo> Children = ListProperties(PropertyInfo.PropertyType);
-                foreach (PropertyInfo Child in Children)
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
                 {
-                    string filterType = GetDTOFilterType(Child.PropertyType);
-                    if (string.IsNullOrEmpty(filterType))
-                        continue;
-                    filterMapping += MappingDTOFilter($"{referenceType}Filter", $"{ClassName}Master_{referenceType}FilterDTO", Child.Name, filterType);
-                }
-                content += $@"
+                    referenceTypes.Add(referenceType);
+                    string filterMapping = string.Empty;
+                    List<PropertyInfo> Children = ListProperties(PropertyInfo.PropertyType);
+                    foreach (PropertyInfo Child in Children)
+                    {
+                        string filterType = GetDTOFilterType(Child.PropertyType);
+                        if (string.IsNullOrEmpty(filterType))
+                            continue;
+                        filterMapping += MappingDTOFilter($"{referenceType}Filter", $"{ClassName}Master_{referenceType}FilterDTO", Child.Name, filterType);
+                    }
+                    content += $@"
         [Route({ClassName}MasterRoute.SingleList{referenceType}), HttpPost]
         public async Task<List<{ClassName}Master_{referenceType}DTO>> SingleList{referenceType}([FromBody] {ClassName}Master_{referenceType}FilterDTO {ClassName}Master_{referenceType}FilterDTO)
         {{
@@ -410,6 +417,7 @@ using {Namespace}.Entities;
             return {ClassName}Master_{referenceType}DTOs;
         }}
 ";
+                }
             }
             return content;
         }

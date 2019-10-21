@@ -9,7 +9,7 @@ using WG.Services.MWarehouse;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MSupplier;
+using WG.Services.MPartner;
 
 
 namespace WG.Controllers.warehouse.warehouse_master
@@ -22,24 +22,24 @@ namespace WG.Controllers.warehouse.warehouse_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListSupplier="/single-list-supplier";
+        public const string SingleListPartner="/single-list-partner";
     }
 
     public class WarehouseMasterController : ApiController
     {
         
         
-        private ISupplierService SupplierService;
+        private IPartnerService PartnerService;
         private IWarehouseService WarehouseService;
 
         public WarehouseMasterController(
             
-            ISupplierService SupplierService,
+            IPartnerService PartnerService,
             IWarehouseService WarehouseService
         )
         {
             
-            this.SupplierService = SupplierService;
+            this.PartnerService = PartnerService;
             this.WarehouseService = WarehouseService;
         }
 
@@ -88,31 +88,31 @@ namespace WG.Controllers.warehouse.warehouse_master
             WarehouseFilter.Phone = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Phone };
             WarehouseFilter.Email = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Email };
             WarehouseFilter.Address = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Address };
-            WarehouseFilter.SupplierId = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.SupplierId };
+            WarehouseFilter.PartnerId = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.PartnerId };
             return WarehouseFilter;
         }
         
         
-        [Route(WarehouseMasterRoute.SingleListSupplier), HttpPost]
-        public async Task<List<WarehouseMaster_SupplierDTO>> SingleListSupplier([FromBody] WarehouseMaster_SupplierFilterDTO WarehouseMaster_SupplierFilterDTO)
+        [Route(WarehouseMasterRoute.SingleListPartner), HttpPost]
+        public async Task<List<WarehouseMaster_PartnerDTO>> SingleListPartner([FromBody] WarehouseMaster_PartnerFilterDTO WarehouseMaster_PartnerFilterDTO)
         {
-            SupplierFilter SupplierFilter = new SupplierFilter();
-            SupplierFilter.Skip = 0;
-            SupplierFilter.Take = 20;
-            SupplierFilter.OrderBy = SupplierOrder.Id;
-            SupplierFilter.OrderType = OrderType.ASC;
-            SupplierFilter.Selects = SupplierSelect.ALL;
+            PartnerFilter PartnerFilter = new PartnerFilter();
+            PartnerFilter.Skip = 0;
+            PartnerFilter.Take = 20;
+            PartnerFilter.OrderBy = PartnerOrder.Id;
+            PartnerFilter.OrderType = OrderType.ASC;
+            PartnerFilter.Selects = PartnerSelect.ALL;
             
-            SupplierFilter.Id = new LongFilter{ Equal = WarehouseMaster_SupplierFilterDTO.Id };
-            SupplierFilter.Name = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.Name };
-            SupplierFilter.Phone = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.Phone };
-            SupplierFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.ContactPerson };
-            SupplierFilter.Address = new StringFilter{ StartsWith = WarehouseMaster_SupplierFilterDTO.Address };
+            PartnerFilter.Id = new LongFilter{ Equal = WarehouseMaster_PartnerFilterDTO.Id };
+            PartnerFilter.Name = new StringFilter{ StartsWith = WarehouseMaster_PartnerFilterDTO.Name };
+            PartnerFilter.Phone = new StringFilter{ StartsWith = WarehouseMaster_PartnerFilterDTO.Phone };
+            PartnerFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseMaster_PartnerFilterDTO.ContactPerson };
+            PartnerFilter.Address = new StringFilter{ StartsWith = WarehouseMaster_PartnerFilterDTO.Address };
 
-            List<Supplier> Suppliers = await SupplierService.List(SupplierFilter);
-            List<WarehouseMaster_SupplierDTO> WarehouseMaster_SupplierDTOs = Suppliers
-                .Select(x => new WarehouseMaster_SupplierDTO(x)).ToList();
-            return WarehouseMaster_SupplierDTOs;
+            List<Partner> Partners = await PartnerService.List(PartnerFilter);
+            List<WarehouseMaster_PartnerDTO> WarehouseMaster_PartnerDTOs = Partners
+                .Select(x => new WarehouseMaster_PartnerDTO(x)).ToList();
+            return WarehouseMaster_PartnerDTOs;
         }
 
     }

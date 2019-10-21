@@ -1,11 +1,14 @@
+
 import {Search} from 'core/entities/Search';
 
 export class DistrictSearch extends Search {
-  public id: string;
+  
+  public id?: number;
 
-  public code: string;
+  public name?: string;
 
-  public name: string;
+  public orderNumber?: number;
 
-  public provinceId?: string;
+  public provinceId?: number;
+;
 }

@@ -11,7 +11,12 @@ namespace WG.Entities
         public long Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public List<Category_Item> Category_Items { get; set; }
+        public long? ParentId { get; set; }
+        public string Icon { get; set; }
+        public Category Parent { get; set; }
+        public List<Brand> Brands { get; set; }
+        public List<Category> InverseParent { get; set; }
+        public List<Item> Items { get; set; }
     }
 
     public class CategoryFilter : FilterEntity
@@ -20,6 +25,8 @@ namespace WG.Entities
         public LongFilter Id { get; set; }
         public StringFilter Code { get; set; }
         public StringFilter Name { get; set; }
+        public LongFilter ParentId { get; set; }
+        public StringFilter Icon { get; set; }
         public List<long> Ids { get; set; }
         public List<long> ExceptIds { get; set; }
 
@@ -33,6 +40,8 @@ namespace WG.Entities
         Id = 1,
         Code = 2,
         Name = 3,
+        Parent = 4,
+        Icon = 5,
     }
 
     public enum CategorySelect:long
@@ -42,5 +51,7 @@ namespace WG.Entities
         Id = E._1,
         Code = E._2,
         Name = E._3,
+        Parent = E._4,
+        Icon = E._5,
     }
 }

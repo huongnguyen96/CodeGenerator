@@ -11,18 +11,16 @@ export class ItemSearch extends Search {
 
   public sKU?: string;
 
-  public typeId?: number;
-
-  public purchasePrice?: number;
-
-  public salePrice?: number;
-
   public description?: string;
+
+  public typeId?: number;
 
   public statusId?: number;
 
-  public unitOfMeasureId?: number;
+  public partnerId?: number;
 
-  public supplierId?: number;
+  public categoryId?: number;
+
+  public brandId?: number;
 ;
 }

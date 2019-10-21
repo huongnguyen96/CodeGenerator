@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {ItemStatus} from 'models/ItemStatus';
-import {ItemStatusSearch} from 'models/ItemStatusSearch';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {ItemStatus} from 'models/ItemStatus';
+import {ItemStatusSearch} from 'models/ItemStatusSearch';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
@@ -21,7 +21,7 @@ export class ItemStatusDetailRepository extends Repository {
         map((response: AxiosResponse<ItemStatus>) => response.data),
       );
   };
-
+  
   public create = (itemStatus: ItemStatus): Observable<ItemStatus> => {
     return this.httpService.post<ItemStatus>(`/create`, itemStatus)
       .pipe(
@@ -40,13 +40,13 @@ export class ItemStatusDetailRepository extends Repository {
         map((response: AxiosResponse<ItemStatus>) => response.data),
       );
   };
-
+  
   public save = (itemStatus: ItemStatus): Observable<ItemStatus> => {
     return itemStatus.id ? this.update(itemStatus) : this.create(itemStatus);
   };
-
+  
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item', itemSearch)
+    return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );

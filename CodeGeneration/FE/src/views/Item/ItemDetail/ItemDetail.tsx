@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
-import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
+import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -20,10 +20,11 @@ import {Item} from 'models/Item';
 import './ItemDetail.scss';
 import itemDetailRepository from './ItemDetailRepository';
 
+import {BrandSearch} from 'models/BrandSearch';
+import {CategorySearch} from 'models/CategorySearch';
+import {PartnerSearch} from 'models/PartnerSearch';
 import {ItemStatusSearch} from 'models/ItemStatusSearch';
 import {ItemTypeSearch} from 'models/ItemTypeSearch';
-import {ItemUnitOfMeasureSearch} from 'models/ItemUnitOfMeasureSearch';
-import {SupplierSearch} from 'models/SupplierSearch';
 
 function ItemDetail(props) {
   const {
@@ -38,11 +39,12 @@ function ItemDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [item, loading] = useDetail<Item>(id, itemDetailRepository.get, new Item());
-
+  
+  const [brandSearch, setBrandSearch] = useState<BrandSearch>(new BrandSearch());
+  const [categorySearch, setCategorySearch] = useState<CategorySearch>(new CategorySearch());
+  const [partnerSearch, setPartnerSearch] = useState<PartnerSearch>(new PartnerSearch());
   const [itemStatusSearch, setItemStatusSearch] = useState<ItemStatusSearch>(new ItemStatusSearch());
-  const [supplierSearch, setSupplierSearch] = useState<SupplierSearch>(new SupplierSearch());
   const [itemTypeSearch, setItemTypeSearch] = useState<ItemTypeSearch>(new ItemTypeSearch());
-  const [itemUnitOfMeasureSearch, setItemUnitOfMeasureSearch] = useState<ItemUnitOfMeasureSearch>(new ItemUnitOfMeasureSearch());
 
   function handleSubmit() {
     form.validateFields((validationError: Error, item: Item) => {
@@ -92,7 +94,7 @@ function ItemDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-
+        
         <Form.Item label={translate('itemDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: item.code,
@@ -135,48 +137,6 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('itemDetail.typeId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.typeId,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.typeId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.purchasePrice')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.purchasePrice,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.purchasePrice.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.salePrice')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.salePrice,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.salePrice.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('itemDetail.description')}>
           {form.getFieldDecorator('code', {
             initialValue: item.description,
@@ -184,6 +144,20 @@ function ItemDetail(props) {
               {
                 required: true,
                 message: translate('itemDetail.errors.description.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
+        </Form.Item>
+
+        <Form.Item label={translate('itemDetail.typeId')}>
+          {form.getFieldDecorator('code', {
+            initialValue: item.typeId,
+            rules: [
+              {
+                required: true,
+                message: translate('itemDetail.errors.typeId.required'),
               },
             ],
           })(
@@ -205,13 +179,13 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('itemDetail.unitOfMeasureId')}>
+        <Form.Item label={translate('itemDetail.partnerId')}>
           {form.getFieldDecorator('code', {
-            initialValue: item.unitOfMeasureId,
+            initialValue: item.partnerId,
             rules: [
               {
                 required: true,
-                message: translate('itemDetail.errors.unitOfMeasureId.required'),
+                message: translate('itemDetail.errors.partnerId.required'),
               },
             ],
           })(
@@ -219,13 +193,13 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('itemDetail.supplierId')}>
+        <Form.Item label={translate('itemDetail.categoryId')}>
           {form.getFieldDecorator('code', {
-            initialValue: item.supplierId,
+            initialValue: item.categoryId,
             rules: [
               {
                 required: true,
-                message: translate('itemDetail.errors.supplierId.required'),
+                message: translate('itemDetail.errors.categoryId.required'),
               },
             ],
           })(
@@ -233,15 +207,105 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
+        <Form.Item label={translate('itemDetail.brandId')}>
+          {form.getFieldDecorator('code', {
+            initialValue: item.brandId,
+            rules: [
+              {
+                required: true,
+                message: translate('itemDetail.errors.brandId.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
+        </Form.Item>
+
+        
+        <Form.Item label={translate('itemDetail.brand')}>
+            {
+                form.getFieldDecorator(
+                    'brandId', 
+                    {
+                        initialValue: item.brand 
+                            ? item.brand.id 
+                            : null,
+                    }
+                )
+                (
+                    <SingleSelect getList={itemDetailRepository.singleListBrand}
+                                  search={brandSearch}
+                                  searchField="name"
+                                  showSearch
+                                  setSearch={setBrandSearch}>
+                      {item.brand && (
+                        <Option value={item.brand.id}>
+                          {item.brand.name}
+                        </Option>
+                      )}
+                    </SingleSelect>,
+                )
+            }
+        </Form.Item>
+        <Form.Item label={translate('itemDetail.category')}>
+            {
+                form.getFieldDecorator(
+                    'categoryId', 
+                    {
+                        initialValue: item.category 
+                            ? item.category.id 
+                            : null,
+                    }
+                )
+                (
+                    <SingleSelect getList={itemDetailRepository.singleListCategory}
+                                  search={categorySearch}
+                                  searchField="name"
+                                  showSearch
+                                  setSearch={setCategorySearch}>
+                      {item.category && (
+                        <Option value={item.category.id}>
+                          {item.category.name}
+                        </Option>
+                      )}
+                    </SingleSelect>,
+                )
+            }
+        </Form.Item>
+        <Form.Item label={translate('itemDetail.partner')}>
+            {
+                form.getFieldDecorator(
+                    'partnerId', 
+                    {
+                        initialValue: item.partner 
+                            ? item.partner.id 
+                            : null,
+                    }
+                )
+                (
+                    <SingleSelect getList={itemDetailRepository.singleListPartner}
+                                  search={partnerSearch}
+                                  searchField="name"
+                                  showSearch
+                                  setSearch={setPartnerSearch}>
+                      {item.partner && (
+                        <Option value={item.partner.id}>
+                          {item.partner.name}
+                        </Option>
+                      )}
+                    </SingleSelect>,
+                )
+            }
+        </Form.Item>
         <Form.Item label={translate('itemDetail.status')}>
             {
                 form.getFieldDecorator(
-                    'statusId',
+                    'statusId', 
                     {
-                        initialValue: item.status
-                            ? item.status.id
+                        initialValue: item.status 
+                            ? item.status.id 
                             : null,
-                    },
+                    }
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListItemStatus}
@@ -258,40 +322,15 @@ function ItemDetail(props) {
                 )
             }
         </Form.Item>
-        <Form.Item label={translate('itemDetail.supplier')}>
-            {
-                form.getFieldDecorator(
-                    'supplierId',
-                    {
-                        initialValue: item.supplier
-                            ? item.supplier.id
-                            : null,
-                    },
-                )
-                (
-                    <SingleSelect getList={itemDetailRepository.singleListSupplier}
-                                  search={supplierSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setSupplierSearch}>
-                      {item.supplier && (
-                        <Option value={item.supplier.id}>
-                          {item.supplier.name}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
         <Form.Item label={translate('itemDetail.type')}>
             {
                 form.getFieldDecorator(
-                    'typeId',
+                    'typeId', 
                     {
-                        initialValue: item.type
-                            ? item.type.id
+                        initialValue: item.type 
+                            ? item.type.id 
                             : null,
-                    },
+                    }
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListItemType}
@@ -302,31 +341,6 @@ function ItemDetail(props) {
                       {item.type && (
                         <Option value={item.type.id}>
                           {item.type.name}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
-        <Form.Item label={translate('itemDetail.unitOfMeasure')}>
-            {
-                form.getFieldDecorator(
-                    'unitOfMeasureId',
-                    {
-                        initialValue: item.unitOfMeasure
-                            ? item.unitOfMeasure.id
-                            : null,
-                    },
-                )
-                (
-                    <SingleSelect getList={itemDetailRepository.singleListItemUnitOfMeasure}
-                                  search={itemUnitOfMeasureSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setItemUnitOfMeasureSearch}>
-                      {item.unitOfMeasure && (
-                        <Option value={item.unitOfMeasure.id}>
-                          {item.unitOfMeasure.name}
                         </Option>
                       )}
                     </SingleSelect>,

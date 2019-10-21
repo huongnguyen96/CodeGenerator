@@ -321,11 +321,14 @@ namespace {Namespace}.Controllers.{NamespaceList}
             string declareService = string.Empty;
             string declareParameter = string.Empty;
             string mappingService = string.Empty;
+            List<string> referenceTypes = new List<string>();
+            referenceTypes.Add(ClassName);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
-                string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(primitiveType) && PropertyInfo.PropertyType.Name != typeof(ICollection<>).Name)
+                string referenceType = GetReferenceType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
                 {
+                    referenceTypes.Add(referenceType);
                     string typeName = GetClassName(PropertyInfo.PropertyType);
                     declareService += $@"
         private I{typeName}Service {typeName}Service;";
@@ -381,13 +384,16 @@ using {Namespace}.Entities;
         {
             string content = string.Empty;
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(referenceType))
-                    continue;
-                content += $@"
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
+                {
+                    referenceTypes.Add(referenceType);
+                    content += $@"
         public const string SingleList{referenceType}=""/single-list-{KebabCase(referenceType)}"";";
+                }
             }
             return content;
         }
@@ -397,13 +403,15 @@ using {Namespace}.Entities;
             string content = string.Empty;
             string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (string.IsNullOrEmpty(referenceType))
-                    continue;
-                string filterMapping = ConvertFilterDTOToFilterEntity(ClassName, PropertyInfo.PropertyType);
-                content += $@"
+                if (!string.IsNullOrEmpty(referenceType) && !referenceTypes.Contains(referenceType))
+                {
+                    referenceTypes.Add(referenceType);
+                    string filterMapping = ConvertFilterDTOToFilterEntity(ClassName, PropertyInfo.PropertyType);
+                    content += $@"
         [Route({ClassName}DetailRoute.SingleList{referenceType}), HttpPost]
         public async Task<List<{ClassName}Detail_{referenceType}DTO>> SingleList{referenceType}([FromBody] {ClassName}Detail_{referenceType}FilterDTO {ClassName}Detail_{referenceType}FilterDTO)
         {{
@@ -421,6 +429,7 @@ using {Namespace}.Entities;
             return {ClassName}Detail_{referenceType}DTOs;
         }}
 ";
+                }
             }
             return content;
         }

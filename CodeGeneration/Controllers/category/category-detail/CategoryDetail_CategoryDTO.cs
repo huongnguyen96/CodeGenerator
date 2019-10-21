@@ -13,6 +13,8 @@ namespace WG.Controllers.category.category_detail
         public long Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        public long? ParentId { get; set; }
+        public string Icon { get; set; }
         public CategoryDetail_CategoryDTO() {}
         public CategoryDetail_CategoryDTO(Category Category)
         {
@@ -20,6 +22,8 @@ namespace WG.Controllers.category.category_detail
             this.Id = Category.Id;
             this.Code = Category.Code;
             this.Name = Category.Name;
+            this.ParentId = Category.ParentId;
+            this.Icon = Category.Icon;
         }
     }
 
@@ -29,5 +33,7 @@ namespace WG.Controllers.category.category_detail
         public long? Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        public long? ParentId { get; set; }
+        public string Icon { get; set; }
     }
 }

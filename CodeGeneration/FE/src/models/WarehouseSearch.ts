@@ -13,6 +13,6 @@ export class WarehouseSearch extends Search {
 
   public address?: string;
 
-  public supplierId?: number;
+  public partnerId?: number;
 ;
 }

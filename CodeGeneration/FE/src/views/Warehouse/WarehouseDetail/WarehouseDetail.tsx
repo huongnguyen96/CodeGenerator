@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
-import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
+import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -20,7 +20,7 @@ import {Warehouse} from 'models/Warehouse';
 import './WarehouseDetail.scss';
 import warehouseDetailRepository from './WarehouseDetailRepository';
 
-import {SupplierSearch} from 'models/SupplierSearch';
+import {PartnerSearch} from 'models/PartnerSearch';
 
 function WarehouseDetail(props) {
   const {
@@ -35,8 +35,8 @@ function WarehouseDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [warehouse, loading] = useDetail<Warehouse>(id, warehouseDetailRepository.get, new Warehouse());
-
-  const [supplierSearch, setSupplierSearch] = useState<SupplierSearch>(new SupplierSearch());
+  
+  const [partnerSearch, setPartnerSearch] = useState<PartnerSearch>(new PartnerSearch());
 
   function handleSubmit() {
     form.validateFields((validationError: Error, warehouse: Warehouse) => {
@@ -86,7 +86,7 @@ function WarehouseDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-
+        
         <Form.Item label={translate('warehouseDetail.name')}>
           {form.getFieldDecorator('code', {
             initialValue: warehouse.name,
@@ -143,13 +143,13 @@ function WarehouseDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('warehouseDetail.supplierId')}>
+        <Form.Item label={translate('warehouseDetail.partnerId')}>
           {form.getFieldDecorator('code', {
-            initialValue: warehouse.supplierId,
+            initialValue: warehouse.partnerId,
             rules: [
               {
                 required: true,
-                message: translate('warehouseDetail.errors.supplierId.required'),
+                message: translate('warehouseDetail.errors.partnerId.required'),
               },
             ],
           })(
@@ -157,25 +157,26 @@ function WarehouseDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('warehouseDetail.supplier')}>
+        
+        <Form.Item label={translate('warehouseDetail.partner')}>
             {
                 form.getFieldDecorator(
-                    'supplierId',
+                    'partnerId', 
                     {
-                        initialValue: warehouse.supplier
-                            ? warehouse.supplier.id
+                        initialValue: warehouse.partner 
+                            ? warehouse.partner.id 
                             : null,
-                    },
+                    }
                 )
                 (
-                    <SingleSelect getList={warehouseDetailRepository.singleListSupplier}
-                                  search={supplierSearch}
+                    <SingleSelect getList={warehouseDetailRepository.singleListPartner}
+                                  search={partnerSearch}
                                   searchField="name"
                                   showSearch
-                                  setSearch={setSupplierSearch}>
-                      {warehouse.supplier && (
-                        <Option value={warehouse.supplier.id}>
-                          {warehouse.supplier.name}
+                                  setSearch={setPartnerSearch}>
+                      {warehouse.partner && (
+                        <Option value={warehouse.partner.id}>
+                          {warehouse.partner.name}
                         </Option>
                       )}
                     </SingleSelect>,

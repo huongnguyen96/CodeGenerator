@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
 
+import './WarehouseMaster.scss';
+import warehouseMasterRepository from './WarehouseMasterRepository';
 import { WAREHOUSE_ROUTE } from 'config/route-consts';
 import { Warehouse } from 'models/Warehouse';
 import { WarehouseSearch } from 'models/WarehouseSearch';
-import './WarehouseMaster.scss';
-import warehouseMasterRepository from './WarehouseMasterRepository';
 
 const {Column} = Table;
 
@@ -97,7 +97,7 @@ function WarehouseMaster(props: RouteComponentProps) {
                 title={translate('warehouseMaster.index')}
                 render={renderIndex<Warehouse, WarehouseSearch>(search)}
         />
-
+        
          <Column key="id"
                 dataIndex="id"
                 title={translate('warehouseMaster.id')}
@@ -128,21 +128,21 @@ function WarehouseMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('address', sorter)}
         />
-         <Column key="supplierId"
-                dataIndex="supplierId"
-                title={translate('warehouseMaster.supplierId')}
+         <Column key="partnerId"
+                dataIndex="partnerId"
+                title={translate('warehouseMaster.partnerId')}
                 sorter
-                sortOrder={getColumnSortOrder<Warehouse>('supplierId', sorter)}
+                sortOrder={getColumnSortOrder<Warehouse>('partnerId', sorter)}
         />
-         <Column key="supplier"
-                dataIndex="supplier"
-                title={translate('warehouseMaster.supplier')}
+         <Column key="partner"
+                dataIndex="partner"
+                title={translate('warehouseMaster.partner')}
                 sorter
-                sortOrder={getColumnSortOrder<Warehouse>('supplier', sorter)}
-                render={(supplier: Supplier) => {
+                sortOrder={getColumnSortOrder<Warehouse>('partner', sorter)}
+                render={(partner: Partner) => {
                        return (
                          <>
-                           {supplier.name}
+                           {partner.name}
                          </>
                        );
                      }}

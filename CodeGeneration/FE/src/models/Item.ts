@@ -1,10 +1,11 @@
 import {Model} from 'core';
 
+import {Brand} from 'models/Brand';
+import {Category} from 'models/Category';
+import {Partner} from 'models/Partner';
 import {ItemStatus} from 'models/ItemStatus';
-import {Supplier} from 'models/Supplier';
 import {ItemType} from 'models/ItemType';
-import {ItemUnitOfMeasure} from 'models/ItemUnitOfMeasure';
-import {ItemStock} from 'models/ItemStock';
+import {VariationGrouping} from 'models/VariationGrouping';
 
 export class Item extends Model {
    
@@ -16,29 +17,29 @@ export class Item extends Model {
  
   public sKU?: string;
  
-  public typeId?: number;
- 
-  public purchasePrice?: number;
- 
-  public salePrice?: number;
- 
   public description?: string;
+ 
+  public typeId?: number;
  
   public statusId?: number;
  
-  public unitOfMeasureId?: number;
+  public partnerId?: number;
  
-  public supplierId?: number;
+  public categoryId?: number;
+ 
+  public brandId?: number;
+
+  public brand?: Brand;
+
+  public category?: Category;
+
+  public partner?: Partner;
 
   public status?: ItemStatus;
 
-  public supplier?: Supplier;
-
   public type?: ItemType;
-
-  public unitOfMeasure?: ItemUnitOfMeasure;
   
-  public itemStocks?: ItemStock[];
+  public variationGroupings?: VariationGrouping[];
 
   public constructor(item?: Item) {
     super(item);
