@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {ORDER_ROUTE} from 'config/route-consts';
 import {Order} from 'models/Order';
+import {OrderSearch} from 'models/OrderSearch';
 import './OrderDetail.scss';
 import orderDetailRepository from './OrderDetailRepository';
 
+import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
 
 function OrderDetail(props) {
@@ -87,24 +89,10 @@ function OrderDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('orderDetail.customerId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: order.customerId,
-            rules: [
-              {
-                required: true,
-                message: translate('orderDetail.errors.customerId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('orderDetail.createdDate')}>
           {
             form.getFieldDecorator(
-                'name', 
+                'createdDate', 
                 {
                     initialValue: order.createdDate,
                     rules: [
@@ -116,7 +104,7 @@ function OrderDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderDetail.voucherCode')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('voucherCode', {
             initialValue: order.voucherCode,
             rules: [
               {
@@ -130,7 +118,7 @@ function OrderDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderDetail.total')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('total', {
             initialValue: order.total,
             rules: [
               {
@@ -144,7 +132,7 @@ function OrderDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderDetail.voucherDiscount')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('voucherDiscount', {
             initialValue: order.voucherDiscount,
             rules: [
               {
@@ -158,7 +146,7 @@ function OrderDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderDetail.campaignDiscount')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('campaignDiscount', {
             initialValue: order.campaignDiscount,
             rules: [
               {
@@ -190,7 +178,7 @@ function OrderDetail(props) {
                                   setSearch={setCustomerSearch}>
                       {order.customer && (
                         <Option value={order.customer.id}>
-                          {order.customer.name}
+                          {order.customer.id}
                         </Option>
                       )}
                     </SingleSelect>,

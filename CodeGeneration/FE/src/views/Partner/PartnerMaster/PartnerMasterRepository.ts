@@ -41,18 +41,6 @@ export class PartnerMasterRepository extends Repository {
       );
   };
   
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
-      .pipe(
-        map((response: AxiosResponse<Item[]>) => response.data),
-      );
-  };
-  public singleList = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
-    return this.httpService.post('/single-list-warehouse',warehouseSearch)
-      .pipe(
-        map((response: AxiosResponse<Warehouse[]>) => response.data),
-      );
-  };
 }
 
 export default new PartnerMasterRepository();

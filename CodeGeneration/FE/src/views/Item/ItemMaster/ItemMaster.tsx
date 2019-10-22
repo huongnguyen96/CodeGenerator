@@ -16,6 +16,17 @@ import { ITEM_ROUTE } from 'config/route-consts';
 import { Item } from 'models/Item';
 import { ItemSearch } from 'models/ItemSearch';
 
+import {Brand} from 'models/Brand';
+import {BrandSearch} from 'models/BrandSearch';
+import {Category} from 'models/Category';
+import {CategorySearch} from 'models/CategorySearch';
+import {Partner} from 'models/Partner';
+import {PartnerSearch} from 'models/PartnerSearch';
+import {ItemStatus} from 'models/ItemStatus';
+import {ItemStatusSearch} from 'models/ItemStatusSearch';
+import {ItemType} from 'models/ItemType';
+import {ItemTypeSearch} from 'models/ItemTypeSearch';
+
 const {Column} = Table;
 
 function ItemMaster(props: RouteComponentProps) {
@@ -166,7 +177,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(brand: Brand) => {
                        return (
                          <>
-                           {brand.name}
+                           {brand.id}
                          </>
                        );
                      }}
@@ -179,7 +190,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(category: Category) => {
                        return (
                          <>
-                           {category.name}
+                           {category.id}
                          </>
                        );
                      }}
@@ -192,7 +203,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(partner: Partner) => {
                        return (
                          <>
-                           {partner.name}
+                           {partner.id}
                          </>
                        );
                      }}
@@ -202,10 +213,10 @@ function ItemMaster(props: RouteComponentProps) {
                 title={translate('itemMaster.status')}
                 sorter
                 sortOrder={getColumnSortOrder<Item>('status', sorter)}
-                render={(status: Status) => {
+                render={(status: ItemStatus) => {
                        return (
                          <>
-                           {status.name}
+                           {status.id}
                          </>
                        );
                      }}
@@ -215,10 +226,10 @@ function ItemMaster(props: RouteComponentProps) {
                 title={translate('itemMaster.type')}
                 sorter
                 sortOrder={getColumnSortOrder<Item>('type', sorter)}
-                render={(type: Type) => {
+                render={(type: ItemType) => {
                        return (
                          <>
-                           {type.name}
+                           {type.id}
                          </>
                        );
                      }}

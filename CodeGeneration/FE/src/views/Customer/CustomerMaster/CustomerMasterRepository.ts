@@ -41,18 +41,6 @@ export class CustomerMasterRepository extends Repository {
       );
   };
   
-  public singleList = (orderSearch: OrderSearch): Observable<Order[]> => {
-    return this.httpService.post('/single-list-order',orderSearch)
-      .pipe(
-        map((response: AxiosResponse<Order[]>) => response.data),
-      );
-  };
-  public singleList = (shippingAddressSearch: ShippingAddressSearch): Observable<ShippingAddress[]> => {
-    return this.httpService.post('/single-list-shipping-address',shippingAddressSearch)
-      .pipe(
-        map((response: AxiosResponse<ShippingAddress[]>) => response.data),
-      );
-  };
 }
 
 export default new CustomerMasterRepository();

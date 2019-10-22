@@ -16,6 +16,11 @@ import { STOCK_ROUTE } from 'config/route-consts';
 import { Stock } from 'models/Stock';
 import { StockSearch } from 'models/StockSearch';
 
+import {Unit} from 'models/Unit';
+import {UnitSearch} from 'models/UnitSearch';
+import {Warehouse} from 'models/Warehouse';
+import {WarehouseSearch} from 'models/WarehouseSearch';
+
 const {Column} = Table;
 
 function StockMaster(props: RouteComponentProps) {
@@ -130,7 +135,7 @@ function StockMaster(props: RouteComponentProps) {
                 render={(unit: Unit) => {
                        return (
                          <>
-                           {unit.name}
+                           {unit.id}
                          </>
                        );
                      }}
@@ -143,7 +148,7 @@ function StockMaster(props: RouteComponentProps) {
                 render={(warehouse: Warehouse) => {
                        return (
                          <>
-                           {warehouse.name}
+                           {warehouse.id}
                          </>
                        );
                      }}

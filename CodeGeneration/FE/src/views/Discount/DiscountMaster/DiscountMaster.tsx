@@ -16,6 +16,7 @@ import { DISCOUNT_ROUTE } from 'config/route-consts';
 import { Discount } from 'models/Discount';
 import { DiscountSearch } from 'models/DiscountSearch';
 
+
 const {Column} = Table;
 
 function DiscountMaster(props: RouteComponentProps) {

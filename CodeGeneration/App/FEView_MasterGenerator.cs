@@ -51,6 +51,7 @@ import {CamelCase(ClassName)}MasterRepository from './{ClassName}MasterRepositor
 import {{ {UpperCase(ClassName)}_ROUTE }} from 'config/route-consts';
 import {{ {ClassName} }} from 'models/{ClassName}';
 import {{ {ClassName}Search }} from 'models/{ClassName}Search';
+{BuildSingleListImport(type)}
 
 const {{Column}} = Table;
 
@@ -187,10 +188,10 @@ export default withRouter({ClassName}Master);
                 title={{translate('{CamelCase(ClassName)}Master.{CamelCase(PropertyInfo.Name)}')}}
                 sorter
                 sortOrder={{getColumnSortOrder<{ClassName}>('{CamelCase(PropertyInfo.Name)}', sorter)}}
-                render={{({CamelCase(PropertyInfo.Name)}: {PropertyInfo.Name}) => {{
+                render={{({CamelCase(PropertyInfo.Name)}: {referenceType}) => {{
                        return (
                          <>
-                           {{{CamelCase(PropertyInfo.Name)}.name}}
+                           {{{CamelCase(PropertyInfo.Name)}.id}}
                          </>
                        );
                      }}}}
@@ -305,8 +306,10 @@ describe('{ClassName}Master', () => {{
         private string BuildSingleListImport(Type type)
         {
             string contents = string.Empty;
+            string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             List<string> referenceTypes = new List<string>();
+            referenceTypes.Add(ClassName);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
@@ -317,13 +320,6 @@ describe('{ClassName}Master', () => {{
 import {{{referenceType}}} from 'models/{referenceType}';
 import {{{referenceType}Search}} from 'models/{referenceType}Search';";
                 }
-//                string listType = GetListType(PropertyInfo.PropertyType);
-//                if (!string.IsNullOrEmpty(listType))
-//                {
-//                    contents += $@"
-//import {{{listType}}} from 'models/{listType}';
-//import {{{listType}Search}} from 'models/{listType}Search';";
-//                }
             }
             return contents;
         }
@@ -344,17 +340,6 @@ import {{{referenceType}Search}} from 'models/{referenceType}Search';";
     return this.httpService.post('/single-list-{KebabCase(referenceType)}',{CamelCase(referenceType)}Search)
       .pipe(
         map((response: AxiosResponse<{referenceType}[]>) => response.data),
-      );
-  }};";
-                }
-                string listType = GetListType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(listType))
-                {
-                    contents += $@"
-  public singleList{referenceType} = ({CamelCase(listType)}Search: {listType}Search): Observable<{listType}[]> => {{
-    return this.httpService.post('/single-list-{KebabCase(listType)}',{CamelCase(listType)}Search)
-      .pipe(
-        map((response: AxiosResponse<{listType}[]>) => response.data),
       );
   }};";
                 }

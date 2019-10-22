@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {CUSTOMER_GROUPING_ROUTE} from 'config/route-consts';
 import {CustomerGrouping} from 'models/CustomerGrouping';
+import {CustomerGroupingSearch} from 'models/CustomerGroupingSearch';
 import './CustomerGroupingDetail.scss';
 import customerGroupingDetailRepository from './CustomerGroupingDetailRepository';
 
@@ -86,7 +87,7 @@ function CustomerGroupingDetail(props) {
         )}
         
         <Form.Item label={translate('customerGroupingDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: customerGrouping.name,
             rules: [
               {

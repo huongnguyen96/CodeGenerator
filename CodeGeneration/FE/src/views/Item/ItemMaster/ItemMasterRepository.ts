@@ -81,12 +81,6 @@ export class ItemMasterRepository extends Repository {
         map((response: AxiosResponse<ItemType[]>) => response.data),
       );
   };
-  public singleList = (variationGroupingSearch: VariationGroupingSearch): Observable<VariationGrouping[]> => {
-    return this.httpService.post('/single-list-variation-grouping',variationGroupingSearch)
-      .pipe(
-        map((response: AxiosResponse<VariationGrouping[]>) => response.data),
-      );
-  };
 }
 
 export default new ItemMasterRepository();

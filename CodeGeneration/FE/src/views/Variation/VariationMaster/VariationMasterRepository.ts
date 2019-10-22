@@ -49,24 +49,6 @@ export class VariationMasterRepository extends Repository {
         map((response: AxiosResponse<VariationGrouping[]>) => response.data),
       );
   };
-  public singleList = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
-      .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
-      );
-  };
-  public singleList = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
-      .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
-      );
-  };
-  public singleList = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
-      .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
-      );
-  };
 }
 
 export default new VariationMasterRepository();

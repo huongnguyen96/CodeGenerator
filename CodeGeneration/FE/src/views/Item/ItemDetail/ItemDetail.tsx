@@ -17,13 +17,19 @@ import {withRouter} from 'react-router-dom';
 
 import {ITEM_ROUTE} from 'config/route-consts';
 import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import './ItemDetail.scss';
 import itemDetailRepository from './ItemDetailRepository';
 
+import {Brand} from 'models/Brand';
 import {BrandSearch} from 'models/BrandSearch';
+import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
+import {Partner} from 'models/Partner';
 import {PartnerSearch} from 'models/PartnerSearch';
+import {ItemStatus} from 'models/ItemStatus';
 import {ItemStatusSearch} from 'models/ItemStatusSearch';
+import {ItemType} from 'models/ItemType';
 import {ItemTypeSearch} from 'models/ItemTypeSearch';
 
 function ItemDetail(props) {
@@ -110,7 +116,7 @@ function ItemDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('itemDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: item.name,
             rules: [
               {
@@ -124,7 +130,7 @@ function ItemDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('itemDetail.sKU')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('sKU', {
             initialValue: item.sKU,
             rules: [
               {
@@ -138,82 +144,12 @@ function ItemDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('itemDetail.description')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('description', {
             initialValue: item.description,
             rules: [
               {
                 required: true,
                 message: translate('itemDetail.errors.description.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.typeId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.typeId,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.typeId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.statusId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.statusId,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.statusId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.partnerId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.partnerId,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.partnerId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.categoryId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.categoryId,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.categoryId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.brandId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.brandId,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.brandId.required'),
               },
             ],
           })(
@@ -240,7 +176,7 @@ function ItemDetail(props) {
                                   setSearch={setBrandSearch}>
                       {item.brand && (
                         <Option value={item.brand.id}>
-                          {item.brand.name}
+                          {item.brand.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -265,7 +201,7 @@ function ItemDetail(props) {
                                   setSearch={setCategorySearch}>
                       {item.category && (
                         <Option value={item.category.id}>
-                          {item.category.name}
+                          {item.category.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -290,7 +226,7 @@ function ItemDetail(props) {
                                   setSearch={setPartnerSearch}>
                       {item.partner && (
                         <Option value={item.partner.id}>
-                          {item.partner.name}
+                          {item.partner.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -315,7 +251,7 @@ function ItemDetail(props) {
                                   setSearch={setItemStatusSearch}>
                       {item.status && (
                         <Option value={item.status.id}>
-                          {item.status.name}
+                          {item.status.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -340,7 +276,7 @@ function ItemDetail(props) {
                                   setSearch={setItemTypeSearch}>
                       {item.type && (
                         <Option value={item.type.id}>
-                          {item.type.name}
+                          {item.type.id}
                         </Option>
                       )}
                     </SingleSelect>,

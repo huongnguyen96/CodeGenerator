@@ -16,6 +16,7 @@ import { CUSTOMER_GROUPING_ROUTE } from 'config/route-consts';
 import { CustomerGrouping } from 'models/CustomerGrouping';
 import { CustomerGroupingSearch } from 'models/CustomerGroupingSearch';
 
+
 const {Column} = Table;
 
 function CustomerGroupingMaster(props: RouteComponentProps) {

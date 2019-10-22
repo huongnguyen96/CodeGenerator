@@ -6,10 +6,6 @@ import {map} from 'rxjs/operators';
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
 
-import {Order} from 'models/Order';
-import {OrderSearch} from 'models/OrderSearch';
-import {ShippingAddress} from 'models/ShippingAddress';
-import {ShippingAddressSearch} from 'models/ShippingAddressSearch';
 
 export class CustomerDetailRepository extends Repository {
   public constructor() {
@@ -47,18 +43,6 @@ export class CustomerDetailRepository extends Repository {
     return customer.id ? this.update(customer) : this.create(customer);
   };
   
-  public singleListOrder = (orderSearch: OrderSearch): Observable<Order[]> => {
-    return this.httpService.post('/single-list-order',orderSearch)
-      .pipe(
-        map((response: AxiosResponse<Order[]>) => response.data),
-      );
-  };
-  public singleListShippingAddress = (shippingAddressSearch: ShippingAddressSearch): Observable<ShippingAddress[]> => {
-    return this.httpService.post('/single-list-shipping-address',shippingAddressSearch)
-      .pipe(
-        map((response: AxiosResponse<ShippingAddress[]>) => response.data),
-      );
-  };
 }
 
 export default new CustomerDetailRepository();

@@ -16,6 +16,7 @@ import { ITEM_TYPE_ROUTE } from 'config/route-consts';
 import { ItemType } from 'models/ItemType';
 import { ItemTypeSearch } from 'models/ItemTypeSearch';
 
+
 const {Column} = Table;
 
 function ItemTypeMaster(props: RouteComponentProps) {

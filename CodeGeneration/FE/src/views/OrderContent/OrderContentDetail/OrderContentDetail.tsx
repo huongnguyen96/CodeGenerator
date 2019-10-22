@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {ORDER_CONTENT_ROUTE} from 'config/route-consts';
 import {OrderContent} from 'models/OrderContent';
+import {OrderContentSearch} from 'models/OrderContentSearch';
 import './OrderContentDetail.scss';
 import orderContentDetailRepository from './OrderContentDetailRepository';
 
+import {Order} from 'models/Order';
 import {OrderSearch} from 'models/OrderSearch';
 
 function OrderContentDetail(props) {
@@ -87,22 +89,8 @@ function OrderContentDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('orderContentDetail.orderId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: orderContent.orderId,
-            rules: [
-              {
-                required: true,
-                message: translate('orderContentDetail.errors.orderId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('orderContentDetail.itemName')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('itemName', {
             initialValue: orderContent.itemName,
             rules: [
               {
@@ -116,7 +104,7 @@ function OrderContentDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderContentDetail.firstVersion')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('firstVersion', {
             initialValue: orderContent.firstVersion,
             rules: [
               {
@@ -130,7 +118,7 @@ function OrderContentDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderContentDetail.secondVersion')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('secondVersion', {
             initialValue: orderContent.secondVersion,
             rules: [
               {
@@ -144,7 +132,7 @@ function OrderContentDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderContentDetail.thirdVersion')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('thirdVersion', {
             initialValue: orderContent.thirdVersion,
             rules: [
               {
@@ -158,7 +146,7 @@ function OrderContentDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderContentDetail.price')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('price', {
             initialValue: orderContent.price,
             rules: [
               {
@@ -172,7 +160,7 @@ function OrderContentDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('orderContentDetail.discountPrice')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('discountPrice', {
             initialValue: orderContent.discountPrice,
             rules: [
               {
@@ -204,7 +192,7 @@ function OrderContentDetail(props) {
                                   setSearch={setOrderSearch}>
                       {orderContent.order && (
                         <Option value={orderContent.order.id}>
-                          {orderContent.order.name}
+                          {orderContent.order.id}
                         </Option>
                       )}
                     </SingleSelect>,

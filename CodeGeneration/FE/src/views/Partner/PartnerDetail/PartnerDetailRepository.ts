@@ -6,10 +6,6 @@ import {map} from 'rxjs/operators';
 import {Partner} from 'models/Partner';
 import {PartnerSearch} from 'models/PartnerSearch';
 
-import {Item} from 'models/Item';
-import {ItemSearch} from 'models/ItemSearch';
-import {Warehouse} from 'models/Warehouse';
-import {WarehouseSearch} from 'models/WarehouseSearch';
 
 export class PartnerDetailRepository extends Repository {
   public constructor() {
@@ -47,18 +43,6 @@ export class PartnerDetailRepository extends Repository {
     return partner.id ? this.update(partner) : this.create(partner);
   };
   
-  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
-      .pipe(
-        map((response: AxiosResponse<Item[]>) => response.data),
-      );
-  };
-  public singleListWarehouse = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
-    return this.httpService.post('/single-list-warehouse',warehouseSearch)
-      .pipe(
-        map((response: AxiosResponse<Warehouse[]>) => response.data),
-      );
-  };
 }
 
 export default new PartnerDetailRepository();

@@ -17,13 +17,17 @@ import {withRouter} from 'react-router-dom';
 
 import {SHIPPING_ADDRESS_ROUTE} from 'config/route-consts';
 import {ShippingAddress} from 'models/ShippingAddress';
+import {ShippingAddressSearch} from 'models/ShippingAddressSearch';
 import './ShippingAddressDetail.scss';
 import shippingAddressDetailRepository from './ShippingAddressDetailRepository';
 
-import {BoolSearch} from 'models/BoolSearch';
+import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
+import {District} from 'models/District';
 import {DistrictSearch} from 'models/DistrictSearch';
+import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
+import {Ward} from 'models/Ward';
 import {WardSearch} from 'models/WardSearch';
 
 function ShippingAddressDetail(props) {
@@ -40,7 +44,6 @@ function ShippingAddressDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [shippingAddress, loading] = useDetail<ShippingAddress>(id, shippingAddressDetailRepository.get, new ShippingAddress());
   
-  const [boolSearch, setBoolSearch] = useState<BoolSearch>(new BoolSearch());
   const [customerSearch, setCustomerSearch] = useState<CustomerSearch>(new CustomerSearch());
   const [districtSearch, setDistrictSearch] = useState<DistrictSearch>(new DistrictSearch());
   const [provinceSearch, setProvinceSearch] = useState<ProvinceSearch>(new ProvinceSearch());
@@ -95,22 +98,8 @@ function ShippingAddressDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('shippingAddressDetail.customerId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: shippingAddress.customerId,
-            rules: [
-              {
-                required: true,
-                message: translate('shippingAddressDetail.errors.customerId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('shippingAddressDetail.fullName')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('fullName', {
             initialValue: shippingAddress.fullName,
             rules: [
               {
@@ -124,7 +113,7 @@ function ShippingAddressDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('shippingAddressDetail.companyName')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('companyName', {
             initialValue: shippingAddress.companyName,
             rules: [
               {
@@ -138,7 +127,7 @@ function ShippingAddressDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('shippingAddressDetail.phoneNumber')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('phoneNumber', {
             initialValue: shippingAddress.phoneNumber,
             rules: [
               {
@@ -151,50 +140,8 @@ function ShippingAddressDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('shippingAddressDetail.provinceId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: shippingAddress.provinceId,
-            rules: [
-              {
-                required: true,
-                message: translate('shippingAddressDetail.errors.provinceId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('shippingAddressDetail.districtId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: shippingAddress.districtId,
-            rules: [
-              {
-                required: true,
-                message: translate('shippingAddressDetail.errors.districtId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('shippingAddressDetail.wardId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: shippingAddress.wardId,
-            rules: [
-              {
-                required: true,
-                message: translate('shippingAddressDetail.errors.wardId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('shippingAddressDetail.address')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('address', {
             initialValue: shippingAddress.address,
             rules: [
               {
@@ -207,32 +154,21 @@ function ShippingAddressDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('shippingAddressDetail.isDefault')}>
-            {
-                form.getFieldDecorator(
-                    'isDefaultId', 
-                    {
-                        initialValue: shippingAddress.isDefault 
-                            ? shippingAddress.isDefault.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={shippingAddressDetailRepository.singleListBool}
-                                  search={boolSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setBoolSearch}>
-                      {shippingAddress.isDefault && (
-                        <Option value={shippingAddress.isDefault.id}>
-                          {shippingAddress.isDefault.name}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
+          {form.getFieldDecorator('isDefault', {
+            initialValue: shippingAddress.isDefault,
+            rules: [
+              {
+                required: true,
+                message: translate('shippingAddressDetail.errors.isDefault.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
         </Form.Item>
+
+        
         <Form.Item label={translate('shippingAddressDetail.customer')}>
             {
                 form.getFieldDecorator(
@@ -251,7 +187,7 @@ function ShippingAddressDetail(props) {
                                   setSearch={setCustomerSearch}>
                       {shippingAddress.customer && (
                         <Option value={shippingAddress.customer.id}>
-                          {shippingAddress.customer.name}
+                          {shippingAddress.customer.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -276,7 +212,7 @@ function ShippingAddressDetail(props) {
                                   setSearch={setDistrictSearch}>
                       {shippingAddress.district && (
                         <Option value={shippingAddress.district.id}>
-                          {shippingAddress.district.name}
+                          {shippingAddress.district.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -301,7 +237,7 @@ function ShippingAddressDetail(props) {
                                   setSearch={setProvinceSearch}>
                       {shippingAddress.province && (
                         <Option value={shippingAddress.province.id}>
-                          {shippingAddress.province.name}
+                          {shippingAddress.province.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -326,7 +262,7 @@ function ShippingAddressDetail(props) {
                                   setSearch={setWardSearch}>
                       {shippingAddress.ward && (
                         <Option value={shippingAddress.ward.id}>
-                          {shippingAddress.ward.name}
+                          {shippingAddress.ward.id}
                         </Option>
                       )}
                     </SingleSelect>,

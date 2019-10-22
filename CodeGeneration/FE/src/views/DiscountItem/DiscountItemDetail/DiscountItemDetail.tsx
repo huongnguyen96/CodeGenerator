@@ -17,10 +17,13 @@ import {withRouter} from 'react-router-dom';
 
 import {DISCOUNT_ITEM_ROUTE} from 'config/route-consts';
 import {DiscountItem} from 'models/DiscountItem';
+import {DiscountItemSearch} from 'models/DiscountItemSearch';
 import './DiscountItemDetail.scss';
 import discountItemDetailRepository from './DiscountItemDetailRepository';
 
+import {Discount} from 'models/Discount';
 import {DiscountSearch} from 'models/DiscountSearch';
+import {Unit} from 'models/Unit';
 import {UnitSearch} from 'models/UnitSearch';
 
 function DiscountItemDetail(props) {
@@ -89,41 +92,13 @@ function DiscountItemDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('discountItemDetail.unitId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: discountItem.unitId,
-            rules: [
-              {
-                required: true,
-                message: translate('discountItemDetail.errors.unitId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('discountItemDetail.discountValue')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('discountValue', {
             initialValue: discountItem.discountValue,
             rules: [
               {
                 required: true,
                 message: translate('discountItemDetail.errors.discountValue.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('discountItemDetail.discountId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: discountItem.discountId,
-            rules: [
-              {
-                required: true,
-                message: translate('discountItemDetail.errors.discountId.required'),
               },
             ],
           })(
@@ -150,7 +125,7 @@ function DiscountItemDetail(props) {
                                   setSearch={setDiscountSearch}>
                       {discountItem.discount && (
                         <Option value={discountItem.discount.id}>
-                          {discountItem.discount.name}
+                          {discountItem.discount.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -175,7 +150,7 @@ function DiscountItemDetail(props) {
                                   setSearch={setUnitSearch}>
                       {discountItem.unit && (
                         <Option value={discountItem.unit.id}>
-                          {discountItem.unit.name}
+                          {discountItem.unit.id}
                         </Option>
                       )}
                     </SingleSelect>,

@@ -49,18 +49,6 @@ export class UnitMasterRepository extends Repository {
         map((response: AxiosResponse<Variation[]>) => response.data),
       );
   };
-  public singleList = (discountItemSearch: DiscountItemSearch): Observable<DiscountItem[]> => {
-    return this.httpService.post('/single-list-discount-item',discountItemSearch)
-      .pipe(
-        map((response: AxiosResponse<DiscountItem[]>) => response.data),
-      );
-  };
-  public singleList = (stockSearch: StockSearch): Observable<Stock[]> => {
-    return this.httpService.post('/single-list-stock',stockSearch)
-      .pipe(
-        map((response: AxiosResponse<Stock[]>) => response.data),
-      );
-  };
 }
 
 export default new UnitMasterRepository();

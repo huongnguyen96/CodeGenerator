@@ -16,6 +16,9 @@ import { DISTRICT_ROUTE } from 'config/route-consts';
 import { District } from 'models/District';
 import { DistrictSearch } from 'models/DistrictSearch';
 
+import {Province} from 'models/Province';
+import {ProvinceSearch} from 'models/ProvinceSearch';
+
 const {Column} = Table;
 
 function DistrictMaster(props: RouteComponentProps) {
@@ -130,7 +133,7 @@ function DistrictMaster(props: RouteComponentProps) {
                 render={(province: Province) => {
                        return (
                          <>
-                           {province.name}
+                           {province.id}
                          </>
                        );
                      }}

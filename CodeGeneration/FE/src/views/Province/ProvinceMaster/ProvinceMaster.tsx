@@ -16,6 +16,7 @@ import { PROVINCE_ROUTE } from 'config/route-consts';
 import { Province } from 'models/Province';
 import { ProvinceSearch } from 'models/ProvinceSearch';
 
+
 const {Column} = Table;
 
 function ProvinceMaster(props: RouteComponentProps) {

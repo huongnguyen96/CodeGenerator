@@ -16,6 +16,15 @@ import { SHIPPING_ADDRESS_ROUTE } from 'config/route-consts';
 import { ShippingAddress } from 'models/ShippingAddress';
 import { ShippingAddressSearch } from 'models/ShippingAddressSearch';
 
+import {Customer} from 'models/Customer';
+import {CustomerSearch} from 'models/CustomerSearch';
+import {District} from 'models/District';
+import {DistrictSearch} from 'models/DistrictSearch';
+import {Province} from 'models/Province';
+import {ProvinceSearch} from 'models/ProvinceSearch';
+import {Ward} from 'models/Ward';
+import {WardSearch} from 'models/WardSearch';
+
 const {Column} = Table;
 
 function ShippingAddressMaster(props: RouteComponentProps) {
@@ -157,13 +166,6 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 title={translate('shippingAddressMaster.isDefault')}
                 sorter
                 sortOrder={getColumnSortOrder<ShippingAddress>('isDefault', sorter)}
-                render={(isDefault: IsDefault) => {
-                       return (
-                         <>
-                           {isDefault.name}
-                         </>
-                       );
-                     }}
         />
          <Column key="customer"
                 dataIndex="customer"
@@ -173,7 +175,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(customer: Customer) => {
                        return (
                          <>
-                           {customer.name}
+                           {customer.id}
                          </>
                        );
                      }}
@@ -186,7 +188,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(district: District) => {
                        return (
                          <>
-                           {district.name}
+                           {district.id}
                          </>
                        );
                      }}
@@ -199,7 +201,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(province: Province) => {
                        return (
                          <>
-                           {province.name}
+                           {province.id}
                          </>
                        );
                      }}
@@ -212,7 +214,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(ward: Ward) => {
                        return (
                          <>
-                           {ward.name}
+                           {ward.id}
                          </>
                        );
                      }}

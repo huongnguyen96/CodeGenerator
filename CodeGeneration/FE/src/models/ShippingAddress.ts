@@ -1,6 +1,5 @@
 import {Model} from 'core';
 
-import {Bool} from 'models/Bool';
 import {Customer} from 'models/Customer';
 import {District} from 'models/District';
 import {Province} from 'models/Province';
@@ -25,8 +24,8 @@ export class ShippingAddress extends Model {
   public wardId?: number;
  
   public address?: string;
-
-  public isDefault?: Bool;
+ 
+  public isDefault?: boolean;
 
   public customer?: Customer;
 

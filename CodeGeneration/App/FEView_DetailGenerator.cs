@@ -35,10 +35,10 @@ namespace CodeGeneration.App
             string folder = Path.Combine(rootPath, "views", ClassName, ClassName + "Detail");
             Directory.CreateDirectory(folder);
 
-            string ImportReference = string.Empty;
             string ConstReference = string.Empty;
             string PrimitiveItem = string.Empty;
             string ReferenceItem = string.Empty;
+            List<string> types = new List<string>();
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
@@ -46,7 +46,7 @@ namespace CodeGeneration.App
                     continue;
                 string prmitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(prmitiveType))
+                if (!string.IsNullOrEmpty(prmitiveType) && !PropertyInfo.Name.EndsWith("Id"))
                 {
                     if (prmitiveType.Contains("Date"))
                     {
@@ -54,7 +54,7 @@ namespace CodeGeneration.App
         <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
           {{
             form.getFieldDecorator(
-                'name', 
+                '{CamelCase(PropertyInfo.Name)}', 
                 {{
                     initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
                     rules: [
@@ -70,7 +70,7 @@ namespace CodeGeneration.App
                     {
                         PrimitiveItem += $@"
         <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
-          {{form.getFieldDecorator('code', {{
+          {{form.getFieldDecorator('{CamelCase(PropertyInfo.Name)}', {{
             initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
             rules: [
               {{
@@ -85,11 +85,9 @@ namespace CodeGeneration.App
 ";
                     }
                 }
-                if (!string.IsNullOrEmpty(referenceType))
+                if (!string.IsNullOrEmpty(referenceType) && !types.Contains(referenceType))
                 {
-                    ImportReference += $@"
-import {{{referenceType}Search}} from 'models/{referenceType}Search';";
-
+                    types.Add(referenceType);
                     ConstReference += $@"
   const [{CamelCase(referenceType)}Search, set{referenceType}Search] = useState<{referenceType}Search>(new {referenceType}Search());";
 
@@ -112,7 +110,7 @@ import {{{referenceType}Search}} from 'models/{referenceType}Search';";
                                   setSearch={{set{referenceType}Search}}>
                       {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)} && (
                         <Option value={{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.id}}>
-                          {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.name}}
+                          {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.id}}
                         </Option>
                       )}}
                     </SingleSelect>,
@@ -141,9 +139,10 @@ import {{withRouter}} from 'react-router-dom';
 
 import {{{UpperCase(ClassName)}_ROUTE}} from 'config/route-consts';
 import {{{ClassName}}} from 'models/{ClassName}';
+import {{{ClassName}Search}} from 'models/{ClassName}Search';
 import './{ClassName}Detail.scss';
 import {CamelCase(ClassName)}DetailRepository from './{ClassName}DetailRepository';
-{ImportReference}
+{BuildSingleListImport(type)}
 
 function {ClassName}Detail(props) {{
   const {{
@@ -327,8 +326,10 @@ describe('{ClassName}Detail', () => {{
         private string BuildSingleListImport(Type type)
         {
             string contents = string.Empty;
+            string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             List<string> referenceTypes = new List<string>();
+            referenceTypes.Add(ClassName);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
@@ -339,13 +340,6 @@ describe('{ClassName}Detail', () => {{
 import {{{referenceType}}} from 'models/{referenceType}';
 import {{{referenceType}Search}} from 'models/{referenceType}Search';";
                 }
-                string listType = GetListType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(listType))
-                {
-                    contents += $@"
-import {{{listType}}} from 'models/{listType}';
-import {{{listType}Search}} from 'models/{listType}Search';";
-                }
             }
             return contents;
         }
@@ -353,6 +347,7 @@ import {{{listType}Search}} from 'models/{listType}Search';";
         private string BuildSingleListMethod(Type type)
         {
             string contents = string.Empty;
+            string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             List<string> referenceTypes = new List<string>();
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
@@ -366,17 +361,6 @@ import {{{listType}Search}} from 'models/{listType}Search';";
     return this.httpService.post('/single-list-{KebabCase(referenceType)}',{CamelCase(referenceType)}Search)
       .pipe(
         map((response: AxiosResponse<{referenceType}[]>) => response.data),
-      );
-  }};";
-                }
-                string listType = GetListType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(listType))
-                {
-                    contents += $@"
-  public singleList{listType} = ({CamelCase(listType)}Search: {listType}Search): Observable<{listType}[]> => {{
-    return this.httpService.post('/single-list-{KebabCase(listType)}',{CamelCase(listType)}Search)
-      .pipe(
-        map((response: AxiosResponse<{listType}[]>) => response.data),
       );
   }};";
                 }

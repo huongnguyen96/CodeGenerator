@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {DISCOUNT_ROUTE} from 'config/route-consts';
 import {Discount} from 'models/Discount';
+import {DiscountSearch} from 'models/DiscountSearch';
 import './DiscountDetail.scss';
 import discountDetailRepository from './DiscountDetailRepository';
 
@@ -86,7 +87,7 @@ function DiscountDetail(props) {
         )}
         
         <Form.Item label={translate('discountDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: discount.name,
             rules: [
               {
@@ -102,7 +103,7 @@ function DiscountDetail(props) {
         <Form.Item label={translate('discountDetail.start')}>
           {
             form.getFieldDecorator(
-                'name', 
+                'start', 
                 {
                     initialValue: discount.start,
                     rules: [
@@ -116,7 +117,7 @@ function DiscountDetail(props) {
         <Form.Item label={translate('discountDetail.end')}>
           {
             form.getFieldDecorator(
-                'name', 
+                'end', 
                 {
                     initialValue: discount.end,
                     rules: [
@@ -128,7 +129,7 @@ function DiscountDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('discountDetail.type')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('type', {
             initialValue: discount.type,
             rules: [
               {

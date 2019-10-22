@@ -49,18 +49,6 @@ export class DistrictMasterRepository extends Repository {
         map((response: AxiosResponse<Province[]>) => response.data),
       );
   };
-  public singleList = (shippingAddressSearch: ShippingAddressSearch): Observable<ShippingAddress[]> => {
-    return this.httpService.post('/single-list-shipping-address',shippingAddressSearch)
-      .pipe(
-        map((response: AxiosResponse<ShippingAddress[]>) => response.data),
-      );
-  };
-  public singleList = (wardSearch: WardSearch): Observable<Ward[]> => {
-    return this.httpService.post('/single-list-ward',wardSearch)
-      .pipe(
-        map((response: AxiosResponse<Ward[]>) => response.data),
-      );
-  };
 }
 
 export default new DistrictMasterRepository();

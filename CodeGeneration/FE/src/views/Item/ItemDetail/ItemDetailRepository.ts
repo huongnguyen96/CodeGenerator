@@ -16,8 +16,6 @@ import {ItemStatus} from 'models/ItemStatus';
 import {ItemStatusSearch} from 'models/ItemStatusSearch';
 import {ItemType} from 'models/ItemType';
 import {ItemTypeSearch} from 'models/ItemTypeSearch';
-import {VariationGrouping} from 'models/VariationGrouping';
-import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
 
 export class ItemDetailRepository extends Repository {
   public constructor() {
@@ -83,12 +81,6 @@ export class ItemDetailRepository extends Repository {
     return this.httpService.post('/single-list-item-type',itemTypeSearch)
       .pipe(
         map((response: AxiosResponse<ItemType[]>) => response.data),
-      );
-  };
-  public singleListVariationGrouping = (variationGroupingSearch: VariationGroupingSearch): Observable<VariationGrouping[]> => {
-    return this.httpService.post('/single-list-variation-grouping',variationGroupingSearch)
-      .pipe(
-        map((response: AxiosResponse<VariationGrouping[]>) => response.data),
       );
   };
 }

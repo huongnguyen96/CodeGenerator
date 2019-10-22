@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {VARIATION_ROUTE} from 'config/route-consts';
 import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
 import './VariationDetail.scss';
 import variationDetailRepository from './VariationDetailRepository';
 
+import {VariationGrouping} from 'models/VariationGrouping';
 import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
 
 function VariationDetail(props) {
@@ -88,26 +90,12 @@ function VariationDetail(props) {
         )}
         
         <Form.Item label={translate('variationDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: variation.name,
             rules: [
               {
                 required: true,
                 message: translate('variationDetail.errors.name.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('variationDetail.variationGroupingId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: variation.variationGroupingId,
-            rules: [
-              {
-                required: true,
-                message: translate('variationDetail.errors.variationGroupingId.required'),
               },
             ],
           })(
@@ -134,7 +122,7 @@ function VariationDetail(props) {
                                   setSearch={setVariationGroupingSearch}>
                       {variation.variationGrouping && (
                         <Option value={variation.variationGrouping.id}>
-                          {variation.variationGrouping.name}
+                          {variation.variationGrouping.id}
                         </Option>
                       )}
                     </SingleSelect>,

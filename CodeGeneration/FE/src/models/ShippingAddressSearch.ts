@@ -20,5 +20,7 @@ export class ShippingAddressSearch extends Search {
   public wardId?: number;
 
   public address?: string;
+
+  public isDefault?: boolean;
 ;
 }

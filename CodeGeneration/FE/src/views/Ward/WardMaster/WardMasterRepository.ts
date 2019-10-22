@@ -49,12 +49,6 @@ export class WardMasterRepository extends Repository {
         map((response: AxiosResponse<District[]>) => response.data),
       );
   };
-  public singleList = (shippingAddressSearch: ShippingAddressSearch): Observable<ShippingAddress[]> => {
-    return this.httpService.post('/single-list-shipping-address',shippingAddressSearch)
-      .pipe(
-        map((response: AxiosResponse<ShippingAddress[]>) => response.data),
-      );
-  };
 }
 
 export default new WardMasterRepository();

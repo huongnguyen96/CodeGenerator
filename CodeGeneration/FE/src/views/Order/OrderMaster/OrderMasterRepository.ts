@@ -49,12 +49,6 @@ export class OrderMasterRepository extends Repository {
         map((response: AxiosResponse<Customer[]>) => response.data),
       );
   };
-  public singleList = (orderContentSearch: OrderContentSearch): Observable<OrderContent[]> => {
-    return this.httpService.post('/single-list-order-content',orderContentSearch)
-      .pipe(
-        map((response: AxiosResponse<OrderContent[]>) => response.data),
-      );
-  };
 }
 
 export default new OrderMasterRepository();

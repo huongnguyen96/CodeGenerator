@@ -2,8 +2,6 @@ import {Model} from 'core';
 
 import {VariationGrouping} from 'models/VariationGrouping';
 import {Unit} from 'models/Unit';
-import {Unit} from 'models/Unit';
-import {Unit} from 'models/Unit';
 
 export class Variation extends Model {
    

@@ -6,8 +6,6 @@ import {map} from 'rxjs/operators';
 import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
 
-import {Category} from 'models/Category';
-import {CategorySearch} from 'models/CategorySearch';
 
 export class CategoryMasterRepository extends Repository {
   public constructor() {
@@ -47,24 +45,6 @@ export class CategoryMasterRepository extends Repository {
     return this.httpService.post('/single-list-category',categorySearch)
       .pipe(
         map((response: AxiosResponse<Category[]>) => response.data),
-      );
-  };
-  public singleList = (brandSearch: BrandSearch): Observable<Brand[]> => {
-    return this.httpService.post('/single-list-brand',brandSearch)
-      .pipe(
-        map((response: AxiosResponse<Brand[]>) => response.data),
-      );
-  };
-  public singleList = (categorySearch: CategorySearch): Observable<Category[]> => {
-    return this.httpService.post('/single-list-category',categorySearch)
-      .pipe(
-        map((response: AxiosResponse<Category[]>) => response.data),
-      );
-  };
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
-      .pipe(
-        map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
 }

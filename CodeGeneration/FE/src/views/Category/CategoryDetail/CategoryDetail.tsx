@@ -17,10 +17,10 @@ import {withRouter} from 'react-router-dom';
 
 import {CATEGORY_ROUTE} from 'config/route-consts';
 import {Category} from 'models/Category';
+import {CategorySearch} from 'models/CategorySearch';
 import './CategoryDetail.scss';
 import categoryDetailRepository from './CategoryDetailRepository';
 
-import {CategorySearch} from 'models/CategorySearch';
 
 function CategoryDetail(props) {
   const {
@@ -102,7 +102,7 @@ function CategoryDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('categoryDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: category.name,
             rules: [
               {
@@ -115,22 +115,8 @@ function CategoryDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('categoryDetail.parentId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: category.parentId,
-            rules: [
-              {
-                required: true,
-                message: translate('categoryDetail.errors.parentId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('categoryDetail.icon')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('icon', {
             initialValue: category.icon,
             rules: [
               {
@@ -162,7 +148,7 @@ function CategoryDetail(props) {
                                   setSearch={setCategorySearch}>
                       {category.parent && (
                         <Option value={category.parent.id}>
-                          {category.parent.name}
+                          {category.parent.id}
                         </Option>
                       )}
                     </SingleSelect>,

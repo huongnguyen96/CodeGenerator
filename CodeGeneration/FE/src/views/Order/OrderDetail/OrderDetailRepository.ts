@@ -8,8 +8,6 @@ import {OrderSearch} from 'models/OrderSearch';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
-import {OrderContent} from 'models/OrderContent';
-import {OrderContentSearch} from 'models/OrderContentSearch';
 
 export class OrderDetailRepository extends Repository {
   public constructor() {
@@ -51,12 +49,6 @@ export class OrderDetailRepository extends Repository {
     return this.httpService.post('/single-list-customer',customerSearch)
       .pipe(
         map((response: AxiosResponse<Customer[]>) => response.data),
-      );
-  };
-  public singleListOrderContent = (orderContentSearch: OrderContentSearch): Observable<OrderContent[]> => {
-    return this.httpService.post('/single-list-order-content',orderContentSearch)
-      .pipe(
-        map((response: AxiosResponse<OrderContent[]>) => response.data),
       );
   };
 }

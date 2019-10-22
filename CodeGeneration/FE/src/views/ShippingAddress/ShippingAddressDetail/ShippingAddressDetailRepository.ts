@@ -6,8 +6,6 @@ import {map} from 'rxjs/operators';
 import {ShippingAddress} from 'models/ShippingAddress';
 import {ShippingAddressSearch} from 'models/ShippingAddressSearch';
 
-import {Bool} from 'models/Bool';
-import {BoolSearch} from 'models/BoolSearch';
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
 import {District} from 'models/District';
@@ -53,12 +51,6 @@ export class ShippingAddressDetailRepository extends Repository {
     return shippingAddress.id ? this.update(shippingAddress) : this.create(shippingAddress);
   };
   
-  public singleListBool = (boolSearch: BoolSearch): Observable<Bool[]> => {
-    return this.httpService.post('/single-list-bool',boolSearch)
-      .pipe(
-        map((response: AxiosResponse<Bool[]>) => response.data),
-      );
-  };
   public singleListCustomer = (customerSearch: CustomerSearch): Observable<Customer[]> => {
     return this.httpService.post('/single-list-customer',customerSearch)
       .pipe(

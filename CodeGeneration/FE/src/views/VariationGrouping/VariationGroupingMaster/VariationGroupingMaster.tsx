@@ -16,6 +16,9 @@ import { VARIATION_GROUPING_ROUTE } from 'config/route-consts';
 import { VariationGrouping } from 'models/VariationGrouping';
 import { VariationGroupingSearch } from 'models/VariationGroupingSearch';
 
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
+
 const {Column} = Table;
 
 function VariationGroupingMaster(props: RouteComponentProps) {
@@ -124,7 +127,7 @@ function VariationGroupingMaster(props: RouteComponentProps) {
                 render={(item: Item) => {
                        return (
                          <>
-                           {item.name}
+                           {item.id}
                          </>
                        );
                      }}

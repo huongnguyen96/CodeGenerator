@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {PARTNER_ROUTE} from 'config/route-consts';
 import {Partner} from 'models/Partner';
+import {PartnerSearch} from 'models/PartnerSearch';
 import './PartnerDetail.scss';
 import partnerDetailRepository from './PartnerDetailRepository';
 
@@ -86,7 +87,7 @@ function PartnerDetail(props) {
         )}
         
         <Form.Item label={translate('partnerDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: partner.name,
             rules: [
               {
@@ -100,7 +101,7 @@ function PartnerDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('partnerDetail.phone')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('phone', {
             initialValue: partner.phone,
             rules: [
               {
@@ -114,7 +115,7 @@ function PartnerDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('partnerDetail.contactPerson')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('contactPerson', {
             initialValue: partner.contactPerson,
             rules: [
               {
@@ -128,7 +129,7 @@ function PartnerDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('partnerDetail.address')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('address', {
             initialValue: partner.address,
             rules: [
               {

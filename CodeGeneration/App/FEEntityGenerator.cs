@@ -50,22 +50,27 @@ export class {ClassName} extends Model {{
         public string BuildImportEntity(Type type)
         {
             string contents = string.Empty;
+            string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
+            List<string> types = new List<string>();
+            types.Add(ClassName);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
                 if (PropertyInfo.Name.Contains("_"))
                     continue;
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(referenceType))
+                if (!string.IsNullOrEmpty(referenceType) && !types.Contains(referenceType))
                 {
+                    types.Add(referenceType);
                     contents += $@"
 import {{{referenceType}}} from 'models/{referenceType}';";
                 }
-                string listtype = GetListType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(listtype))
+                string listType = GetListType(PropertyInfo.PropertyType);
+                if (!string.IsNullOrEmpty(listType) && !types.Contains(listType))
                 {
+                    types.Add(listType);
                     contents += $@"
-import {{{listtype}}} from 'models/{listtype}';";
+import {{{listType}}} from 'models/{listType}';";
                 }
             }
             return contents;

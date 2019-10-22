@@ -6,10 +6,6 @@ import {map} from 'rxjs/operators';
 import {Discount} from 'models/Discount';
 import {DiscountSearch} from 'models/DiscountSearch';
 
-import {DiscountCustomerGrouping} from 'models/DiscountCustomerGrouping';
-import {DiscountCustomerGroupingSearch} from 'models/DiscountCustomerGroupingSearch';
-import {DiscountItem} from 'models/DiscountItem';
-import {DiscountItemSearch} from 'models/DiscountItemSearch';
 
 export class DiscountDetailRepository extends Repository {
   public constructor() {
@@ -47,18 +43,6 @@ export class DiscountDetailRepository extends Repository {
     return discount.id ? this.update(discount) : this.create(discount);
   };
   
-  public singleListDiscountCustomerGrouping = (discountCustomerGroupingSearch: DiscountCustomerGroupingSearch): Observable<DiscountCustomerGrouping[]> => {
-    return this.httpService.post('/single-list-discount-customer-grouping',discountCustomerGroupingSearch)
-      .pipe(
-        map((response: AxiosResponse<DiscountCustomerGrouping[]>) => response.data),
-      );
-  };
-  public singleListDiscountItem = (discountItemSearch: DiscountItemSearch): Observable<DiscountItem[]> => {
-    return this.httpService.post('/single-list-discount-item',discountItemSearch)
-      .pipe(
-        map((response: AxiosResponse<DiscountItem[]>) => response.data),
-      );
-  };
 }
 
 export default new DiscountDetailRepository();

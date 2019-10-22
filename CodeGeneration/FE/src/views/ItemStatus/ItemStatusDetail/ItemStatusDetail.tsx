@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {ITEM_STATUS_ROUTE} from 'config/route-consts';
 import {ItemStatus} from 'models/ItemStatus';
+import {ItemStatusSearch} from 'models/ItemStatusSearch';
 import './ItemStatusDetail.scss';
 import itemStatusDetailRepository from './ItemStatusDetailRepository';
 
@@ -100,7 +101,7 @@ function ItemStatusDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('itemStatusDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: itemStatus.name,
             rules: [
               {

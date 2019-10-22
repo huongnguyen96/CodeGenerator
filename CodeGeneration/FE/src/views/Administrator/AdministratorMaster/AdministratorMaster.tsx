@@ -16,6 +16,7 @@ import { ADMINISTRATOR_ROUTE } from 'config/route-consts';
 import { Administrator } from 'models/Administrator';
 import { AdministratorSearch } from 'models/AdministratorSearch';
 
+
 const {Column} = Table;
 
 function AdministratorMaster(props: RouteComponentProps) {

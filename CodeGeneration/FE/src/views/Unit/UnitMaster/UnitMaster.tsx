@@ -16,6 +16,9 @@ import { UNIT_ROUTE } from 'config/route-consts';
 import { Unit } from 'models/Unit';
 import { UnitSearch } from 'models/UnitSearch';
 
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
+
 const {Column} = Table;
 
 function UnitMaster(props: RouteComponentProps) {
@@ -139,10 +142,10 @@ function UnitMaster(props: RouteComponentProps) {
                 title={translate('unitMaster.firstVariation')}
                 sorter
                 sortOrder={getColumnSortOrder<Unit>('firstVariation', sorter)}
-                render={(firstVariation: FirstVariation) => {
+                render={(firstVariation: Variation) => {
                        return (
                          <>
-                           {firstVariation.name}
+                           {firstVariation.id}
                          </>
                        );
                      }}
@@ -152,10 +155,10 @@ function UnitMaster(props: RouteComponentProps) {
                 title={translate('unitMaster.secondVariation')}
                 sorter
                 sortOrder={getColumnSortOrder<Unit>('secondVariation', sorter)}
-                render={(secondVariation: SecondVariation) => {
+                render={(secondVariation: Variation) => {
                        return (
                          <>
-                           {secondVariation.name}
+                           {secondVariation.id}
                          </>
                        );
                      }}
@@ -165,10 +168,10 @@ function UnitMaster(props: RouteComponentProps) {
                 title={translate('unitMaster.thirdVariation')}
                 sorter
                 sortOrder={getColumnSortOrder<Unit>('thirdVariation', sorter)}
-                render={(thirdVariation: ThirdVariation) => {
+                render={(thirdVariation: Variation) => {
                        return (
                          <>
-                           {thirdVariation.name}
+                           {thirdVariation.id}
                          </>
                        );
                      }}

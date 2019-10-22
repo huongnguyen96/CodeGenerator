@@ -1,8 +1,6 @@
 import {Model} from 'core';
 
-import {Category} from 'models/Category';
 import {Brand} from 'models/Brand';
-import {Category} from 'models/Category';
 import {Item} from 'models/Item';
 
 export class Category extends Model {

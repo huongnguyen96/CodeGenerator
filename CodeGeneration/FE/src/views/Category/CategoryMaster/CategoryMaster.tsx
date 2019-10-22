@@ -16,6 +16,7 @@ import { CATEGORY_ROUTE } from 'config/route-consts';
 import { Category } from 'models/Category';
 import { CategorySearch } from 'models/CategorySearch';
 
+
 const {Column} = Table;
 
 function CategoryMaster(props: RouteComponentProps) {
@@ -133,10 +134,10 @@ function CategoryMaster(props: RouteComponentProps) {
                 title={translate('categoryMaster.parent')}
                 sorter
                 sortOrder={getColumnSortOrder<Category>('parent', sorter)}
-                render={(parent: Parent) => {
+                render={(parent: Category) => {
                        return (
                          <>
-                           {parent.name}
+                           {parent.id}
                          </>
                        );
                      }}

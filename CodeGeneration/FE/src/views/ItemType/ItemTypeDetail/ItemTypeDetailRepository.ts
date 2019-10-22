@@ -6,8 +6,6 @@ import {map} from 'rxjs/operators';
 import {ItemType} from 'models/ItemType';
 import {ItemTypeSearch} from 'models/ItemTypeSearch';
 
-import {Item} from 'models/Item';
-import {ItemSearch} from 'models/ItemSearch';
 
 export class ItemTypeDetailRepository extends Repository {
   public constructor() {
@@ -45,12 +43,6 @@ export class ItemTypeDetailRepository extends Repository {
     return itemType.id ? this.update(itemType) : this.create(itemType);
   };
   
-  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
-      .pipe(
-        map((response: AxiosResponse<Item[]>) => response.data),
-      );
-  };
 }
 
 export default new ItemTypeDetailRepository();

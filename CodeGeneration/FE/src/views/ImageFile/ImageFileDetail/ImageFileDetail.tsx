@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {IMAGE_FILE_ROUTE} from 'config/route-consts';
 import {ImageFile} from 'models/ImageFile';
+import {ImageFileSearch} from 'models/ImageFileSearch';
 import './ImageFileDetail.scss';
 import imageFileDetailRepository from './ImageFileDetailRepository';
 
@@ -86,7 +87,7 @@ function ImageFileDetail(props) {
         )}
         
         <Form.Item label={translate('imageFileDetail.path')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('path', {
             initialValue: imageFile.path,
             rules: [
               {
@@ -100,7 +101,7 @@ function ImageFileDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('imageFileDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: imageFile.name,
             rules: [
               {

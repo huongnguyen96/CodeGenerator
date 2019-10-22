@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {BRAND_ROUTE} from 'config/route-consts';
 import {Brand} from 'models/Brand';
+import {BrandSearch} from 'models/BrandSearch';
 import './BrandDetail.scss';
 import brandDetailRepository from './BrandDetailRepository';
 
+import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
 
 function BrandDetail(props) {
@@ -88,26 +90,12 @@ function BrandDetail(props) {
         )}
         
         <Form.Item label={translate('brandDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: brand.name,
             rules: [
               {
                 required: true,
                 message: translate('brandDetail.errors.name.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('brandDetail.categoryId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: brand.categoryId,
-            rules: [
-              {
-                required: true,
-                message: translate('brandDetail.errors.categoryId.required'),
               },
             ],
           })(
@@ -134,7 +122,7 @@ function BrandDetail(props) {
                                   setSearch={setCategorySearch}>
                       {brand.category && (
                         <Option value={brand.category.id}>
-                          {brand.category.name}
+                          {brand.category.id}
                         </Option>
                       )}
                     </SingleSelect>,

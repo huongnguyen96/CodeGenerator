@@ -49,12 +49,6 @@ export class WarehouseMasterRepository extends Repository {
         map((response: AxiosResponse<Partner[]>) => response.data),
       );
   };
-  public singleList = (stockSearch: StockSearch): Observable<Stock[]> => {
-    return this.httpService.post('/single-list-stock',stockSearch)
-      .pipe(
-        map((response: AxiosResponse<Stock[]>) => response.data),
-      );
-  };
 }
 
 export default new WarehouseMasterRepository();

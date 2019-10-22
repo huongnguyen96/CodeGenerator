@@ -8,10 +8,6 @@ import {DistrictSearch} from 'models/DistrictSearch';
 
 import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
-import {ShippingAddress} from 'models/ShippingAddress';
-import {ShippingAddressSearch} from 'models/ShippingAddressSearch';
-import {Ward} from 'models/Ward';
-import {WardSearch} from 'models/WardSearch';
 
 export class DistrictDetailRepository extends Repository {
   public constructor() {
@@ -53,18 +49,6 @@ export class DistrictDetailRepository extends Repository {
     return this.httpService.post('/single-list-province',provinceSearch)
       .pipe(
         map((response: AxiosResponse<Province[]>) => response.data),
-      );
-  };
-  public singleListShippingAddress = (shippingAddressSearch: ShippingAddressSearch): Observable<ShippingAddress[]> => {
-    return this.httpService.post('/single-list-shipping-address',shippingAddressSearch)
-      .pipe(
-        map((response: AxiosResponse<ShippingAddress[]>) => response.data),
-      );
-  };
-  public singleListWard = (wardSearch: WardSearch): Observable<Ward[]> => {
-    return this.httpService.post('/single-list-ward',wardSearch)
-      .pipe(
-        map((response: AxiosResponse<Ward[]>) => response.data),
       );
   };
 }

@@ -16,6 +16,7 @@ import { ITEM_STATUS_ROUTE } from 'config/route-consts';
 import { ItemStatus } from 'models/ItemStatus';
 import { ItemStatusSearch } from 'models/ItemStatusSearch';
 
+
 const {Column} = Table;
 
 function ItemStatusMaster(props: RouteComponentProps) {

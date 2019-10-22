@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {CUSTOMER_ROUTE} from 'config/route-consts';
 import {Customer} from 'models/Customer';
+import {CustomerSearch} from 'models/CustomerSearch';
 import './CustomerDetail.scss';
 import customerDetailRepository from './CustomerDetailRepository';
 
@@ -86,7 +87,7 @@ function CustomerDetail(props) {
         )}
         
         <Form.Item label={translate('customerDetail.username')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('username', {
             initialValue: customer.username,
             rules: [
               {
@@ -100,7 +101,7 @@ function CustomerDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('customerDetail.displayName')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('displayName', {
             initialValue: customer.displayName,
             rules: [
               {

@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {DISCOUNT_CUSTOMER_GROUPING_ROUTE} from 'config/route-consts';
 import {DiscountCustomerGrouping} from 'models/DiscountCustomerGrouping';
+import {DiscountCustomerGroupingSearch} from 'models/DiscountCustomerGroupingSearch';
 import './DiscountCustomerGroupingDetail.scss';
 import discountCustomerGroupingDetailRepository from './DiscountCustomerGroupingDetailRepository';
 
+import {Discount} from 'models/Discount';
 import {DiscountSearch} from 'models/DiscountSearch';
 
 function DiscountCustomerGroupingDetail(props) {
@@ -87,22 +89,8 @@ function DiscountCustomerGroupingDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('discountCustomerGroupingDetail.discountId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: discountCustomerGrouping.discountId,
-            rules: [
-              {
-                required: true,
-                message: translate('discountCustomerGroupingDetail.errors.discountId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('discountCustomerGroupingDetail.customerGroupingCode')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('customerGroupingCode', {
             initialValue: discountCustomerGrouping.customerGroupingCode,
             rules: [
               {
@@ -134,7 +122,7 @@ function DiscountCustomerGroupingDetail(props) {
                                   setSearch={setDiscountSearch}>
                       {discountCustomerGrouping.discount && (
                         <Option value={discountCustomerGrouping.discount.id}>
-                          {discountCustomerGrouping.discount.name}
+                          {discountCustomerGrouping.discount.id}
                         </Option>
                       )}
                     </SingleSelect>,

@@ -37,6 +37,38 @@ export const {UpperCase(ClassName)}_ROUTE: string = '/{KebabCase(ClassName)}';";
             Directory.CreateDirectory(folder);
             string path = Path.Combine(folder, $"route-consts.ts");
             File.WriteAllText(path, contents);
+
+            string ImpoortReference = string.Empty;
+            string ConstReference = string.Empty;
+            string RouteReference = string.Empty;
+            foreach (Type type in Classes)
+            {
+                if (type.Name.Contains("_"))
+                    continue;
+                string ClassName = GetClassName(type);
+                ImpoortReference += $@"
+import {{{UpperCase(ClassName)}_ROUTE}} from './route-consts';";
+                ConstReference += $@"
+const {ClassName}View = lazy(() => import('views/{ClassName}/{ClassName}View'));";
+                RouteReference += $@"
+  {{
+    path: {UpperCase(ClassName)}_ROUTE,
+    component: {ClassName}View,
+  }},";
+            }
+
+            contents = $@"
+import {{IRoute}} from 'core/IRoute';
+import {{lazy}} from 'react';
+{ImpoortReference}
+{ConstReference}
+
+export const routes: IRoute[] = [
+  {RouteReference}
+];
+ ";
+            path = Path.Combine(folder, $"routes.tsx");
+            File.WriteAllText(path, contents);
         }
         public void BuildView()
         {

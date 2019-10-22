@@ -1,8 +1,6 @@
 import {Model} from 'core';
 
 import {Variation} from 'models/Variation';
-import {Variation} from 'models/Variation';
-import {Variation} from 'models/Variation';
 import {DiscountItem} from 'models/DiscountItem';
 import {Stock} from 'models/Stock';
 

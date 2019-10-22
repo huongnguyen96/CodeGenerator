@@ -8,12 +8,6 @@ import {VariationSearch} from 'models/VariationSearch';
 
 import {VariationGrouping} from 'models/VariationGrouping';
 import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
-import {Unit} from 'models/Unit';
-import {UnitSearch} from 'models/UnitSearch';
-import {Unit} from 'models/Unit';
-import {UnitSearch} from 'models/UnitSearch';
-import {Unit} from 'models/Unit';
-import {UnitSearch} from 'models/UnitSearch';
 
 export class VariationDetailRepository extends Repository {
   public constructor() {
@@ -55,24 +49,6 @@ export class VariationDetailRepository extends Repository {
     return this.httpService.post('/single-list-variation-grouping',variationGroupingSearch)
       .pipe(
         map((response: AxiosResponse<VariationGrouping[]>) => response.data),
-      );
-  };
-  public singleListUnit = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
-      .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
-      );
-  };
-  public singleListUnit = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
-      .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
-      );
-  };
-  public singleListUnit = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
-      .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
       );
   };
 }

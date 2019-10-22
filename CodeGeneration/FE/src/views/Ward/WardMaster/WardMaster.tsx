@@ -16,6 +16,9 @@ import { WARD_ROUTE } from 'config/route-consts';
 import { Ward } from 'models/Ward';
 import { WardSearch } from 'models/WardSearch';
 
+import {District} from 'models/District';
+import {DistrictSearch} from 'models/DistrictSearch';
+
 const {Column} = Table;
 
 function WardMaster(props: RouteComponentProps) {
@@ -130,7 +133,7 @@ function WardMaster(props: RouteComponentProps) {
                 render={(district: District) => {
                        return (
                          <>
-                           {district.name}
+                           {district.id}
                          </>
                        );
                      }}

@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {ADMINISTRATOR_ROUTE} from 'config/route-consts';
 import {Administrator} from 'models/Administrator';
+import {AdministratorSearch} from 'models/AdministratorSearch';
 import './AdministratorDetail.scss';
 import administratorDetailRepository from './AdministratorDetailRepository';
 
@@ -86,7 +87,7 @@ function AdministratorDetail(props) {
         )}
         
         <Form.Item label={translate('administratorDetail.username')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('username', {
             initialValue: administrator.username,
             rules: [
               {
@@ -100,7 +101,7 @@ function AdministratorDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('administratorDetail.displayName')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('displayName', {
             initialValue: administrator.displayName,
             rules: [
               {

@@ -17,11 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {UNIT_ROUTE} from 'config/route-consts';
 import {Unit} from 'models/Unit';
+import {UnitSearch} from 'models/UnitSearch';
 import './UnitDetail.scss';
 import unitDetailRepository from './UnitDetailRepository';
 
-import {VariationSearch} from 'models/VariationSearch';
-import {VariationSearch} from 'models/VariationSearch';
+import {Variation} from 'models/Variation';
 import {VariationSearch} from 'models/VariationSearch';
 
 function UnitDetail(props) {
@@ -38,8 +38,6 @@ function UnitDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [unit, loading] = useDetail<Unit>(id, unitDetailRepository.get, new Unit());
   
-  const [variationSearch, setVariationSearch] = useState<VariationSearch>(new VariationSearch());
-  const [variationSearch, setVariationSearch] = useState<VariationSearch>(new VariationSearch());
   const [variationSearch, setVariationSearch] = useState<VariationSearch>(new VariationSearch());
 
   function handleSubmit() {
@@ -91,50 +89,8 @@ function UnitDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('unitDetail.firstVariationId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: unit.firstVariationId,
-            rules: [
-              {
-                required: true,
-                message: translate('unitDetail.errors.firstVariationId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('unitDetail.secondVariationId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: unit.secondVariationId,
-            rules: [
-              {
-                required: true,
-                message: translate('unitDetail.errors.secondVariationId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('unitDetail.thirdVariationId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: unit.thirdVariationId,
-            rules: [
-              {
-                required: true,
-                message: translate('unitDetail.errors.thirdVariationId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('unitDetail.sKU')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('sKU', {
             initialValue: unit.sKU,
             rules: [
               {
@@ -148,7 +104,7 @@ function UnitDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('unitDetail.price')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('price', {
             initialValue: unit.price,
             rules: [
               {
@@ -180,57 +136,7 @@ function UnitDetail(props) {
                                   setSearch={setVariationSearch}>
                       {unit.firstVariation && (
                         <Option value={unit.firstVariation.id}>
-                          {unit.firstVariation.name}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
-        <Form.Item label={translate('unitDetail.secondVariation')}>
-            {
-                form.getFieldDecorator(
-                    'secondVariationId', 
-                    {
-                        initialValue: unit.secondVariation 
-                            ? unit.secondVariation.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={unitDetailRepository.singleListVariation}
-                                  search={variationSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setVariationSearch}>
-                      {unit.secondVariation && (
-                        <Option value={unit.secondVariation.id}>
-                          {unit.secondVariation.name}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
-        <Form.Item label={translate('unitDetail.thirdVariation')}>
-            {
-                form.getFieldDecorator(
-                    'thirdVariationId', 
-                    {
-                        initialValue: unit.thirdVariation 
-                            ? unit.thirdVariation.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={unitDetailRepository.singleListVariation}
-                                  search={variationSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setVariationSearch}>
-                      {unit.thirdVariation && (
-                        <Option value={unit.thirdVariation.id}>
-                          {unit.thirdVariation.name}
+                          {unit.firstVariation.id}
                         </Option>
                       )}
                     </SingleSelect>,

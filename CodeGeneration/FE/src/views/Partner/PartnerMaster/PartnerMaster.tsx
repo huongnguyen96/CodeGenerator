@@ -16,6 +16,7 @@ import { PARTNER_ROUTE } from 'config/route-consts';
 import { Partner } from 'models/Partner';
 import { PartnerSearch } from 'models/PartnerSearch';
 
+
 const {Column} = Table;
 
 function PartnerMaster(props: RouteComponentProps) {

@@ -41,18 +41,6 @@ export class ProvinceMasterRepository extends Repository {
       );
   };
   
-  public singleList = (districtSearch: DistrictSearch): Observable<District[]> => {
-    return this.httpService.post('/single-list-district',districtSearch)
-      .pipe(
-        map((response: AxiosResponse<District[]>) => response.data),
-      );
-  };
-  public singleList = (shippingAddressSearch: ShippingAddressSearch): Observable<ShippingAddress[]> => {
-    return this.httpService.post('/single-list-shipping-address',shippingAddressSearch)
-      .pipe(
-        map((response: AxiosResponse<ShippingAddress[]>) => response.data),
-      );
-  };
 }
 
 export default new ProvinceMasterRepository();

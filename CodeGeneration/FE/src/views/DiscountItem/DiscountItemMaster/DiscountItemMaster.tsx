@@ -16,6 +16,11 @@ import { DISCOUNT_ITEM_ROUTE } from 'config/route-consts';
 import { DiscountItem } from 'models/DiscountItem';
 import { DiscountItemSearch } from 'models/DiscountItemSearch';
 
+import {Discount} from 'models/Discount';
+import {DiscountSearch} from 'models/DiscountSearch';
+import {Unit} from 'models/Unit';
+import {UnitSearch} from 'models/UnitSearch';
+
 const {Column} = Table;
 
 function DiscountItemMaster(props: RouteComponentProps) {
@@ -130,7 +135,7 @@ function DiscountItemMaster(props: RouteComponentProps) {
                 render={(discount: Discount) => {
                        return (
                          <>
-                           {discount.name}
+                           {discount.id}
                          </>
                        );
                      }}
@@ -143,7 +148,7 @@ function DiscountItemMaster(props: RouteComponentProps) {
                 render={(unit: Unit) => {
                        return (
                          <>
-                           {unit.name}
+                           {unit.id}
                          </>
                        );
                      }}

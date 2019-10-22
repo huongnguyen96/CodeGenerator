@@ -16,6 +16,9 @@ import { DISCOUNT_CUSTOMER_GROUPING_ROUTE } from 'config/route-consts';
 import { DiscountCustomerGrouping } from 'models/DiscountCustomerGrouping';
 import { DiscountCustomerGroupingSearch } from 'models/DiscountCustomerGroupingSearch';
 
+import {Discount} from 'models/Discount';
+import {DiscountSearch} from 'models/DiscountSearch';
+
 const {Column} = Table;
 
 function DiscountCustomerGroupingMaster(props: RouteComponentProps) {
@@ -124,7 +127,7 @@ function DiscountCustomerGroupingMaster(props: RouteComponentProps) {
                 render={(discount: Discount) => {
                        return (
                          <>
-                           {discount.name}
+                           {discount.id}
                          </>
                        );
                      }}

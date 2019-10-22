@@ -41,12 +41,6 @@ export class ItemTypeMasterRepository extends Repository {
       );
   };
   
-  public singleList = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
-      .pipe(
-        map((response: AxiosResponse<Item[]>) => response.data),
-      );
-  };
 }
 
 export default new ItemTypeMasterRepository();

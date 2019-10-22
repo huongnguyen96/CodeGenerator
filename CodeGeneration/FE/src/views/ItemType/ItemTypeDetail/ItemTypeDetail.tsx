@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {ITEM_TYPE_ROUTE} from 'config/route-consts';
 import {ItemType} from 'models/ItemType';
+import {ItemTypeSearch} from 'models/ItemTypeSearch';
 import './ItemTypeDetail.scss';
 import itemTypeDetailRepository from './ItemTypeDetailRepository';
 
@@ -100,7 +101,7 @@ function ItemTypeDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('itemTypeDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: itemType.name,
             rules: [
               {

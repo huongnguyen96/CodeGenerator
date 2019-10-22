@@ -1,4 +1,4 @@
-import {routes} from 'config/routes';
+import {routes} from 'src/config/routes';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MemoryRouter} from 'react-router-dom';

@@ -41,18 +41,6 @@ export class DiscountMasterRepository extends Repository {
       );
   };
   
-  public singleList = (discountCustomerGroupingSearch: DiscountCustomerGroupingSearch): Observable<DiscountCustomerGrouping[]> => {
-    return this.httpService.post('/single-list-discount-customer-grouping',discountCustomerGroupingSearch)
-      .pipe(
-        map((response: AxiosResponse<DiscountCustomerGrouping[]>) => response.data),
-      );
-  };
-  public singleList = (discountItemSearch: DiscountItemSearch): Observable<DiscountItem[]> => {
-    return this.httpService.post('/single-list-discount-item',discountItemSearch)
-      .pipe(
-        map((response: AxiosResponse<DiscountItem[]>) => response.data),
-      );
-  };
 }
 
 export default new DiscountMasterRepository();

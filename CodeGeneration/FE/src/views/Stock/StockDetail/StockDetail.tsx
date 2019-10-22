@@ -17,10 +17,13 @@ import {withRouter} from 'react-router-dom';
 
 import {STOCK_ROUTE} from 'config/route-consts';
 import {Stock} from 'models/Stock';
+import {StockSearch} from 'models/StockSearch';
 import './StockDetail.scss';
 import stockDetailRepository from './StockDetailRepository';
 
+import {Unit} from 'models/Unit';
 import {UnitSearch} from 'models/UnitSearch';
+import {Warehouse} from 'models/Warehouse';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
 function StockDetail(props) {
@@ -89,36 +92,8 @@ function StockDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('stockDetail.unitId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: stock.unitId,
-            rules: [
-              {
-                required: true,
-                message: translate('stockDetail.errors.unitId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('stockDetail.warehouseId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: stock.warehouseId,
-            rules: [
-              {
-                required: true,
-                message: translate('stockDetail.errors.warehouseId.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('stockDetail.quantity')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('quantity', {
             initialValue: stock.quantity,
             rules: [
               {
@@ -150,7 +125,7 @@ function StockDetail(props) {
                                   setSearch={setUnitSearch}>
                       {stock.unit && (
                         <Option value={stock.unit.id}>
-                          {stock.unit.name}
+                          {stock.unit.id}
                         </Option>
                       )}
                     </SingleSelect>,
@@ -175,7 +150,7 @@ function StockDetail(props) {
                                   setSearch={setWarehouseSearch}>
                       {stock.warehouse && (
                         <Option value={stock.warehouse.id}>
-                          {stock.warehouse.name}
+                          {stock.warehouse.id}
                         </Option>
                       )}
                     </SingleSelect>,

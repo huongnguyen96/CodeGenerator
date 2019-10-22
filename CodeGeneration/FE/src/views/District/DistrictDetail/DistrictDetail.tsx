@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {DISTRICT_ROUTE} from 'config/route-consts';
 import {District} from 'models/District';
+import {DistrictSearch} from 'models/DistrictSearch';
 import './DistrictDetail.scss';
 import districtDetailRepository from './DistrictDetailRepository';
 
+import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
 
 function DistrictDetail(props) {
@@ -88,7 +90,7 @@ function DistrictDetail(props) {
         )}
         
         <Form.Item label={translate('districtDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: district.name,
             rules: [
               {
@@ -102,26 +104,12 @@ function DistrictDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('districtDetail.orderNumber')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('orderNumber', {
             initialValue: district.orderNumber,
             rules: [
               {
                 required: true,
                 message: translate('districtDetail.errors.orderNumber.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('districtDetail.provinceId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: district.provinceId,
-            rules: [
-              {
-                required: true,
-                message: translate('districtDetail.errors.provinceId.required'),
               },
             ],
           })(
@@ -148,7 +136,7 @@ function DistrictDetail(props) {
                                   setSearch={setProvinceSearch}>
                       {district.province && (
                         <Option value={district.province.id}>
-                          {district.province.name}
+                          {district.province.id}
                         </Option>
                       )}
                     </SingleSelect>,

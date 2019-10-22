@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {WAREHOUSE_ROUTE} from 'config/route-consts';
 import {Warehouse} from 'models/Warehouse';
+import {WarehouseSearch} from 'models/WarehouseSearch';
 import './WarehouseDetail.scss';
 import warehouseDetailRepository from './WarehouseDetailRepository';
 
+import {Partner} from 'models/Partner';
 import {PartnerSearch} from 'models/PartnerSearch';
 
 function WarehouseDetail(props) {
@@ -88,7 +90,7 @@ function WarehouseDetail(props) {
         )}
         
         <Form.Item label={translate('warehouseDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: warehouse.name,
             rules: [
               {
@@ -102,7 +104,7 @@ function WarehouseDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('warehouseDetail.phone')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('phone', {
             initialValue: warehouse.phone,
             rules: [
               {
@@ -116,7 +118,7 @@ function WarehouseDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('warehouseDetail.email')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('email', {
             initialValue: warehouse.email,
             rules: [
               {
@@ -130,26 +132,12 @@ function WarehouseDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('warehouseDetail.address')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('address', {
             initialValue: warehouse.address,
             rules: [
               {
                 required: true,
                 message: translate('warehouseDetail.errors.address.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('warehouseDetail.partnerId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: warehouse.partnerId,
-            rules: [
-              {
-                required: true,
-                message: translate('warehouseDetail.errors.partnerId.required'),
               },
             ],
           })(
@@ -176,7 +164,7 @@ function WarehouseDetail(props) {
                                   setSearch={setPartnerSearch}>
                       {warehouse.partner && (
                         <Option value={warehouse.partner.id}>
-                          {warehouse.partner.name}
+                          {warehouse.partner.id}
                         </Option>
                       )}
                     </SingleSelect>,

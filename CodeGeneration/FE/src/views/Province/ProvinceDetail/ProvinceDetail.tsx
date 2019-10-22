@@ -17,6 +17,7 @@ import {withRouter} from 'react-router-dom';
 
 import {PROVINCE_ROUTE} from 'config/route-consts';
 import {Province} from 'models/Province';
+import {ProvinceSearch} from 'models/ProvinceSearch';
 import './ProvinceDetail.scss';
 import provinceDetailRepository from './ProvinceDetailRepository';
 
@@ -86,7 +87,7 @@ function ProvinceDetail(props) {
         )}
         
         <Form.Item label={translate('provinceDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: province.name,
             rules: [
               {
@@ -100,7 +101,7 @@ function ProvinceDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('provinceDetail.orderNumber')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('orderNumber', {
             initialValue: province.orderNumber,
             rules: [
               {

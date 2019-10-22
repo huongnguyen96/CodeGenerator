@@ -17,9 +17,11 @@ import {withRouter} from 'react-router-dom';
 
 import {WARD_ROUTE} from 'config/route-consts';
 import {Ward} from 'models/Ward';
+import {WardSearch} from 'models/WardSearch';
 import './WardDetail.scss';
 import wardDetailRepository from './WardDetailRepository';
 
+import {District} from 'models/District';
 import {DistrictSearch} from 'models/DistrictSearch';
 
 function WardDetail(props) {
@@ -88,7 +90,7 @@ function WardDetail(props) {
         )}
         
         <Form.Item label={translate('wardDetail.name')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('name', {
             initialValue: ward.name,
             rules: [
               {
@@ -102,26 +104,12 @@ function WardDetail(props) {
         </Form.Item>
 
         <Form.Item label={translate('wardDetail.orderNumber')}>
-          {form.getFieldDecorator('code', {
+          {form.getFieldDecorator('orderNumber', {
             initialValue: ward.orderNumber,
             rules: [
               {
                 required: true,
                 message: translate('wardDetail.errors.orderNumber.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('wardDetail.districtId')}>
-          {form.getFieldDecorator('code', {
-            initialValue: ward.districtId,
-            rules: [
-              {
-                required: true,
-                message: translate('wardDetail.errors.districtId.required'),
               },
             ],
           })(
@@ -148,7 +136,7 @@ function WardDetail(props) {
                                   setSearch={setDistrictSearch}>
                       {ward.district && (
                         <Option value={ward.district.id}>
-                          {ward.district.name}
+                          {ward.district.id}
                         </Option>
                       )}
                     </SingleSelect>,

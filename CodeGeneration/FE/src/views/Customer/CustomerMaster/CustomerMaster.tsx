@@ -16,6 +16,7 @@ import { CUSTOMER_ROUTE } from 'config/route-consts';
 import { Customer } from 'models/Customer';
 import { CustomerSearch } from 'models/CustomerSearch';
 
+
 const {Column} = Table;
 
 function CustomerMaster(props: RouteComponentProps) {

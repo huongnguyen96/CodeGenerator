@@ -8,8 +8,6 @@ import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
-import {Variation} from 'models/Variation';
-import {VariationSearch} from 'models/VariationSearch';
 
 export class VariationGroupingDetailRepository extends Repository {
   public constructor() {
@@ -51,12 +49,6 @@ export class VariationGroupingDetailRepository extends Repository {
     return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
-      );
-  };
-  public singleListVariation = (variationSearch: VariationSearch): Observable<Variation[]> => {
-    return this.httpService.post('/single-list-variation',variationSearch)
-      .pipe(
-        map((response: AxiosResponse<Variation[]>) => response.data),
       );
   };
 }

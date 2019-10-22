@@ -16,6 +16,9 @@ import { BRAND_ROUTE } from 'config/route-consts';
 import { Brand } from 'models/Brand';
 import { BrandSearch } from 'models/BrandSearch';
 
+import {Category} from 'models/Category';
+import {CategorySearch} from 'models/CategorySearch';
+
 const {Column} = Table;
 
 function BrandMaster(props: RouteComponentProps) {
@@ -124,7 +127,7 @@ function BrandMaster(props: RouteComponentProps) {
                 render={(category: Category) => {
                        return (
                          <>
-                           {category.name}
+                           {category.id}
                          </>
                        );
                      }}

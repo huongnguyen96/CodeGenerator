@@ -8,8 +8,6 @@ import {WarehouseSearch} from 'models/WarehouseSearch';
 
 import {Partner} from 'models/Partner';
 import {PartnerSearch} from 'models/PartnerSearch';
-import {Stock} from 'models/Stock';
-import {StockSearch} from 'models/StockSearch';
 
 export class WarehouseDetailRepository extends Repository {
   public constructor() {
@@ -51,12 +49,6 @@ export class WarehouseDetailRepository extends Repository {
     return this.httpService.post('/single-list-partner',partnerSearch)
       .pipe(
         map((response: AxiosResponse<Partner[]>) => response.data),
-      );
-  };
-  public singleListStock = (stockSearch: StockSearch): Observable<Stock[]> => {
-    return this.httpService.post('/single-list-stock',stockSearch)
-      .pipe(
-        map((response: AxiosResponse<Stock[]>) => response.data),
       );
   };
 }

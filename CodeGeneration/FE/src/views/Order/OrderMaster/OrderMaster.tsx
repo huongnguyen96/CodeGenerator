@@ -16,6 +16,9 @@ import { ORDER_ROUTE } from 'config/route-consts';
 import { Order } from 'models/Order';
 import { OrderSearch } from 'models/OrderSearch';
 
+import {Customer} from 'models/Customer';
+import {CustomerSearch} from 'models/CustomerSearch';
+
 const {Column} = Table;
 
 function OrderMaster(props: RouteComponentProps) {
@@ -148,7 +151,7 @@ function OrderMaster(props: RouteComponentProps) {
                 render={(customer: Customer) => {
                        return (
                          <>
-                           {customer.name}
+                           {customer.id}
                          </>
                        );
                      }}

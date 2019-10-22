@@ -39,6 +39,10 @@ namespace CodeGeneration.App
                 return "string | Date";
             if (type.FullName == typeof(DateTime?).FullName)
                 return "string | Date";
+            if (type.FullName == typeof(bool).FullName)
+                return "boolean";
+            if (type.FullName == typeof(bool?).FullName)
+                return "boolean";
             return null;
         }
         protected string GetReferenceType(Type type)
