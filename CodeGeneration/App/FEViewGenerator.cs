@@ -57,7 +57,7 @@ const {ClassName}View = lazy(() => import('views/{ClassName}/{ClassName}View'));
     path: {UpperCase(ClassName)}_ROUTE,
     component: {ClassName}View,
   }},";
-                MenuReference = $@"
+                MenuReference += $@"
   {{
     title: translate('{CamelCase(ClassName)}.title'),
     path: {UpperCase(ClassName)}_ROUTE,
@@ -90,7 +90,7 @@ export const menu: IRoute[] = [
     {MenuReference}
 ];
 ";
-            path = Path.Combine(folder, $"menu.tsx");
+            path = Path.Combine(folder, $"menu.ts");
             File.WriteAllText(path, contents);
         }
         public void BuildView()
