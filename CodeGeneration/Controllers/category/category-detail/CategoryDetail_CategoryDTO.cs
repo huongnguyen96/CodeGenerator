@@ -14,6 +14,7 @@ namespace WG.Controllers.category.category_detail
         public string Code { get; set; }
         public string Name { get; set; }
         public long? ParentId { get; set; }
+        public long abc { get; set; }
         public string Icon { get; set; }
         public CategoryDetail_CategoryDTO() {}
         public CategoryDetail_CategoryDTO(Category Category)
