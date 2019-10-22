@@ -24,8 +24,8 @@ namespace WG.Controllers.stock.stock_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListUnit="/single-list-unit";
-        public const string SingleListWarehouse="/single-list-warehouse";
+        public const string SingleListUnit= Default + "/single-list-unit";
+        public const string SingleListWarehouse= Default + "/single-list-warehouse";
     }
 
     public class StockDetailController : ApiController

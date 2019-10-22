@@ -23,7 +23,7 @@ namespace WG.Controllers.category.category_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListCategory="/single-list-category";
+        public const string SingleListCategory= Default + "/single-list-category";
     }
 
     public class CategoryDetailController : ApiController

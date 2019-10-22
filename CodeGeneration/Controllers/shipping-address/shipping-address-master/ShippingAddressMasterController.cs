@@ -25,10 +25,10 @@ namespace WG.Controllers.shipping_address.shipping_address_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListCustomer="/single-list-customer";
-        public const string SingleListDistrict="/single-list-district";
-        public const string SingleListProvince="/single-list-province";
-        public const string SingleListWard="/single-list-ward";
+        public const string SingleListCustomer= Default + "/single-list-customer";
+        public const string SingleListDistrict= Default + "/single-list-district";
+        public const string SingleListProvince= Default + "/single-list-province";
+        public const string SingleListWard= Default + "/single-list-ward";
     }
 
     public class ShippingAddressMasterController : ApiController

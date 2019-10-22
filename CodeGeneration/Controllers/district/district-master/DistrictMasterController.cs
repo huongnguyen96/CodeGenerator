@@ -22,7 +22,7 @@ namespace WG.Controllers.district.district_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListProvince="/single-list-province";
+        public const string SingleListProvince= Default + "/single-list-province";
     }
 
     public class DistrictMasterController : ApiController

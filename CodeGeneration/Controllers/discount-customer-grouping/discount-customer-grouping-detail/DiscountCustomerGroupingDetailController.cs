@@ -23,7 +23,7 @@ namespace WG.Controllers.discount_customer_grouping.discount_customer_grouping_d
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListDiscount="/single-list-discount";
+        public const string SingleListDiscount= Default + "/single-list-discount";
     }
 
     public class DiscountCustomerGroupingDetailController : ApiController

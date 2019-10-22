@@ -24,7 +24,7 @@ namespace WG.Controllers.unit.unit_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListVariation="/single-list-variation";
+        public const string SingleListVariation= Default + "/single-list-variation";
     }
 
     public class UnitMasterController : ApiController

@@ -23,7 +23,7 @@ namespace WG.Controllers.warehouse.warehouse_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListPartner="/single-list-partner";
+        public const string SingleListPartner= Default + "/single-list-partner";
     }
 
     public class WarehouseDetailController : ApiController

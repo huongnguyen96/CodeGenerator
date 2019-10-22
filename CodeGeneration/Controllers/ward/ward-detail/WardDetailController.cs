@@ -23,7 +23,7 @@ namespace WG.Controllers.ward.ward_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListDistrict="/single-list-district";
+        public const string SingleListDistrict= Default + "/single-list-district";
     }
 
     public class WardDetailController : ApiController

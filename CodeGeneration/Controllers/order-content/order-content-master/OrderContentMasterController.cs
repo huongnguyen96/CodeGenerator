@@ -22,7 +22,7 @@ namespace WG.Controllers.order_content.order_content_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListOrder="/single-list-order";
+        public const string SingleListOrder= Default + "/single-list-order";
     }
 
     public class OrderContentMasterController : ApiController

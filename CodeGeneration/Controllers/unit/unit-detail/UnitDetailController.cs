@@ -25,7 +25,7 @@ namespace WG.Controllers.unit.unit_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListVariation="/single-list-variation";
+        public const string SingleListVariation= Default + "/single-list-variation";
     }
 
     public class UnitDetailController : ApiController

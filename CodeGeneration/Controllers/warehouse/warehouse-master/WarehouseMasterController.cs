@@ -22,7 +22,7 @@ namespace WG.Controllers.warehouse.warehouse_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListPartner="/single-list-partner";
+        public const string SingleListPartner= Default + "/single-list-partner";
     }
 
     public class WarehouseMasterController : ApiController

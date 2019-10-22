@@ -23,7 +23,7 @@ namespace WG.Controllers.variation_grouping.variation_grouping_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListItem="/single-list-item";
+        public const string SingleListItem= Default + "/single-list-item";
     }
 
     public class VariationGroupingDetailController : ApiController

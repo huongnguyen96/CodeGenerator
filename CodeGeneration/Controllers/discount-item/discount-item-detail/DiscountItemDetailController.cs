@@ -24,8 +24,8 @@ namespace WG.Controllers.discount_item.discount_item_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListDiscount="/single-list-discount";
-        public const string SingleListUnit="/single-list-unit";
+        public const string SingleListDiscount= Default + "/single-list-discount";
+        public const string SingleListUnit= Default + "/single-list-unit";
     }
 
     public class DiscountItemDetailController : ApiController

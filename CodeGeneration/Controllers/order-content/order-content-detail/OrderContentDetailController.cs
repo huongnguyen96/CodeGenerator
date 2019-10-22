@@ -23,7 +23,7 @@ namespace WG.Controllers.order_content.order_content_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListOrder="/single-list-order";
+        public const string SingleListOrder= Default + "/single-list-order";
     }
 
     public class OrderContentDetailController : ApiController

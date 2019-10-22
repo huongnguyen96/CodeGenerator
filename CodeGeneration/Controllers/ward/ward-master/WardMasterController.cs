@@ -22,7 +22,7 @@ namespace WG.Controllers.ward.ward_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListDistrict="/single-list-district";
+        public const string SingleListDistrict= Default + "/single-list-district";
     }
 
     public class WardMasterController : ApiController

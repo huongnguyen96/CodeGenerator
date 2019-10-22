@@ -392,7 +392,7 @@ using {Namespace}.Entities;
                 {
                     referenceTypes.Add(referenceType);
                     content += $@"
-        public const string SingleList{referenceType}=""/single-list-{KebabCase(referenceType)}"";";
+        public const string SingleList{referenceType}= Default + ""/single-list-{KebabCase(referenceType)}"";";
                 }
             }
             return content;

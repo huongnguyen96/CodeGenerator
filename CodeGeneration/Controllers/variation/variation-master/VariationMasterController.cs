@@ -22,7 +22,7 @@ namespace WG.Controllers.variation.variation_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListVariationGrouping="/single-list-variation-grouping";
+        public const string SingleListVariationGrouping= Default + "/single-list-variation-grouping";
     }
 
     public class VariationMasterController : ApiController

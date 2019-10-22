@@ -23,8 +23,8 @@ namespace WG.Controllers.stock.stock_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListUnit="/single-list-unit";
-        public const string SingleListWarehouse="/single-list-warehouse";
+        public const string SingleListUnit= Default + "/single-list-unit";
+        public const string SingleListWarehouse= Default + "/single-list-warehouse";
     }
 
     public class StockMasterController : ApiController

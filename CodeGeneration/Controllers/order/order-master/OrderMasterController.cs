@@ -22,7 +22,7 @@ namespace WG.Controllers.order.order_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListCustomer="/single-list-customer";
+        public const string SingleListCustomer= Default + "/single-list-customer";
     }
 
     public class OrderMasterController : ApiController

@@ -22,7 +22,7 @@ namespace WG.Controllers.discount_customer_grouping.discount_customer_grouping_m
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListDiscount="/single-list-discount";
+        public const string SingleListDiscount= Default + "/single-list-discount";
     }
 
     public class DiscountCustomerGroupingMasterController : ApiController

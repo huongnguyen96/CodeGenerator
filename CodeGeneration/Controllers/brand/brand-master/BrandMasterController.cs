@@ -22,7 +22,7 @@ namespace WG.Controllers.brand.brand_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListCategory="/single-list-category";
+        public const string SingleListCategory= Default + "/single-list-category";
     }
 
     public class BrandMasterController : ApiController

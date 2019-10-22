@@ -26,11 +26,11 @@ namespace WG.Controllers.item.item_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListBrand="/single-list-brand";
-        public const string SingleListCategory="/single-list-category";
-        public const string SingleListPartner="/single-list-partner";
-        public const string SingleListItemStatus="/single-list-item-status";
-        public const string SingleListItemType="/single-list-item-type";
+        public const string SingleListBrand= Default + "/single-list-brand";
+        public const string SingleListCategory= Default + "/single-list-category";
+        public const string SingleListPartner= Default + "/single-list-partner";
+        public const string SingleListItemStatus= Default + "/single-list-item-status";
+        public const string SingleListItemType= Default + "/single-list-item-type";
     }
 
     public class ItemMasterController : ApiController

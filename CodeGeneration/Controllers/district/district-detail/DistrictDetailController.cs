@@ -23,7 +23,7 @@ namespace WG.Controllers.district.district_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListProvince="/single-list-province";
+        public const string SingleListProvince= Default + "/single-list-province";
     }
 
     public class DistrictDetailController : ApiController
