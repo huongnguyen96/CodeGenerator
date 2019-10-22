@@ -99,12 +99,6 @@ function CustomerGroupingMaster(props: RouteComponentProps) {
                 render={renderIndex<CustomerGrouping, CustomerGroupingSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('customerGroupingMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<CustomerGrouping>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('customerGroupingMaster.name')}
@@ -116,7 +110,7 @@ function CustomerGroupingMaster(props: RouteComponentProps) {
                 render={(id: string, customerGrouping: CustomerGrouping) => {
                   return (
                     <>
-                      <Link to={path.join(CUSTOMER_GROUPING_ROUTE, id)}>
+                      <Link to={path.join(CUSTOMER_GROUPING_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(customerGrouping)}>

@@ -107,18 +107,6 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={renderIndex<ShippingAddress, ShippingAddressSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('shippingAddressMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<ShippingAddress>('id', sorter)}
-        />
-         <Column key="customerId"
-                dataIndex="customerId"
-                title={translate('shippingAddressMaster.customerId')}
-                sorter
-                sortOrder={getColumnSortOrder<ShippingAddress>('customerId', sorter)}
-        />
          <Column key="fullName"
                 dataIndex="fullName"
                 title={translate('shippingAddressMaster.fullName')}
@@ -136,24 +124,6 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 title={translate('shippingAddressMaster.phoneNumber')}
                 sorter
                 sortOrder={getColumnSortOrder<ShippingAddress>('phoneNumber', sorter)}
-        />
-         <Column key="provinceId"
-                dataIndex="provinceId"
-                title={translate('shippingAddressMaster.provinceId')}
-                sorter
-                sortOrder={getColumnSortOrder<ShippingAddress>('provinceId', sorter)}
-        />
-         <Column key="districtId"
-                dataIndex="districtId"
-                title={translate('shippingAddressMaster.districtId')}
-                sorter
-                sortOrder={getColumnSortOrder<ShippingAddress>('districtId', sorter)}
-        />
-         <Column key="wardId"
-                dataIndex="wardId"
-                title={translate('shippingAddressMaster.wardId')}
-                sorter
-                sortOrder={getColumnSortOrder<ShippingAddress>('wardId', sorter)}
         />
          <Column key="address"
                 dataIndex="address"
@@ -175,7 +145,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(customer: Customer) => {
                        return (
                          <>
-                           {customer.id}
+                           {customer && customer.id}
                          </>
                        );
                      }}
@@ -188,7 +158,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(district: District) => {
                        return (
                          <>
-                           {district.id}
+                           {district && district.id}
                          </>
                        );
                      }}
@@ -201,7 +171,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(province: Province) => {
                        return (
                          <>
-                           {province.id}
+                           {province && province.id}
                          </>
                        );
                      }}
@@ -214,7 +184,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(ward: Ward) => {
                        return (
                          <>
-                           {ward.id}
+                           {ward && ward.id}
                          </>
                        );
                      }}
@@ -224,7 +194,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 render={(id: string, shippingAddress: ShippingAddress) => {
                   return (
                     <>
-                      <Link to={path.join(SHIPPING_ADDRESS_ROUTE, id)}>
+                      <Link to={path.join(SHIPPING_ADDRESS_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(shippingAddress)}>

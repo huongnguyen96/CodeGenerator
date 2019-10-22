@@ -99,12 +99,6 @@ function ProvinceMaster(props: RouteComponentProps) {
                 render={renderIndex<Province, ProvinceSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('provinceMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Province>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('provinceMaster.name')}
@@ -122,7 +116,7 @@ function ProvinceMaster(props: RouteComponentProps) {
                 render={(id: string, province: Province) => {
                   return (
                     <>
-                      <Link to={path.join(PROVINCE_ROUTE, id)}>
+                      <Link to={path.join(PROVINCE_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(province)}>

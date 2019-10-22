@@ -99,12 +99,6 @@ function ItemTypeMaster(props: RouteComponentProps) {
                 render={renderIndex<ItemType, ItemTypeSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('itemTypeMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<ItemType>('id', sorter)}
-        />
          <Column key="code"
                 dataIndex="code"
                 title={translate('itemTypeMaster.code')}
@@ -122,7 +116,7 @@ function ItemTypeMaster(props: RouteComponentProps) {
                 render={(id: string, itemType: ItemType) => {
                   return (
                     <>
-                      <Link to={path.join(ITEM_TYPE_ROUTE, id)}>
+                      <Link to={path.join(ITEM_TYPE_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(itemType)}>

@@ -101,18 +101,6 @@ function DiscountCustomerGroupingMaster(props: RouteComponentProps) {
                 render={renderIndex<DiscountCustomerGrouping, DiscountCustomerGroupingSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('discountCustomerGroupingMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<DiscountCustomerGrouping>('id', sorter)}
-        />
-         <Column key="discountId"
-                dataIndex="discountId"
-                title={translate('discountCustomerGroupingMaster.discountId')}
-                sorter
-                sortOrder={getColumnSortOrder<DiscountCustomerGrouping>('discountId', sorter)}
-        />
          <Column key="customerGroupingCode"
                 dataIndex="customerGroupingCode"
                 title={translate('discountCustomerGroupingMaster.customerGroupingCode')}
@@ -127,7 +115,7 @@ function DiscountCustomerGroupingMaster(props: RouteComponentProps) {
                 render={(discount: Discount) => {
                        return (
                          <>
-                           {discount.id}
+                           {discount && discount.id}
                          </>
                        );
                      }}
@@ -137,7 +125,7 @@ function DiscountCustomerGroupingMaster(props: RouteComponentProps) {
                 render={(id: string, discountCustomerGrouping: DiscountCustomerGrouping) => {
                   return (
                     <>
-                      <Link to={path.join(DISCOUNT_CUSTOMER_GROUPING_ROUTE, id)}>
+                      <Link to={path.join(DISCOUNT_CUSTOMER_GROUPING_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(discountCustomerGrouping)}>

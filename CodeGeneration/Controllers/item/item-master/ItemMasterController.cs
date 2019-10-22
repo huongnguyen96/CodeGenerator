@@ -102,6 +102,7 @@ namespace WG.Controllers.item.item_master
         public ItemFilter ConvertFilterDTOToFilterEntity(ItemMaster_ItemFilterDTO ItemMaster_ItemFilterDTO)
         {
             ItemFilter ItemFilter = new ItemFilter();
+            ItemFilter.Selects = ItemSelect.ALL;
             
             ItemFilter.Id = new LongFilter{ Equal = ItemMaster_ItemFilterDTO.Id };
             ItemFilter.Code = new StringFilter{ StartsWith = ItemMaster_ItemFilterDTO.Code };

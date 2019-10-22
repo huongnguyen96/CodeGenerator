@@ -99,12 +99,6 @@ function ImageFileMaster(props: RouteComponentProps) {
                 render={renderIndex<ImageFile, ImageFileSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('imageFileMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<ImageFile>('id', sorter)}
-        />
          <Column key="path"
                 dataIndex="path"
                 title={translate('imageFileMaster.path')}
@@ -122,7 +116,7 @@ function ImageFileMaster(props: RouteComponentProps) {
                 render={(id: string, imageFile: ImageFile) => {
                   return (
                     <>
-                      <Link to={path.join(IMAGE_FILE_ROUTE, id)}>
+                      <Link to={path.join(IMAGE_FILE_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(imageFile)}>

@@ -77,6 +77,7 @@ namespace WG.Controllers.item_status.item_status_master
         public ItemStatusFilter ConvertFilterDTOToFilterEntity(ItemStatusMaster_ItemStatusFilterDTO ItemStatusMaster_ItemStatusFilterDTO)
         {
             ItemStatusFilter ItemStatusFilter = new ItemStatusFilter();
+            ItemStatusFilter.Selects = ItemStatusSelect.ALL;
             
             ItemStatusFilter.Id = new LongFilter{ Equal = ItemStatusMaster_ItemStatusFilterDTO.Id };
             ItemStatusFilter.Code = new StringFilter{ StartsWith = ItemStatusMaster_ItemStatusFilterDTO.Code };

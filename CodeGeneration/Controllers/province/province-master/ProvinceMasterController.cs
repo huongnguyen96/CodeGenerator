@@ -77,6 +77,7 @@ namespace WG.Controllers.province.province_master
         public ProvinceFilter ConvertFilterDTOToFilterEntity(ProvinceMaster_ProvinceFilterDTO ProvinceMaster_ProvinceFilterDTO)
         {
             ProvinceFilter ProvinceFilter = new ProvinceFilter();
+            ProvinceFilter.Selects = ProvinceSelect.ALL;
             
             ProvinceFilter.Id = new LongFilter{ Equal = ProvinceMaster_ProvinceFilterDTO.Id };
             ProvinceFilter.Name = new StringFilter{ StartsWith = ProvinceMaster_ProvinceFilterDTO.Name };

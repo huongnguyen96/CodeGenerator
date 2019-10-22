@@ -101,12 +101,6 @@ function DistrictMaster(props: RouteComponentProps) {
                 render={renderIndex<District, DistrictSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('districtMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<District>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('districtMaster.name')}
@@ -119,12 +113,6 @@ function DistrictMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<District>('orderNumber', sorter)}
         />
-         <Column key="provinceId"
-                dataIndex="provinceId"
-                title={translate('districtMaster.provinceId')}
-                sorter
-                sortOrder={getColumnSortOrder<District>('provinceId', sorter)}
-        />
          <Column key="province"
                 dataIndex="province"
                 title={translate('districtMaster.province')}
@@ -133,7 +121,7 @@ function DistrictMaster(props: RouteComponentProps) {
                 render={(province: Province) => {
                        return (
                          <>
-                           {province.id}
+                           {province && province.id}
                          </>
                        );
                      }}
@@ -143,7 +131,7 @@ function DistrictMaster(props: RouteComponentProps) {
                 render={(id: string, district: District) => {
                   return (
                     <>
-                      <Link to={path.join(DISTRICT_ROUTE, id)}>
+                      <Link to={path.join(DISTRICT_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(district)}>

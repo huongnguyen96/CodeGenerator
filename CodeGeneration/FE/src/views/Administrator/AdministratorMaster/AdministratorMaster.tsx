@@ -99,12 +99,6 @@ function AdministratorMaster(props: RouteComponentProps) {
                 render={renderIndex<Administrator, AdministratorSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('administratorMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Administrator>('id', sorter)}
-        />
          <Column key="username"
                 dataIndex="username"
                 title={translate('administratorMaster.username')}
@@ -122,7 +116,7 @@ function AdministratorMaster(props: RouteComponentProps) {
                 render={(id: string, administrator: Administrator) => {
                   return (
                     <>
-                      <Link to={path.join(ADMINISTRATOR_ROUTE, id)}>
+                      <Link to={path.join(ADMINISTRATOR_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(administrator)}>

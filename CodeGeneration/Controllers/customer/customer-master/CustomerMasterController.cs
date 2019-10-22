@@ -77,6 +77,7 @@ namespace WG.Controllers.customer.customer_master
         public CustomerFilter ConvertFilterDTOToFilterEntity(CustomerMaster_CustomerFilterDTO CustomerMaster_CustomerFilterDTO)
         {
             CustomerFilter CustomerFilter = new CustomerFilter();
+            CustomerFilter.Selects = CustomerSelect.ALL;
             
             CustomerFilter.Id = new LongFilter{ Equal = CustomerMaster_CustomerFilterDTO.Id };
             CustomerFilter.Username = new StringFilter{ StartsWith = CustomerMaster_CustomerFilterDTO.Username };

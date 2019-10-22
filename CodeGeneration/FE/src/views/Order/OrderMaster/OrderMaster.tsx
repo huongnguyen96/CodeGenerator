@@ -101,18 +101,6 @@ function OrderMaster(props: RouteComponentProps) {
                 render={renderIndex<Order, OrderSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('orderMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Order>('id', sorter)}
-        />
-         <Column key="customerId"
-                dataIndex="customerId"
-                title={translate('orderMaster.customerId')}
-                sorter
-                sortOrder={getColumnSortOrder<Order>('customerId', sorter)}
-        />
          <Column key="createdDate"
                 dataIndex="createdDate"
                 title={translate('orderMaster.createdDate')}
@@ -151,7 +139,7 @@ function OrderMaster(props: RouteComponentProps) {
                 render={(customer: Customer) => {
                        return (
                          <>
-                           {customer.id}
+                           {customer && customer.id}
                          </>
                        );
                      }}
@@ -161,7 +149,7 @@ function OrderMaster(props: RouteComponentProps) {
                 render={(id: string, order: Order) => {
                   return (
                     <>
-                      <Link to={path.join(ORDER_ROUTE, id)}>
+                      <Link to={path.join(ORDER_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(order)}>

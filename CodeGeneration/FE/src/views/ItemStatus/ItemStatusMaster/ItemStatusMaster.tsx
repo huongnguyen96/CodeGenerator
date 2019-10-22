@@ -99,12 +99,6 @@ function ItemStatusMaster(props: RouteComponentProps) {
                 render={renderIndex<ItemStatus, ItemStatusSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('itemStatusMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<ItemStatus>('id', sorter)}
-        />
          <Column key="code"
                 dataIndex="code"
                 title={translate('itemStatusMaster.code')}
@@ -122,7 +116,7 @@ function ItemStatusMaster(props: RouteComponentProps) {
                 render={(id: string, itemStatus: ItemStatus) => {
                   return (
                     <>
-                      <Link to={path.join(ITEM_STATUS_ROUTE, id)}>
+                      <Link to={path.join(ITEM_STATUS_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(itemStatus)}>

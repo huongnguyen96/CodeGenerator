@@ -77,6 +77,7 @@ namespace WG.Controllers.partner.partner_master
         public PartnerFilter ConvertFilterDTOToFilterEntity(PartnerMaster_PartnerFilterDTO PartnerMaster_PartnerFilterDTO)
         {
             PartnerFilter PartnerFilter = new PartnerFilter();
+            PartnerFilter.Selects = PartnerSelect.ALL;
             
             PartnerFilter.Id = new LongFilter{ Equal = PartnerMaster_PartnerFilterDTO.Id };
             PartnerFilter.Name = new StringFilter{ StartsWith = PartnerMaster_PartnerFilterDTO.Name };

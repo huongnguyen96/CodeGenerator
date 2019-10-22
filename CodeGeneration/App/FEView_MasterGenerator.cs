@@ -140,7 +140,7 @@ function {ClassName}Master(props: RouteComponentProps) {{
                 render={{(id: string, {CamelCase(ClassName)}: {ClassName}) => {{
                   return (
                     <>
-                      <Link to={{path.join({UpperCase(ClassName)}_ROUTE, id)}}>
+                      <Link to={{path.join({UpperCase(ClassName)}_ROUTE, id.toString())}}>
                         {{translate('general.actions.edit')}}
                       </Link>
                       <Button htmlType=""button"" type=""link"" onClick={{handleDelete({CamelCase(ClassName)})}}>
@@ -170,7 +170,7 @@ export default withRouter({ClassName}Master);
             {
                 string primitiveType = GetPrimitiveType(PropertyInfo.PropertyType);
                 string referenceType = GetReferenceType(PropertyInfo.PropertyType);
-                if (!string.IsNullOrEmpty(primitiveType))
+                if (!string.IsNullOrEmpty(primitiveType) && !PropertyInfo.Name.EndsWith("Id"))
                 {
                     contents += $@"
          <Column key=""{CamelCase(PropertyInfo.Name)}""
@@ -191,7 +191,7 @@ export default withRouter({ClassName}Master);
                 render={{({CamelCase(PropertyInfo.Name)}: {referenceType}) => {{
                        return (
                          <>
-                           {{{CamelCase(PropertyInfo.Name)}.id}}
+                           {{{CamelCase(PropertyInfo.Name)} && {CamelCase(PropertyInfo.Name)}.id}}
                          </>
                        );
                      }}}}

@@ -103,29 +103,11 @@ function DiscountItemMaster(props: RouteComponentProps) {
                 render={renderIndex<DiscountItem, DiscountItemSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('discountItemMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<DiscountItem>('id', sorter)}
-        />
-         <Column key="unitId"
-                dataIndex="unitId"
-                title={translate('discountItemMaster.unitId')}
-                sorter
-                sortOrder={getColumnSortOrder<DiscountItem>('unitId', sorter)}
-        />
          <Column key="discountValue"
                 dataIndex="discountValue"
                 title={translate('discountItemMaster.discountValue')}
                 sorter
                 sortOrder={getColumnSortOrder<DiscountItem>('discountValue', sorter)}
-        />
-         <Column key="discountId"
-                dataIndex="discountId"
-                title={translate('discountItemMaster.discountId')}
-                sorter
-                sortOrder={getColumnSortOrder<DiscountItem>('discountId', sorter)}
         />
          <Column key="discount"
                 dataIndex="discount"
@@ -135,7 +117,7 @@ function DiscountItemMaster(props: RouteComponentProps) {
                 render={(discount: Discount) => {
                        return (
                          <>
-                           {discount.id}
+                           {discount && discount.id}
                          </>
                        );
                      }}
@@ -148,7 +130,7 @@ function DiscountItemMaster(props: RouteComponentProps) {
                 render={(unit: Unit) => {
                        return (
                          <>
-                           {unit.id}
+                           {unit && unit.id}
                          </>
                        );
                      }}
@@ -158,7 +140,7 @@ function DiscountItemMaster(props: RouteComponentProps) {
                 render={(id: string, discountItem: DiscountItem) => {
                   return (
                     <>
-                      <Link to={path.join(DISCOUNT_ITEM_ROUTE, id)}>
+                      <Link to={path.join(DISCOUNT_ITEM_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(discountItem)}>

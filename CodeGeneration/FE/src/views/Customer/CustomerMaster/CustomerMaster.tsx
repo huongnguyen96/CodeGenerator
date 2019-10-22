@@ -99,12 +99,6 @@ function CustomerMaster(props: RouteComponentProps) {
                 render={renderIndex<Customer, CustomerSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('customerMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Customer>('id', sorter)}
-        />
          <Column key="username"
                 dataIndex="username"
                 title={translate('customerMaster.username')}
@@ -122,7 +116,7 @@ function CustomerMaster(props: RouteComponentProps) {
                 render={(id: string, customer: Customer) => {
                   return (
                     <>
-                      <Link to={path.join(CUSTOMER_ROUTE, id)}>
+                      <Link to={path.join(CUSTOMER_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(customer)}>

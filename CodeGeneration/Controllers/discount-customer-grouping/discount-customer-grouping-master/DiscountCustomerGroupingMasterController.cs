@@ -82,6 +82,7 @@ namespace WG.Controllers.discount_customer_grouping.discount_customer_grouping_m
         public DiscountCustomerGroupingFilter ConvertFilterDTOToFilterEntity(DiscountCustomerGroupingMaster_DiscountCustomerGroupingFilterDTO DiscountCustomerGroupingMaster_DiscountCustomerGroupingFilterDTO)
         {
             DiscountCustomerGroupingFilter DiscountCustomerGroupingFilter = new DiscountCustomerGroupingFilter();
+            DiscountCustomerGroupingFilter.Selects = DiscountCustomerGroupingSelect.ALL;
             
             DiscountCustomerGroupingFilter.Id = new LongFilter{ Equal = DiscountCustomerGroupingMaster_DiscountCustomerGroupingFilterDTO.Id };
             DiscountCustomerGroupingFilter.DiscountId = new LongFilter{ Equal = DiscountCustomerGroupingMaster_DiscountCustomerGroupingFilterDTO.DiscountId };

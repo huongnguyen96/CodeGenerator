@@ -109,12 +109,6 @@ function ItemMaster(props: RouteComponentProps) {
                 render={renderIndex<Item, ItemSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('itemMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('id', sorter)}
-        />
          <Column key="code"
                 dataIndex="code"
                 title={translate('itemMaster.code')}
@@ -139,36 +133,6 @@ function ItemMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Item>('description', sorter)}
         />
-         <Column key="typeId"
-                dataIndex="typeId"
-                title={translate('itemMaster.typeId')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('typeId', sorter)}
-        />
-         <Column key="statusId"
-                dataIndex="statusId"
-                title={translate('itemMaster.statusId')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('statusId', sorter)}
-        />
-         <Column key="partnerId"
-                dataIndex="partnerId"
-                title={translate('itemMaster.partnerId')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('partnerId', sorter)}
-        />
-         <Column key="categoryId"
-                dataIndex="categoryId"
-                title={translate('itemMaster.categoryId')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('categoryId', sorter)}
-        />
-         <Column key="brandId"
-                dataIndex="brandId"
-                title={translate('itemMaster.brandId')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('brandId', sorter)}
-        />
          <Column key="brand"
                 dataIndex="brand"
                 title={translate('itemMaster.brand')}
@@ -177,7 +141,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(brand: Brand) => {
                        return (
                          <>
-                           {brand.id}
+                           {brand && brand.id}
                          </>
                        );
                      }}
@@ -190,7 +154,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(category: Category) => {
                        return (
                          <>
-                           {category.id}
+                           {category && category.id}
                          </>
                        );
                      }}
@@ -203,7 +167,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(partner: Partner) => {
                        return (
                          <>
-                           {partner.id}
+                           {partner && partner.id}
                          </>
                        );
                      }}
@@ -216,7 +180,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(status: ItemStatus) => {
                        return (
                          <>
-                           {status.id}
+                           {status && status.id}
                          </>
                        );
                      }}
@@ -229,7 +193,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(type: ItemType) => {
                        return (
                          <>
-                           {type.id}
+                           {type && type.id}
                          </>
                        );
                      }}
@@ -239,7 +203,7 @@ function ItemMaster(props: RouteComponentProps) {
                 render={(id: string, item: Item) => {
                   return (
                     <>
-                      <Link to={path.join(ITEM_ROUTE, id)}>
+                      <Link to={path.join(ITEM_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(item)}>

@@ -77,6 +77,7 @@ namespace WG.Controllers.administrator.administrator_master
         public AdministratorFilter ConvertFilterDTOToFilterEntity(AdministratorMaster_AdministratorFilterDTO AdministratorMaster_AdministratorFilterDTO)
         {
             AdministratorFilter AdministratorFilter = new AdministratorFilter();
+            AdministratorFilter.Selects = AdministratorSelect.ALL;
             
             AdministratorFilter.Id = new LongFilter{ Equal = AdministratorMaster_AdministratorFilterDTO.Id };
             AdministratorFilter.Username = new StringFilter{ StartsWith = AdministratorMaster_AdministratorFilterDTO.Username };

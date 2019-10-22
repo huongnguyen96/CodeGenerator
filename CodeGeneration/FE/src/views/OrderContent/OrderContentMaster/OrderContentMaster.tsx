@@ -101,18 +101,6 @@ function OrderContentMaster(props: RouteComponentProps) {
                 render={renderIndex<OrderContent, OrderContentSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('orderContentMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<OrderContent>('id', sorter)}
-        />
-         <Column key="orderId"
-                dataIndex="orderId"
-                title={translate('orderContentMaster.orderId')}
-                sorter
-                sortOrder={getColumnSortOrder<OrderContent>('orderId', sorter)}
-        />
          <Column key="itemName"
                 dataIndex="itemName"
                 title={translate('orderContentMaster.itemName')}
@@ -157,7 +145,7 @@ function OrderContentMaster(props: RouteComponentProps) {
                 render={(order: Order) => {
                        return (
                          <>
-                           {order.id}
+                           {order && order.id}
                          </>
                        );
                      }}
@@ -167,7 +155,7 @@ function OrderContentMaster(props: RouteComponentProps) {
                 render={(id: string, orderContent: OrderContent) => {
                   return (
                     <>
-                      <Link to={path.join(ORDER_CONTENT_ROUTE, id)}>
+                      <Link to={path.join(ORDER_CONTENT_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(orderContent)}>

@@ -97,6 +97,7 @@ namespace WG.Controllers.shipping_address.shipping_address_master
         public ShippingAddressFilter ConvertFilterDTOToFilterEntity(ShippingAddressMaster_ShippingAddressFilterDTO ShippingAddressMaster_ShippingAddressFilterDTO)
         {
             ShippingAddressFilter ShippingAddressFilter = new ShippingAddressFilter();
+            ShippingAddressFilter.Selects = ShippingAddressSelect.ALL;
             
             ShippingAddressFilter.Id = new LongFilter{ Equal = ShippingAddressMaster_ShippingAddressFilterDTO.Id };
             ShippingAddressFilter.CustomerId = new LongFilter{ Equal = ShippingAddressMaster_ShippingAddressFilterDTO.CustomerId };

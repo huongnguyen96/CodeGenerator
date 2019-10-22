@@ -101,12 +101,6 @@ function WarehouseMaster(props: RouteComponentProps) {
                 render={renderIndex<Warehouse, WarehouseSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('warehouseMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Warehouse>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('warehouseMaster.name')}
@@ -131,12 +125,6 @@ function WarehouseMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('address', sorter)}
         />
-         <Column key="partnerId"
-                dataIndex="partnerId"
-                title={translate('warehouseMaster.partnerId')}
-                sorter
-                sortOrder={getColumnSortOrder<Warehouse>('partnerId', sorter)}
-        />
          <Column key="partner"
                 dataIndex="partner"
                 title={translate('warehouseMaster.partner')}
@@ -145,7 +133,7 @@ function WarehouseMaster(props: RouteComponentProps) {
                 render={(partner: Partner) => {
                        return (
                          <>
-                           {partner.id}
+                           {partner && partner.id}
                          </>
                        );
                      }}
@@ -155,7 +143,7 @@ function WarehouseMaster(props: RouteComponentProps) {
                 render={(id: string, warehouse: Warehouse) => {
                   return (
                     <>
-                      <Link to={path.join(WAREHOUSE_ROUTE, id)}>
+                      <Link to={path.join(WAREHOUSE_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(warehouse)}>

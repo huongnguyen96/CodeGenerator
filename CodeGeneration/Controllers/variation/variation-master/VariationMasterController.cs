@@ -82,6 +82,7 @@ namespace WG.Controllers.variation.variation_master
         public VariationFilter ConvertFilterDTOToFilterEntity(VariationMaster_VariationFilterDTO VariationMaster_VariationFilterDTO)
         {
             VariationFilter VariationFilter = new VariationFilter();
+            VariationFilter.Selects = VariationSelect.ALL;
             
             VariationFilter.Id = new LongFilter{ Equal = VariationMaster_VariationFilterDTO.Id };
             VariationFilter.Name = new StringFilter{ StartsWith = VariationMaster_VariationFilterDTO.Name };

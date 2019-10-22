@@ -77,6 +77,7 @@ namespace WG.Controllers.customer_grouping.customer_grouping_master
         public CustomerGroupingFilter ConvertFilterDTOToFilterEntity(CustomerGroupingMaster_CustomerGroupingFilterDTO CustomerGroupingMaster_CustomerGroupingFilterDTO)
         {
             CustomerGroupingFilter CustomerGroupingFilter = new CustomerGroupingFilter();
+            CustomerGroupingFilter.Selects = CustomerGroupingSelect.ALL;
             
             CustomerGroupingFilter.Id = new LongFilter{ Equal = CustomerGroupingMaster_CustomerGroupingFilterDTO.Id };
             CustomerGroupingFilter.Name = new StringFilter{ StartsWith = CustomerGroupingMaster_CustomerGroupingFilterDTO.Name };

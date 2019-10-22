@@ -84,6 +84,7 @@ namespace WG.Controllers.unit.unit_master
         public UnitFilter ConvertFilterDTOToFilterEntity(UnitMaster_UnitFilterDTO UnitMaster_UnitFilterDTO)
         {
             UnitFilter UnitFilter = new UnitFilter();
+            UnitFilter.Selects = UnitSelect.ALL;
             
             UnitFilter.Id = new LongFilter{ Equal = UnitMaster_UnitFilterDTO.Id };
             UnitFilter.FirstVariationId = new LongFilter{ Equal = UnitMaster_UnitFilterDTO.FirstVariationId };

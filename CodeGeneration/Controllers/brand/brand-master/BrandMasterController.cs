@@ -82,6 +82,7 @@ namespace WG.Controllers.brand.brand_master
         public BrandFilter ConvertFilterDTOToFilterEntity(BrandMaster_BrandFilterDTO BrandMaster_BrandFilterDTO)
         {
             BrandFilter BrandFilter = new BrandFilter();
+            BrandFilter.Selects = BrandSelect.ALL;
             
             BrandFilter.Id = new LongFilter{ Equal = BrandMaster_BrandFilterDTO.Id };
             BrandFilter.Name = new StringFilter{ StartsWith = BrandMaster_BrandFilterDTO.Name };

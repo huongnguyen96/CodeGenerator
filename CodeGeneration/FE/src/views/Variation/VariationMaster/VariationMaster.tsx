@@ -101,23 +101,11 @@ function VariationMaster(props: RouteComponentProps) {
                 render={renderIndex<Variation, VariationSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('variationMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Variation>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('variationMaster.name')}
                 sorter
                 sortOrder={getColumnSortOrder<Variation>('name', sorter)}
-        />
-         <Column key="variationGroupingId"
-                dataIndex="variationGroupingId"
-                title={translate('variationMaster.variationGroupingId')}
-                sorter
-                sortOrder={getColumnSortOrder<Variation>('variationGroupingId', sorter)}
         />
          <Column key="variationGrouping"
                 dataIndex="variationGrouping"
@@ -127,7 +115,7 @@ function VariationMaster(props: RouteComponentProps) {
                 render={(variationGrouping: VariationGrouping) => {
                        return (
                          <>
-                           {variationGrouping.id}
+                           {variationGrouping && variationGrouping.id}
                          </>
                        );
                      }}
@@ -137,7 +125,7 @@ function VariationMaster(props: RouteComponentProps) {
                 render={(id: string, variation: Variation) => {
                   return (
                     <>
-                      <Link to={path.join(VARIATION_ROUTE, id)}>
+                      <Link to={path.join(VARIATION_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(variation)}>

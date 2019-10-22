@@ -82,6 +82,7 @@ namespace WG.Controllers.warehouse.warehouse_master
         public WarehouseFilter ConvertFilterDTOToFilterEntity(WarehouseMaster_WarehouseFilterDTO WarehouseMaster_WarehouseFilterDTO)
         {
             WarehouseFilter WarehouseFilter = new WarehouseFilter();
+            WarehouseFilter.Selects = WarehouseSelect.ALL;
             
             WarehouseFilter.Id = new LongFilter{ Equal = WarehouseMaster_WarehouseFilterDTO.Id };
             WarehouseFilter.Name = new StringFilter{ StartsWith = WarehouseMaster_WarehouseFilterDTO.Name };

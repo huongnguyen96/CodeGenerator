@@ -101,23 +101,11 @@ function BrandMaster(props: RouteComponentProps) {
                 render={renderIndex<Brand, BrandSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('brandMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Brand>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('brandMaster.name')}
                 sorter
                 sortOrder={getColumnSortOrder<Brand>('name', sorter)}
-        />
-         <Column key="categoryId"
-                dataIndex="categoryId"
-                title={translate('brandMaster.categoryId')}
-                sorter
-                sortOrder={getColumnSortOrder<Brand>('categoryId', sorter)}
         />
          <Column key="category"
                 dataIndex="category"
@@ -127,7 +115,7 @@ function BrandMaster(props: RouteComponentProps) {
                 render={(category: Category) => {
                        return (
                          <>
-                           {category.id}
+                           {category && category.id}
                          </>
                        );
                      }}
@@ -137,7 +125,7 @@ function BrandMaster(props: RouteComponentProps) {
                 render={(id: string, brand: Brand) => {
                   return (
                     <>
-                      <Link to={path.join(BRAND_ROUTE, id)}>
+                      <Link to={path.join(BRAND_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(brand)}>

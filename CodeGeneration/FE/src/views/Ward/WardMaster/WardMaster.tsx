@@ -101,12 +101,6 @@ function WardMaster(props: RouteComponentProps) {
                 render={renderIndex<Ward, WardSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('wardMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Ward>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('wardMaster.name')}
@@ -119,12 +113,6 @@ function WardMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Ward>('orderNumber', sorter)}
         />
-         <Column key="districtId"
-                dataIndex="districtId"
-                title={translate('wardMaster.districtId')}
-                sorter
-                sortOrder={getColumnSortOrder<Ward>('districtId', sorter)}
-        />
          <Column key="district"
                 dataIndex="district"
                 title={translate('wardMaster.district')}
@@ -133,7 +121,7 @@ function WardMaster(props: RouteComponentProps) {
                 render={(district: District) => {
                        return (
                          <>
-                           {district.id}
+                           {district && district.id}
                          </>
                        );
                      }}
@@ -143,7 +131,7 @@ function WardMaster(props: RouteComponentProps) {
                 render={(id: string, ward: Ward) => {
                   return (
                     <>
-                      <Link to={path.join(WARD_ROUTE, id)}>
+                      <Link to={path.join(WARD_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(ward)}>

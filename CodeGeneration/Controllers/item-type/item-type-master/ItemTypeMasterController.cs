@@ -77,6 +77,7 @@ namespace WG.Controllers.item_type.item_type_master
         public ItemTypeFilter ConvertFilterDTOToFilterEntity(ItemTypeMaster_ItemTypeFilterDTO ItemTypeMaster_ItemTypeFilterDTO)
         {
             ItemTypeFilter ItemTypeFilter = new ItemTypeFilter();
+            ItemTypeFilter.Selects = ItemTypeSelect.ALL;
             
             ItemTypeFilter.Id = new LongFilter{ Equal = ItemTypeMaster_ItemTypeFilterDTO.Id };
             ItemTypeFilter.Code = new StringFilter{ StartsWith = ItemTypeMaster_ItemTypeFilterDTO.Code };

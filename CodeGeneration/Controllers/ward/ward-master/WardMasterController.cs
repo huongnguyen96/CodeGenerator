@@ -82,6 +82,7 @@ namespace WG.Controllers.ward.ward_master
         public WardFilter ConvertFilterDTOToFilterEntity(WardMaster_WardFilterDTO WardMaster_WardFilterDTO)
         {
             WardFilter WardFilter = new WardFilter();
+            WardFilter.Selects = WardSelect.ALL;
             
             WardFilter.Id = new LongFilter{ Equal = WardMaster_WardFilterDTO.Id };
             WardFilter.Name = new StringFilter{ StartsWith = WardMaster_WardFilterDTO.Name };

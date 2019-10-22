@@ -101,30 +101,6 @@ function UnitMaster(props: RouteComponentProps) {
                 render={renderIndex<Unit, UnitSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('unitMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Unit>('id', sorter)}
-        />
-         <Column key="firstVariationId"
-                dataIndex="firstVariationId"
-                title={translate('unitMaster.firstVariationId')}
-                sorter
-                sortOrder={getColumnSortOrder<Unit>('firstVariationId', sorter)}
-        />
-         <Column key="secondVariationId"
-                dataIndex="secondVariationId"
-                title={translate('unitMaster.secondVariationId')}
-                sorter
-                sortOrder={getColumnSortOrder<Unit>('secondVariationId', sorter)}
-        />
-         <Column key="thirdVariationId"
-                dataIndex="thirdVariationId"
-                title={translate('unitMaster.thirdVariationId')}
-                sorter
-                sortOrder={getColumnSortOrder<Unit>('thirdVariationId', sorter)}
-        />
          <Column key="sKU"
                 dataIndex="sKU"
                 title={translate('unitMaster.sKU')}
@@ -145,7 +121,7 @@ function UnitMaster(props: RouteComponentProps) {
                 render={(firstVariation: Variation) => {
                        return (
                          <>
-                           {firstVariation.id}
+                           {firstVariation && firstVariation.id}
                          </>
                        );
                      }}
@@ -158,7 +134,7 @@ function UnitMaster(props: RouteComponentProps) {
                 render={(secondVariation: Variation) => {
                        return (
                          <>
-                           {secondVariation.id}
+                           {secondVariation && secondVariation.id}
                          </>
                        );
                      }}
@@ -171,7 +147,7 @@ function UnitMaster(props: RouteComponentProps) {
                 render={(thirdVariation: Variation) => {
                        return (
                          <>
-                           {thirdVariation.id}
+                           {thirdVariation && thirdVariation.id}
                          </>
                        );
                      }}
@@ -181,7 +157,7 @@ function UnitMaster(props: RouteComponentProps) {
                 render={(id: string, unit: Unit) => {
                   return (
                     <>
-                      <Link to={path.join(UNIT_ROUTE, id)}>
+                      <Link to={path.join(UNIT_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(unit)}>

@@ -82,6 +82,7 @@ namespace WG.Controllers.district.district_master
         public DistrictFilter ConvertFilterDTOToFilterEntity(DistrictMaster_DistrictFilterDTO DistrictMaster_DistrictFilterDTO)
         {
             DistrictFilter DistrictFilter = new DistrictFilter();
+            DistrictFilter.Selects = DistrictSelect.ALL;
             
             DistrictFilter.Id = new LongFilter{ Equal = DistrictMaster_DistrictFilterDTO.Id };
             DistrictFilter.Name = new StringFilter{ StartsWith = DistrictMaster_DistrictFilterDTO.Name };

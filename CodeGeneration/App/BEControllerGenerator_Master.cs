@@ -116,6 +116,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
         public {ClassName}Filter ConvertFilterDTOToFilterEntity({ClassName}Master_{ClassName}FilterDTO {ClassName}Master_{ClassName}FilterDTO)
         {{
             {ClassName}Filter {ClassName}Filter = new {ClassName}Filter();
+            {ClassName}Filter.Selects = {ClassName}Select.ALL;
             {ConvertFilterDTOToFilterEntity(type)}
             return {ClassName}Filter;
         }}

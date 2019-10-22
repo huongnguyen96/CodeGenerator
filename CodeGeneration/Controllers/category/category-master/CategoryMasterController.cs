@@ -79,6 +79,7 @@ namespace WG.Controllers.category.category_master
         public CategoryFilter ConvertFilterDTOToFilterEntity(CategoryMaster_CategoryFilterDTO CategoryMaster_CategoryFilterDTO)
         {
             CategoryFilter CategoryFilter = new CategoryFilter();
+            CategoryFilter.Selects = CategorySelect.ALL;
             
             CategoryFilter.Id = new LongFilter{ Equal = CategoryMaster_CategoryFilterDTO.Id };
             CategoryFilter.Code = new StringFilter{ StartsWith = CategoryMaster_CategoryFilterDTO.Code };

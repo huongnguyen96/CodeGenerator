@@ -103,24 +103,6 @@ function StockMaster(props: RouteComponentProps) {
                 render={renderIndex<Stock, StockSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('stockMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Stock>('id', sorter)}
-        />
-         <Column key="unitId"
-                dataIndex="unitId"
-                title={translate('stockMaster.unitId')}
-                sorter
-                sortOrder={getColumnSortOrder<Stock>('unitId', sorter)}
-        />
-         <Column key="warehouseId"
-                dataIndex="warehouseId"
-                title={translate('stockMaster.warehouseId')}
-                sorter
-                sortOrder={getColumnSortOrder<Stock>('warehouseId', sorter)}
-        />
          <Column key="quantity"
                 dataIndex="quantity"
                 title={translate('stockMaster.quantity')}
@@ -135,7 +117,7 @@ function StockMaster(props: RouteComponentProps) {
                 render={(unit: Unit) => {
                        return (
                          <>
-                           {unit.id}
+                           {unit && unit.id}
                          </>
                        );
                      }}
@@ -148,7 +130,7 @@ function StockMaster(props: RouteComponentProps) {
                 render={(warehouse: Warehouse) => {
                        return (
                          <>
-                           {warehouse.id}
+                           {warehouse && warehouse.id}
                          </>
                        );
                      }}
@@ -158,7 +140,7 @@ function StockMaster(props: RouteComponentProps) {
                 render={(id: string, stock: Stock) => {
                   return (
                     <>
-                      <Link to={path.join(STOCK_ROUTE, id)}>
+                      <Link to={path.join(STOCK_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(stock)}>

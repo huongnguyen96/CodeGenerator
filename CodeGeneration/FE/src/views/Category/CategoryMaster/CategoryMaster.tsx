@@ -99,12 +99,6 @@ function CategoryMaster(props: RouteComponentProps) {
                 render={renderIndex<Category, CategorySearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('categoryMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Category>('id', sorter)}
-        />
          <Column key="code"
                 dataIndex="code"
                 title={translate('categoryMaster.code')}
@@ -116,12 +110,6 @@ function CategoryMaster(props: RouteComponentProps) {
                 title={translate('categoryMaster.name')}
                 sorter
                 sortOrder={getColumnSortOrder<Category>('name', sorter)}
-        />
-         <Column key="parentId"
-                dataIndex="parentId"
-                title={translate('categoryMaster.parentId')}
-                sorter
-                sortOrder={getColumnSortOrder<Category>('parentId', sorter)}
         />
          <Column key="icon"
                 dataIndex="icon"
@@ -137,7 +125,7 @@ function CategoryMaster(props: RouteComponentProps) {
                 render={(parent: Category) => {
                        return (
                          <>
-                           {parent.id}
+                           {parent && parent.id}
                          </>
                        );
                      }}
@@ -147,7 +135,7 @@ function CategoryMaster(props: RouteComponentProps) {
                 render={(id: string, category: Category) => {
                   return (
                     <>
-                      <Link to={path.join(CATEGORY_ROUTE, id)}>
+                      <Link to={path.join(CATEGORY_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(category)}>

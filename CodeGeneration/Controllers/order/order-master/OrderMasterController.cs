@@ -82,6 +82,7 @@ namespace WG.Controllers.order.order_master
         public OrderFilter ConvertFilterDTOToFilterEntity(OrderMaster_OrderFilterDTO OrderMaster_OrderFilterDTO)
         {
             OrderFilter OrderFilter = new OrderFilter();
+            OrderFilter.Selects = OrderSelect.ALL;
             
             OrderFilter.Id = new LongFilter{ Equal = OrderMaster_OrderFilterDTO.Id };
             OrderFilter.CustomerId = new LongFilter{ Equal = OrderMaster_OrderFilterDTO.CustomerId };

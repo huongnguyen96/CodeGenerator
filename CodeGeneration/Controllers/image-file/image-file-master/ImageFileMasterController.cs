@@ -77,6 +77,7 @@ namespace WG.Controllers.image_file.image_file_master
         public ImageFileFilter ConvertFilterDTOToFilterEntity(ImageFileMaster_ImageFileFilterDTO ImageFileMaster_ImageFileFilterDTO)
         {
             ImageFileFilter ImageFileFilter = new ImageFileFilter();
+            ImageFileFilter.Selects = ImageFileSelect.ALL;
             
             ImageFileFilter.Id = new LongFilter{ Equal = ImageFileMaster_ImageFileFilterDTO.Id };
             ImageFileFilter.Path = new StringFilter{ StartsWith = ImageFileMaster_ImageFileFilterDTO.Path };

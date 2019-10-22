@@ -99,12 +99,6 @@ function DiscountMaster(props: RouteComponentProps) {
                 render={renderIndex<Discount, DiscountSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('discountMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Discount>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('discountMaster.name')}
@@ -134,7 +128,7 @@ function DiscountMaster(props: RouteComponentProps) {
                 render={(id: string, discount: Discount) => {
                   return (
                     <>
-                      <Link to={path.join(DISCOUNT_ROUTE, id)}>
+                      <Link to={path.join(DISCOUNT_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(discount)}>

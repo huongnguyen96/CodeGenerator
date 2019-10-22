@@ -77,6 +77,7 @@ namespace WG.Controllers.discount.discount_master
         public DiscountFilter ConvertFilterDTOToFilterEntity(DiscountMaster_DiscountFilterDTO DiscountMaster_DiscountFilterDTO)
         {
             DiscountFilter DiscountFilter = new DiscountFilter();
+            DiscountFilter.Selects = DiscountSelect.ALL;
             
             DiscountFilter.Id = new LongFilter{ Equal = DiscountMaster_DiscountFilterDTO.Id };
             DiscountFilter.Name = new StringFilter{ StartsWith = DiscountMaster_DiscountFilterDTO.Name };

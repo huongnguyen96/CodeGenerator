@@ -87,6 +87,7 @@ namespace WG.Controllers.stock.stock_master
         public StockFilter ConvertFilterDTOToFilterEntity(StockMaster_StockFilterDTO StockMaster_StockFilterDTO)
         {
             StockFilter StockFilter = new StockFilter();
+            StockFilter.Selects = StockSelect.ALL;
             
             StockFilter.Id = new LongFilter{ Equal = StockMaster_StockFilterDTO.Id };
             StockFilter.UnitId = new LongFilter{ Equal = StockMaster_StockFilterDTO.UnitId };

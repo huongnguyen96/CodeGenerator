@@ -99,12 +99,6 @@ function PartnerMaster(props: RouteComponentProps) {
                 render={renderIndex<Partner, PartnerSearch>(search)}
         />
         
-         <Column key="id"
-                dataIndex="id"
-                title={translate('partnerMaster.id')}
-                sorter
-                sortOrder={getColumnSortOrder<Partner>('id', sorter)}
-        />
          <Column key="name"
                 dataIndex="name"
                 title={translate('partnerMaster.name')}
@@ -134,7 +128,7 @@ function PartnerMaster(props: RouteComponentProps) {
                 render={(id: string, partner: Partner) => {
                   return (
                     <>
-                      <Link to={path.join(PARTNER_ROUTE, id)}>
+                      <Link to={path.join(PARTNER_ROUTE, id.toString())}>
                         {translate('general.actions.edit')}
                       </Link>
                       <Button htmlType="button" type="link" onClick={handleDelete(partner)}>
