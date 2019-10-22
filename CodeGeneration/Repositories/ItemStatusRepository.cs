@@ -138,6 +138,7 @@ namespace WG.Repositories
             
             await DataContext.ItemStatus.AddAsync(ItemStatusDAO);
             await DataContext.SaveChangesAsync();
+            ItemStatus.Id = ItemStatusDAO.Id;
             return true;
         }
 

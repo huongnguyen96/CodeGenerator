@@ -40,7 +40,6 @@ namespace {Namespace}.Controllers
         public const string Base = ""api"";
     }}
 
-    [Authorize]
     public class ApiController : ControllerBase
     {{
     }}

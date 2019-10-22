@@ -166,6 +166,7 @@ namespace WG.Repositories
             
             await DataContext.VariationGrouping.AddAsync(VariationGroupingDAO);
             await DataContext.SaveChangesAsync();
+            VariationGrouping.Id = VariationGroupingDAO.Id;
             return true;
         }
 

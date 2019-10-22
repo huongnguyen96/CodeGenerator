@@ -156,6 +156,7 @@ namespace WG.Repositories
             
             await DataContext.DiscountCustomerGrouping.AddAsync(DiscountCustomerGroupingDAO);
             await DataContext.SaveChangesAsync();
+            DiscountCustomerGrouping.Id = DiscountCustomerGroupingDAO.Id;
             return true;
         }
 

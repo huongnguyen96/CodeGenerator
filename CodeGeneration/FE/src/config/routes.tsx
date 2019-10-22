@@ -53,7 +53,7 @@ const WardView = lazy(() => import('views/Ward/WardView'));
 const WarehouseView = lazy(() => import('views/Warehouse/WarehouseView'));
 
 export const routes: IRoute[] = [
-
+  
   {
     path: ADMINISTRATOR_ROUTE,
     component: AdministratorView,
@@ -151,3 +151,4 @@ export const routes: IRoute[] = [
     component: WarehouseView,
   },
 ];
+ 

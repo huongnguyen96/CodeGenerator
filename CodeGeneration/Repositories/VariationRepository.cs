@@ -152,6 +152,7 @@ namespace WG.Repositories
             
             await DataContext.Variation.AddAsync(VariationDAO);
             await DataContext.SaveChangesAsync();
+            Variation.Id = VariationDAO.Id;
             return true;
         }
 

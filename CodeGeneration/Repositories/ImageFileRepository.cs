@@ -138,6 +138,7 @@ namespace WG.Repositories
             
             await DataContext.ImageFile.AddAsync(ImageFileDAO);
             await DataContext.SaveChangesAsync();
+            ImageFile.Id = ImageFileDAO.Id;
             return true;
         }
 

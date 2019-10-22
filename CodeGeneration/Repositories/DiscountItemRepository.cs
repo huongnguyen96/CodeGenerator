@@ -187,6 +187,7 @@ namespace WG.Repositories
             
             await DataContext.DiscountItem.AddAsync(DiscountItemDAO);
             await DataContext.SaveChangesAsync();
+            DiscountItem.Id = DiscountItemDAO.Id;
             return true;
         }
 

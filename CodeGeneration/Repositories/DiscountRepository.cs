@@ -160,6 +160,7 @@ namespace WG.Repositories
             
             await DataContext.Discount.AddAsync(DiscountDAO);
             await DataContext.SaveChangesAsync();
+            Discount.Id = DiscountDAO.Id;
             return true;
         }
 

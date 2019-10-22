@@ -267,6 +267,7 @@ namespace WG.Repositories
             
             await DataContext.ShippingAddress.AddAsync(ShippingAddressDAO);
             await DataContext.SaveChangesAsync();
+            ShippingAddress.Id = ShippingAddressDAO.Id;
             return true;
         }
 

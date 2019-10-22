@@ -127,6 +127,7 @@ namespace WG.Repositories
             
             await DataContext.CustomerGrouping.AddAsync(CustomerGroupingDAO);
             await DataContext.SaveChangesAsync();
+            CustomerGrouping.Id = CustomerGroupingDAO.Id;
             return true;
         }
 

@@ -189,6 +189,7 @@ namespace WG.Repositories
             
             await DataContext.Warehouse.AddAsync(WarehouseDAO);
             await DataContext.SaveChangesAsync();
+            Warehouse.Id = WarehouseDAO.Id;
             return true;
         }
 

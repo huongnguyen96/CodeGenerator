@@ -189,6 +189,7 @@ namespace WG.Repositories
             
             await DataContext.Stock.AddAsync(StockDAO);
             await DataContext.SaveChangesAsync();
+            Stock.Id = StockDAO.Id;
             return true;
         }
 

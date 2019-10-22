@@ -138,6 +138,7 @@ namespace WG.Repositories
             
             await DataContext.Province.AddAsync(ProvinceDAO);
             await DataContext.SaveChangesAsync();
+            Province.Id = ProvinceDAO.Id;
             return true;
         }
 

@@ -156,6 +156,7 @@ namespace WG.Repositories
             
             await DataContext.Brand.AddAsync(BrandDAO);
             await DataContext.SaveChangesAsync();
+            Brand.Id = BrandDAO.Id;
             return true;
         }
 

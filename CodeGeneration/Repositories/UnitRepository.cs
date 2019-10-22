@@ -213,6 +213,7 @@ namespace WG.Repositories
             
             await DataContext.Unit.AddAsync(UnitDAO);
             await DataContext.SaveChangesAsync();
+            Unit.Id = UnitDAO.Id;
             return true;
         }
 

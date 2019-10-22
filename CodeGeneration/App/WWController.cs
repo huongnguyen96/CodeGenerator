@@ -27,6 +27,7 @@ namespace CodeGeneration.App
             ControllerGenerator_Master.Build();
             BEControllerGenerator_Detail ControllerGenerator_Detail = new BEControllerGenerator_Detail(Namespace, "", types);
             ControllerGenerator_Detail.Build();
+            return;
 
             FEEntityGenerator FEEntityGenerator = new FEEntityGenerator(types);
             FEEntityGenerator.Build();

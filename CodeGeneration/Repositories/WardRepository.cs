@@ -165,6 +165,7 @@ namespace WG.Repositories
             
             await DataContext.Ward.AddAsync(WardDAO);
             await DataContext.SaveChangesAsync();
+            Ward.Id = WardDAO.Id;
             return true;
         }
 

@@ -178,6 +178,7 @@ namespace WG.Repositories
             
             await DataContext.Category.AddAsync(CategoryDAO);
             await DataContext.SaveChangesAsync();
+            Category.Id = CategoryDAO.Id;
             return true;
         }
 

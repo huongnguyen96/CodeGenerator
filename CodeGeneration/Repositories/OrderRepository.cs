@@ -196,6 +196,7 @@ namespace WG.Repositories
             
             await DataContext.Order.AddAsync(OrderDAO);
             await DataContext.SaveChangesAsync();
+            Order.Id = OrderDAO.Id;
             return true;
         }
 

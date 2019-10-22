@@ -163,6 +163,7 @@ namespace WG.Repositories
             
             await DataContext.District.AddAsync(DistrictDAO);
             await DataContext.SaveChangesAsync();
+            District.Id = DistrictDAO.Id;
             return true;
         }
 

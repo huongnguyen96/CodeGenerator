@@ -160,6 +160,7 @@ namespace WG.Repositories
             
             await DataContext.Partner.AddAsync(PartnerDAO);
             await DataContext.SaveChangesAsync();
+            Partner.Id = PartnerDAO.Id;
             return true;
         }
 

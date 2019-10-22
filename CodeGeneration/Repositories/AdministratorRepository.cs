@@ -138,6 +138,7 @@ namespace WG.Repositories
             
             await DataContext.Administrator.AddAsync(AdministratorDAO);
             await DataContext.SaveChangesAsync();
+            Administrator.Id = AdministratorDAO.Id;
             return true;
         }
 

@@ -32,6 +32,7 @@ namespace CodeGeneration.App
                 string ClassName = type.Name.Substring(0, type.Name.Length - 3);
                 string path = Path.Combine(Repositories, ClassName + "Repository.cs");
                 string getParameters = string.Empty;
+                string ReMapId = string.Empty;
                 if (ClassName.Contains("_"))
                 {
                     List<string> ClassNames = ClassName.Split("_").ToList();
@@ -40,6 +41,7 @@ namespace CodeGeneration.App
                 else
                 {
                     getParameters = "long Id";
+                    ReMapId = $"{ClassName}.Id = {ClassName}DAO.Id;";
                 }
                 string content = $@"
 using Common;
@@ -136,6 +138,7 @@ namespace {Namespace}.Repositories
             
             await {DbContext}.{ClassName}.AddAsync({ClassName}DAO);
             await {DbContext}.SaveChangesAsync();
+            {ReMapId}
             return true;
         }}
 

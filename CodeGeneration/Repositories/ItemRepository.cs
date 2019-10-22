@@ -293,6 +293,7 @@ namespace WG.Repositories
             
             await DataContext.Item.AddAsync(ItemDAO);
             await DataContext.SaveChangesAsync();
+            Item.Id = ItemDAO.Id;
             return true;
         }
 
