@@ -38,15 +38,17 @@ export const {UpperCase(ClassName)}_ROUTE: string = '/{KebabCase(ClassName)}';";
             string path = Path.Combine(folder, $"route-consts.ts");
             File.WriteAllText(path, contents);
 
-            string ImpoortReference = string.Empty;
+            //////////////////////////////////////////////////////////////////////////
+            string ImportReference = string.Empty;
             string ConstReference = string.Empty;
             string RouteReference = string.Empty;
+            string MenuReference = string.Empty;
             foreach (Type type in Classes)
             {
                 if (type.Name.Contains("_"))
                     continue;
                 string ClassName = GetClassName(type);
-                ImpoortReference += $@"
+                ImportReference += $@"
 import {{{UpperCase(ClassName)}_ROUTE}} from './route-consts';";
                 ConstReference += $@"
 const {ClassName}View = lazy(() => import('views/{ClassName}/{ClassName}View'));";
@@ -55,12 +57,20 @@ const {ClassName}View = lazy(() => import('views/{ClassName}/{ClassName}View'));
     path: {UpperCase(ClassName)}_ROUTE,
     component: {ClassName}View,
   }},";
+                MenuReference = $@"
+  {{
+    title: translate('{CamelCase(ClassName)}.title'),
+    path: {UpperCase(ClassName)}_ROUTE,
+    icon: 'dashboard',
+    exact: false,
+  }},";
             }
 
+            //////////////////////////////////////////////////////////////////////////
             contents = $@"
 import {{IRoute}} from 'core/IRoute';
 import {{lazy}} from 'react';
-{ImpoortReference}
+{ImportReference}
 {ConstReference}
 
 export const routes: IRoute[] = [
@@ -68,6 +78,19 @@ export const routes: IRoute[] = [
 ];
  ";
             path = Path.Combine(folder, $"routes.tsx");
+            File.WriteAllText(path, contents);
+
+            ////////////////////////////////////////////////////////////////////////////
+            contents = $@"
+import {{ IRoute }} from 'core';
+import {{ marker as translate }} from 'helpers/translate';
+{ImportReference}
+
+export const menu: IRoute[] = [
+    {MenuReference}
+];
+";
+            path = Path.Combine(folder, $"menu.tsx");
             File.WriteAllText(path, contents);
         }
         public void BuildView()
