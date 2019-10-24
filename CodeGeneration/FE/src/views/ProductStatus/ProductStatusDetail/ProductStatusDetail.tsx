@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {ProductStatusSearch} from 'models/ProductStatusSearch';
 import './ProductStatusDetail.scss';
 import productStatusDetailRepository from './ProductStatusDetailRepository';
 
-
 function ProductStatusDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function ProductStatusDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [productStatus, loading] = useDetail<ProductStatus>(id, productStatusDetailRepository.get, new ProductStatus());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, productStatus: ProductStatus) => {
@@ -85,7 +83,7 @@ function ProductStatusDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('productStatusDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: productStatus.code,
@@ -114,7 +112,6 @@ function ProductStatusDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

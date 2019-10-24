@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class ProvinceDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class ProvinceDetailRepository extends Repository {
         map((response: AxiosResponse<Province>) => response.data),
       );
   };
-  
+
   public create = (province: Province): Observable<Province> => {
     return this.httpService.post<Province>(`/create`, province)
       .pipe(
@@ -38,11 +37,11 @@ export class ProvinceDetailRepository extends Repository {
         map((response: AxiosResponse<Province>) => response.data),
       );
   };
-  
+
   public save = (province: Province): Observable<Province> => {
     return province.id ? this.update(province) : this.create(province);
   };
-  
+
 }
 
 export default new ProvinceDetailRepository();

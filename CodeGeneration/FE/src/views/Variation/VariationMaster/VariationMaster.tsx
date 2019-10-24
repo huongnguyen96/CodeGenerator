@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './VariationMaster.scss';
-import variationMasterRepository from './VariationMasterRepository';
 import { VARIATION_ROUTE } from 'config/route-consts';
 import { Variation } from 'models/Variation';
 import { VariationSearch } from 'models/VariationSearch';
+import './VariationMaster.scss';
+import variationMasterRepository from './VariationMasterRepository';
 
 import {VariationGrouping} from 'models/VariationGrouping';
 import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
@@ -101,7 +101,7 @@ function VariationMaster(props: RouteComponentProps) {
                 title={translate('variationMaster.index')}
                 render={renderIndex<Variation, VariationSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('variationMaster.name')}

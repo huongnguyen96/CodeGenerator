@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './StockMaster.scss';
-import stockMasterRepository from './StockMasterRepository';
 import { STOCK_ROUTE } from 'config/route-consts';
 import { Stock } from 'models/Stock';
 import { StockSearch } from 'models/StockSearch';
+import './StockMaster.scss';
+import stockMasterRepository from './StockMasterRepository';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
@@ -103,7 +103,7 @@ function StockMaster(props: RouteComponentProps) {
                 title={translate('stockMaster.index')}
                 render={renderIndex<Stock, StockSearch>(search)}
         />
-        
+
          <Column key="quantity"
                 dataIndex="quantity"
                 title={translate('stockMaster.quantity')}

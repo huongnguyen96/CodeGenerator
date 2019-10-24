@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {PaymentMethodSearch} from 'models/PaymentMethodSearch';
 import './PaymentMethodDetail.scss';
 import paymentMethodDetailRepository from './PaymentMethodDetailRepository';
 
-
 function PaymentMethodDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function PaymentMethodDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [paymentMethod, loading] = useDetail<PaymentMethod>(id, paymentMethodDetailRepository.get, new PaymentMethod());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, paymentMethod: PaymentMethod) => {
@@ -85,7 +83,7 @@ function PaymentMethodDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('paymentMethodDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: paymentMethod.code,
@@ -128,7 +126,6 @@ function PaymentMethodDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

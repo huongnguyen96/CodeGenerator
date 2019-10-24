@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './EVoucherContentMaster.scss';
-import eVoucherContentMasterRepository from './EVoucherContentMasterRepository';
 import { E_VOUCHER_CONTENT_ROUTE } from 'config/route-consts';
 import { EVoucherContent } from 'models/EVoucherContent';
 import { EVoucherContentSearch } from 'models/EVoucherContentSearch';
+import './EVoucherContentMaster.scss';
+import eVoucherContentMasterRepository from './EVoucherContentMasterRepository';
 
 import {EVoucher} from 'models/EVoucher';
 import {EVoucherSearch} from 'models/EVoucherSearch';
@@ -101,7 +101,7 @@ function EVoucherContentMaster(props: RouteComponentProps) {
                 title={translate('eVoucherContentMaster.index')}
                 render={renderIndex<EVoucherContent, EVoucherContentSearch>(search)}
         />
-        
+
          <Column key="usedCode"
                 dataIndex="usedCode"
                 title={translate('eVoucherContentMaster.usedCode')}

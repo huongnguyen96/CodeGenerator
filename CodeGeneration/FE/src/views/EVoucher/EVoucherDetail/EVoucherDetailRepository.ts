@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {EVoucher} from 'models/EVoucher';
 import {EVoucherSearch} from 'models/EVoucherSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
@@ -23,7 +23,7 @@ export class EVoucherDetailRepository extends Repository {
         map((response: AxiosResponse<EVoucher>) => response.data),
       );
   };
-  
+
   public create = (eVoucher: EVoucher): Observable<EVoucher> => {
     return this.httpService.post<EVoucher>(`/create`, eVoucher)
       .pipe(
@@ -42,19 +42,19 @@ export class EVoucherDetailRepository extends Repository {
         map((response: AxiosResponse<EVoucher>) => response.data),
       );
   };
-  
+
   public save = (eVoucher: EVoucher): Observable<EVoucher> => {
     return eVoucher.id ? this.update(eVoucher) : this.create(eVoucher);
   };
-  
+
   public singleListCustomer = (customerSearch: CustomerSearch): Observable<Customer[]> => {
-    return this.httpService.post('/single-list-customer',customerSearch)
+    return this.httpService.post('/single-list-customer', customerSearch)
       .pipe(
         map((response: AxiosResponse<Customer[]>) => response.data),
       );
   };
   public singleListProduct = (productSearch: ProductSearch): Observable<Product[]> => {
-    return this.httpService.post('/single-list-product',productSearch)
+    return this.httpService.post('/single-list-product', productSearch)
       .pipe(
         map((response: AxiosResponse<Product[]>) => response.data),
       );

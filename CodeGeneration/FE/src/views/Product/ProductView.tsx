@@ -2,7 +2,7 @@
 import {PRODUCT_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import ProductDetail from './ProductDetail';
 import ProductMaster from './ProductMaster';
 import './ProductView.scss';

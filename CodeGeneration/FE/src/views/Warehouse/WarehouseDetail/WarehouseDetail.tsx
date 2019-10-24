@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -37,7 +37,7 @@ function WarehouseDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [warehouse, loading] = useDetail<Warehouse>(id, warehouseDetailRepository.get, new Warehouse());
-  
+
   const [merchantSearch, setMerchantSearch] = useState<MerchantSearch>(new MerchantSearch());
 
   function handleSubmit() {
@@ -88,7 +88,7 @@ function WarehouseDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('warehouseDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: warehouse.name,
@@ -145,16 +145,15 @@ function WarehouseDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('warehouseDetail.partner')}>
             {
                 form.getFieldDecorator(
-                    'partnerId', 
+                    'partnerId',
                     {
-                        initialValue: warehouse.partner 
-                            ? warehouse.partner.id 
+                        initialValue: warehouse.partner
+                            ? warehouse.partner.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={warehouseDetailRepository.singleListMerchant}

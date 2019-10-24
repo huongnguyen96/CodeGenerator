@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './DistrictMaster.scss';
-import districtMasterRepository from './DistrictMasterRepository';
 import { DISTRICT_ROUTE } from 'config/route-consts';
 import { District } from 'models/District';
 import { DistrictSearch } from 'models/DistrictSearch';
+import './DistrictMaster.scss';
+import districtMasterRepository from './DistrictMasterRepository';
 
 import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
@@ -101,7 +101,7 @@ function DistrictMaster(props: RouteComponentProps) {
                 title={translate('districtMaster.index')}
                 render={renderIndex<District, DistrictSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('districtMaster.name')}

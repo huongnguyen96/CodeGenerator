@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {ProductTypeSearch} from 'models/ProductTypeSearch';
 import './ProductTypeDetail.scss';
 import productTypeDetailRepository from './ProductTypeDetailRepository';
 
-
 function ProductTypeDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function ProductTypeDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [productType, loading] = useDetail<ProductType>(id, productTypeDetailRepository.get, new ProductType());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, productType: ProductType) => {
@@ -85,7 +83,7 @@ function ProductTypeDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('productTypeDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: productType.code,
@@ -114,7 +112,6 @@ function ProductTypeDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

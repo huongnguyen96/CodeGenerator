@@ -1,14 +1,10 @@
-
 import Card from 'antd/lib/card';
 import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
-import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
+import Input from 'components/Input';
 import SingleSelect, {Option} from 'components/SingleSelect';
 import {useDetail} from 'core/hooks/useDetail';
-import {usePagination} from 'core/hooks/usePagination';
 import {notification} from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
@@ -20,7 +16,6 @@ import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
 import './CategoryDetail.scss';
 import categoryDetailRepository from './CategoryDetailRepository';
-
 
 function CategoryDetail(props) {
   const {
@@ -35,7 +30,7 @@ function CategoryDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [category, loading] = useDetail<Category>(id, categoryDetailRepository.get, new Category());
-  
+
   const [categorySearch, setCategorySearch] = useState<CategorySearch>(new CategorySearch());
 
   function handleSubmit() {
@@ -73,8 +68,7 @@ function CategoryDetail(props) {
         loading={loading}
         title={
           <CardTitle
-            title={translate('categoryDetail.detail.title', {
-            })}
+            title={translate('categoryDetail.detail.title', {})}
             allowSave
             onSave={handleSubmit}
             allowCancel
@@ -84,9 +78,9 @@ function CategoryDetail(props) {
         {form.getFieldDecorator('id', {
           initialValue: category.id,
         })(
-          <Input type="hidden"/>,
+          <Input type="text"/>,
         )}
-        
+w
         <Form.Item label={translate('categoryDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: category.code,
@@ -129,31 +123,30 @@ function CategoryDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('categoryDetail.parent')}>
-            {
-                form.getFieldDecorator(
-                    'parentId', 
-                    {
-                        initialValue: category.parent 
-                            ? category.parent.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={categoryDetailRepository.singleListCategory}
-                                  search={categorySearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setCategorySearch}>
-                      {category.parent && (
-                        <Option value={category.parent.id}>
-                          {category.parent.id}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
+          {
+            form.getFieldDecorator(
+              'parentId',
+              {
+                initialValue: category.parent
+                  ? category.parent.id
+                  : null,
+              },
+            )
+            (
+              <SingleSelect getList={categoryDetailRepository.singleListCategory}
+                            search={categorySearch}
+                            searchField="name"
+                            showSearch
+                            setSearch={setCategorySearch}>
+                {category.parent && (
+                  <Option value={category.parent.id}>
+                    {category.parent.id}
+                  </Option>
+                )}
+              </SingleSelect>,
+            )
+          }
         </Form.Item>
       </Card>
     </Spin>

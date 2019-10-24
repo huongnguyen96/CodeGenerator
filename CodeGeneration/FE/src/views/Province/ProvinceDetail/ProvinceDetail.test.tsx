@@ -14,5 +14,5 @@ describe('ProvinceDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ShippingAddressMaster.scss';
-import shippingAddressMasterRepository from './ShippingAddressMasterRepository';
 import { SHIPPING_ADDRESS_ROUTE } from 'config/route-consts';
 import { ShippingAddress } from 'models/ShippingAddress';
 import { ShippingAddressSearch } from 'models/ShippingAddressSearch';
+import './ShippingAddressMaster.scss';
+import shippingAddressMasterRepository from './ShippingAddressMasterRepository';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
@@ -107,7 +107,7 @@ function ShippingAddressMaster(props: RouteComponentProps) {
                 title={translate('shippingAddressMaster.index')}
                 render={renderIndex<ShippingAddress, ShippingAddressSearch>(search)}
         />
-        
+
          <Column key="fullName"
                 dataIndex="fullName"
                 title={translate('shippingAddressMaster.fullName')}

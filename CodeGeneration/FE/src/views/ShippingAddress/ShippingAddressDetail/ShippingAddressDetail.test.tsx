@@ -14,5 +14,5 @@ describe('ShippingAddressDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

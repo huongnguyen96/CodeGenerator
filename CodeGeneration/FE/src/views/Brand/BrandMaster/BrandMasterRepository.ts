@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Brand} from 'models/Brand';
 import {BrandSearch} from 'models/BrandSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
@@ -16,14 +16,14 @@ export class BrandMasterRepository extends Repository {
   }
 
   public count = (brandSearch: BrandSearch): Observable<number> => {
-    return this.httpService.post('/count',brandSearch)
+    return this.httpService.post('/count', brandSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (brandSearch: BrandSearch): Observable<Brand[]> => {
-    return this.httpService.post('/list',brandSearch)
+    return this.httpService.post('/list', brandSearch)
       .pipe(
         map((response: AxiosResponse<Brand[]>) => response.data),
       );
@@ -35,16 +35,16 @@ export class BrandMasterRepository extends Repository {
         map((response: AxiosResponse<Brand>) => response.data),
       );
   };
-    
+
   public delete = (brand: Brand): Observable<Brand> => {
     return this.httpService.post<Brand>(`/delete`, brand)
       .pipe(
         map((response: AxiosResponse<Brand>) => response.data),
       );
   };
-  
+
   public singleListCategory = (categorySearch: CategorySearch): Observable<Category[]> => {
-    return this.httpService.post('/single-list-category',categorySearch)
+    return this.httpService.post('/single-list-category', categorySearch)
       .pipe(
         map((response: AxiosResponse<Category[]>) => response.data),
       );

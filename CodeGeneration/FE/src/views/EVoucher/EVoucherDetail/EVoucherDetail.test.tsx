@@ -14,5 +14,5 @@ describe('EVoucherDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

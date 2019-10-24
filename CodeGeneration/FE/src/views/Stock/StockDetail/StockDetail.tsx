@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -39,7 +39,7 @@ function StockDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [stock, loading] = useDetail<Stock>(id, stockDetailRepository.get, new Stock());
-  
+
   const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
   const [warehouseSearch, setWarehouseSearch] = useState<WarehouseSearch>(new WarehouseSearch());
 
@@ -91,7 +91,7 @@ function StockDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('stockDetail.quantity')}>
           {form.getFieldDecorator('quantity', {
             initialValue: stock.quantity,
@@ -106,16 +106,15 @@ function StockDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('stockDetail.item')}>
             {
                 form.getFieldDecorator(
-                    'itemId', 
+                    'itemId',
                     {
-                        initialValue: stock.item 
-                            ? stock.item.id 
+                        initialValue: stock.item
+                            ? stock.item.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={stockDetailRepository.singleListItem}
@@ -135,12 +134,12 @@ function StockDetail(props) {
         <Form.Item label={translate('stockDetail.warehouse')}>
             {
                 form.getFieldDecorator(
-                    'warehouseId', 
+                    'warehouseId',
                     {
-                        initialValue: stock.warehouse 
-                            ? stock.warehouse.id 
+                        initialValue: stock.warehouse
+                            ? stock.warehouse.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={stockDetailRepository.singleListWarehouse}

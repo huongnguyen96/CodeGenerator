@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -39,7 +39,7 @@ function OrderContentDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [orderContent, loading] = useDetail<OrderContent>(id, orderContentDetailRepository.get, new OrderContent());
-  
+
   const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
   const [orderSearch, setOrderSearch] = useState<OrderSearch>(new OrderSearch());
 
@@ -91,7 +91,7 @@ function OrderContentDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('orderContentDetail.productName')}>
           {form.getFieldDecorator('productName', {
             initialValue: orderContent.productName,
@@ -176,16 +176,15 @@ function OrderContentDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('orderContentDetail.item')}>
             {
                 form.getFieldDecorator(
-                    'itemId', 
+                    'itemId',
                     {
-                        initialValue: orderContent.item 
-                            ? orderContent.item.id 
+                        initialValue: orderContent.item
+                            ? orderContent.item.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={orderContentDetailRepository.singleListItem}
@@ -205,12 +204,12 @@ function OrderContentDetail(props) {
         <Form.Item label={translate('orderContentDetail.order')}>
             {
                 form.getFieldDecorator(
-                    'orderId', 
+                    'orderId',
                     {
-                        initialValue: orderContent.order 
-                            ? orderContent.order.id 
+                        initialValue: orderContent.order
+                            ? orderContent.order.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={orderContentDetailRepository.singleListOrder}

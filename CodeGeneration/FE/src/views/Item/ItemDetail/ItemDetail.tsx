@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,10 +21,10 @@ import {ItemSearch} from 'models/ItemSearch';
 import './ItemDetail.scss';
 import itemDetailRepository from './ItemDetailRepository';
 
-import {Variation} from 'models/Variation';
-import {VariationSearch} from 'models/VariationSearch';
 import {Product} from 'models/Product';
 import {ProductSearch} from 'models/ProductSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
 
 function ItemDetail(props) {
   const {
@@ -39,7 +39,7 @@ function ItemDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [item, loading] = useDetail<Item>(id, itemDetailRepository.get, new Item());
-  
+
   const [variationSearch, setVariationSearch] = useState<VariationSearch>(new VariationSearch());
   const [productSearch, setProductSearch] = useState<ProductSearch>(new ProductSearch());
 
@@ -91,7 +91,7 @@ function ItemDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('itemDetail.sKU')}>
           {form.getFieldDecorator('sKU', {
             initialValue: item.sKU,
@@ -134,16 +134,15 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('itemDetail.firstVariation')}>
             {
                 form.getFieldDecorator(
-                    'firstVariationId', 
+                    'firstVariationId',
                     {
-                        initialValue: item.firstVariation 
-                            ? item.firstVariation.id 
+                        initialValue: item.firstVariation
+                            ? item.firstVariation.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListVariation}
@@ -163,12 +162,12 @@ function ItemDetail(props) {
         <Form.Item label={translate('itemDetail.product')}>
             {
                 form.getFieldDecorator(
-                    'productId', 
+                    'productId',
                     {
-                        initialValue: item.product 
-                            ? item.product.id 
+                        initialValue: item.product
+                            ? item.product.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={itemDetailRepository.singleListProduct}

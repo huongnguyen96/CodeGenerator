@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './OrderStatusMaster.scss';
-import orderStatusMasterRepository from './OrderStatusMasterRepository';
 import { ORDER_STATUS_ROUTE } from 'config/route-consts';
 import { OrderStatus } from 'models/OrderStatus';
 import { OrderStatusSearch } from 'models/OrderStatusSearch';
-
+import './OrderStatusMaster.scss';
+import orderStatusMasterRepository from './OrderStatusMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function OrderStatusMaster(props: RouteComponentProps) {
                 title={translate('orderStatusMaster.index')}
                 render={renderIndex<OrderStatus, OrderStatusSearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('orderStatusMaster.code')}

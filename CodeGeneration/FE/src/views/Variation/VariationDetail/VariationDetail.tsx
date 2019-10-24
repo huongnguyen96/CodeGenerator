@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -37,7 +37,7 @@ function VariationDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [variation, loading] = useDetail<Variation>(id, variationDetailRepository.get, new Variation());
-  
+
   const [variationGroupingSearch, setVariationGroupingSearch] = useState<VariationGroupingSearch>(new VariationGroupingSearch());
 
   function handleSubmit() {
@@ -88,7 +88,7 @@ function VariationDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('variationDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: variation.name,
@@ -103,16 +103,15 @@ function VariationDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('variationDetail.variationGrouping')}>
             {
                 form.getFieldDecorator(
-                    'variationGroupingId', 
+                    'variationGroupingId',
                     {
-                        initialValue: variation.variationGrouping 
-                            ? variation.variationGrouping.id 
+                        initialValue: variation.variationGrouping
+                            ? variation.variationGrouping.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={variationDetailRepository.singleListVariationGrouping}

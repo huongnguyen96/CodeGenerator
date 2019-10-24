@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {DiscountSearch} from 'models/DiscountSearch';
 import './DiscountDetail.scss';
 import discountDetailRepository from './DiscountDetailRepository';
 
-
 function DiscountDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function DiscountDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [discount, loading] = useDetail<Discount>(id, discountDetailRepository.get, new Discount());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, discount: Discount) => {
@@ -85,7 +83,7 @@ function DiscountDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('discountDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: discount.name,
@@ -103,12 +101,12 @@ function DiscountDetail(props) {
         <Form.Item label={translate('discountDetail.start')}>
           {
             form.getFieldDecorator(
-                'start', 
+                'start',
                 {
                     initialValue: discount.start,
                     rules: [
                     ],
-                }
+                },
             )
             (<DatePicker/>)
           }
@@ -117,12 +115,12 @@ function DiscountDetail(props) {
         <Form.Item label={translate('discountDetail.end')}>
           {
             form.getFieldDecorator(
-                'end', 
+                'end',
                 {
                     initialValue: discount.end,
                     rules: [
                     ],
-                }
+                },
             )
             (<DatePicker/>)
           }
@@ -142,7 +140,6 @@ function DiscountDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

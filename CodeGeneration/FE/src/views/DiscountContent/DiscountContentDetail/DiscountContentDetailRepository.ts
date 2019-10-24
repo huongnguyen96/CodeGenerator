@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {DiscountContent} from 'models/DiscountContent';
 import {DiscountContentSearch} from 'models/DiscountContentSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Discount} from 'models/Discount';
 import {DiscountSearch} from 'models/DiscountSearch';
@@ -23,7 +23,7 @@ export class DiscountContentDetailRepository extends Repository {
         map((response: AxiosResponse<DiscountContent>) => response.data),
       );
   };
-  
+
   public create = (discountContent: DiscountContent): Observable<DiscountContent> => {
     return this.httpService.post<DiscountContent>(`/create`, discountContent)
       .pipe(
@@ -42,19 +42,19 @@ export class DiscountContentDetailRepository extends Repository {
         map((response: AxiosResponse<DiscountContent>) => response.data),
       );
   };
-  
+
   public save = (discountContent: DiscountContent): Observable<DiscountContent> => {
     return discountContent.id ? this.update(discountContent) : this.create(discountContent);
   };
-  
+
   public singleListDiscount = (discountSearch: DiscountSearch): Observable<Discount[]> => {
-    return this.httpService.post('/single-list-discount',discountSearch)
+    return this.httpService.post('/single-list-discount', discountSearch)
       .pipe(
         map((response: AxiosResponse<Discount[]>) => response.data),
       );
   };
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+    return this.httpService.post('/single-list-item', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );

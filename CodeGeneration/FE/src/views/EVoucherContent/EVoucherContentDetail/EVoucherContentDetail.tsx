@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -37,7 +37,7 @@ function EVoucherContentDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [eVoucherContent, loading] = useDetail<EVoucherContent>(id, eVoucherContentDetailRepository.get, new EVoucherContent());
-  
+
   const [eVoucherSearch, setEVoucherSearch] = useState<EVoucherSearch>(new EVoucherSearch());
 
   function handleSubmit() {
@@ -88,7 +88,7 @@ function EVoucherContentDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('eVoucherContentDetail.usedCode')}>
           {form.getFieldDecorator('usedCode', {
             initialValue: eVoucherContent.usedCode,
@@ -120,27 +120,26 @@ function EVoucherContentDetail(props) {
         <Form.Item label={translate('eVoucherContentDetail.usedDate')}>
           {
             form.getFieldDecorator(
-                'usedDate', 
+                'usedDate',
                 {
                     initialValue: eVoucherContent.usedDate,
                     rules: [
                     ],
-                }
+                },
             )
             (<DatePicker/>)
           }
         </Form.Item>
 
-        
         <Form.Item label={translate('eVoucherContentDetail.eVourcher')}>
             {
                 form.getFieldDecorator(
-                    'eVourcherId', 
+                    'eVourcherId',
                     {
-                        initialValue: eVoucherContent.eVourcher 
-                            ? eVoucherContent.eVourcher.id 
+                        initialValue: eVoucherContent.eVourcher
+                            ? eVoucherContent.eVourcher.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={eVoucherContentDetailRepository.singleListEVoucher}

@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -39,7 +39,7 @@ function EVoucherDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [eVoucher, loading] = useDetail<EVoucher>(id, eVoucherDetailRepository.get, new EVoucher());
-  
+
   const [customerSearch, setCustomerSearch] = useState<CustomerSearch>(new CustomerSearch());
   const [productSearch, setProductSearch] = useState<ProductSearch>(new ProductSearch());
 
@@ -91,7 +91,7 @@ function EVoucherDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('eVoucherDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: eVoucher.name,
@@ -109,12 +109,12 @@ function EVoucherDetail(props) {
         <Form.Item label={translate('eVoucherDetail.start')}>
           {
             form.getFieldDecorator(
-                'start', 
+                'start',
                 {
                     initialValue: eVoucher.start,
                     rules: [
                     ],
-                }
+                },
             )
             (<DatePicker/>)
           }
@@ -123,12 +123,12 @@ function EVoucherDetail(props) {
         <Form.Item label={translate('eVoucherDetail.end')}>
           {
             form.getFieldDecorator(
-                'end', 
+                'end',
                 {
                     initialValue: eVoucher.end,
                     rules: [
                     ],
-                }
+                },
             )
             (<DatePicker/>)
           }
@@ -148,16 +148,15 @@ function EVoucherDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('eVoucherDetail.customer')}>
             {
                 form.getFieldDecorator(
-                    'customerId', 
+                    'customerId',
                     {
-                        initialValue: eVoucher.customer 
-                            ? eVoucher.customer.id 
+                        initialValue: eVoucher.customer
+                            ? eVoucher.customer.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={eVoucherDetailRepository.singleListCustomer}
@@ -177,12 +176,12 @@ function EVoucherDetail(props) {
         <Form.Item label={translate('eVoucherDetail.product')}>
             {
                 form.getFieldDecorator(
-                    'productId', 
+                    'productId',
                     {
-                        initialValue: eVoucher.product 
-                            ? eVoucher.product.id 
+                        initialValue: eVoucher.product
+                            ? eVoucher.product.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={eVoucherDetailRepository.singleListProduct}

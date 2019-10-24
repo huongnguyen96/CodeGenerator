@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './MerchantAddressMaster.scss';
-import merchantAddressMasterRepository from './MerchantAddressMasterRepository';
 import { MERCHANT_ADDRESS_ROUTE } from 'config/route-consts';
 import { MerchantAddress } from 'models/MerchantAddress';
 import { MerchantAddressSearch } from 'models/MerchantAddressSearch';
+import './MerchantAddressMaster.scss';
+import merchantAddressMasterRepository from './MerchantAddressMasterRepository';
 
 import {Merchant} from 'models/Merchant';
 import {MerchantSearch} from 'models/MerchantSearch';
@@ -101,7 +101,7 @@ function MerchantAddressMaster(props: RouteComponentProps) {
                 title={translate('merchantAddressMaster.index')}
                 render={renderIndex<MerchantAddress, MerchantAddressSearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('merchantAddressMaster.code')}

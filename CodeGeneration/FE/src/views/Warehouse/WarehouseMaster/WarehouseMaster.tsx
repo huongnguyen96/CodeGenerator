@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './WarehouseMaster.scss';
-import warehouseMasterRepository from './WarehouseMasterRepository';
 import { WAREHOUSE_ROUTE } from 'config/route-consts';
 import { Warehouse } from 'models/Warehouse';
 import { WarehouseSearch } from 'models/WarehouseSearch';
+import './WarehouseMaster.scss';
+import warehouseMasterRepository from './WarehouseMasterRepository';
 
 import {Merchant} from 'models/Merchant';
 import {MerchantSearch} from 'models/MerchantSearch';
@@ -101,7 +101,7 @@ function WarehouseMaster(props: RouteComponentProps) {
                 title={translate('warehouseMaster.index')}
                 render={renderIndex<Warehouse, WarehouseSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('warehouseMaster.name')}

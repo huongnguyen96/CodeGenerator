@@ -14,5 +14,5 @@ describe('CategoryDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

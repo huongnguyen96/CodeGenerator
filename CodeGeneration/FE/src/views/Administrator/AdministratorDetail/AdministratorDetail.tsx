@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {AdministratorSearch} from 'models/AdministratorSearch';
 import './AdministratorDetail.scss';
 import administratorDetailRepository from './AdministratorDetailRepository';
 
-
 function AdministratorDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function AdministratorDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [administrator, loading] = useDetail<Administrator>(id, administratorDetailRepository.get, new Administrator());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, administrator: Administrator) => {
@@ -85,7 +83,7 @@ function AdministratorDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('administratorDetail.username')}>
           {form.getFieldDecorator('username', {
             initialValue: administrator.username,
@@ -114,7 +112,6 @@ function AdministratorDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

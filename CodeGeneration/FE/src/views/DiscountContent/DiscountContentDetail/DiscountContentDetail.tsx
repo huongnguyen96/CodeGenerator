@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -39,7 +39,7 @@ function DiscountContentDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [discountContent, loading] = useDetail<DiscountContent>(id, discountContentDetailRepository.get, new DiscountContent());
-  
+
   const [discountSearch, setDiscountSearch] = useState<DiscountSearch>(new DiscountSearch());
   const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
 
@@ -91,7 +91,7 @@ function DiscountContentDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('discountContentDetail.discountValue')}>
           {form.getFieldDecorator('discountValue', {
             initialValue: discountContent.discountValue,
@@ -106,16 +106,15 @@ function DiscountContentDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('discountContentDetail.discount')}>
             {
                 form.getFieldDecorator(
-                    'discountId', 
+                    'discountId',
                     {
-                        initialValue: discountContent.discount 
-                            ? discountContent.discount.id 
+                        initialValue: discountContent.discount
+                            ? discountContent.discount.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={discountContentDetailRepository.singleListDiscount}
@@ -135,12 +134,12 @@ function DiscountContentDetail(props) {
         <Form.Item label={translate('discountContentDetail.item')}>
             {
                 form.getFieldDecorator(
-                    'itemId', 
+                    'itemId',
                     {
-                        initialValue: discountContent.item 
-                            ? discountContent.item.id 
+                        initialValue: discountContent.item
+                            ? discountContent.item.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={discountContentDetailRepository.singleListItem}

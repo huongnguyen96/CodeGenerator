@@ -1,15 +1,15 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import {Variation} from 'models/Variation';
-import {VariationSearch} from 'models/VariationSearch';
 import {Product} from 'models/Product';
 import {ProductSearch} from 'models/ProductSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
 
 export class ItemMasterRepository extends Repository {
   public constructor() {
@@ -18,14 +18,14 @@ export class ItemMasterRepository extends Repository {
   }
 
   public count = (itemSearch: ItemSearch): Observable<number> => {
-    return this.httpService.post('/count',itemSearch)
+    return this.httpService.post('/count', itemSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/list',itemSearch)
+    return this.httpService.post('/list', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );
@@ -37,22 +37,22 @@ export class ItemMasterRepository extends Repository {
         map((response: AxiosResponse<Item>) => response.data),
       );
   };
-    
+
   public delete = (item: Item): Observable<Item> => {
     return this.httpService.post<Item>(`/delete`, item)
       .pipe(
         map((response: AxiosResponse<Item>) => response.data),
       );
   };
-  
+
   public singleListVariation = (variationSearch: VariationSearch): Observable<Variation[]> => {
-    return this.httpService.post('/single-list-variation',variationSearch)
+    return this.httpService.post('/single-list-variation', variationSearch)
       .pipe(
         map((response: AxiosResponse<Variation[]>) => response.data),
       );
   };
   public singleListProduct = (productSearch: ProductSearch): Observable<Product[]> => {
-    return this.httpService.post('/single-list-product',productSearch)
+    return this.httpService.post('/single-list-product', productSearch)
       .pipe(
         map((response: AxiosResponse<Product[]>) => response.data),
       );

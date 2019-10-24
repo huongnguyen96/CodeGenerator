@@ -14,5 +14,5 @@ describe('AdministratorDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

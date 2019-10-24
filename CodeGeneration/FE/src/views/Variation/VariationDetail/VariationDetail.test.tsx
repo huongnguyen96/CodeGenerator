@@ -14,5 +14,5 @@ describe('VariationDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

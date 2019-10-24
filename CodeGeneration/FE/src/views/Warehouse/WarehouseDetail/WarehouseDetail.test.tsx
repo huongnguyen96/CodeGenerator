@@ -14,5 +14,5 @@ describe('WarehouseDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

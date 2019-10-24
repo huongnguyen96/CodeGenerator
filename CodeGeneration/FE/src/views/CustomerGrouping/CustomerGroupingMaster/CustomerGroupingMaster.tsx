@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './CustomerGroupingMaster.scss';
-import customerGroupingMasterRepository from './CustomerGroupingMasterRepository';
 import { CUSTOMER_GROUPING_ROUTE } from 'config/route-consts';
 import { CustomerGrouping } from 'models/CustomerGrouping';
 import { CustomerGroupingSearch } from 'models/CustomerGroupingSearch';
-
+import './CustomerGroupingMaster.scss';
+import customerGroupingMasterRepository from './CustomerGroupingMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function CustomerGroupingMaster(props: RouteComponentProps) {
                 title={translate('customerGroupingMaster.index')}
                 render={renderIndex<CustomerGrouping, CustomerGroupingSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('customerGroupingMaster.name')}

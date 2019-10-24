@@ -14,5 +14,5 @@ describe('WardDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Variation} from 'models/Variation';
 import {VariationSearch} from 'models/VariationSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {VariationGrouping} from 'models/VariationGrouping';
 import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
@@ -21,7 +21,7 @@ export class VariationDetailRepository extends Repository {
         map((response: AxiosResponse<Variation>) => response.data),
       );
   };
-  
+
   public create = (variation: Variation): Observable<Variation> => {
     return this.httpService.post<Variation>(`/create`, variation)
       .pipe(
@@ -40,13 +40,13 @@ export class VariationDetailRepository extends Repository {
         map((response: AxiosResponse<Variation>) => response.data),
       );
   };
-  
+
   public save = (variation: Variation): Observable<Variation> => {
     return variation.id ? this.update(variation) : this.create(variation);
   };
-  
+
   public singleListVariationGrouping = (variationGroupingSearch: VariationGroupingSearch): Observable<VariationGrouping[]> => {
-    return this.httpService.post('/single-list-variation-grouping',variationGroupingSearch)
+    return this.httpService.post('/single-list-variation-grouping', variationGroupingSearch)
       .pipe(
         map((response: AxiosResponse<VariationGrouping[]>) => response.data),
       );

@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {ProductType} from 'models/ProductType';
 import {ProductTypeSearch} from 'models/ProductTypeSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class ProductTypeMasterRepository extends Repository {
   public constructor() {
@@ -14,14 +13,14 @@ export class ProductTypeMasterRepository extends Repository {
   }
 
   public count = (productTypeSearch: ProductTypeSearch): Observable<number> => {
-    return this.httpService.post('/count',productTypeSearch)
+    return this.httpService.post('/count', productTypeSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (productTypeSearch: ProductTypeSearch): Observable<ProductType[]> => {
-    return this.httpService.post('/list',productTypeSearch)
+    return this.httpService.post('/list', productTypeSearch)
       .pipe(
         map((response: AxiosResponse<ProductType[]>) => response.data),
       );
@@ -33,14 +32,14 @@ export class ProductTypeMasterRepository extends Repository {
         map((response: AxiosResponse<ProductType>) => response.data),
       );
   };
-    
+
   public delete = (productType: ProductType): Observable<ProductType> => {
     return this.httpService.post<ProductType>(`/delete`, productType)
       .pipe(
         map((response: AxiosResponse<ProductType>) => response.data),
       );
   };
-  
+
 }
 
 export default new ProductTypeMasterRepository();

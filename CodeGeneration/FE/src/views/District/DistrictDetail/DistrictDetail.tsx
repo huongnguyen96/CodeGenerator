@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -37,7 +37,7 @@ function DistrictDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [district, loading] = useDetail<District>(id, districtDetailRepository.get, new District());
-  
+
   const [provinceSearch, setProvinceSearch] = useState<ProvinceSearch>(new ProvinceSearch());
 
   function handleSubmit() {
@@ -88,7 +88,7 @@ function DistrictDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('districtDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: district.name,
@@ -117,16 +117,15 @@ function DistrictDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('districtDetail.province')}>
             {
                 form.getFieldDecorator(
-                    'provinceId', 
+                    'provinceId',
                     {
-                        initialValue: district.province 
-                            ? district.province.id 
+                        initialValue: district.province
+                            ? district.province.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={districtDetailRepository.singleListProvince}

@@ -14,5 +14,5 @@ describe('PaymentMethodDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

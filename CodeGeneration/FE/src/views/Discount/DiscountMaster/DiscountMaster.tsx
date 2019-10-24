@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './DiscountMaster.scss';
-import discountMasterRepository from './DiscountMasterRepository';
 import { DISCOUNT_ROUTE } from 'config/route-consts';
 import { Discount } from 'models/Discount';
 import { DiscountSearch } from 'models/DiscountSearch';
-
+import './DiscountMaster.scss';
+import discountMasterRepository from './DiscountMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function DiscountMaster(props: RouteComponentProps) {
                 title={translate('discountMaster.index')}
                 render={renderIndex<Discount, DiscountSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('discountMaster.name')}

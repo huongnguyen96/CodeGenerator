@@ -8,18 +8,18 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ItemMaster.scss';
-import itemMasterRepository from './ItemMasterRepository';
 import { ITEM_ROUTE } from 'config/route-consts';
 import { Item } from 'models/Item';
 import { ItemSearch } from 'models/ItemSearch';
+import './ItemMaster.scss';
+import itemMasterRepository from './ItemMasterRepository';
 
-import {Variation} from 'models/Variation';
-import {VariationSearch} from 'models/VariationSearch';
 import {Product} from 'models/Product';
 import {ProductSearch} from 'models/ProductSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
 
 const {Column} = Table;
 
@@ -103,7 +103,7 @@ function ItemMaster(props: RouteComponentProps) {
                 title={translate('itemMaster.index')}
                 render={renderIndex<Item, ItemSearch>(search)}
         />
-        
+
          <Column key="sKU"
                 dataIndex="sKU"
                 title={translate('itemMaster.sKU')}

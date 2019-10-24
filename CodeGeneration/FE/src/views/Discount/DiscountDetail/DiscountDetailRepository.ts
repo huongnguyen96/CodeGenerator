@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Discount} from 'models/Discount';
 import {DiscountSearch} from 'models/DiscountSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class DiscountDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class DiscountDetailRepository extends Repository {
         map((response: AxiosResponse<Discount>) => response.data),
       );
   };
-  
+
   public create = (discount: Discount): Observable<Discount> => {
     return this.httpService.post<Discount>(`/create`, discount)
       .pipe(
@@ -38,11 +37,11 @@ export class DiscountDetailRepository extends Repository {
         map((response: AxiosResponse<Discount>) => response.data),
       );
   };
-  
+
   public save = (discount: Discount): Observable<Discount> => {
     return discount.id ? this.update(discount) : this.create(discount);
   };
-  
+
 }
 
 export default new DiscountDetailRepository();

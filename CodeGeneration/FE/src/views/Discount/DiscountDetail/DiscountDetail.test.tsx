@@ -14,5 +14,5 @@ describe('DiscountDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

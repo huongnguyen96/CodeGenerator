@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {ProductType} from 'models/ProductType';
 import {ProductTypeSearch} from 'models/ProductTypeSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class ProductTypeDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class ProductTypeDetailRepository extends Repository {
         map((response: AxiosResponse<ProductType>) => response.data),
       );
   };
-  
+
   public create = (productType: ProductType): Observable<ProductType> => {
     return this.httpService.post<ProductType>(`/create`, productType)
       .pipe(
@@ -38,11 +37,11 @@ export class ProductTypeDetailRepository extends Repository {
         map((response: AxiosResponse<ProductType>) => response.data),
       );
   };
-  
+
   public save = (productType: ProductType): Observable<ProductType> => {
     return productType.id ? this.update(productType) : this.create(productType);
   };
-  
+
 }
 
 export default new ProductTypeDetailRepository();

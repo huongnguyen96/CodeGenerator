@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {OrderContent} from 'models/OrderContent';
 import {OrderContentSearch} from 'models/OrderContentSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
@@ -18,14 +18,14 @@ export class OrderContentMasterRepository extends Repository {
   }
 
   public count = (orderContentSearch: OrderContentSearch): Observable<number> => {
-    return this.httpService.post('/count',orderContentSearch)
+    return this.httpService.post('/count', orderContentSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (orderContentSearch: OrderContentSearch): Observable<OrderContent[]> => {
-    return this.httpService.post('/list',orderContentSearch)
+    return this.httpService.post('/list', orderContentSearch)
       .pipe(
         map((response: AxiosResponse<OrderContent[]>) => response.data),
       );
@@ -37,22 +37,22 @@ export class OrderContentMasterRepository extends Repository {
         map((response: AxiosResponse<OrderContent>) => response.data),
       );
   };
-    
+
   public delete = (orderContent: OrderContent): Observable<OrderContent> => {
     return this.httpService.post<OrderContent>(`/delete`, orderContent)
       .pipe(
         map((response: AxiosResponse<OrderContent>) => response.data),
       );
   };
-  
+
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+    return this.httpService.post('/single-list-item', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
   public singleListOrder = (orderSearch: OrderSearch): Observable<Order[]> => {
-    return this.httpService.post('/single-list-order',orderSearch)
+    return this.httpService.post('/single-list-order', orderSearch)
       .pipe(
         map((response: AxiosResponse<Order[]>) => response.data),
       );

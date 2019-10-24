@@ -12,10 +12,83 @@
       }
     }
   },
+  "administrator": {
+    "title": ""
+  },
+  "brand": {
+    "title": ""
+  },
+  "category": {
+    "title": ""
+  },
+  "customer": {
+    "title": ""
+  },
+  "customerGrouping": {
+    "title": ""
+  },
+  "discountCustomerGrouping": {
+    "title": ""
+  },
+  "discount": {
+    "title": ""
+  },
+  "discountItem": {
+    "title": ""
+  },
+  "district": {
+    "title": ""
+  },
+  "imageFile": {
+    "title": ""
+  },
+  "item": {
+    "title": ""
+  },
+  "itemStatus": {
+    "title": ""
+  },
+  "itemType": {
+    "title": ""
+  },
+  "orderContent": {
+    "title": ""
+  },
+  "order": {
+    "title": ""
+  },
+  "partner": {
+    "title": ""
+  },
+  "province": {
+    "title": ""
+  },
+  "shippingAddress": {
+    "title": ""
+  },
+  "stock": {
+    "title": ""
+  },
+  "unit": {
+    "title": ""
+  },
+  "variation": {
+    "title": ""
+  },
+  "variationGrouping": {
+    "title": ""
+  },
+  "ward": {
+    "title": ""
+  },
+  "warehouse": {
+    "title": ""
+  },
   "general": {
     "loading": "",
     "actions": {
-      "edit": ""
+      "edit": "",
+      "delete": ""
     }
   },
   "filters": {
@@ -38,18 +111,375 @@
       "to": ""
     }
   },
-  "districts": {
+  "administratorDetail": {
     "update": {
       "success": "",
       "error": ""
     },
     "detail": {
-      "title": "",
-      "districts": {
-        "title": "",
-        "code": "",
-        "name": ""
+      "title": ""
+    },
+    "username": "",
+    "errors": {
+      "username": {
+        "required": ""
+      },
+      "displayName": {
+        "required": ""
       }
+    },
+    "displayName": ""
+  },
+  "administratorMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "username": "",
+    "displayName": ""
+  },
+  "brandDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    },
+    "category": ""
+  },
+  "brandMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "category": ""
+  },
+  "categoryDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      },
+      "icon": {
+        "required": ""
+      }
+    },
+    "name": "",
+    "icon": "",
+    "parent": ""
+  },
+  "categoryMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "code": "",
+    "name": "",
+    "icon": "",
+    "parent": ""
+  },
+  "customerDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "username": "",
+    "errors": {
+      "username": {
+        "required": ""
+      },
+      "displayName": {
+        "required": ""
+      }
+    },
+    "displayName": ""
+  },
+  "customerMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "username": "",
+    "displayName": ""
+  },
+  "customerGroupingDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    }
+  },
+  "customerGroupingMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": ""
+  },
+  "discountDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "type": {
+        "required": ""
+      }
+    },
+    "start": "",
+    "end": "",
+    "type": ""
+  },
+  "discountMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "start": "",
+    "end": "",
+    "type": ""
+  },
+  "discountCustomerGroupingDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "customerGroupingCode": "",
+    "errors": {
+      "customerGroupingCode": {
+        "required": ""
+      }
+    },
+    "discount": ""
+  },
+  "discountCustomerGroupingMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "customerGroupingCode": "",
+    "discount": ""
+  },
+  "discountItemDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "discountValue": "",
+    "errors": {
+      "discountValue": {
+        "required": ""
+      }
+    },
+    "discount": "",
+    "unit": ""
+  },
+  "discountItemMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "discountValue": "",
+    "discount": "",
+    "unit": ""
+  },
+  "districtDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "orderNumber": {
+        "required": ""
+      }
+    },
+    "orderNumber": "",
+    "province": ""
+  },
+  "districtMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "orderNumber": "",
+    "province": ""
+  },
+  "imageFileDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "path": "",
+    "errors": {
+      "path": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      }
+    },
+    "name": ""
+  },
+  "imageFileMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "path": "",
+    "name": ""
+  },
+  "itemDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      },
+      "sKU": {
+        "required": ""
+      },
+      "description": {
+        "required": ""
+      }
+    },
+    "name": "",
+    "sKU": "",
+    "description": "",
+    "brand": "",
+    "category": "",
+    "partner": "",
+    "status": "",
+    "type": ""
+  },
+  "itemMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "code": "",
+    "name": "",
+    "sKU": "",
+    "description": "",
+    "brand": "",
+    "category": "",
+    "partner": "",
+    "status": "",
+    "type": ""
+  },
+  "itemStatusDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
     },
     "code": "",
     "errors": {
@@ -60,11 +490,148 @@
         "required": ""
       }
     },
-    "name": "",
-    "province": "",
+    "name": ""
+  },
+  "itemStatusMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
     "index": "",
-    "actions": "",
-    "title": ""
+    "code": "",
+    "name": ""
+  },
+  "itemTypeDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      }
+    },
+    "name": ""
+  },
+  "itemTypeMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "code": "",
+    "name": ""
+  },
+  "orderDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "createdDate": "",
+    "voucherCode": "",
+    "errors": {
+      "voucherCode": {
+        "required": ""
+      },
+      "total": {
+        "required": ""
+      },
+      "voucherDiscount": {
+        "required": ""
+      },
+      "campaignDiscount": {
+        "required": ""
+      }
+    },
+    "total": "",
+    "voucherDiscount": "",
+    "campaignDiscount": "",
+    "customer": ""
+  },
+  "orderMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "createdDate": "",
+    "voucherCode": "",
+    "total": "",
+    "voucherDiscount": "",
+    "campaignDiscount": "",
+    "customer": ""
+  },
+  "orderContentDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "itemName": "",
+    "errors": {
+      "itemName": {
+        "required": ""
+      },
+      "firstVersion": {
+        "required": ""
+      },
+      "secondVersion": {
+        "required": ""
+      },
+      "thirdVersion": {
+        "required": ""
+      },
+      "price": {
+        "required": ""
+      },
+      "discountPrice": {
+        "required": ""
+      }
+    },
+    "firstVersion": "",
+    "secondVersion": "",
+    "thirdVersion": "",
+    "price": "",
+    "discountPrice": "",
+    "order": ""
+  },
+  "orderContentMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "itemName": "",
+    "firstVersion": "",
+    "secondVersion": "",
+    "thirdVersion": "",
+    "price": "",
+    "discountPrice": "",
+    "order": ""
   },
   "login": {
     "username": {
@@ -84,5 +651,328 @@
     "login": "",
     "or": "",
     "registerNow": ""
+  },
+  "partnerDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "phone": {
+        "required": ""
+      },
+      "contactPerson": {
+        "required": ""
+      },
+      "address": {
+        "required": ""
+      }
+    },
+    "phone": "",
+    "contactPerson": "",
+    "address": ""
+  },
+  "partnerMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "phone": "",
+    "contactPerson": "",
+    "address": ""
+  },
+  "provinceDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "orderNumber": {
+        "required": ""
+      }
+    },
+    "orderNumber": ""
+  },
+  "provinceMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "orderNumber": ""
+  },
+  "shippingAddressDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "fullName": "",
+    "errors": {
+      "fullName": {
+        "required": ""
+      },
+      "companyName": {
+        "required": ""
+      },
+      "phoneNumber": {
+        "required": ""
+      },
+      "address": {
+        "required": ""
+      },
+      "isDefault": {
+        "required": ""
+      }
+    },
+    "companyName": "",
+    "phoneNumber": "",
+    "address": "",
+    "isDefault": "",
+    "customer": "",
+    "district": "",
+    "province": "",
+    "ward": ""
+  },
+  "shippingAddressMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "fullName": "",
+    "companyName": "",
+    "phoneNumber": "",
+    "address": "",
+    "isDefault": "",
+    "customer": "",
+    "district": "",
+    "province": "",
+    "ward": ""
+  },
+  "stockDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "quantity": "",
+    "errors": {
+      "quantity": {
+        "required": ""
+      }
+    },
+    "unit": "",
+    "warehouse": ""
+  },
+  "stockMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "quantity": "",
+    "unit": "",
+    "warehouse": ""
+  },
+  "unitDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "sKU": "",
+    "errors": {
+      "sKU": {
+        "required": ""
+      },
+      "price": {
+        "required": ""
+      }
+    },
+    "price": "",
+    "firstVariation": ""
+  },
+  "unitMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "sKU": "",
+    "price": "",
+    "firstVariation": "",
+    "secondVariation": "",
+    "thirdVariation": ""
+  },
+  "variationDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    },
+    "variationGrouping": ""
+  },
+  "variationMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "variationGrouping": ""
+  },
+  "variationGroupingDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    },
+    "item": ""
+  },
+  "variationGroupingMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "item": ""
+  },
+  "wardDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "orderNumber": {
+        "required": ""
+      }
+    },
+    "orderNumber": "",
+    "district": ""
+  },
+  "wardMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "orderNumber": "",
+    "district": ""
+  },
+  "warehouseDetail": {
+    "update": {
+      "success": "",
+      "error": ""
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "phone": {
+        "required": ""
+      },
+      "email": {
+        "required": ""
+      },
+      "address": {
+        "required": ""
+      }
+    },
+    "phone": "",
+    "email": "",
+    "address": "",
+    "partner": ""
+  },
+  "warehouseMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "",
+    "name": "",
+    "phone": "",
+    "email": "",
+    "address": "",
+    "partner": ""
   }
 }
