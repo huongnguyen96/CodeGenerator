@@ -61,22 +61,46 @@ namespace CodeGeneration.App
                     ],
                 }}
             )
-            (<DatePicker/>)
+            (<Input type=""date""/>)
           }}
         </Form.Item>
 ";
                     }
-                    else
+                    if (prmitiveType == "number")
                     {
                         PrimitiveItem += $@"
         <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
           {{form.getFieldDecorator('{CamelCase(PropertyInfo.Name)}', {{
             initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
             rules: [
-              {{
-                required: true,
-                message: translate('{CamelCase(ClassName)}Detail.errors.{CamelCase(PropertyInfo.Name)}.required'),
-              }},
+            ],
+          }})(
+            <Input type=""number""/>,
+          )}}
+        </Form.Item>
+";
+                    }
+                    if (prmitiveType == "boolean")
+                    {
+                        PrimitiveItem += $@"
+        <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
+          {{form.getFieldDecorator('{CamelCase(PropertyInfo.Name)}', {{
+            initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
+            rules: [
+            ],
+          }})(
+            <Input type=""checkbox""/>,
+          )}}
+        </Form.Item>
+";
+                    }
+                    if (prmitiveType == "string")
+                    {
+                        PrimitiveItem += $@"
+        <Form.Item label={{translate('{CamelCase(ClassName)}Detail.{CamelCase(PropertyInfo.Name)}')}}>
+          {{form.getFieldDecorator('{CamelCase(PropertyInfo.Name)}', {{
+            initialValue: {CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)},
+            rules: [
             ],
           }})(
             <Input type=""text""/>,
@@ -84,6 +108,7 @@ namespace CodeGeneration.App
         </Form.Item>
 ";
                     }
+
                 }
                 if (!string.IsNullOrEmpty(referenceType) && !types.Contains(referenceType))
                 {
@@ -103,17 +128,18 @@ namespace CodeGeneration.App
                     }}
                 )
                 (
-                    <SingleSelect getList={{{CamelCase(ClassName)}DetailRepository.singleList{referenceType}}}
-                                  search={{{CamelCase(referenceType)}Search}}
-                                  searchField=""name""
-                                  showSearch
-                                  setSearch={{set{referenceType}Search}}>
+                    <Input  type=""select""
+                            getList={{{CamelCase(ClassName)}DetailRepository.singleList{referenceType}}}
+                            search={{{CamelCase(referenceType)}Search}}
+                          searchField=""name""
+                          showSearch
+                          setSearch={{set{referenceType}Search}}>
                       {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)} && (
                         <Option value={{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.id}}>
                           {{{CamelCase(ClassName)}.{CamelCase(PropertyInfo.Name)}.id}}
                         </Option>
                       )}}
-                    </SingleSelect>,
+                    </Input>,
                 )
             }}
         </Form.Item>";
@@ -123,8 +149,7 @@ namespace CodeGeneration.App
             string contents = $@"
 import Card from 'antd/lib/card';
 import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
+import Input from 'components/Input';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
