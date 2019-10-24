@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Administrator} from 'models/Administrator';
 import {AdministratorSearch} from 'models/AdministratorSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class AdministratorMasterRepository extends Repository {
   public constructor() {
@@ -14,14 +13,14 @@ export class AdministratorMasterRepository extends Repository {
   }
 
   public count = (administratorSearch: AdministratorSearch): Observable<number> => {
-    return this.httpService.post('/count',administratorSearch)
+    return this.httpService.post('/count', administratorSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (administratorSearch: AdministratorSearch): Observable<Administrator[]> => {
-    return this.httpService.post('/list',administratorSearch)
+    return this.httpService.post('/list', administratorSearch)
       .pipe(
         map((response: AxiosResponse<Administrator[]>) => response.data),
       );
@@ -33,14 +32,14 @@ export class AdministratorMasterRepository extends Repository {
         map((response: AxiosResponse<Administrator>) => response.data),
       );
   };
-    
+
   public delete = (administrator: Administrator): Observable<Administrator> => {
     return this.httpService.post<Administrator>(`/delete`, administrator)
       .pipe(
         map((response: AxiosResponse<Administrator>) => response.data),
       );
   };
-  
+
 }
 
 export default new AdministratorMasterRepository();

@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './PaymentMethodMaster.scss';
-import paymentMethodMasterRepository from './PaymentMethodMasterRepository';
 import { PAYMENT_METHOD_ROUTE } from 'config/route-consts';
 import { PaymentMethod } from 'models/PaymentMethod';
 import { PaymentMethodSearch } from 'models/PaymentMethodSearch';
-
+import './PaymentMethodMaster.scss';
+import paymentMethodMasterRepository from './PaymentMethodMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function PaymentMethodMaster(props: RouteComponentProps) {
                 title={translate('paymentMethodMaster.index')}
                 render={renderIndex<PaymentMethod, PaymentMethodSearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('paymentMethodMaster.code')}

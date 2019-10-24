@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -39,7 +39,7 @@ function OrderDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [order, loading] = useDetail<Order>(id, orderDetailRepository.get, new Order());
-  
+
   const [customerSearch, setCustomerSearch] = useState<CustomerSearch>(new CustomerSearch());
   const [orderStatusSearch, setOrderStatusSearch] = useState<OrderStatusSearch>(new OrderStatusSearch());
 
@@ -91,16 +91,16 @@ function OrderDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('orderDetail.createdDate')}>
           {
             form.getFieldDecorator(
-                'createdDate', 
+                'createdDate',
                 {
                     initialValue: order.createdDate,
                     rules: [
                     ],
-                }
+                },
             )
             (<DatePicker/>)
           }
@@ -162,16 +162,15 @@ function OrderDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('orderDetail.customer')}>
             {
                 form.getFieldDecorator(
-                    'customerId', 
+                    'customerId',
                     {
-                        initialValue: order.customer 
-                            ? order.customer.id 
+                        initialValue: order.customer
+                            ? order.customer.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={orderDetailRepository.singleListCustomer}
@@ -191,12 +190,12 @@ function OrderDetail(props) {
         <Form.Item label={translate('orderDetail.status')}>
             {
                 form.getFieldDecorator(
-                    'statusId', 
+                    'statusId',
                     {
-                        initialValue: order.status 
-                            ? order.status.id 
+                        initialValue: order.status
+                            ? order.status.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={orderDetailRepository.singleListOrderStatus}

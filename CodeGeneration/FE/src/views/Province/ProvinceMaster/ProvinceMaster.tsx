@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ProvinceMaster.scss';
-import provinceMasterRepository from './ProvinceMasterRepository';
 import { PROVINCE_ROUTE } from 'config/route-consts';
 import { Province } from 'models/Province';
 import { ProvinceSearch } from 'models/ProvinceSearch';
-
+import './ProvinceMaster.scss';
+import provinceMasterRepository from './ProvinceMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function ProvinceMaster(props: RouteComponentProps) {
                 title={translate('provinceMaster.index')}
                 render={renderIndex<Province, ProvinceSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('provinceMaster.name')}

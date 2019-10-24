@@ -1,15 +1,15 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import {Variation} from 'models/Variation';
-import {VariationSearch} from 'models/VariationSearch';
 import {Product} from 'models/Product';
 import {ProductSearch} from 'models/ProductSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
 
 export class ItemDetailRepository extends Repository {
   public constructor() {
@@ -23,7 +23,7 @@ export class ItemDetailRepository extends Repository {
         map((response: AxiosResponse<Item>) => response.data),
       );
   };
-  
+
   public create = (item: Item): Observable<Item> => {
     return this.httpService.post<Item>(`/create`, item)
       .pipe(
@@ -42,19 +42,19 @@ export class ItemDetailRepository extends Repository {
         map((response: AxiosResponse<Item>) => response.data),
       );
   };
-  
+
   public save = (item: Item): Observable<Item> => {
     return item.id ? this.update(item) : this.create(item);
   };
-  
+
   public singleListVariation = (variationSearch: VariationSearch): Observable<Variation[]> => {
-    return this.httpService.post('/single-list-variation',variationSearch)
+    return this.httpService.post('/single-list-variation', variationSearch)
       .pipe(
         map((response: AxiosResponse<Variation[]>) => response.data),
       );
   };
   public singleListProduct = (productSearch: ProductSearch): Observable<Product[]> => {
-    return this.httpService.post('/single-list-product',productSearch)
+    return this.httpService.post('/single-list-product', productSearch)
       .pipe(
         map((response: AxiosResponse<Product[]>) => response.data),
       );

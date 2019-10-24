@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -37,7 +37,7 @@ function BrandDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [brand, loading] = useDetail<Brand>(id, brandDetailRepository.get, new Brand());
-  
+
   const [categorySearch, setCategorySearch] = useState<CategorySearch>(new CategorySearch());
 
   function handleSubmit() {
@@ -88,7 +88,7 @@ function BrandDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('brandDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: brand.name,
@@ -103,16 +103,15 @@ function BrandDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('brandDetail.category')}>
             {
                 form.getFieldDecorator(
-                    'categoryId', 
+                    'categoryId',
                     {
-                        initialValue: brand.category 
-                            ? brand.category.id 
+                        initialValue: brand.category
+                            ? brand.category.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={brandDetailRepository.singleListCategory}

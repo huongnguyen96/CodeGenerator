@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -43,7 +43,7 @@ function ShippingAddressDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [shippingAddress, loading] = useDetail<ShippingAddress>(id, shippingAddressDetailRepository.get, new ShippingAddress());
-  
+
   const [customerSearch, setCustomerSearch] = useState<CustomerSearch>(new CustomerSearch());
   const [districtSearch, setDistrictSearch] = useState<DistrictSearch>(new DistrictSearch());
   const [provinceSearch, setProvinceSearch] = useState<ProvinceSearch>(new ProvinceSearch());
@@ -97,7 +97,7 @@ function ShippingAddressDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('shippingAddressDetail.fullName')}>
           {form.getFieldDecorator('fullName', {
             initialValue: shippingAddress.fullName,
@@ -168,16 +168,15 @@ function ShippingAddressDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('shippingAddressDetail.customer')}>
             {
                 form.getFieldDecorator(
-                    'customerId', 
+                    'customerId',
                     {
-                        initialValue: shippingAddress.customer 
-                            ? shippingAddress.customer.id 
+                        initialValue: shippingAddress.customer
+                            ? shippingAddress.customer.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={shippingAddressDetailRepository.singleListCustomer}
@@ -197,12 +196,12 @@ function ShippingAddressDetail(props) {
         <Form.Item label={translate('shippingAddressDetail.district')}>
             {
                 form.getFieldDecorator(
-                    'districtId', 
+                    'districtId',
                     {
-                        initialValue: shippingAddress.district 
-                            ? shippingAddress.district.id 
+                        initialValue: shippingAddress.district
+                            ? shippingAddress.district.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={shippingAddressDetailRepository.singleListDistrict}
@@ -222,12 +221,12 @@ function ShippingAddressDetail(props) {
         <Form.Item label={translate('shippingAddressDetail.province')}>
             {
                 form.getFieldDecorator(
-                    'provinceId', 
+                    'provinceId',
                     {
-                        initialValue: shippingAddress.province 
-                            ? shippingAddress.province.id 
+                        initialValue: shippingAddress.province
+                            ? shippingAddress.province.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={shippingAddressDetailRepository.singleListProvince}
@@ -247,12 +246,12 @@ function ShippingAddressDetail(props) {
         <Form.Item label={translate('shippingAddressDetail.ward')}>
             {
                 form.getFieldDecorator(
-                    'wardId', 
+                    'wardId',
                     {
-                        initialValue: shippingAddress.ward 
-                            ? shippingAddress.ward.id 
+                        initialValue: shippingAddress.ward
+                            ? shippingAddress.ward.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={shippingAddressDetailRepository.singleListWard}

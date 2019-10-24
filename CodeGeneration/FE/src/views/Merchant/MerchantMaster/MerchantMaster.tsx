@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './MerchantMaster.scss';
-import merchantMasterRepository from './MerchantMasterRepository';
 import { MERCHANT_ROUTE } from 'config/route-consts';
 import { Merchant } from 'models/Merchant';
 import { MerchantSearch } from 'models/MerchantSearch';
-
+import './MerchantMaster.scss';
+import merchantMasterRepository from './MerchantMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function MerchantMaster(props: RouteComponentProps) {
                 title={translate('merchantMaster.index')}
                 render={renderIndex<Merchant, MerchantSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('merchantMaster.name')}

@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './CustomerMaster.scss';
-import customerMasterRepository from './CustomerMasterRepository';
 import { CUSTOMER_ROUTE } from 'config/route-consts';
 import { Customer } from 'models/Customer';
 import { CustomerSearch } from 'models/CustomerSearch';
-
+import './CustomerMaster.scss';
+import customerMasterRepository from './CustomerMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function CustomerMaster(props: RouteComponentProps) {
                 title={translate('customerMaster.index')}
                 render={renderIndex<Customer, CustomerSearch>(search)}
         />
-        
+
          <Column key="username"
                 dataIndex="username"
                 title={translate('customerMaster.username')}

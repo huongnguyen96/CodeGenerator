@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ProductStatusMaster.scss';
-import productStatusMasterRepository from './ProductStatusMasterRepository';
 import { PRODUCT_STATUS_ROUTE } from 'config/route-consts';
 import { ProductStatus } from 'models/ProductStatus';
 import { ProductStatusSearch } from 'models/ProductStatusSearch';
-
+import './ProductStatusMaster.scss';
+import productStatusMasterRepository from './ProductStatusMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function ProductStatusMaster(props: RouteComponentProps) {
                 title={translate('productStatusMaster.index')}
                 render={renderIndex<ProductStatus, ProductStatusSearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('productStatusMaster.code')}

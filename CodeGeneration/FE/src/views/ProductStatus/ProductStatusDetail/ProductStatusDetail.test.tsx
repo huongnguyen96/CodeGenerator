@@ -14,5 +14,5 @@ describe('ProductStatusDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

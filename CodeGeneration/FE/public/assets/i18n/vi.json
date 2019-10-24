@@ -12,6 +12,78 @@
       }
     }
   },
+  "administrator": {
+    "title": ""
+  },
+  "brand": {
+    "title": ""
+  },
+  "category": {
+    "title": "Danh mục"
+  },
+  "customer": {
+    "title": ""
+  },
+  "customerGrouping": {
+    "title": ""
+  },
+  "discountCustomerGrouping": {
+    "title": ""
+  },
+  "discount": {
+    "title": ""
+  },
+  "discountItem": {
+    "title": ""
+  },
+  "district": {
+    "title": ""
+  },
+  "imageFile": {
+    "title": ""
+  },
+  "item": {
+    "title": ""
+  },
+  "itemStatus": {
+    "title": ""
+  },
+  "itemType": {
+    "title": ""
+  },
+  "orderContent": {
+    "title": ""
+  },
+  "order": {
+    "title": ""
+  },
+  "partner": {
+    "title": ""
+  },
+  "province": {
+    "title": ""
+  },
+  "shippingAddress": {
+    "title": ""
+  },
+  "stock": {
+    "title": ""
+  },
+  "unit": {
+    "title": ""
+  },
+  "variation": {
+    "title": ""
+  },
+  "variationGrouping": {
+    "title": ""
+  },
+  "ward": {
+    "title": ""
+  },
+  "warehouse": {
+    "title": ""
+  },
   "general": {
     "loading": "Đang tải",
     "actions": {
@@ -39,33 +111,527 @@
       "to": "Đến"
     }
   },
-  "districts": {
+  "administratorDetail": {
     "update": {
       "success": "Cập nhật thành công",
       "error": "Cập nhật thất bại"
     },
     "detail": {
-      "title": "Thông tin {{name}}",
-      "wards": {
-        "title": "Danh sách xã phường",
-        "code": "Mã xã/phường",
-        "name": "Tên xã/phường"
+      "title": ""
+    },
+    "username": "",
+    "errors": {
+      "username": {
+        "required": ""
+      },
+      "displayName": {
+        "required": ""
       }
     },
-    "code": "Mã quận huyện",
+    "displayName": ""
+  },
+  "administratorMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "username": "",
+    "displayName": ""
+  },
+  "brandDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    },
+    "category": ""
+  },
+  "brandMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "category": ""
+  },
+  "categoryDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": "Thông tin danh mục"
+    },
+    "code": "Mã danh mục",
     "errors": {
       "code": {
-        "required": "Mã quận/huyện là bắt buộc"
+        "required": "Mã danh mục là bắt buộc"
       },
       "name": {
-        "required": "Tên quận/huyện là bắt buộc"
+        "required": "Tên danh mục là bắt buộc"
+      },
+      "icon": {
+        "required": "Hình đại diện cho danh mục là bắt buộc"
       }
     },
-    "name": "Tên quận huyện",
-    "province": "Tỉnh thành",
+    "name": "Tên danh mục",
+    "icon": "Hình đại diện",
+    "parent": "Danh mục cha"
+  },
+  "categoryMaster": {
+    "deletion": {
+      "title": "Bạn xác nhận xóa danh mục này?",
+      "content": "Thao tác này không thể khôi phục. Vui lòng cân nhắc!",
+      "success": "Cập nhật thành công",
+      "error": "Xóa danh mục thất bại"
+    },
+    "title": "Quản lý danh mục",
     "index": "STT",
-    "actions": "Tác vụ",
-    "title": "Quản lý quận/huyện"
+    "code": "Mã danh mục",
+    "name": "Tên danh mục",
+    "icon": "Hình đại diện",
+    "parent": "Danh mục cha"
+  },
+  "customerDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "username": "Tên người dùng",
+    "errors": {
+      "username": {
+        "required": ""
+      },
+      "displayName": {
+        "required": ""
+      }
+    },
+    "displayName": ""
+  },
+  "customerMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "username": "Tên người dùng",
+    "displayName": "Tên hiển thị"
+  },
+  "customerGroupingDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    }
+  },
+  "customerGroupingMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": ""
+  },
+  "discountDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "type": {
+        "required": ""
+      }
+    },
+    "start": "",
+    "end": "",
+    "type": ""
+  },
+  "discountMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "start": "",
+    "end": "",
+    "type": ""
+  },
+  "discountCustomerGroupingDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "customerGroupingCode": "",
+    "errors": {
+      "customerGroupingCode": {
+        "required": ""
+      }
+    },
+    "discount": ""
+  },
+  "discountCustomerGroupingMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "customerGroupingCode": "",
+    "discount": ""
+  },
+  "discountItemDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "discountValue": "",
+    "errors": {
+      "discountValue": {
+        "required": ""
+      }
+    },
+    "discount": "",
+    "unit": ""
+  },
+  "discountItemMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "discountValue": "",
+    "discount": "",
+    "unit": ""
+  },
+  "districtDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "orderNumber": {
+        "required": ""
+      }
+    },
+    "orderNumber": "",
+    "province": ""
+  },
+  "districtMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "orderNumber": "",
+    "province": ""
+  },
+  "imageFileDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "path": "",
+    "errors": {
+      "path": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      }
+    },
+    "name": ""
+  },
+  "imageFileMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "path": "",
+    "name": ""
+  },
+  "itemDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      },
+      "sKU": {
+        "required": ""
+      },
+      "description": {
+        "required": ""
+      }
+    },
+    "name": "",
+    "sKU": "",
+    "description": "",
+    "brand": "",
+    "category": "",
+    "partner": "",
+    "status": "",
+    "type": ""
+  },
+  "itemMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "code": "",
+    "name": "",
+    "sKU": "",
+    "description": "",
+    "brand": "",
+    "category": "",
+    "partner": "",
+    "status": "",
+    "type": ""
+  },
+  "itemStatusDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      }
+    },
+    "name": ""
+  },
+  "itemStatusMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "code": "",
+    "name": ""
+  },
+  "itemTypeDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "code": "",
+    "errors": {
+      "code": {
+        "required": ""
+      },
+      "name": {
+        "required": ""
+      }
+    },
+    "name": ""
+  },
+  "itemTypeMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "code": "",
+    "name": ""
+  },
+  "orderDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "createdDate": "",
+    "voucherCode": "",
+    "errors": {
+      "voucherCode": {
+        "required": ""
+      },
+      "total": {
+        "required": ""
+      },
+      "voucherDiscount": {
+        "required": ""
+      },
+      "campaignDiscount": {
+        "required": ""
+      }
+    },
+    "total": "",
+    "voucherDiscount": "",
+    "campaignDiscount": "",
+    "customer": ""
+  },
+  "orderMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "createdDate": "",
+    "voucherCode": "",
+    "total": "",
+    "voucherDiscount": "",
+    "campaignDiscount": "",
+    "customer": ""
+  },
+  "orderContentDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "itemName": "",
+    "errors": {
+      "itemName": {
+        "required": ""
+      },
+      "firstVersion": {
+        "required": ""
+      },
+      "secondVersion": {
+        "required": ""
+      },
+      "thirdVersion": {
+        "required": ""
+      },
+      "price": {
+        "required": ""
+      },
+      "discountPrice": {
+        "required": ""
+      }
+    },
+    "firstVersion": "",
+    "secondVersion": "",
+    "thirdVersion": "",
+    "price": "",
+    "discountPrice": "",
+    "order": ""
+  },
+  "orderContentMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "itemName": "",
+    "firstVersion": "",
+    "secondVersion": "",
+    "thirdVersion": "",
+    "price": "",
+    "discountPrice": "",
+    "order": ""
   },
   "login": {
     "username": {
@@ -85,5 +651,328 @@
     "login": "Đăng nhập",
     "or": "hoặc",
     "registerNow": "Đăng ký tài khoản"
+  },
+  "partnerDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "phone": {
+        "required": ""
+      },
+      "contactPerson": {
+        "required": ""
+      },
+      "address": {
+        "required": ""
+      }
+    },
+    "phone": "",
+    "contactPerson": "",
+    "address": ""
+  },
+  "partnerMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "phone": "",
+    "contactPerson": "",
+    "address": ""
+  },
+  "provinceDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "orderNumber": {
+        "required": ""
+      }
+    },
+    "orderNumber": ""
+  },
+  "provinceMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "orderNumber": ""
+  },
+  "shippingAddressDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "fullName": "",
+    "errors": {
+      "fullName": {
+        "required": ""
+      },
+      "companyName": {
+        "required": ""
+      },
+      "phoneNumber": {
+        "required": ""
+      },
+      "address": {
+        "required": ""
+      },
+      "isDefault": {
+        "required": ""
+      }
+    },
+    "companyName": "",
+    "phoneNumber": "",
+    "address": "",
+    "isDefault": "",
+    "customer": "",
+    "district": "",
+    "province": "",
+    "ward": ""
+  },
+  "shippingAddressMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "fullName": "",
+    "companyName": "",
+    "phoneNumber": "",
+    "address": "",
+    "isDefault": "",
+    "customer": "",
+    "district": "",
+    "province": "",
+    "ward": ""
+  },
+  "stockDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "quantity": "",
+    "errors": {
+      "quantity": {
+        "required": ""
+      }
+    },
+    "unit": "",
+    "warehouse": ""
+  },
+  "stockMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "quantity": "",
+    "unit": "",
+    "warehouse": ""
+  },
+  "unitDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "sKU": "",
+    "errors": {
+      "sKU": {
+        "required": ""
+      },
+      "price": {
+        "required": ""
+      }
+    },
+    "price": "",
+    "firstVariation": ""
+  },
+  "unitMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "sKU": "",
+    "price": "",
+    "firstVariation": "",
+    "secondVariation": "",
+    "thirdVariation": ""
+  },
+  "variationDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    },
+    "variationGrouping": ""
+  },
+  "variationMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "variationGrouping": ""
+  },
+  "variationGroupingDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      }
+    },
+    "item": ""
+  },
+  "variationGroupingMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "item": ""
+  },
+  "wardDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "orderNumber": {
+        "required": ""
+      }
+    },
+    "orderNumber": "",
+    "district": ""
+  },
+  "wardMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "orderNumber": "",
+    "district": ""
+  },
+  "warehouseDetail": {
+    "update": {
+      "success": "Cập nhật thành công",
+      "error": "Cập nhật thất bại"
+    },
+    "detail": {
+      "title": ""
+    },
+    "name": "",
+    "errors": {
+      "name": {
+        "required": ""
+      },
+      "phone": {
+        "required": ""
+      },
+      "email": {
+        "required": ""
+      },
+      "address": {
+        "required": ""
+      }
+    },
+    "phone": "",
+    "email": "",
+    "address": "",
+    "partner": ""
+  },
+  "warehouseMaster": {
+    "deletion": {
+      "title": "",
+      "content": "",
+      "success": "",
+      "error": ""
+    },
+    "title": "",
+    "index": "STT",
+    "name": "",
+    "phone": "",
+    "email": "",
+    "address": "",
+    "partner": ""
   }
 }

@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -45,7 +45,7 @@ function ProductDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [product, loading] = useDetail<Product>(id, productDetailRepository.get, new Product());
-  
+
   const [brandSearch, setBrandSearch] = useState<BrandSearch>(new BrandSearch());
   const [categorySearch, setCategorySearch] = useState<CategorySearch>(new CategorySearch());
   const [merchantSearch, setMerchantSearch] = useState<MerchantSearch>(new MerchantSearch());
@@ -100,7 +100,7 @@ function ProductDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('productDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: product.code,
@@ -213,16 +213,15 @@ function ProductDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('productDetail.brand')}>
             {
                 form.getFieldDecorator(
-                    'brandId', 
+                    'brandId',
                     {
-                        initialValue: product.brand 
-                            ? product.brand.id 
+                        initialValue: product.brand
+                            ? product.brand.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={productDetailRepository.singleListBrand}
@@ -242,12 +241,12 @@ function ProductDetail(props) {
         <Form.Item label={translate('productDetail.category')}>
             {
                 form.getFieldDecorator(
-                    'categoryId', 
+                    'categoryId',
                     {
-                        initialValue: product.category 
-                            ? product.category.id 
+                        initialValue: product.category
+                            ? product.category.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={productDetailRepository.singleListCategory}
@@ -267,12 +266,12 @@ function ProductDetail(props) {
         <Form.Item label={translate('productDetail.merchant')}>
             {
                 form.getFieldDecorator(
-                    'merchantId', 
+                    'merchantId',
                     {
-                        initialValue: product.merchant 
-                            ? product.merchant.id 
+                        initialValue: product.merchant
+                            ? product.merchant.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={productDetailRepository.singleListMerchant}
@@ -292,12 +291,12 @@ function ProductDetail(props) {
         <Form.Item label={translate('productDetail.status')}>
             {
                 form.getFieldDecorator(
-                    'statusId', 
+                    'statusId',
                     {
-                        initialValue: product.status 
-                            ? product.status.id 
+                        initialValue: product.status
+                            ? product.status.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={productDetailRepository.singleListProductStatus}
@@ -317,12 +316,12 @@ function ProductDetail(props) {
         <Form.Item label={translate('productDetail.type')}>
             {
                 form.getFieldDecorator(
-                    'typeId', 
+                    'typeId',
                     {
-                        initialValue: product.type 
-                            ? product.type.id 
+                        initialValue: product.type
+                            ? product.type.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={productDetailRepository.singleListProductType}

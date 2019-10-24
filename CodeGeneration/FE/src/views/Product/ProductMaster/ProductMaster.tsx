@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ProductMaster.scss';
-import productMasterRepository from './ProductMasterRepository';
 import { PRODUCT_ROUTE } from 'config/route-consts';
 import { Product } from 'models/Product';
 import { ProductSearch } from 'models/ProductSearch';
+import './ProductMaster.scss';
+import productMasterRepository from './ProductMasterRepository';
 
 import {Brand} from 'models/Brand';
 import {BrandSearch} from 'models/BrandSearch';
@@ -109,7 +109,7 @@ function ProductMaster(props: RouteComponentProps) {
                 title={translate('productMaster.index')}
                 render={renderIndex<Product, ProductSearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('productMaster.code')}

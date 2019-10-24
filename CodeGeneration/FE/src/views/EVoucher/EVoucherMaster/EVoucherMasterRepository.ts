@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {EVoucher} from 'models/EVoucher';
 import {EVoucherSearch} from 'models/EVoucherSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
@@ -18,14 +18,14 @@ export class EVoucherMasterRepository extends Repository {
   }
 
   public count = (eVoucherSearch: EVoucherSearch): Observable<number> => {
-    return this.httpService.post('/count',eVoucherSearch)
+    return this.httpService.post('/count', eVoucherSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (eVoucherSearch: EVoucherSearch): Observable<EVoucher[]> => {
-    return this.httpService.post('/list',eVoucherSearch)
+    return this.httpService.post('/list', eVoucherSearch)
       .pipe(
         map((response: AxiosResponse<EVoucher[]>) => response.data),
       );
@@ -37,22 +37,22 @@ export class EVoucherMasterRepository extends Repository {
         map((response: AxiosResponse<EVoucher>) => response.data),
       );
   };
-    
+
   public delete = (eVoucher: EVoucher): Observable<EVoucher> => {
     return this.httpService.post<EVoucher>(`/delete`, eVoucher)
       .pipe(
         map((response: AxiosResponse<EVoucher>) => response.data),
       );
   };
-  
+
   public singleListCustomer = (customerSearch: CustomerSearch): Observable<Customer[]> => {
-    return this.httpService.post('/single-list-customer',customerSearch)
+    return this.httpService.post('/single-list-customer', customerSearch)
       .pipe(
         map((response: AxiosResponse<Customer[]>) => response.data),
       );
   };
   public singleListProduct = (productSearch: ProductSearch): Observable<Product[]> => {
-    return this.httpService.post('/single-list-product',productSearch)
+    return this.httpService.post('/single-list-product', productSearch)
       .pipe(
         map((response: AxiosResponse<Product[]>) => response.data),
       );

@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {ProductStatus} from 'models/ProductStatus';
 import {ProductStatusSearch} from 'models/ProductStatusSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class ProductStatusMasterRepository extends Repository {
   public constructor() {
@@ -14,14 +13,14 @@ export class ProductStatusMasterRepository extends Repository {
   }
 
   public count = (productStatusSearch: ProductStatusSearch): Observable<number> => {
-    return this.httpService.post('/count',productStatusSearch)
+    return this.httpService.post('/count', productStatusSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (productStatusSearch: ProductStatusSearch): Observable<ProductStatus[]> => {
-    return this.httpService.post('/list',productStatusSearch)
+    return this.httpService.post('/list', productStatusSearch)
       .pipe(
         map((response: AxiosResponse<ProductStatus[]>) => response.data),
       );
@@ -33,14 +32,14 @@ export class ProductStatusMasterRepository extends Repository {
         map((response: AxiosResponse<ProductStatus>) => response.data),
       );
   };
-    
+
   public delete = (productStatus: ProductStatus): Observable<ProductStatus> => {
     return this.httpService.post<ProductStatus>(`/delete`, productStatus)
       .pipe(
         map((response: AxiosResponse<ProductStatus>) => response.data),
       );
   };
-  
+
 }
 
 export default new ProductStatusMasterRepository();

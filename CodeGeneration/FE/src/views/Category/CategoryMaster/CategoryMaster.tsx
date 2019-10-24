@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './CategoryMaster.scss';
-import categoryMasterRepository from './CategoryMasterRepository';
 import { CATEGORY_ROUTE } from 'config/route-consts';
 import { Category } from 'models/Category';
 import { CategorySearch } from 'models/CategorySearch';
-
+import './CategoryMaster.scss';
+import categoryMasterRepository from './CategoryMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function CategoryMaster(props: RouteComponentProps) {
                 title={translate('categoryMaster.index')}
                 render={renderIndex<Category, CategorySearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('categoryMaster.code')}

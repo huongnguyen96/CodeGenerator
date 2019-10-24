@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './WardMaster.scss';
-import wardMasterRepository from './WardMasterRepository';
 import { WARD_ROUTE } from 'config/route-consts';
 import { Ward } from 'models/Ward';
 import { WardSearch } from 'models/WardSearch';
+import './WardMaster.scss';
+import wardMasterRepository from './WardMasterRepository';
 
 import {District} from 'models/District';
 import {DistrictSearch} from 'models/DistrictSearch';
@@ -101,7 +101,7 @@ function WardMaster(props: RouteComponentProps) {
                 title={translate('wardMaster.index')}
                 render={renderIndex<Ward, WardSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('wardMaster.name')}

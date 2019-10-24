@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ImageFileMaster.scss';
-import imageFileMasterRepository from './ImageFileMasterRepository';
 import { IMAGE_FILE_ROUTE } from 'config/route-consts';
 import { ImageFile } from 'models/ImageFile';
 import { ImageFileSearch } from 'models/ImageFileSearch';
-
+import './ImageFileMaster.scss';
+import imageFileMasterRepository from './ImageFileMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function ImageFileMaster(props: RouteComponentProps) {
                 title={translate('imageFileMaster.index')}
                 render={renderIndex<ImageFile, ImageFileSearch>(search)}
         />
-        
+
          <Column key="path"
                 dataIndex="path"
                 title={translate('imageFileMaster.path')}

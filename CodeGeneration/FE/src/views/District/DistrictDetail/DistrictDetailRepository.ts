@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {District} from 'models/District';
 import {DistrictSearch} from 'models/DistrictSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Province} from 'models/Province';
 import {ProvinceSearch} from 'models/ProvinceSearch';
@@ -21,7 +21,7 @@ export class DistrictDetailRepository extends Repository {
         map((response: AxiosResponse<District>) => response.data),
       );
   };
-  
+
   public create = (district: District): Observable<District> => {
     return this.httpService.post<District>(`/create`, district)
       .pipe(
@@ -40,13 +40,13 @@ export class DistrictDetailRepository extends Repository {
         map((response: AxiosResponse<District>) => response.data),
       );
   };
-  
+
   public save = (district: District): Observable<District> => {
     return district.id ? this.update(district) : this.create(district);
   };
-  
+
   public singleListProvince = (provinceSearch: ProvinceSearch): Observable<Province[]> => {
-    return this.httpService.post('/single-list-province',provinceSearch)
+    return this.httpService.post('/single-list-province', provinceSearch)
       .pipe(
         map((response: AxiosResponse<Province[]>) => response.data),
       );

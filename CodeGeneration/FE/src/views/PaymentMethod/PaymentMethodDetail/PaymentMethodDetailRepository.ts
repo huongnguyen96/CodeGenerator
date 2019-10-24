@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {PaymentMethod} from 'models/PaymentMethod';
 import {PaymentMethodSearch} from 'models/PaymentMethodSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class PaymentMethodDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class PaymentMethodDetailRepository extends Repository {
         map((response: AxiosResponse<PaymentMethod>) => response.data),
       );
   };
-  
+
   public create = (paymentMethod: PaymentMethod): Observable<PaymentMethod> => {
     return this.httpService.post<PaymentMethod>(`/create`, paymentMethod)
       .pipe(
@@ -38,11 +37,11 @@ export class PaymentMethodDetailRepository extends Repository {
         map((response: AxiosResponse<PaymentMethod>) => response.data),
       );
   };
-  
+
   public save = (paymentMethod: PaymentMethod): Observable<PaymentMethod> => {
     return paymentMethod.id ? this.update(paymentMethod) : this.create(paymentMethod);
   };
-  
+
 }
 
 export default new PaymentMethodDetailRepository();

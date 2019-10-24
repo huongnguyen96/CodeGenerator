@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {OrderStatus} from 'models/OrderStatus';
 import {OrderStatusSearch} from 'models/OrderStatusSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class OrderStatusDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class OrderStatusDetailRepository extends Repository {
         map((response: AxiosResponse<OrderStatus>) => response.data),
       );
   };
-  
+
   public create = (orderStatus: OrderStatus): Observable<OrderStatus> => {
     return this.httpService.post<OrderStatus>(`/create`, orderStatus)
       .pipe(
@@ -38,11 +37,11 @@ export class OrderStatusDetailRepository extends Repository {
         map((response: AxiosResponse<OrderStatus>) => response.data),
       );
   };
-  
+
   public save = (orderStatus: OrderStatus): Observable<OrderStatus> => {
     return orderStatus.id ? this.update(orderStatus) : this.create(orderStatus);
   };
-  
+
 }
 
 export default new OrderStatusDetailRepository();

@@ -2,7 +2,7 @@
 import {ORDER_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import OrderDetail from './OrderDetail';
 import OrderMaster from './OrderMaster';
 import './OrderView.scss';

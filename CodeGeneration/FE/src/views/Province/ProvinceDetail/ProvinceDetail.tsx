@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {ProvinceSearch} from 'models/ProvinceSearch';
 import './ProvinceDetail.scss';
 import provinceDetailRepository from './ProvinceDetailRepository';
 
-
 function ProvinceDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function ProvinceDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [province, loading] = useDetail<Province>(id, provinceDetailRepository.get, new Province());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, province: Province) => {
@@ -85,7 +83,7 @@ function ProvinceDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('provinceDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: province.name,
@@ -114,7 +112,6 @@ function ProvinceDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

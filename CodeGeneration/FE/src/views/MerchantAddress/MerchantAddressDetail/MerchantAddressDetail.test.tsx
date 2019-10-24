@@ -14,5 +14,5 @@ describe('MerchantAddressDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

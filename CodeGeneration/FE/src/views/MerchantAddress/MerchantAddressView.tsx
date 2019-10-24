@@ -2,7 +2,7 @@
 import {MERCHANT_ADDRESS_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import MerchantAddressDetail from './MerchantAddressDetail';
 import MerchantAddressMaster from './MerchantAddressMaster';
 import './MerchantAddressView.scss';

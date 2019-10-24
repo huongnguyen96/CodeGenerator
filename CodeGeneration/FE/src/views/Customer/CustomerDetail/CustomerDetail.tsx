@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {CustomerSearch} from 'models/CustomerSearch';
 import './CustomerDetail.scss';
 import customerDetailRepository from './CustomerDetailRepository';
 
-
 function CustomerDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function CustomerDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [customer, loading] = useDetail<Customer>(id, customerDetailRepository.get, new Customer());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, customer: Customer) => {
@@ -85,7 +83,7 @@ function CustomerDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('customerDetail.username')}>
           {form.getFieldDecorator('username', {
             initialValue: customer.username,
@@ -142,7 +140,6 @@ function CustomerDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

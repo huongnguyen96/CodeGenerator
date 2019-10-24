@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {EVoucherContent} from 'models/EVoucherContent';
 import {EVoucherContentSearch} from 'models/EVoucherContentSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {EVoucher} from 'models/EVoucher';
 import {EVoucherSearch} from 'models/EVoucherSearch';
@@ -16,14 +16,14 @@ export class EVoucherContentMasterRepository extends Repository {
   }
 
   public count = (eVoucherContentSearch: EVoucherContentSearch): Observable<number> => {
-    return this.httpService.post('/count',eVoucherContentSearch)
+    return this.httpService.post('/count', eVoucherContentSearch)
       .pipe(
         map((response: AxiosResponse<number>) => response.data),
       );
   };
 
   public list = (eVoucherContentSearch: EVoucherContentSearch): Observable<EVoucherContent[]> => {
-    return this.httpService.post('/list',eVoucherContentSearch)
+    return this.httpService.post('/list', eVoucherContentSearch)
       .pipe(
         map((response: AxiosResponse<EVoucherContent[]>) => response.data),
       );
@@ -35,16 +35,16 @@ export class EVoucherContentMasterRepository extends Repository {
         map((response: AxiosResponse<EVoucherContent>) => response.data),
       );
   };
-    
+
   public delete = (eVoucherContent: EVoucherContent): Observable<EVoucherContent> => {
     return this.httpService.post<EVoucherContent>(`/delete`, eVoucherContent)
       .pipe(
         map((response: AxiosResponse<EVoucherContent>) => response.data),
       );
   };
-  
+
   public singleListEVoucher = (eVoucherSearch: EVoucherSearch): Observable<EVoucher[]> => {
-    return this.httpService.post('/single-list-e-voucher',eVoucherSearch)
+    return this.httpService.post('/single-list-e-voucher', eVoucherSearch)
       .pipe(
         map((response: AxiosResponse<EVoucher[]>) => response.data),
       );

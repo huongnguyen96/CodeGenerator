@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {MerchantAddress} from 'models/MerchantAddress';
 import {MerchantAddressSearch} from 'models/MerchantAddressSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Merchant} from 'models/Merchant';
 import {MerchantSearch} from 'models/MerchantSearch';
@@ -21,7 +21,7 @@ export class MerchantAddressDetailRepository extends Repository {
         map((response: AxiosResponse<MerchantAddress>) => response.data),
       );
   };
-  
+
   public create = (merchantAddress: MerchantAddress): Observable<MerchantAddress> => {
     return this.httpService.post<MerchantAddress>(`/create`, merchantAddress)
       .pipe(
@@ -40,13 +40,13 @@ export class MerchantAddressDetailRepository extends Repository {
         map((response: AxiosResponse<MerchantAddress>) => response.data),
       );
   };
-  
+
   public save = (merchantAddress: MerchantAddress): Observable<MerchantAddress> => {
     return merchantAddress.id ? this.update(merchantAddress) : this.create(merchantAddress);
   };
-  
+
   public singleListMerchant = (merchantSearch: MerchantSearch): Observable<Merchant[]> => {
-    return this.httpService.post('/single-list-merchant',merchantSearch)
+    return this.httpService.post('/single-list-merchant', merchantSearch)
       .pipe(
         map((response: AxiosResponse<Merchant[]>) => response.data),
       );

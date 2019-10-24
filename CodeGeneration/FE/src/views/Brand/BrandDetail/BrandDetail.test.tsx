@@ -14,5 +14,5 @@ describe('BrandDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

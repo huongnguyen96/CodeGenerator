@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {CustomerGroupingSearch} from 'models/CustomerGroupingSearch';
 import './CustomerGroupingDetail.scss';
 import customerGroupingDetailRepository from './CustomerGroupingDetailRepository';
 
-
 function CustomerGroupingDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function CustomerGroupingDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [customerGrouping, loading] = useDetail<CustomerGrouping>(id, customerGroupingDetailRepository.get, new CustomerGrouping());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, customerGrouping: CustomerGrouping) => {
@@ -85,7 +83,7 @@ function CustomerGroupingDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('customerGroupingDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: customerGrouping.name,
@@ -100,7 +98,6 @@ function CustomerGroupingDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

@@ -14,5 +14,5 @@ describe('CustomerGroupingDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

@@ -1,11 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {CustomerGrouping} from 'models/CustomerGrouping';
 import {CustomerGroupingSearch} from 'models/CustomerGroupingSearch';
-
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class CustomerGroupingDetailRepository extends Repository {
   public constructor() {
@@ -19,7 +18,7 @@ export class CustomerGroupingDetailRepository extends Repository {
         map((response: AxiosResponse<CustomerGrouping>) => response.data),
       );
   };
-  
+
   public create = (customerGrouping: CustomerGrouping): Observable<CustomerGrouping> => {
     return this.httpService.post<CustomerGrouping>(`/create`, customerGrouping)
       .pipe(
@@ -38,11 +37,11 @@ export class CustomerGroupingDetailRepository extends Repository {
         map((response: AxiosResponse<CustomerGrouping>) => response.data),
       );
   };
-  
+
   public save = (customerGrouping: CustomerGrouping): Observable<CustomerGrouping> => {
     return customerGrouping.id ? this.update(customerGrouping) : this.create(customerGrouping);
   };
-  
+
 }
 
 export default new CustomerGroupingDetailRepository();

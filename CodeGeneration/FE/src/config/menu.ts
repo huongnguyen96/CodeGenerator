@@ -32,7 +32,7 @@ import {WARD_ROUTE} from './route-consts';
 import {WAREHOUSE_ROUTE} from './route-consts';
 
 export const menu: IRoute[] = [
-    
+
   {
     title: translate('administrator.title'),
     path: ADMINISTRATOR_ROUTE,

@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {MerchantSearch} from 'models/MerchantSearch';
 import './MerchantDetail.scss';
 import merchantDetailRepository from './MerchantDetailRepository';
 
-
 function MerchantDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function MerchantDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [merchant, loading] = useDetail<Merchant>(id, merchantDetailRepository.get, new Merchant());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, merchant: Merchant) => {
@@ -85,7 +83,7 @@ function MerchantDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('merchantDetail.name')}>
           {form.getFieldDecorator('name', {
             initialValue: merchant.name,
@@ -142,7 +140,6 @@ function MerchantDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

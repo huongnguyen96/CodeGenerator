@@ -14,5 +14,5 @@ describe('StockDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

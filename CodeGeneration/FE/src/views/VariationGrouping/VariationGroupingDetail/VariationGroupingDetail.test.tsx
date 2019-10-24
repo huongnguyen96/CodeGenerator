@@ -14,5 +14,5 @@ describe('VariationGroupingDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

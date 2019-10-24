@@ -14,5 +14,5 @@ describe('OrderContentDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

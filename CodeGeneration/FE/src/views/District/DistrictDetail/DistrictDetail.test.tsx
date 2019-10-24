@@ -14,5 +14,5 @@ describe('DistrictDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

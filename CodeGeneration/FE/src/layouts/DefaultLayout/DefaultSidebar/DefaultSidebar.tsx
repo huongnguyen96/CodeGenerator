@@ -1,21 +1,20 @@
 import Layout from 'antd/lib/layout';
 import Menu from 'antd/lib/menu';
-import { menu } from 'config/menu';
-import { IRoute } from 'core/IRoute';
-import React, { useEffect, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import defaultLayout from '../package.json';
+import {menu} from 'config/menu';
+import {IRoute} from 'core/IRoute';
+import React, {useEffect, useState} from 'react';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import './DefaultSidebar.scss';
 import SidebarMenu from './SidebarMenu';
 
-const { Sider } = Layout;
+const {Sider} = Layout;
 
 interface IDefaultSidebarProps extends RouteComponentProps {
   routes?: IRoute[];
 }
 
 function DefaultSidebar(props: IDefaultSidebarProps) {
-  const { routes } = props;
+  const {routes} = props;
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -41,11 +40,11 @@ function DefaultSidebar(props: IDefaultSidebarProps) {
   return (
     <Sider collapsible={true} collapsed={collapsed} onCollapse={toggleSider}>
       <Menu theme="dark"
-        defaultSelectedKeys={['1']}
-        mode="inline"
-        className="default-sidebar">
+            defaultSelectedKeys={['1']}
+            mode="inline"
+            className="default-sidebar">
         {routes.map((route: IRoute) => (
-          <SidebarMenu {...props} key={route.path} item={route} />
+          <SidebarMenu {...props} key={route.path} item={route}/>
         ))}
       </Menu>
     </Sider>

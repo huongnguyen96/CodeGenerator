@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Stock} from 'models/Stock';
 import {StockSearch} from 'models/StockSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
@@ -23,7 +23,7 @@ export class StockDetailRepository extends Repository {
         map((response: AxiosResponse<Stock>) => response.data),
       );
   };
-  
+
   public create = (stock: Stock): Observable<Stock> => {
     return this.httpService.post<Stock>(`/create`, stock)
       .pipe(
@@ -42,19 +42,19 @@ export class StockDetailRepository extends Repository {
         map((response: AxiosResponse<Stock>) => response.data),
       );
   };
-  
+
   public save = (stock: Stock): Observable<Stock> => {
     return stock.id ? this.update(stock) : this.create(stock);
   };
-  
+
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+    return this.httpService.post('/single-list-item', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
   public singleListWarehouse = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {
-    return this.httpService.post('/single-list-warehouse',warehouseSearch)
+    return this.httpService.post('/single-list-warehouse', warehouseSearch)
       .pipe(
         map((response: AxiosResponse<Warehouse[]>) => response.data),
       );

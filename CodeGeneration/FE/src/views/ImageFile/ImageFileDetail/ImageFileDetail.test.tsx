@@ -14,5 +14,5 @@ describe('ImageFileDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

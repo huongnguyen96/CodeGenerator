@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -21,7 +21,6 @@ import {ImageFileSearch} from 'models/ImageFileSearch';
 import './ImageFileDetail.scss';
 import imageFileDetailRepository from './ImageFileDetailRepository';
 
-
 function ImageFileDetail(props) {
   const {
     form,
@@ -35,7 +34,6 @@ function ImageFileDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [imageFile, loading] = useDetail<ImageFile>(id, imageFileDetailRepository.get, new ImageFile());
-  
 
   function handleSubmit() {
     form.validateFields((validationError: Error, imageFile: ImageFile) => {
@@ -85,7 +83,7 @@ function ImageFileDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('imageFileDetail.path')}>
           {form.getFieldDecorator('path', {
             initialValue: imageFile.path,
@@ -114,7 +112,6 @@ function ImageFileDetail(props) {
           )}
         </Form.Item>
 
-        
       </Card>
     </Spin>
   );

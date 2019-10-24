@@ -14,5 +14,5 @@ describe('CustomerDetail', () => {
         div,
       );
       ReactDOM.unmountComponentAtNode(div);
-    });  
+    });
 });

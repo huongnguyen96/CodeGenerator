@@ -1,8 +1,8 @@
 
 import Card from 'antd/lib/card';
+import DatePicker from 'antd/lib/date-picker';
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
-import DatePicker from 'antd/lib/date-picker';
 import Spin from 'antd/lib/spin';
 import Table from 'antd/lib/table';
 import CardTitle from 'components/CardTitle';
@@ -37,7 +37,7 @@ function MerchantAddressDetail(props) {
   const [translate] = useTranslation();
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [merchantAddress, loading] = useDetail<MerchantAddress>(id, merchantAddressDetailRepository.get, new MerchantAddress());
-  
+
   const [merchantSearch, setMerchantSearch] = useState<MerchantSearch>(new MerchantSearch());
 
   function handleSubmit() {
@@ -88,7 +88,7 @@ function MerchantAddressDetail(props) {
         })(
           <Input type="hidden"/>,
         )}
-        
+
         <Form.Item label={translate('merchantAddressDetail.code')}>
           {form.getFieldDecorator('code', {
             initialValue: merchantAddress.code,
@@ -145,16 +145,15 @@ function MerchantAddressDetail(props) {
           )}
         </Form.Item>
 
-        
         <Form.Item label={translate('merchantAddressDetail.merchant')}>
             {
                 form.getFieldDecorator(
-                    'merchantId', 
+                    'merchantId',
                     {
-                        initialValue: merchantAddress.merchant 
-                            ? merchantAddress.merchant.id 
+                        initialValue: merchantAddress.merchant
+                            ? merchantAddress.merchant.id
                             : null,
-                    }
+                    },
                 )
                 (
                     <SingleSelect getList={merchantAddressDetailRepository.singleListMerchant}

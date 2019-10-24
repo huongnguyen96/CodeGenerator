@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './BrandMaster.scss';
-import brandMasterRepository from './BrandMasterRepository';
 import { BRAND_ROUTE } from 'config/route-consts';
 import { Brand } from 'models/Brand';
 import { BrandSearch } from 'models/BrandSearch';
+import './BrandMaster.scss';
+import brandMasterRepository from './BrandMasterRepository';
 
 import {Category} from 'models/Category';
 import {CategorySearch} from 'models/CategorySearch';
@@ -101,7 +101,7 @@ function BrandMaster(props: RouteComponentProps) {
                 title={translate('brandMaster.index')}
                 render={renderIndex<Brand, BrandSearch>(search)}
         />
-        
+
          <Column key="name"
                 dataIndex="name"
                 title={translate('brandMaster.name')}

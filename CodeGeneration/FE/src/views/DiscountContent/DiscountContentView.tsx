@@ -2,7 +2,7 @@
 import {DISCOUNT_CONTENT_ROUTE} from 'config/route-consts';
 import path from 'path';
 import React from 'react';
-import {Route,Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import DiscountContentDetail from './DiscountContentDetail';
 import DiscountContentMaster from './DiscountContentMaster';
 import './DiscountContentView.scss';

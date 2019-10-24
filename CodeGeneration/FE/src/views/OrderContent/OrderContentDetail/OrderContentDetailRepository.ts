@@ -1,10 +1,10 @@
 
 import {AxiosResponse} from 'axios';
 import {Repository} from 'core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {OrderContent} from 'models/OrderContent';
 import {OrderContentSearch} from 'models/OrderContentSearch';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
@@ -23,7 +23,7 @@ export class OrderContentDetailRepository extends Repository {
         map((response: AxiosResponse<OrderContent>) => response.data),
       );
   };
-  
+
   public create = (orderContent: OrderContent): Observable<OrderContent> => {
     return this.httpService.post<OrderContent>(`/create`, orderContent)
       .pipe(
@@ -42,19 +42,19 @@ export class OrderContentDetailRepository extends Repository {
         map((response: AxiosResponse<OrderContent>) => response.data),
       );
   };
-  
+
   public save = (orderContent: OrderContent): Observable<OrderContent> => {
     return orderContent.id ? this.update(orderContent) : this.create(orderContent);
   };
-  
+
   public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+    return this.httpService.post('/single-list-item', itemSearch)
       .pipe(
         map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
   public singleListOrder = (orderSearch: OrderSearch): Observable<Order[]> => {
-    return this.httpService.post('/single-list-order',orderSearch)
+    return this.httpService.post('/single-list-order', orderSearch)
       .pipe(
         map((response: AxiosResponse<Order[]>) => response.data),
       );

@@ -8,13 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './OrderMaster.scss';
-import orderMasterRepository from './OrderMasterRepository';
 import { ORDER_ROUTE } from 'config/route-consts';
 import { Order } from 'models/Order';
 import { OrderSearch } from 'models/OrderSearch';
+import './OrderMaster.scss';
+import orderMasterRepository from './OrderMasterRepository';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
@@ -103,7 +103,7 @@ function OrderMaster(props: RouteComponentProps) {
                 title={translate('orderMaster.index')}
                 render={renderIndex<Order, OrderSearch>(search)}
         />
-        
+
          <Column key="createdDate"
                 dataIndex="createdDate"
                 title={translate('orderMaster.createdDate')}

@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './AdministratorMaster.scss';
-import administratorMasterRepository from './AdministratorMasterRepository';
 import { ADMINISTRATOR_ROUTE } from 'config/route-consts';
 import { Administrator } from 'models/Administrator';
 import { AdministratorSearch } from 'models/AdministratorSearch';
-
+import './AdministratorMaster.scss';
+import administratorMasterRepository from './AdministratorMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function AdministratorMaster(props: RouteComponentProps) {
                 title={translate('administratorMaster.index')}
                 render={renderIndex<Administrator, AdministratorSearch>(search)}
         />
-        
+
          <Column key="username"
                 dataIndex="username"
                 title={translate('administratorMaster.username')}

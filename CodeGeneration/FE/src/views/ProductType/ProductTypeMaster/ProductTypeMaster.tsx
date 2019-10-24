@@ -8,14 +8,13 @@ import {confirm, getColumnSortOrder, notification, renderIndex } from 'helpers';
 import path from 'path';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import { Link,RouteComponentProps, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 
-import './ProductTypeMaster.scss';
-import productTypeMasterRepository from './ProductTypeMasterRepository';
 import { PRODUCT_TYPE_ROUTE } from 'config/route-consts';
 import { ProductType } from 'models/ProductType';
 import { ProductTypeSearch } from 'models/ProductTypeSearch';
-
+import './ProductTypeMaster.scss';
+import productTypeMasterRepository from './ProductTypeMasterRepository';
 
 const {Column} = Table;
 
@@ -99,7 +98,7 @@ function ProductTypeMaster(props: RouteComponentProps) {
                 title={translate('productTypeMaster.index')}
                 render={renderIndex<ProductType, ProductTypeSearch>(search)}
         />
-        
+
          <Column key="code"
                 dataIndex="code"
                 title={translate('productTypeMaster.code')}
