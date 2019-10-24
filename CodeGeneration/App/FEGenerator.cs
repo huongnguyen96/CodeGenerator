@@ -10,7 +10,7 @@ namespace CodeGeneration.App
 {
     public class FEGenerator 
     {
-        protected string rootPath = "FE\\src";
+        protected string rootPath = "FE/src";
         protected string GetPrimitiveType(Type type)
         {
             if (type.FullName == typeof(int).FullName)
