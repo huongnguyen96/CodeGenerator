@@ -49,7 +49,8 @@ namespace {Namespace}.{Entities}
     {{
         {BuildOrderProperty(type)}
     }}
-
+    
+    [Flags]
     public enum {ClassName}Select:long
     {{
         ALL = E.ALL,

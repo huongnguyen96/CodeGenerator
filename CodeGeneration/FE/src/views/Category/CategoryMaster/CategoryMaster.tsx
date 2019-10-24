@@ -92,6 +92,7 @@ function CategoryMaster(props: RouteComponentProps) {
              onChange={handleChange}
              pagination={{
                total,
+               pageSize: search.take,
              }}
       >
         <Column key="index"

@@ -279,6 +279,7 @@ namespace {Namespace}.Controllers.{NamespaceList}
         private string DeclareFilter(Type type, int level)
         {
             string content = string.Empty;
+            string ClassName = GetClassName(type);
             List<PropertyInfo> PropertyInfoes = ListProperties(type);
             foreach (PropertyInfo PropertyInfo in PropertyInfoes)
             {
@@ -292,6 +293,9 @@ namespace {Namespace}.Controllers.{NamespaceList}
                     content += DeclareProperty(filterType, PropertyInfo.Name);
                 }
             }
+
+            content += $@"
+        public {ClassName}Order OrderBy {{ get; set; }}";
             return content;
         }
 
