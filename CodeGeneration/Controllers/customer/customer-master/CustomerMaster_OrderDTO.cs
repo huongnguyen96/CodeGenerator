@@ -17,6 +17,8 @@ namespace WG.Controllers.customer.customer_master
         public long Total { get; set; }
         public long VoucherDiscount { get; set; }
         public long CampaignDiscount { get; set; }
+        public long StatusId { get; set; }
+        public CustomerMaster_OrderStatusDTO Status { get; set; }
         public CustomerMaster_OrderDTO() {}
         public CustomerMaster_OrderDTO(Order Order)
         {
@@ -28,6 +30,9 @@ namespace WG.Controllers.customer.customer_master
             this.Total = Order.Total;
             this.VoucherDiscount = Order.VoucherDiscount;
             this.CampaignDiscount = Order.CampaignDiscount;
+            this.StatusId = Order.StatusId;
+            this.Status = new CustomerMaster_OrderStatusDTO(Order.Status);
+
         }
     }
 
@@ -41,5 +46,7 @@ namespace WG.Controllers.customer.customer_master
         public long? Total { get; set; }
         public long? VoucherDiscount { get; set; }
         public long? CampaignDiscount { get; set; }
+        public long? StatusId { get; set; }
+        public OrderOrder OrderBy { get; set; }
     }
 }

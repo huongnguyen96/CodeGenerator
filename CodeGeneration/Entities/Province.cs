@@ -35,7 +35,8 @@ namespace WG.Entities
         Name = 2,
         OrderNumber = 3,
     }
-
+    
+    [Flags]
     public enum ProvinceSelect:long
     {
         ALL = E.ALL,

@@ -1,45 +1,38 @@
 import {Model} from 'core';
 
-import {Brand} from 'models/Brand';
-import {Category} from 'models/Category';
-import {Partner} from 'models/Partner';
-import {ItemStatus} from 'models/ItemStatus';
-import {ItemType} from 'models/ItemType';
-import {VariationGrouping} from 'models/VariationGrouping';
+import {Variation} from 'models/Variation';
+import {Product} from 'models/Product';
+import {DiscountContent} from 'models/DiscountContent';
+import {OrderContent} from 'models/OrderContent';
+import {Stock} from 'models/Stock';
 
 export class Item extends Model {
    
   public id?: number;
  
-  public code?: string;
+  public productId?: number;
  
-  public name?: string;
+  public firstVariationId?: number;
+ 
+  public secondVariationId?: number;
  
   public sKU?: string;
  
-  public description?: string;
+  public price?: number;
  
-  public typeId?: number;
- 
-  public statusId?: number;
- 
-  public partnerId?: number;
- 
-  public categoryId?: number;
- 
-  public brandId?: number;
+  public minPrice?: number;
 
-  public brand?: Brand;
+  public firstVariation?: Variation;
 
-  public category?: Category;
+  public product?: Product;
 
-  public partner?: Partner;
-
-  public status?: ItemStatus;
-
-  public type?: ItemType;
+  public secondVariation?: Variation;
   
-  public variationGroupings?: VariationGrouping[];
+  public discountContents?: DiscountContent[];
+  
+  public orderContents?: OrderContent[];
+  
+  public stocks?: Stock[];
 
   public constructor(item?: Item) {
     super(item);

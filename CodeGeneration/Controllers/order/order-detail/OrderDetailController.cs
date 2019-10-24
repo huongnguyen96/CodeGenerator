@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
 using WG.Services.MCustomer;
+using WG.Services.MOrderStatus;
 
 
 namespace WG.Controllers.order.order_detail
@@ -24,6 +25,7 @@ namespace WG.Controllers.order.order_detail
         public const string Delete = Default + "/delete";
         
         public const string SingleListCustomer= Default + "/single-list-customer";
+        public const string SingleListOrderStatus= Default + "/single-list-order-status";
     }
 
     public class OrderDetailController : ApiController
@@ -31,16 +33,19 @@ namespace WG.Controllers.order.order_detail
         
         
         private ICustomerService CustomerService;
+        private IOrderStatusService OrderStatusService;
         private IOrderService OrderService;
 
         public OrderDetailController(
             
             ICustomerService CustomerService,
+            IOrderStatusService OrderStatusService,
             IOrderService OrderService
         )
         {
             
             this.CustomerService = CustomerService;
+            this.OrderStatusService = OrderStatusService;
             this.OrderService = OrderService;
         }
 
@@ -115,6 +120,7 @@ namespace WG.Controllers.order.order_detail
             Order.Total = OrderDetail_OrderDTO.Total;
             Order.VoucherDiscount = OrderDetail_OrderDTO.VoucherDiscount;
             Order.CampaignDiscount = OrderDetail_OrderDTO.CampaignDiscount;
+            Order.StatusId = OrderDetail_OrderDTO.StatusId;
             return Order;
         }
         
@@ -132,11 +138,34 @@ namespace WG.Controllers.order.order_detail
             CustomerFilter.Id = new LongFilter{ Equal = OrderDetail_CustomerFilterDTO.Id };
             CustomerFilter.Username = new StringFilter{ StartsWith = OrderDetail_CustomerFilterDTO.Username };
             CustomerFilter.DisplayName = new StringFilter{ StartsWith = OrderDetail_CustomerFilterDTO.DisplayName };
+            CustomerFilter.PhoneNumber = new StringFilter{ StartsWith = OrderDetail_CustomerFilterDTO.PhoneNumber };
+            CustomerFilter.Email = new StringFilter{ StartsWith = OrderDetail_CustomerFilterDTO.Email };
 
             List<Customer> Customers = await CustomerService.List(CustomerFilter);
             List<OrderDetail_CustomerDTO> OrderDetail_CustomerDTOs = Customers
                 .Select(x => new OrderDetail_CustomerDTO(x)).ToList();
             return OrderDetail_CustomerDTOs;
+        }
+
+        [Route(OrderDetailRoute.SingleListOrderStatus), HttpPost]
+        public async Task<List<OrderDetail_OrderStatusDTO>> SingleListOrderStatus([FromBody] OrderDetail_OrderStatusFilterDTO OrderDetail_OrderStatusFilterDTO)
+        {
+            OrderStatusFilter OrderStatusFilter = new OrderStatusFilter();
+            OrderStatusFilter.Skip = 0;
+            OrderStatusFilter.Take = 20;
+            OrderStatusFilter.OrderBy = OrderStatusOrder.Id;
+            OrderStatusFilter.OrderType = OrderType.ASC;
+            OrderStatusFilter.Selects = OrderStatusSelect.ALL;
+            
+            OrderStatusFilter.Id = new LongFilter{ Equal = OrderDetail_OrderStatusFilterDTO.Id };
+            OrderStatusFilter.Code = new StringFilter{ StartsWith = OrderDetail_OrderStatusFilterDTO.Code };
+            OrderStatusFilter.Name = new StringFilter{ StartsWith = OrderDetail_OrderStatusFilterDTO.Name };
+            OrderStatusFilter.Description = new StringFilter{ StartsWith = OrderDetail_OrderStatusFilterDTO.Description };
+
+            List<OrderStatus> OrderStatuss = await OrderStatusService.List(OrderStatusFilter);
+            List<OrderDetail_OrderStatusDTO> OrderDetail_OrderStatusDTOs = OrderStatuss
+                .Select(x => new OrderDetail_OrderStatusDTO(x)).ToList();
+            return OrderDetail_OrderStatusDTOs;
         }
 
     }

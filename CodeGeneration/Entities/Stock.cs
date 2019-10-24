@@ -9,10 +9,10 @@ namespace WG.Entities
     {
         
         public long Id { get; set; }
-        public long UnitId { get; set; }
+        public long ItemId { get; set; }
         public long WarehouseId { get; set; }
         public long Quantity { get; set; }
-        public Unit Unit { get; set; }
+        public Item Item { get; set; }
         public Warehouse Warehouse { get; set; }
     }
 
@@ -20,7 +20,7 @@ namespace WG.Entities
     {
         
         public LongFilter Id { get; set; }
-        public LongFilter UnitId { get; set; }
+        public LongFilter ItemId { get; set; }
         public LongFilter WarehouseId { get; set; }
         public LongFilter Quantity { get; set; }
         public List<long> Ids { get; set; }
@@ -34,17 +34,18 @@ namespace WG.Entities
     {
         
         Id = 1,
-        Unit = 2,
+        Item = 2,
         Warehouse = 3,
         Quantity = 4,
     }
-
+    
+    [Flags]
     public enum StockSelect:long
     {
         ALL = E.ALL,
         
         Id = E._1,
-        Unit = E._2,
+        Item = E._2,
         Warehouse = E._3,
         Quantity = E._4,
     }

@@ -103,7 +103,7 @@ namespace WG.Controllers.variation.variation_master
             
             VariationGroupingFilter.Id = new LongFilter{ Equal = VariationMaster_VariationGroupingFilterDTO.Id };
             VariationGroupingFilter.Name = new StringFilter{ StartsWith = VariationMaster_VariationGroupingFilterDTO.Name };
-            VariationGroupingFilter.ItemId = new LongFilter{ Equal = VariationMaster_VariationGroupingFilterDTO.ItemId };
+            VariationGroupingFilter.ProductId = new LongFilter{ Equal = VariationMaster_VariationGroupingFilterDTO.ProductId };
 
             List<VariationGrouping> VariationGroupings = await VariationGroupingService.List(VariationGroupingFilter);
             List<VariationMaster_VariationGroupingDTO> VariationMaster_VariationGroupingDTOs = VariationGroupings

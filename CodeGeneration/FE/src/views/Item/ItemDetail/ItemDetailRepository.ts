@@ -6,16 +6,10 @@ import {map} from 'rxjs/operators';
 import {Item} from 'models/Item';
 import {ItemSearch} from 'models/ItemSearch';
 
-import {Brand} from 'models/Brand';
-import {BrandSearch} from 'models/BrandSearch';
-import {Category} from 'models/Category';
-import {CategorySearch} from 'models/CategorySearch';
-import {Partner} from 'models/Partner';
-import {PartnerSearch} from 'models/PartnerSearch';
-import {ItemStatus} from 'models/ItemStatus';
-import {ItemStatusSearch} from 'models/ItemStatusSearch';
-import {ItemType} from 'models/ItemType';
-import {ItemTypeSearch} from 'models/ItemTypeSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
+import {Product} from 'models/Product';
+import {ProductSearch} from 'models/ProductSearch';
 
 export class ItemDetailRepository extends Repository {
   public constructor() {
@@ -53,34 +47,16 @@ export class ItemDetailRepository extends Repository {
     return item.id ? this.update(item) : this.create(item);
   };
   
-  public singleListBrand = (brandSearch: BrandSearch): Observable<Brand[]> => {
-    return this.httpService.post('/single-list-brand',brandSearch)
+  public singleListVariation = (variationSearch: VariationSearch): Observable<Variation[]> => {
+    return this.httpService.post('/single-list-variation',variationSearch)
       .pipe(
-        map((response: AxiosResponse<Brand[]>) => response.data),
+        map((response: AxiosResponse<Variation[]>) => response.data),
       );
   };
-  public singleListCategory = (categorySearch: CategorySearch): Observable<Category[]> => {
-    return this.httpService.post('/single-list-category',categorySearch)
+  public singleListProduct = (productSearch: ProductSearch): Observable<Product[]> => {
+    return this.httpService.post('/single-list-product',productSearch)
       .pipe(
-        map((response: AxiosResponse<Category[]>) => response.data),
-      );
-  };
-  public singleListPartner = (partnerSearch: PartnerSearch): Observable<Partner[]> => {
-    return this.httpService.post('/single-list-partner',partnerSearch)
-      .pipe(
-        map((response: AxiosResponse<Partner[]>) => response.data),
-      );
-  };
-  public singleListItemStatus = (itemStatusSearch: ItemStatusSearch): Observable<ItemStatus[]> => {
-    return this.httpService.post('/single-list-item-status',itemStatusSearch)
-      .pipe(
-        map((response: AxiosResponse<ItemStatus[]>) => response.data),
-      );
-  };
-  public singleListItemType = (itemTypeSearch: ItemTypeSearch): Observable<ItemType[]> => {
-    return this.httpService.post('/single-list-item-type',itemTypeSearch)
-      .pipe(
-        map((response: AxiosResponse<ItemType[]>) => response.data),
+        map((response: AxiosResponse<Product[]>) => response.data),
       );
   };
 }

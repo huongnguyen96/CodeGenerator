@@ -9,6 +9,7 @@ using WG.Services.MOrderContent;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
+using WG.Services.MItem;
 using WG.Services.MOrder;
 
 
@@ -23,6 +24,7 @@ namespace WG.Controllers.order_content.order_content_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
+        public const string SingleListItem= Default + "/single-list-item";
         public const string SingleListOrder= Default + "/single-list-order";
     }
 
@@ -30,16 +32,19 @@ namespace WG.Controllers.order_content.order_content_detail
     {
         
         
+        private IItemService ItemService;
         private IOrderService OrderService;
         private IOrderContentService OrderContentService;
 
         public OrderContentDetailController(
             
+            IItemService ItemService,
             IOrderService OrderService,
             IOrderContentService OrderContentService
         )
         {
             
+            this.ItemService = ItemService;
             this.OrderService = OrderService;
             this.OrderContentService = OrderContentService;
         }
@@ -110,16 +115,41 @@ namespace WG.Controllers.order_content.order_content_detail
             
             OrderContent.Id = OrderContentDetail_OrderContentDTO.Id;
             OrderContent.OrderId = OrderContentDetail_OrderContentDTO.OrderId;
-            OrderContent.ItemName = OrderContentDetail_OrderContentDTO.ItemName;
+            OrderContent.ItemId = OrderContentDetail_OrderContentDTO.ItemId;
+            OrderContent.ProductName = OrderContentDetail_OrderContentDTO.ProductName;
             OrderContent.FirstVersion = OrderContentDetail_OrderContentDTO.FirstVersion;
             OrderContent.SecondVersion = OrderContentDetail_OrderContentDTO.SecondVersion;
-            OrderContent.ThirdVersion = OrderContentDetail_OrderContentDTO.ThirdVersion;
             OrderContent.Price = OrderContentDetail_OrderContentDTO.Price;
             OrderContent.DiscountPrice = OrderContentDetail_OrderContentDTO.DiscountPrice;
+            OrderContent.Quantity = OrderContentDetail_OrderContentDTO.Quantity;
             return OrderContent;
         }
         
         
+        [Route(OrderContentDetailRoute.SingleListItem), HttpPost]
+        public async Task<List<OrderContentDetail_ItemDTO>> SingleListItem([FromBody] OrderContentDetail_ItemFilterDTO OrderContentDetail_ItemFilterDTO)
+        {
+            ItemFilter ItemFilter = new ItemFilter();
+            ItemFilter.Skip = 0;
+            ItemFilter.Take = 20;
+            ItemFilter.OrderBy = ItemOrder.Id;
+            ItemFilter.OrderType = OrderType.ASC;
+            ItemFilter.Selects = ItemSelect.ALL;
+            
+            ItemFilter.Id = new LongFilter{ Equal = OrderContentDetail_ItemFilterDTO.Id };
+            ItemFilter.ProductId = new LongFilter{ Equal = OrderContentDetail_ItemFilterDTO.ProductId };
+            ItemFilter.FirstVariationId = new LongFilter{ Equal = OrderContentDetail_ItemFilterDTO.FirstVariationId };
+            ItemFilter.SecondVariationId = new LongFilter{ Equal = OrderContentDetail_ItemFilterDTO.SecondVariationId };
+            ItemFilter.SKU = new StringFilter{ StartsWith = OrderContentDetail_ItemFilterDTO.SKU };
+            ItemFilter.Price = new LongFilter{ Equal = OrderContentDetail_ItemFilterDTO.Price };
+            ItemFilter.MinPrice = new LongFilter{ Equal = OrderContentDetail_ItemFilterDTO.MinPrice };
+
+            List<Item> Items = await ItemService.List(ItemFilter);
+            List<OrderContentDetail_ItemDTO> OrderContentDetail_ItemDTOs = Items
+                .Select(x => new OrderContentDetail_ItemDTO(x)).ToList();
+            return OrderContentDetail_ItemDTOs;
+        }
+
         [Route(OrderContentDetailRoute.SingleListOrder), HttpPost]
         public async Task<List<OrderContentDetail_OrderDTO>> SingleListOrder([FromBody] OrderContentDetail_OrderFilterDTO OrderContentDetail_OrderFilterDTO)
         {
@@ -137,6 +167,7 @@ namespace WG.Controllers.order_content.order_content_detail
             OrderFilter.Total = new LongFilter{ Equal = OrderContentDetail_OrderFilterDTO.Total };
             OrderFilter.VoucherDiscount = new LongFilter{ Equal = OrderContentDetail_OrderFilterDTO.VoucherDiscount };
             OrderFilter.CampaignDiscount = new LongFilter{ Equal = OrderContentDetail_OrderFilterDTO.CampaignDiscount };
+            OrderFilter.StatusId = new LongFilter{ Equal = OrderContentDetail_OrderFilterDTO.StatusId };
 
             List<Order> Orders = await OrderService.List(OrderFilter);
             List<OrderContentDetail_OrderDTO> OrderContentDetail_OrderDTOs = Orders

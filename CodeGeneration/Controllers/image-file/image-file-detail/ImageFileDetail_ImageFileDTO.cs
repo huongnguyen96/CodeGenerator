@@ -29,5 +29,6 @@ namespace WG.Controllers.image_file.image_file_detail
         public long? Id { get; set; }
         public string Path { get; set; }
         public string Name { get; set; }
+        public ImageFileOrder OrderBy { get; set; }
     }
 }

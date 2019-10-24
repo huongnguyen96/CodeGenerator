@@ -7,6 +7,6 @@ export class VariationGroupingSearch extends Search {
 
   public name?: string;
 
-  public itemId?: number;
+  public productId?: number;
 ;
 }

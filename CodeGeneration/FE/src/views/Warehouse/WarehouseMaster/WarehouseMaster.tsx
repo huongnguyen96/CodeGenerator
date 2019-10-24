@@ -16,8 +16,8 @@ import { WAREHOUSE_ROUTE } from 'config/route-consts';
 import { Warehouse } from 'models/Warehouse';
 import { WarehouseSearch } from 'models/WarehouseSearch';
 
-import {Partner} from 'models/Partner';
-import {PartnerSearch} from 'models/PartnerSearch';
+import {Merchant} from 'models/Merchant';
+import {MerchantSearch} from 'models/MerchantSearch';
 
 const {Column} = Table;
 
@@ -131,7 +131,7 @@ function WarehouseMaster(props: RouteComponentProps) {
                 title={translate('warehouseMaster.partner')}
                 sorter
                 sortOrder={getColumnSortOrder<Warehouse>('partner', sorter)}
-                render={(partner: Partner) => {
+                render={(partner: Merchant) => {
                        return (
                          <>
                            {partner && partner.id}

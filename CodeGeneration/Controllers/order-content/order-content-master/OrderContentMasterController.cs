@@ -9,6 +9,7 @@ using WG.Services.MOrderContent;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
+using WG.Services.MItem;
 using WG.Services.MOrder;
 
 
@@ -22,6 +23,7 @@ namespace WG.Controllers.order_content.order_content_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
+        public const string SingleListItem= Default + "/single-list-item";
         public const string SingleListOrder= Default + "/single-list-order";
     }
 
@@ -29,16 +31,19 @@ namespace WG.Controllers.order_content.order_content_master
     {
         
         
+        private IItemService ItemService;
         private IOrderService OrderService;
         private IOrderContentService OrderContentService;
 
         public OrderContentMasterController(
             
+            IItemService ItemService,
             IOrderService OrderService,
             IOrderContentService OrderContentService
         )
         {
             
+            this.ItemService = ItemService;
             this.OrderService = OrderService;
             this.OrderContentService = OrderContentService;
         }
@@ -86,16 +91,41 @@ namespace WG.Controllers.order_content.order_content_master
             
             OrderContentFilter.Id = new LongFilter{ Equal = OrderContentMaster_OrderContentFilterDTO.Id };
             OrderContentFilter.OrderId = new LongFilter{ Equal = OrderContentMaster_OrderContentFilterDTO.OrderId };
-            OrderContentFilter.ItemName = new StringFilter{ StartsWith = OrderContentMaster_OrderContentFilterDTO.ItemName };
+            OrderContentFilter.ItemId = new LongFilter{ Equal = OrderContentMaster_OrderContentFilterDTO.ItemId };
+            OrderContentFilter.ProductName = new StringFilter{ StartsWith = OrderContentMaster_OrderContentFilterDTO.ProductName };
             OrderContentFilter.FirstVersion = new StringFilter{ StartsWith = OrderContentMaster_OrderContentFilterDTO.FirstVersion };
             OrderContentFilter.SecondVersion = new StringFilter{ StartsWith = OrderContentMaster_OrderContentFilterDTO.SecondVersion };
-            OrderContentFilter.ThirdVersion = new StringFilter{ StartsWith = OrderContentMaster_OrderContentFilterDTO.ThirdVersion };
             OrderContentFilter.Price = new LongFilter{ Equal = OrderContentMaster_OrderContentFilterDTO.Price };
             OrderContentFilter.DiscountPrice = new LongFilter{ Equal = OrderContentMaster_OrderContentFilterDTO.DiscountPrice };
+            OrderContentFilter.Quantity = new LongFilter{ Equal = OrderContentMaster_OrderContentFilterDTO.Quantity };
             return OrderContentFilter;
         }
         
         
+        [Route(OrderContentMasterRoute.SingleListItem), HttpPost]
+        public async Task<List<OrderContentMaster_ItemDTO>> SingleListItem([FromBody] OrderContentMaster_ItemFilterDTO OrderContentMaster_ItemFilterDTO)
+        {
+            ItemFilter ItemFilter = new ItemFilter();
+            ItemFilter.Skip = 0;
+            ItemFilter.Take = 20;
+            ItemFilter.OrderBy = ItemOrder.Id;
+            ItemFilter.OrderType = OrderType.ASC;
+            ItemFilter.Selects = ItemSelect.ALL;
+            
+            ItemFilter.Id = new LongFilter{ Equal = OrderContentMaster_ItemFilterDTO.Id };
+            ItemFilter.ProductId = new LongFilter{ Equal = OrderContentMaster_ItemFilterDTO.ProductId };
+            ItemFilter.FirstVariationId = new LongFilter{ Equal = OrderContentMaster_ItemFilterDTO.FirstVariationId };
+            ItemFilter.SecondVariationId = new LongFilter{ Equal = OrderContentMaster_ItemFilterDTO.SecondVariationId };
+            ItemFilter.SKU = new StringFilter{ StartsWith = OrderContentMaster_ItemFilterDTO.SKU };
+            ItemFilter.Price = new LongFilter{ Equal = OrderContentMaster_ItemFilterDTO.Price };
+            ItemFilter.MinPrice = new LongFilter{ Equal = OrderContentMaster_ItemFilterDTO.MinPrice };
+
+            List<Item> Items = await ItemService.List(ItemFilter);
+            List<OrderContentMaster_ItemDTO> OrderContentMaster_ItemDTOs = Items
+                .Select(x => new OrderContentMaster_ItemDTO(x)).ToList();
+            return OrderContentMaster_ItemDTOs;
+        }
+
         [Route(OrderContentMasterRoute.SingleListOrder), HttpPost]
         public async Task<List<OrderContentMaster_OrderDTO>> SingleListOrder([FromBody] OrderContentMaster_OrderFilterDTO OrderContentMaster_OrderFilterDTO)
         {
@@ -113,6 +143,7 @@ namespace WG.Controllers.order_content.order_content_master
             OrderFilter.Total = new LongFilter{ Equal = OrderContentMaster_OrderFilterDTO.Total };
             OrderFilter.VoucherDiscount = new LongFilter{ Equal = OrderContentMaster_OrderFilterDTO.VoucherDiscount };
             OrderFilter.CampaignDiscount = new LongFilter{ Equal = OrderContentMaster_OrderFilterDTO.CampaignDiscount };
+            OrderFilter.StatusId = new LongFilter{ Equal = OrderContentMaster_OrderFilterDTO.StatusId };
 
             List<Order> Orders = await OrderService.List(OrderFilter);
             List<OrderContentMaster_OrderDTO> OrderContentMaster_OrderDTOs = Orders

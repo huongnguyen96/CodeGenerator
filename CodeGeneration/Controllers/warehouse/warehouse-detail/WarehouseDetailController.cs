@@ -9,7 +9,7 @@ using WG.Services.MWarehouse;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MPartner;
+using WG.Services.MMerchant;
 
 
 namespace WG.Controllers.warehouse.warehouse_detail
@@ -23,24 +23,24 @@ namespace WG.Controllers.warehouse.warehouse_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListPartner= Default + "/single-list-partner";
+        public const string SingleListMerchant= Default + "/single-list-merchant";
     }
 
     public class WarehouseDetailController : ApiController
     {
         
         
-        private IPartnerService PartnerService;
+        private IMerchantService MerchantService;
         private IWarehouseService WarehouseService;
 
         public WarehouseDetailController(
             
-            IPartnerService PartnerService,
+            IMerchantService MerchantService,
             IWarehouseService WarehouseService
         )
         {
             
-            this.PartnerService = PartnerService;
+            this.MerchantService = MerchantService;
             this.WarehouseService = WarehouseService;
         }
 
@@ -118,26 +118,26 @@ namespace WG.Controllers.warehouse.warehouse_detail
         }
         
         
-        [Route(WarehouseDetailRoute.SingleListPartner), HttpPost]
-        public async Task<List<WarehouseDetail_PartnerDTO>> SingleListPartner([FromBody] WarehouseDetail_PartnerFilterDTO WarehouseDetail_PartnerFilterDTO)
+        [Route(WarehouseDetailRoute.SingleListMerchant), HttpPost]
+        public async Task<List<WarehouseDetail_MerchantDTO>> SingleListMerchant([FromBody] WarehouseDetail_MerchantFilterDTO WarehouseDetail_MerchantFilterDTO)
         {
-            PartnerFilter PartnerFilter = new PartnerFilter();
-            PartnerFilter.Skip = 0;
-            PartnerFilter.Take = 20;
-            PartnerFilter.OrderBy = PartnerOrder.Id;
-            PartnerFilter.OrderType = OrderType.ASC;
-            PartnerFilter.Selects = PartnerSelect.ALL;
+            MerchantFilter MerchantFilter = new MerchantFilter();
+            MerchantFilter.Skip = 0;
+            MerchantFilter.Take = 20;
+            MerchantFilter.OrderBy = MerchantOrder.Id;
+            MerchantFilter.OrderType = OrderType.ASC;
+            MerchantFilter.Selects = MerchantSelect.ALL;
             
-            PartnerFilter.Id = new LongFilter{ Equal = WarehouseDetail_PartnerFilterDTO.Id };
-            PartnerFilter.Name = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.Name };
-            PartnerFilter.Phone = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.Phone };
-            PartnerFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.ContactPerson };
-            PartnerFilter.Address = new StringFilter{ StartsWith = WarehouseDetail_PartnerFilterDTO.Address };
+            MerchantFilter.Id = new LongFilter{ Equal = WarehouseDetail_MerchantFilterDTO.Id };
+            MerchantFilter.Name = new StringFilter{ StartsWith = WarehouseDetail_MerchantFilterDTO.Name };
+            MerchantFilter.Phone = new StringFilter{ StartsWith = WarehouseDetail_MerchantFilterDTO.Phone };
+            MerchantFilter.ContactPerson = new StringFilter{ StartsWith = WarehouseDetail_MerchantFilterDTO.ContactPerson };
+            MerchantFilter.Address = new StringFilter{ StartsWith = WarehouseDetail_MerchantFilterDTO.Address };
 
-            List<Partner> Partners = await PartnerService.List(PartnerFilter);
-            List<WarehouseDetail_PartnerDTO> WarehouseDetail_PartnerDTOs = Partners
-                .Select(x => new WarehouseDetail_PartnerDTO(x)).ToList();
-            return WarehouseDetail_PartnerDTOs;
+            List<Merchant> Merchants = await MerchantService.List(MerchantFilter);
+            List<WarehouseDetail_MerchantDTO> WarehouseDetail_MerchantDTOs = Merchants
+                .Select(x => new WarehouseDetail_MerchantDTO(x)).ToList();
+            return WarehouseDetail_MerchantDTOs;
         }
 
     }

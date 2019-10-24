@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
 using WG.Services.MCustomer;
+using WG.Services.MOrderStatus;
 
 
 namespace WG.Controllers.order.order_master
@@ -23,6 +24,7 @@ namespace WG.Controllers.order.order_master
         public const string Get = Default + "/get";
         
         public const string SingleListCustomer= Default + "/single-list-customer";
+        public const string SingleListOrderStatus= Default + "/single-list-order-status";
     }
 
     public class OrderMasterController : ApiController
@@ -30,16 +32,19 @@ namespace WG.Controllers.order.order_master
         
         
         private ICustomerService CustomerService;
+        private IOrderStatusService OrderStatusService;
         private IOrderService OrderService;
 
         public OrderMasterController(
             
             ICustomerService CustomerService,
+            IOrderStatusService OrderStatusService,
             IOrderService OrderService
         )
         {
             
             this.CustomerService = CustomerService;
+            this.OrderStatusService = OrderStatusService;
             this.OrderService = OrderService;
         }
 
@@ -91,6 +96,7 @@ namespace WG.Controllers.order.order_master
             OrderFilter.Total = new LongFilter{ Equal = OrderMaster_OrderFilterDTO.Total };
             OrderFilter.VoucherDiscount = new LongFilter{ Equal = OrderMaster_OrderFilterDTO.VoucherDiscount };
             OrderFilter.CampaignDiscount = new LongFilter{ Equal = OrderMaster_OrderFilterDTO.CampaignDiscount };
+            OrderFilter.StatusId = new LongFilter{ Equal = OrderMaster_OrderFilterDTO.StatusId };
             return OrderFilter;
         }
         
@@ -108,11 +114,34 @@ namespace WG.Controllers.order.order_master
             CustomerFilter.Id = new LongFilter{ Equal = OrderMaster_CustomerFilterDTO.Id };
             CustomerFilter.Username = new StringFilter{ StartsWith = OrderMaster_CustomerFilterDTO.Username };
             CustomerFilter.DisplayName = new StringFilter{ StartsWith = OrderMaster_CustomerFilterDTO.DisplayName };
+            CustomerFilter.PhoneNumber = new StringFilter{ StartsWith = OrderMaster_CustomerFilterDTO.PhoneNumber };
+            CustomerFilter.Email = new StringFilter{ StartsWith = OrderMaster_CustomerFilterDTO.Email };
 
             List<Customer> Customers = await CustomerService.List(CustomerFilter);
             List<OrderMaster_CustomerDTO> OrderMaster_CustomerDTOs = Customers
                 .Select(x => new OrderMaster_CustomerDTO(x)).ToList();
             return OrderMaster_CustomerDTOs;
+        }
+
+        [Route(OrderMasterRoute.SingleListOrderStatus), HttpPost]
+        public async Task<List<OrderMaster_OrderStatusDTO>> SingleListOrderStatus([FromBody] OrderMaster_OrderStatusFilterDTO OrderMaster_OrderStatusFilterDTO)
+        {
+            OrderStatusFilter OrderStatusFilter = new OrderStatusFilter();
+            OrderStatusFilter.Skip = 0;
+            OrderStatusFilter.Take = 20;
+            OrderStatusFilter.OrderBy = OrderStatusOrder.Id;
+            OrderStatusFilter.OrderType = OrderType.ASC;
+            OrderStatusFilter.Selects = OrderStatusSelect.ALL;
+            
+            OrderStatusFilter.Id = new LongFilter{ Equal = OrderMaster_OrderStatusFilterDTO.Id };
+            OrderStatusFilter.Code = new StringFilter{ StartsWith = OrderMaster_OrderStatusFilterDTO.Code };
+            OrderStatusFilter.Name = new StringFilter{ StartsWith = OrderMaster_OrderStatusFilterDTO.Name };
+            OrderStatusFilter.Description = new StringFilter{ StartsWith = OrderMaster_OrderStatusFilterDTO.Description };
+
+            List<OrderStatus> OrderStatuss = await OrderStatusService.List(OrderStatusFilter);
+            List<OrderMaster_OrderStatusDTO> OrderMaster_OrderStatusDTOs = OrderStatuss
+                .Select(x => new OrderMaster_OrderStatusDTO(x)).ToList();
+            return OrderMaster_OrderStatusDTOs;
         }
 
     }

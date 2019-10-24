@@ -16,8 +16,8 @@ import { STOCK_ROUTE } from 'config/route-consts';
 import { Stock } from 'models/Stock';
 import { StockSearch } from 'models/StockSearch';
 
-import {Unit} from 'models/Unit';
-import {UnitSearch} from 'models/UnitSearch';
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import {Warehouse} from 'models/Warehouse';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
@@ -110,15 +110,15 @@ function StockMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Stock>('quantity', sorter)}
         />
-         <Column key="unit"
-                dataIndex="unit"
-                title={translate('stockMaster.unit')}
+         <Column key="item"
+                dataIndex="item"
+                title={translate('stockMaster.item')}
                 sorter
-                sortOrder={getColumnSortOrder<Stock>('unit', sorter)}
-                render={(unit: Unit) => {
+                sortOrder={getColumnSortOrder<Stock>('item', sorter)}
+                render={(item: Item) => {
                        return (
                          <>
-                           {unit && unit.id}
+                           {item && item.id}
                          </>
                        );
                      }}

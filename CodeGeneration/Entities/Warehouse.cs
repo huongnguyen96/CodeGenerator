@@ -14,7 +14,7 @@ namespace WG.Entities
         public string Email { get; set; }
         public string Address { get; set; }
         public long PartnerId { get; set; }
-        public Partner Partner { get; set; }
+        public Merchant Partner { get; set; }
         public List<Stock> Stocks { get; set; }
     }
 
@@ -44,7 +44,8 @@ namespace WG.Entities
         Address = 5,
         Partner = 6,
     }
-
+    
+    [Flags]
     public enum WarehouseSelect:long
     {
         ALL = E.ALL,

@@ -12,14 +12,14 @@ namespace WG.Controllers.variation.variation_master
         
         public long Id { get; set; }
         public string Name { get; set; }
-        public long ItemId { get; set; }
+        public long ProductId { get; set; }
         public VariationMaster_VariationGroupingDTO() {}
         public VariationMaster_VariationGroupingDTO(VariationGrouping VariationGrouping)
         {
             
             this.Id = VariationGrouping.Id;
             this.Name = VariationGrouping.Name;
-            this.ItemId = VariationGrouping.ItemId;
+            this.ProductId = VariationGrouping.ProductId;
         }
     }
 
@@ -28,6 +28,7 @@ namespace WG.Controllers.variation.variation_master
         
         public long? Id { get; set; }
         public string Name { get; set; }
-        public long? ItemId { get; set; }
+        public long? ProductId { get; set; }
+        public VariationGroupingOrder OrderBy { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace CodeGeneration.Repositories.Models
 
         public long Id { get; set; }
         public string Name { get; set; }
-        public long ItemId { get; set; }
+        public long ProductId { get; set; }
 
-        public virtual ItemDAO Item { get; set; }
+        public virtual ProductDAO Product { get; set; }
         public virtual ICollection<VariationDAO> Variations { get; set; }
     }
 }

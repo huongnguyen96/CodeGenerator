@@ -21,8 +21,8 @@ import {WarehouseSearch} from 'models/WarehouseSearch';
 import './WarehouseDetail.scss';
 import warehouseDetailRepository from './WarehouseDetailRepository';
 
-import {Partner} from 'models/Partner';
-import {PartnerSearch} from 'models/PartnerSearch';
+import {Merchant} from 'models/Merchant';
+import {MerchantSearch} from 'models/MerchantSearch';
 
 function WarehouseDetail(props) {
   const {
@@ -38,7 +38,7 @@ function WarehouseDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [warehouse, loading] = useDetail<Warehouse>(id, warehouseDetailRepository.get, new Warehouse());
   
-  const [partnerSearch, setPartnerSearch] = useState<PartnerSearch>(new PartnerSearch());
+  const [merchantSearch, setMerchantSearch] = useState<MerchantSearch>(new MerchantSearch());
 
   function handleSubmit() {
     form.validateFields((validationError: Error, warehouse: Warehouse) => {
@@ -157,11 +157,11 @@ function WarehouseDetail(props) {
                     }
                 )
                 (
-                    <SingleSelect getList={warehouseDetailRepository.singleListPartner}
-                                  search={partnerSearch}
+                    <SingleSelect getList={warehouseDetailRepository.singleListMerchant}
+                                  search={merchantSearch}
                                   searchField="name"
                                   showSearch
-                                  setSearch={setPartnerSearch}>
+                                  setSearch={setMerchantSearch}>
                       {warehouse.partner && (
                         <Option value={warehouse.partner.id}>
                           {warehouse.partner.id}

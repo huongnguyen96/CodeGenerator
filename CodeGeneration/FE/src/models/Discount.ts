@@ -1,7 +1,6 @@
 import {Model} from 'core';
 
-import {DiscountCustomerGrouping} from 'models/DiscountCustomerGrouping';
-import {DiscountItem} from 'models/DiscountItem';
+import {DiscountContent} from 'models/DiscountContent';
 
 export class Discount extends Model {
    
@@ -15,9 +14,7 @@ export class Discount extends Model {
  
   public type?: string;
   
-  public discountCustomerGroupings?: DiscountCustomerGrouping[];
-  
-  public discountItems?: DiscountItem[];
+  public discountContents?: DiscountContent[];
 
   public constructor(discount?: Discount) {
     super(discount);

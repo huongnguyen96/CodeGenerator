@@ -32,5 +32,6 @@ namespace WG.Controllers.shipping_address.shipping_address_master
         public string Name { get; set; }
         public long? OrderNumber { get; set; }
         public long? ProvinceId { get; set; }
+        public DistrictOrder OrderBy { get; set; }
     }
 }

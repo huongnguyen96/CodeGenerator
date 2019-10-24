@@ -33,7 +33,8 @@ namespace WG.Entities
         Username = 2,
         DisplayName = 3,
     }
-
+    
+    [Flags]
     public enum AdministratorSelect:long
     {
         ALL = E.ALL,

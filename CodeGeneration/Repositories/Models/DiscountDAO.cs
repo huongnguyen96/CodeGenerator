@@ -7,8 +7,8 @@ namespace CodeGeneration.Repositories.Models
     {
         public DiscountDAO()
         {
-            DiscountCustomerGroupings = new HashSet<DiscountCustomerGroupingDAO>();
-            DiscountItems = new HashSet<DiscountItemDAO>();
+            DiscountContents = new HashSet<DiscountContentDAO>();
+            Discount_CustomerGroupings = new HashSet<Discount_CustomerGroupingDAO>();
         }
 
         public long Id { get; set; }
@@ -17,7 +17,7 @@ namespace CodeGeneration.Repositories.Models
         public DateTime End { get; set; }
         public string Type { get; set; }
 
-        public virtual ICollection<DiscountCustomerGroupingDAO> DiscountCustomerGroupings { get; set; }
-        public virtual ICollection<DiscountItemDAO> DiscountItems { get; set; }
+        public virtual ICollection<DiscountContentDAO> DiscountContents { get; set; }
+        public virtual ICollection<Discount_CustomerGroupingDAO> Discount_CustomerGroupings { get; set; }
     }
 }

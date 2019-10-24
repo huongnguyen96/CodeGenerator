@@ -39,7 +39,8 @@ namespace WG.Entities
         OrderNumber = 3,
         Province = 4,
     }
-
+    
+    [Flags]
     public enum DistrictSelect:long
     {
         ALL = E.ALL,

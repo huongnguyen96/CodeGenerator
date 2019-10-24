@@ -106,6 +106,8 @@ namespace WG.Controllers.customer.customer_detail
             Customer.Id = CustomerDetail_CustomerDTO.Id;
             Customer.Username = CustomerDetail_CustomerDTO.Username;
             Customer.DisplayName = CustomerDetail_CustomerDTO.DisplayName;
+            Customer.PhoneNumber = CustomerDetail_CustomerDTO.PhoneNumber;
+            Customer.Email = CustomerDetail_CustomerDTO.Email;
             return Customer;
         }
         

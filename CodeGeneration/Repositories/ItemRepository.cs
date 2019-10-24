@@ -37,24 +37,18 @@ namespace WG.Repositories
             
             if (filter.Id != null)
                 query = query.Where(q => q.Id, filter.Id);
-            if (filter.Code != null)
-                query = query.Where(q => q.Code, filter.Code);
-            if (filter.Name != null)
-                query = query.Where(q => q.Name, filter.Name);
+            if (filter.ProductId != null)
+                query = query.Where(q => q.ProductId, filter.ProductId);
+            if (filter.FirstVariationId != null)
+                query = query.Where(q => q.FirstVariationId, filter.FirstVariationId);
+            if (filter.SecondVariationId != null)
+                query = query.Where(q => q.SecondVariationId, filter.SecondVariationId);
             if (filter.SKU != null)
                 query = query.Where(q => q.SKU, filter.SKU);
-            if (filter.Description != null)
-                query = query.Where(q => q.Description, filter.Description);
-            if (filter.TypeId != null)
-                query = query.Where(q => q.TypeId, filter.TypeId);
-            if (filter.StatusId != null)
-                query = query.Where(q => q.StatusId, filter.StatusId);
-            if (filter.PartnerId != null)
-                query = query.Where(q => q.PartnerId, filter.PartnerId);
-            if (filter.CategoryId != null)
-                query = query.Where(q => q.CategoryId, filter.CategoryId);
-            if (filter.BrandId != null)
-                query = query.Where(q => q.BrandId, filter.BrandId);
+            if (filter.Price != null)
+                query = query.Where(q => q.Price, filter.Price);
+            if (filter.MinPrice != null)
+                query = query.Where(q => q.MinPrice, filter.MinPrice);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -72,32 +66,23 @@ namespace WG.Repositories
                         case ItemOrder.Id:
                             query = query.OrderBy(q => q.Id);
                             break;
-                        case ItemOrder.Code:
-                            query = query.OrderBy(q => q.Code);
+                        case ItemOrder.Product:
+                            query = query.OrderBy(q => q.Product.Id);
                             break;
-                        case ItemOrder.Name:
-                            query = query.OrderBy(q => q.Name);
+                        case ItemOrder.FirstVariation:
+                            query = query.OrderBy(q => q.FirstVariation.Id);
+                            break;
+                        case ItemOrder.SecondVariation:
+                            query = query.OrderBy(q => q.SecondVariation.Id);
                             break;
                         case ItemOrder.SKU:
                             query = query.OrderBy(q => q.SKU);
                             break;
-                        case ItemOrder.Description:
-                            query = query.OrderBy(q => q.Description);
+                        case ItemOrder.Price:
+                            query = query.OrderBy(q => q.Price);
                             break;
-                        case ItemOrder.Type:
-                            query = query.OrderBy(q => q.Type.Id);
-                            break;
-                        case ItemOrder.Status:
-                            query = query.OrderBy(q => q.Status.Id);
-                            break;
-                        case ItemOrder.Partner:
-                            query = query.OrderBy(q => q.Partner.Id);
-                            break;
-                        case ItemOrder.Category:
-                            query = query.OrderBy(q => q.Category.Id);
-                            break;
-                        case ItemOrder.Brand:
-                            query = query.OrderBy(q => q.Brand.Id);
+                        case ItemOrder.MinPrice:
+                            query = query.OrderBy(q => q.MinPrice);
                             break;
                     }
                     break;
@@ -108,32 +93,23 @@ namespace WG.Repositories
                         case ItemOrder.Id:
                             query = query.OrderByDescending(q => q.Id);
                             break;
-                        case ItemOrder.Code:
-                            query = query.OrderByDescending(q => q.Code);
+                        case ItemOrder.Product:
+                            query = query.OrderByDescending(q => q.Product.Id);
                             break;
-                        case ItemOrder.Name:
-                            query = query.OrderByDescending(q => q.Name);
+                        case ItemOrder.FirstVariation:
+                            query = query.OrderByDescending(q => q.FirstVariation.Id);
+                            break;
+                        case ItemOrder.SecondVariation:
+                            query = query.OrderByDescending(q => q.SecondVariation.Id);
                             break;
                         case ItemOrder.SKU:
                             query = query.OrderByDescending(q => q.SKU);
                             break;
-                        case ItemOrder.Description:
-                            query = query.OrderByDescending(q => q.Description);
+                        case ItemOrder.Price:
+                            query = query.OrderByDescending(q => q.Price);
                             break;
-                        case ItemOrder.Type:
-                            query = query.OrderByDescending(q => q.Type.Id);
-                            break;
-                        case ItemOrder.Status:
-                            query = query.OrderByDescending(q => q.Status.Id);
-                            break;
-                        case ItemOrder.Partner:
-                            query = query.OrderByDescending(q => q.Partner.Id);
-                            break;
-                        case ItemOrder.Category:
-                            query = query.OrderByDescending(q => q.Category.Id);
-                            break;
-                        case ItemOrder.Brand:
-                            query = query.OrderByDescending(q => q.Brand.Id);
+                        case ItemOrder.MinPrice:
+                            query = query.OrderByDescending(q => q.MinPrice);
                             break;
                     }
                     break;
@@ -148,53 +124,43 @@ namespace WG.Repositories
             {
                 
                 Id = filter.Selects.Contains(ItemSelect.Id) ? q.Id : default(long),
-                Code = filter.Selects.Contains(ItemSelect.Code) ? q.Code : default(string),
-                Name = filter.Selects.Contains(ItemSelect.Name) ? q.Name : default(string),
+                ProductId = filter.Selects.Contains(ItemSelect.Product) ? q.ProductId : default(long),
+                FirstVariationId = filter.Selects.Contains(ItemSelect.FirstVariation) ? q.FirstVariationId : default(long),
+                SecondVariationId = filter.Selects.Contains(ItemSelect.SecondVariation) ? q.SecondVariationId : default(long?),
                 SKU = filter.Selects.Contains(ItemSelect.SKU) ? q.SKU : default(string),
-                Description = filter.Selects.Contains(ItemSelect.Description) ? q.Description : default(string),
-                TypeId = filter.Selects.Contains(ItemSelect.Type) ? q.TypeId : default(long),
-                StatusId = filter.Selects.Contains(ItemSelect.Status) ? q.StatusId : default(long),
-                PartnerId = filter.Selects.Contains(ItemSelect.Partner) ? q.PartnerId : default(long),
-                CategoryId = filter.Selects.Contains(ItemSelect.Category) ? q.CategoryId : default(long),
-                BrandId = filter.Selects.Contains(ItemSelect.Brand) ? q.BrandId : default(long),
-                Brand = filter.Selects.Contains(ItemSelect.Brand) && q.Brand != null ? new Brand
+                Price = filter.Selects.Contains(ItemSelect.Price) ? q.Price : default(long),
+                MinPrice = filter.Selects.Contains(ItemSelect.MinPrice) ? q.MinPrice : default(long),
+                FirstVariation = filter.Selects.Contains(ItemSelect.FirstVariation) && q.FirstVariation != null ? new Variation
                 {
                     
-                    Id = q.Brand.Id,
-                    Name = q.Brand.Name,
-                    CategoryId = q.Brand.CategoryId,
+                    Id = q.FirstVariation.Id,
+                    Name = q.FirstVariation.Name,
+                    VariationGroupingId = q.FirstVariation.VariationGroupingId,
                 } : null,
-                Category = filter.Selects.Contains(ItemSelect.Category) && q.Category != null ? new Category
+                Product = filter.Selects.Contains(ItemSelect.Product) && q.Product != null ? new Product
                 {
                     
-                    Id = q.Category.Id,
-                    Code = q.Category.Code,
-                    Name = q.Category.Name,
-                    ParentId = q.Category.ParentId,
-                    Icon = q.Category.Icon,
+                    Id = q.Product.Id,
+                    Code = q.Product.Code,
+                    Name = q.Product.Name,
+                    Description = q.Product.Description,
+                    TypeId = q.Product.TypeId,
+                    StatusId = q.Product.StatusId,
+                    MerchantId = q.Product.MerchantId,
+                    CategoryId = q.Product.CategoryId,
+                    BrandId = q.Product.BrandId,
+                    WarrantyPolicy = q.Product.WarrantyPolicy,
+                    ReturnPolicy = q.Product.ReturnPolicy,
+                    ExpiredDate = q.Product.ExpiredDate,
+                    ConditionOfUse = q.Product.ConditionOfUse,
+                    MaximumPurchaseQuantity = q.Product.MaximumPurchaseQuantity,
                 } : null,
-                Partner = filter.Selects.Contains(ItemSelect.Partner) && q.Partner != null ? new Partner
+                SecondVariation = filter.Selects.Contains(ItemSelect.SecondVariation) && q.SecondVariation != null ? new Variation
                 {
                     
-                    Id = q.Partner.Id,
-                    Name = q.Partner.Name,
-                    Phone = q.Partner.Phone,
-                    ContactPerson = q.Partner.ContactPerson,
-                    Address = q.Partner.Address,
-                } : null,
-                Status = filter.Selects.Contains(ItemSelect.Status) && q.Status != null ? new ItemStatus
-                {
-                    
-                    Id = q.Status.Id,
-                    Code = q.Status.Code,
-                    Name = q.Status.Name,
-                } : null,
-                Type = filter.Selects.Contains(ItemSelect.Type) && q.Type != null ? new ItemType
-                {
-                    
-                    Id = q.Type.Id,
-                    Code = q.Type.Code,
-                    Name = q.Type.Name,
+                    Id = q.SecondVariation.Id,
+                    Name = q.SecondVariation.Name,
+                    VariationGroupingId = q.SecondVariation.VariationGroupingId,
                 } : null,
             }).ToListAsync();
             return Items;
@@ -224,53 +190,43 @@ namespace WG.Repositories
             {
                  
                 Id = ItemDAO.Id,
-                Code = ItemDAO.Code,
-                Name = ItemDAO.Name,
+                ProductId = ItemDAO.ProductId,
+                FirstVariationId = ItemDAO.FirstVariationId,
+                SecondVariationId = ItemDAO.SecondVariationId,
                 SKU = ItemDAO.SKU,
-                Description = ItemDAO.Description,
-                TypeId = ItemDAO.TypeId,
-                StatusId = ItemDAO.StatusId,
-                PartnerId = ItemDAO.PartnerId,
-                CategoryId = ItemDAO.CategoryId,
-                BrandId = ItemDAO.BrandId,
-                Brand = ItemDAO.Brand == null ? null : new Brand
+                Price = ItemDAO.Price,
+                MinPrice = ItemDAO.MinPrice,
+                FirstVariation = ItemDAO.FirstVariation == null ? null : new Variation
                 {
                     
-                    Id = ItemDAO.Brand.Id,
-                    Name = ItemDAO.Brand.Name,
-                    CategoryId = ItemDAO.Brand.CategoryId,
+                    Id = ItemDAO.FirstVariation.Id,
+                    Name = ItemDAO.FirstVariation.Name,
+                    VariationGroupingId = ItemDAO.FirstVariation.VariationGroupingId,
                 },
-                Category = ItemDAO.Category == null ? null : new Category
+                Product = ItemDAO.Product == null ? null : new Product
                 {
                     
-                    Id = ItemDAO.Category.Id,
-                    Code = ItemDAO.Category.Code,
-                    Name = ItemDAO.Category.Name,
-                    ParentId = ItemDAO.Category.ParentId,
-                    Icon = ItemDAO.Category.Icon,
+                    Id = ItemDAO.Product.Id,
+                    Code = ItemDAO.Product.Code,
+                    Name = ItemDAO.Product.Name,
+                    Description = ItemDAO.Product.Description,
+                    TypeId = ItemDAO.Product.TypeId,
+                    StatusId = ItemDAO.Product.StatusId,
+                    MerchantId = ItemDAO.Product.MerchantId,
+                    CategoryId = ItemDAO.Product.CategoryId,
+                    BrandId = ItemDAO.Product.BrandId,
+                    WarrantyPolicy = ItemDAO.Product.WarrantyPolicy,
+                    ReturnPolicy = ItemDAO.Product.ReturnPolicy,
+                    ExpiredDate = ItemDAO.Product.ExpiredDate,
+                    ConditionOfUse = ItemDAO.Product.ConditionOfUse,
+                    MaximumPurchaseQuantity = ItemDAO.Product.MaximumPurchaseQuantity,
                 },
-                Partner = ItemDAO.Partner == null ? null : new Partner
+                SecondVariation = ItemDAO.SecondVariation == null ? null : new Variation
                 {
                     
-                    Id = ItemDAO.Partner.Id,
-                    Name = ItemDAO.Partner.Name,
-                    Phone = ItemDAO.Partner.Phone,
-                    ContactPerson = ItemDAO.Partner.ContactPerson,
-                    Address = ItemDAO.Partner.Address,
-                },
-                Status = ItemDAO.Status == null ? null : new ItemStatus
-                {
-                    
-                    Id = ItemDAO.Status.Id,
-                    Code = ItemDAO.Status.Code,
-                    Name = ItemDAO.Status.Name,
-                },
-                Type = ItemDAO.Type == null ? null : new ItemType
-                {
-                    
-                    Id = ItemDAO.Type.Id,
-                    Code = ItemDAO.Type.Code,
-                    Name = ItemDAO.Type.Name,
+                    Id = ItemDAO.SecondVariation.Id,
+                    Name = ItemDAO.SecondVariation.Name,
+                    VariationGroupingId = ItemDAO.SecondVariation.VariationGroupingId,
                 },
             }).FirstOrDefaultAsync();
             return Item;
@@ -281,15 +237,12 @@ namespace WG.Repositories
             ItemDAO ItemDAO = new ItemDAO();
             
             ItemDAO.Id = Item.Id;
-            ItemDAO.Code = Item.Code;
-            ItemDAO.Name = Item.Name;
+            ItemDAO.ProductId = Item.ProductId;
+            ItemDAO.FirstVariationId = Item.FirstVariationId;
+            ItemDAO.SecondVariationId = Item.SecondVariationId;
             ItemDAO.SKU = Item.SKU;
-            ItemDAO.Description = Item.Description;
-            ItemDAO.TypeId = Item.TypeId;
-            ItemDAO.StatusId = Item.StatusId;
-            ItemDAO.PartnerId = Item.PartnerId;
-            ItemDAO.CategoryId = Item.CategoryId;
-            ItemDAO.BrandId = Item.BrandId;
+            ItemDAO.Price = Item.Price;
+            ItemDAO.MinPrice = Item.MinPrice;
             
             await DataContext.Item.AddAsync(ItemDAO);
             await DataContext.SaveChangesAsync();
@@ -304,15 +257,12 @@ namespace WG.Repositories
             ItemDAO ItemDAO = DataContext.Item.Where(x => x.Id == Item.Id).FirstOrDefault();
             
             ItemDAO.Id = Item.Id;
-            ItemDAO.Code = Item.Code;
-            ItemDAO.Name = Item.Name;
+            ItemDAO.ProductId = Item.ProductId;
+            ItemDAO.FirstVariationId = Item.FirstVariationId;
+            ItemDAO.SecondVariationId = Item.SecondVariationId;
             ItemDAO.SKU = Item.SKU;
-            ItemDAO.Description = Item.Description;
-            ItemDAO.TypeId = Item.TypeId;
-            ItemDAO.StatusId = Item.StatusId;
-            ItemDAO.PartnerId = Item.PartnerId;
-            ItemDAO.CategoryId = Item.CategoryId;
-            ItemDAO.BrandId = Item.BrandId;
+            ItemDAO.Price = Item.Price;
+            ItemDAO.MinPrice = Item.MinPrice;
             await DataContext.SaveChangesAsync();
             return true;
         }

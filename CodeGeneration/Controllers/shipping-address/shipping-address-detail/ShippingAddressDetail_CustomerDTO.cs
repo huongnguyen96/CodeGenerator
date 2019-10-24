@@ -13,6 +13,8 @@ namespace WG.Controllers.shipping_address.shipping_address_detail
         public long Id { get; set; }
         public string Username { get; set; }
         public string DisplayName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
         public ShippingAddressDetail_CustomerDTO() {}
         public ShippingAddressDetail_CustomerDTO(Customer Customer)
         {
@@ -20,6 +22,8 @@ namespace WG.Controllers.shipping_address.shipping_address_detail
             this.Id = Customer.Id;
             this.Username = Customer.Username;
             this.DisplayName = Customer.DisplayName;
+            this.PhoneNumber = Customer.PhoneNumber;
+            this.Email = Customer.Email;
         }
     }
 
@@ -29,5 +33,8 @@ namespace WG.Controllers.shipping_address.shipping_address_detail
         public long? Id { get; set; }
         public string Username { get; set; }
         public string DisplayName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public CustomerOrder OrderBy { get; set; }
     }
 }

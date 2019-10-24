@@ -57,7 +57,8 @@ namespace WG.Entities
         Address = 9,
         IsDefault = 10,
     }
-
+    
+    [Flags]
     public enum ShippingAddressSelect:long
     {
         ALL = E.ALL,

@@ -9,11 +9,9 @@ using WG.Services.MItem;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MBrand;
-using WG.Services.MCategory;
-using WG.Services.MPartner;
-using WG.Services.MItemStatus;
-using WG.Services.MItemType;
+using WG.Services.MVariation;
+using WG.Services.MProduct;
+using WG.Services.MVariation;
 
 
 namespace WG.Controllers.item.item_detail
@@ -27,40 +25,28 @@ namespace WG.Controllers.item.item_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListBrand= Default + "/single-list-brand";
-        public const string SingleListCategory= Default + "/single-list-category";
-        public const string SingleListPartner= Default + "/single-list-partner";
-        public const string SingleListItemStatus= Default + "/single-list-item-status";
-        public const string SingleListItemType= Default + "/single-list-item-type";
+        public const string SingleListVariation= Default + "/single-list-variation";
+        public const string SingleListProduct= Default + "/single-list-product";
     }
 
     public class ItemDetailController : ApiController
     {
         
         
-        private IBrandService BrandService;
-        private ICategoryService CategoryService;
-        private IPartnerService PartnerService;
-        private IItemStatusService ItemStatusService;
-        private IItemTypeService ItemTypeService;
+        private IVariationService VariationService;
+        private IProductService ProductService;
         private IItemService ItemService;
 
         public ItemDetailController(
             
-            IBrandService BrandService,
-            ICategoryService CategoryService,
-            IPartnerService PartnerService,
-            IItemStatusService ItemStatusService,
-            IItemTypeService ItemTypeService,
+            IVariationService VariationService,
+            IProductService ProductService,
             IItemService ItemService
         )
         {
             
-            this.BrandService = BrandService;
-            this.CategoryService = CategoryService;
-            this.PartnerService = PartnerService;
-            this.ItemStatusService = ItemStatusService;
-            this.ItemTypeService = ItemTypeService;
+            this.VariationService = VariationService;
+            this.ProductService = ProductService;
             this.ItemService = ItemService;
         }
 
@@ -129,121 +115,65 @@ namespace WG.Controllers.item.item_detail
             Item Item = new Item();
             
             Item.Id = ItemDetail_ItemDTO.Id;
-            Item.Code = ItemDetail_ItemDTO.Code;
-            Item.Name = ItemDetail_ItemDTO.Name;
+            Item.ProductId = ItemDetail_ItemDTO.ProductId;
+            Item.FirstVariationId = ItemDetail_ItemDTO.FirstVariationId;
+            Item.SecondVariationId = ItemDetail_ItemDTO.SecondVariationId;
             Item.SKU = ItemDetail_ItemDTO.SKU;
-            Item.Description = ItemDetail_ItemDTO.Description;
-            Item.TypeId = ItemDetail_ItemDTO.TypeId;
-            Item.StatusId = ItemDetail_ItemDTO.StatusId;
-            Item.PartnerId = ItemDetail_ItemDTO.PartnerId;
-            Item.CategoryId = ItemDetail_ItemDTO.CategoryId;
-            Item.BrandId = ItemDetail_ItemDTO.BrandId;
+            Item.Price = ItemDetail_ItemDTO.Price;
+            Item.MinPrice = ItemDetail_ItemDTO.MinPrice;
             return Item;
         }
         
         
-        [Route(ItemDetailRoute.SingleListBrand), HttpPost]
-        public async Task<List<ItemDetail_BrandDTO>> SingleListBrand([FromBody] ItemDetail_BrandFilterDTO ItemDetail_BrandFilterDTO)
+        [Route(ItemDetailRoute.SingleListVariation), HttpPost]
+        public async Task<List<ItemDetail_VariationDTO>> SingleListVariation([FromBody] ItemDetail_VariationFilterDTO ItemDetail_VariationFilterDTO)
         {
-            BrandFilter BrandFilter = new BrandFilter();
-            BrandFilter.Skip = 0;
-            BrandFilter.Take = 20;
-            BrandFilter.OrderBy = BrandOrder.Id;
-            BrandFilter.OrderType = OrderType.ASC;
-            BrandFilter.Selects = BrandSelect.ALL;
+            VariationFilter VariationFilter = new VariationFilter();
+            VariationFilter.Skip = 0;
+            VariationFilter.Take = 20;
+            VariationFilter.OrderBy = VariationOrder.Id;
+            VariationFilter.OrderType = OrderType.ASC;
+            VariationFilter.Selects = VariationSelect.ALL;
             
-            BrandFilter.Id = new LongFilter{ Equal = ItemDetail_BrandFilterDTO.Id };
-            BrandFilter.Name = new StringFilter{ StartsWith = ItemDetail_BrandFilterDTO.Name };
-            BrandFilter.CategoryId = new LongFilter{ Equal = ItemDetail_BrandFilterDTO.CategoryId };
+            VariationFilter.Id = new LongFilter{ Equal = ItemDetail_VariationFilterDTO.Id };
+            VariationFilter.Name = new StringFilter{ StartsWith = ItemDetail_VariationFilterDTO.Name };
+            VariationFilter.VariationGroupingId = new LongFilter{ Equal = ItemDetail_VariationFilterDTO.VariationGroupingId };
 
-            List<Brand> Brands = await BrandService.List(BrandFilter);
-            List<ItemDetail_BrandDTO> ItemDetail_BrandDTOs = Brands
-                .Select(x => new ItemDetail_BrandDTO(x)).ToList();
-            return ItemDetail_BrandDTOs;
+            List<Variation> Variations = await VariationService.List(VariationFilter);
+            List<ItemDetail_VariationDTO> ItemDetail_VariationDTOs = Variations
+                .Select(x => new ItemDetail_VariationDTO(x)).ToList();
+            return ItemDetail_VariationDTOs;
         }
 
-        [Route(ItemDetailRoute.SingleListCategory), HttpPost]
-        public async Task<List<ItemDetail_CategoryDTO>> SingleListCategory([FromBody] ItemDetail_CategoryFilterDTO ItemDetail_CategoryFilterDTO)
+        [Route(ItemDetailRoute.SingleListProduct), HttpPost]
+        public async Task<List<ItemDetail_ProductDTO>> SingleListProduct([FromBody] ItemDetail_ProductFilterDTO ItemDetail_ProductFilterDTO)
         {
-            CategoryFilter CategoryFilter = new CategoryFilter();
-            CategoryFilter.Skip = 0;
-            CategoryFilter.Take = 20;
-            CategoryFilter.OrderBy = CategoryOrder.Id;
-            CategoryFilter.OrderType = OrderType.ASC;
-            CategoryFilter.Selects = CategorySelect.ALL;
+            ProductFilter ProductFilter = new ProductFilter();
+            ProductFilter.Skip = 0;
+            ProductFilter.Take = 20;
+            ProductFilter.OrderBy = ProductOrder.Id;
+            ProductFilter.OrderType = OrderType.ASC;
+            ProductFilter.Selects = ProductSelect.ALL;
             
-            CategoryFilter.Id = new LongFilter{ Equal = ItemDetail_CategoryFilterDTO.Id };
-            CategoryFilter.Code = new StringFilter{ StartsWith = ItemDetail_CategoryFilterDTO.Code };
-            CategoryFilter.Name = new StringFilter{ StartsWith = ItemDetail_CategoryFilterDTO.Name };
-            CategoryFilter.ParentId = new LongFilter{ Equal = ItemDetail_CategoryFilterDTO.ParentId };
-            CategoryFilter.Icon = new StringFilter{ StartsWith = ItemDetail_CategoryFilterDTO.Icon };
+            ProductFilter.Id = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.Id };
+            ProductFilter.Code = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.Code };
+            ProductFilter.Name = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.Name };
+            ProductFilter.Description = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.Description };
+            ProductFilter.TypeId = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.TypeId };
+            ProductFilter.StatusId = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.StatusId };
+            ProductFilter.MerchantId = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.MerchantId };
+            ProductFilter.CategoryId = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.CategoryId };
+            ProductFilter.BrandId = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.BrandId };
+            ProductFilter.WarrantyPolicy = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.WarrantyPolicy };
+            ProductFilter.ReturnPolicy = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.ReturnPolicy };
+            ProductFilter.ExpiredDate = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.ExpiredDate };
+            ProductFilter.ConditionOfUse = new StringFilter{ StartsWith = ItemDetail_ProductFilterDTO.ConditionOfUse };
+            ProductFilter.MaximumPurchaseQuantity = new LongFilter{ Equal = ItemDetail_ProductFilterDTO.MaximumPurchaseQuantity };
 
-            List<Category> Categorys = await CategoryService.List(CategoryFilter);
-            List<ItemDetail_CategoryDTO> ItemDetail_CategoryDTOs = Categorys
-                .Select(x => new ItemDetail_CategoryDTO(x)).ToList();
-            return ItemDetail_CategoryDTOs;
-        }
-
-        [Route(ItemDetailRoute.SingleListPartner), HttpPost]
-        public async Task<List<ItemDetail_PartnerDTO>> SingleListPartner([FromBody] ItemDetail_PartnerFilterDTO ItemDetail_PartnerFilterDTO)
-        {
-            PartnerFilter PartnerFilter = new PartnerFilter();
-            PartnerFilter.Skip = 0;
-            PartnerFilter.Take = 20;
-            PartnerFilter.OrderBy = PartnerOrder.Id;
-            PartnerFilter.OrderType = OrderType.ASC;
-            PartnerFilter.Selects = PartnerSelect.ALL;
-            
-            PartnerFilter.Id = new LongFilter{ Equal = ItemDetail_PartnerFilterDTO.Id };
-            PartnerFilter.Name = new StringFilter{ StartsWith = ItemDetail_PartnerFilterDTO.Name };
-            PartnerFilter.Phone = new StringFilter{ StartsWith = ItemDetail_PartnerFilterDTO.Phone };
-            PartnerFilter.ContactPerson = new StringFilter{ StartsWith = ItemDetail_PartnerFilterDTO.ContactPerson };
-            PartnerFilter.Address = new StringFilter{ StartsWith = ItemDetail_PartnerFilterDTO.Address };
-
-            List<Partner> Partners = await PartnerService.List(PartnerFilter);
-            List<ItemDetail_PartnerDTO> ItemDetail_PartnerDTOs = Partners
-                .Select(x => new ItemDetail_PartnerDTO(x)).ToList();
-            return ItemDetail_PartnerDTOs;
-        }
-
-        [Route(ItemDetailRoute.SingleListItemStatus), HttpPost]
-        public async Task<List<ItemDetail_ItemStatusDTO>> SingleListItemStatus([FromBody] ItemDetail_ItemStatusFilterDTO ItemDetail_ItemStatusFilterDTO)
-        {
-            ItemStatusFilter ItemStatusFilter = new ItemStatusFilter();
-            ItemStatusFilter.Skip = 0;
-            ItemStatusFilter.Take = 20;
-            ItemStatusFilter.OrderBy = ItemStatusOrder.Id;
-            ItemStatusFilter.OrderType = OrderType.ASC;
-            ItemStatusFilter.Selects = ItemStatusSelect.ALL;
-            
-            ItemStatusFilter.Id = new LongFilter{ Equal = ItemDetail_ItemStatusFilterDTO.Id };
-            ItemStatusFilter.Code = new StringFilter{ StartsWith = ItemDetail_ItemStatusFilterDTO.Code };
-            ItemStatusFilter.Name = new StringFilter{ StartsWith = ItemDetail_ItemStatusFilterDTO.Name };
-
-            List<ItemStatus> ItemStatuss = await ItemStatusService.List(ItemStatusFilter);
-            List<ItemDetail_ItemStatusDTO> ItemDetail_ItemStatusDTOs = ItemStatuss
-                .Select(x => new ItemDetail_ItemStatusDTO(x)).ToList();
-            return ItemDetail_ItemStatusDTOs;
-        }
-
-        [Route(ItemDetailRoute.SingleListItemType), HttpPost]
-        public async Task<List<ItemDetail_ItemTypeDTO>> SingleListItemType([FromBody] ItemDetail_ItemTypeFilterDTO ItemDetail_ItemTypeFilterDTO)
-        {
-            ItemTypeFilter ItemTypeFilter = new ItemTypeFilter();
-            ItemTypeFilter.Skip = 0;
-            ItemTypeFilter.Take = 20;
-            ItemTypeFilter.OrderBy = ItemTypeOrder.Id;
-            ItemTypeFilter.OrderType = OrderType.ASC;
-            ItemTypeFilter.Selects = ItemTypeSelect.ALL;
-            
-            ItemTypeFilter.Id = new LongFilter{ Equal = ItemDetail_ItemTypeFilterDTO.Id };
-            ItemTypeFilter.Code = new StringFilter{ StartsWith = ItemDetail_ItemTypeFilterDTO.Code };
-            ItemTypeFilter.Name = new StringFilter{ StartsWith = ItemDetail_ItemTypeFilterDTO.Name };
-
-            List<ItemType> ItemTypes = await ItemTypeService.List(ItemTypeFilter);
-            List<ItemDetail_ItemTypeDTO> ItemDetail_ItemTypeDTOs = ItemTypes
-                .Select(x => new ItemDetail_ItemTypeDTO(x)).ToList();
-            return ItemDetail_ItemTypeDTOs;
+            List<Product> Products = await ProductService.List(ProductFilter);
+            List<ItemDetail_ProductDTO> ItemDetail_ProductDTOs = Products
+                .Select(x => new ItemDetail_ProductDTO(x)).ToList();
+            return ItemDetail_ProductDTOs;
         }
 
     }

@@ -82,6 +82,8 @@ namespace WG.Controllers.customer.customer_master
             CustomerFilter.Id = new LongFilter{ Equal = CustomerMaster_CustomerFilterDTO.Id };
             CustomerFilter.Username = new StringFilter{ StartsWith = CustomerMaster_CustomerFilterDTO.Username };
             CustomerFilter.DisplayName = new StringFilter{ StartsWith = CustomerMaster_CustomerFilterDTO.DisplayName };
+            CustomerFilter.PhoneNumber = new StringFilter{ StartsWith = CustomerMaster_CustomerFilterDTO.PhoneNumber };
+            CustomerFilter.Email = new StringFilter{ StartsWith = CustomerMaster_CustomerFilterDTO.Email };
             return CustomerFilter;
         }
         

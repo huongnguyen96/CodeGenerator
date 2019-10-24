@@ -114,6 +114,34 @@ function CustomerDetail(props) {
           )}
         </Form.Item>
 
+        <Form.Item label={translate('customerDetail.phoneNumber')}>
+          {form.getFieldDecorator('phoneNumber', {
+            initialValue: customer.phoneNumber,
+            rules: [
+              {
+                required: true,
+                message: translate('customerDetail.errors.phoneNumber.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
+        </Form.Item>
+
+        <Form.Item label={translate('customerDetail.email')}>
+          {form.getFieldDecorator('email', {
+            initialValue: customer.email,
+            rules: [
+              {
+                required: true,
+                message: translate('customerDetail.errors.email.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
+        </Form.Item>
+
         
       </Card>
     </Spin>

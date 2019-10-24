@@ -112,6 +112,18 @@ function CustomerMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<Customer>('displayName', sorter)}
         />
+         <Column key="phoneNumber"
+                dataIndex="phoneNumber"
+                title={translate('customerMaster.phoneNumber')}
+                sorter
+                sortOrder={getColumnSortOrder<Customer>('phoneNumber', sorter)}
+        />
+         <Column key="email"
+                dataIndex="email"
+                title={translate('customerMaster.email')}
+                sorter
+                sortOrder={getColumnSortOrder<Customer>('email', sorter)}
+        />
         <Column key="actions"
                 dataIndex="id"
                 render={(id: string, customer: Customer) => {

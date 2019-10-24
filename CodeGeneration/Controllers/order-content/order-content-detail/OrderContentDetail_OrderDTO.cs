@@ -17,6 +17,7 @@ namespace WG.Controllers.order_content.order_content_detail
         public long Total { get; set; }
         public long VoucherDiscount { get; set; }
         public long CampaignDiscount { get; set; }
+        public long StatusId { get; set; }
         public OrderContentDetail_OrderDTO() {}
         public OrderContentDetail_OrderDTO(Order Order)
         {
@@ -28,6 +29,7 @@ namespace WG.Controllers.order_content.order_content_detail
             this.Total = Order.Total;
             this.VoucherDiscount = Order.VoucherDiscount;
             this.CampaignDiscount = Order.CampaignDiscount;
+            this.StatusId = Order.StatusId;
         }
     }
 
@@ -41,5 +43,7 @@ namespace WG.Controllers.order_content.order_content_detail
         public long? Total { get; set; }
         public long? VoucherDiscount { get; set; }
         public long? CampaignDiscount { get; set; }
+        public long? StatusId { get; set; }
+        public OrderOrder OrderBy { get; set; }
     }
 }

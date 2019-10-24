@@ -1,6 +1,7 @@
 import {Model} from 'core';
 
 import {Customer} from 'models/Customer';
+import {OrderStatus} from 'models/OrderStatus';
 import {OrderContent} from 'models/OrderContent';
 
 export class Order extends Model {
@@ -18,8 +19,12 @@ export class Order extends Model {
   public voucherDiscount?: number;
  
   public campaignDiscount?: number;
+ 
+  public statusId?: number;
 
   public customer?: Customer;
+
+  public status?: OrderStatus;
   
   public orderContents?: OrderContent[];
 

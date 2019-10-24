@@ -17,8 +17,10 @@ namespace CodeGeneration.Repositories.Models
         public long Total { get; set; }
         public long VoucherDiscount { get; set; }
         public long CampaignDiscount { get; set; }
+        public long StatusId { get; set; }
 
         public virtual CustomerDAO Customer { get; set; }
+        public virtual OrderStatusDAO Status { get; set; }
         public virtual ICollection<OrderContentDAO> OrderContents { get; set; }
     }
 }

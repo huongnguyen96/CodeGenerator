@@ -9,36 +9,30 @@ namespace WG.Entities
     {
         
         public long Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        public long ProductId { get; set; }
+        public long FirstVariationId { get; set; }
+        public long? SecondVariationId { get; set; }
         public string SKU { get; set; }
-        public string Description { get; set; }
-        public long TypeId { get; set; }
-        public long StatusId { get; set; }
-        public long PartnerId { get; set; }
-        public long CategoryId { get; set; }
-        public long BrandId { get; set; }
-        public Brand Brand { get; set; }
-        public Category Category { get; set; }
-        public Partner Partner { get; set; }
-        public ItemStatus Status { get; set; }
-        public ItemType Type { get; set; }
-        public List<VariationGrouping> VariationGroupings { get; set; }
+        public long Price { get; set; }
+        public long MinPrice { get; set; }
+        public Variation FirstVariation { get; set; }
+        public Product Product { get; set; }
+        public Variation SecondVariation { get; set; }
+        public List<DiscountContent> DiscountContents { get; set; }
+        public List<OrderContent> OrderContents { get; set; }
+        public List<Stock> Stocks { get; set; }
     }
 
     public class ItemFilter : FilterEntity
     {
         
         public LongFilter Id { get; set; }
-        public StringFilter Code { get; set; }
-        public StringFilter Name { get; set; }
+        public LongFilter ProductId { get; set; }
+        public LongFilter FirstVariationId { get; set; }
+        public LongFilter SecondVariationId { get; set; }
         public StringFilter SKU { get; set; }
-        public StringFilter Description { get; set; }
-        public LongFilter TypeId { get; set; }
-        public LongFilter StatusId { get; set; }
-        public LongFilter PartnerId { get; set; }
-        public LongFilter CategoryId { get; set; }
-        public LongFilter BrandId { get; set; }
+        public LongFilter Price { get; set; }
+        public LongFilter MinPrice { get; set; }
         public List<long> Ids { get; set; }
         public List<long> ExceptIds { get; set; }
 
@@ -50,30 +44,25 @@ namespace WG.Entities
     {
         
         Id = 1,
-        Code = 2,
-        Name = 3,
-        SKU = 4,
-        Description = 5,
-        Type = 6,
-        Status = 7,
-        Partner = 8,
-        Category = 9,
-        Brand = 10,
+        Product = 2,
+        FirstVariation = 3,
+        SecondVariation = 4,
+        SKU = 5,
+        Price = 6,
+        MinPrice = 7,
     }
-
+    
+    [Flags]
     public enum ItemSelect:long
     {
         ALL = E.ALL,
         
         Id = E._1,
-        Code = E._2,
-        Name = E._3,
-        SKU = E._4,
-        Description = E._5,
-        Type = E._6,
-        Status = E._7,
-        Partner = E._8,
-        Category = E._9,
-        Brand = E._10,
+        Product = E._2,
+        FirstVariation = E._3,
+        SecondVariation = E._4,
+        SKU = E._5,
+        Price = E._6,
+        MinPrice = E._7,
     }
 }

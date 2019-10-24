@@ -7,16 +7,18 @@ export class OrderContentSearch extends Search {
 
   public orderId?: number;
 
-  public itemName?: string;
+  public itemId?: number;
+
+  public productName?: string;
 
   public firstVersion?: string;
 
   public secondVersion?: string;
 
-  public thirdVersion?: string;
-
   public price?: number;
 
   public discountPrice?: number;
+
+  public quantity?: number;
 ;
 }

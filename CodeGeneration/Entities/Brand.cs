@@ -12,7 +12,7 @@ namespace WG.Entities
         public string Name { get; set; }
         public long CategoryId { get; set; }
         public Category Category { get; set; }
-        public List<Item> Items { get; set; }
+        public List<Product> Products { get; set; }
     }
 
     public class BrandFilter : FilterEntity
@@ -35,7 +35,8 @@ namespace WG.Entities
         Name = 2,
         Category = 3,
     }
-
+    
+    [Flags]
     public enum BrandSelect:long
     {
         ALL = E.ALL,

@@ -7,21 +7,25 @@ import {BRAND_ROUTE} from './route-consts';
 import {CATEGORY_ROUTE} from './route-consts';
 import {CUSTOMER_ROUTE} from './route-consts';
 import {CUSTOMER_GROUPING_ROUTE} from './route-consts';
-import {DISCOUNT_CUSTOMER_GROUPING_ROUTE} from './route-consts';
+import {DISCOUNT_CONTENT_ROUTE} from './route-consts';
 import {DISCOUNT_ROUTE} from './route-consts';
-import {DISCOUNT_ITEM_ROUTE} from './route-consts';
 import {DISTRICT_ROUTE} from './route-consts';
+import {E_VOUCHER_CONTENT_ROUTE} from './route-consts';
+import {E_VOUCHER_ROUTE} from './route-consts';
 import {IMAGE_FILE_ROUTE} from './route-consts';
 import {ITEM_ROUTE} from './route-consts';
-import {ITEM_STATUS_ROUTE} from './route-consts';
-import {ITEM_TYPE_ROUTE} from './route-consts';
+import {MERCHANT_ADDRESS_ROUTE} from './route-consts';
+import {MERCHANT_ROUTE} from './route-consts';
 import {ORDER_CONTENT_ROUTE} from './route-consts';
 import {ORDER_ROUTE} from './route-consts';
-import {PARTNER_ROUTE} from './route-consts';
+import {ORDER_STATUS_ROUTE} from './route-consts';
+import {PAYMENT_METHOD_ROUTE} from './route-consts';
+import {PRODUCT_ROUTE} from './route-consts';
+import {PRODUCT_STATUS_ROUTE} from './route-consts';
+import {PRODUCT_TYPE_ROUTE} from './route-consts';
 import {PROVINCE_ROUTE} from './route-consts';
 import {SHIPPING_ADDRESS_ROUTE} from './route-consts';
 import {STOCK_ROUTE} from './route-consts';
-import {UNIT_ROUTE} from './route-consts';
 import {VARIATION_ROUTE} from './route-consts';
 import {VARIATION_GROUPING_ROUTE} from './route-consts';
 import {WARD_ROUTE} from './route-consts';
@@ -32,21 +36,25 @@ const BrandView = lazy(() => import('views/Brand/BrandView'));
 const CategoryView = lazy(() => import('views/Category/CategoryView'));
 const CustomerView = lazy(() => import('views/Customer/CustomerView'));
 const CustomerGroupingView = lazy(() => import('views/CustomerGrouping/CustomerGroupingView'));
-const DiscountCustomerGroupingView = lazy(() => import('views/DiscountCustomerGrouping/DiscountCustomerGroupingView'));
+const DiscountContentView = lazy(() => import('views/DiscountContent/DiscountContentView'));
 const DiscountView = lazy(() => import('views/Discount/DiscountView'));
-const DiscountItemView = lazy(() => import('views/DiscountItem/DiscountItemView'));
 const DistrictView = lazy(() => import('views/District/DistrictView'));
+const EVoucherContentView = lazy(() => import('views/EVoucherContent/EVoucherContentView'));
+const EVoucherView = lazy(() => import('views/EVoucher/EVoucherView'));
 const ImageFileView = lazy(() => import('views/ImageFile/ImageFileView'));
 const ItemView = lazy(() => import('views/Item/ItemView'));
-const ItemStatusView = lazy(() => import('views/ItemStatus/ItemStatusView'));
-const ItemTypeView = lazy(() => import('views/ItemType/ItemTypeView'));
+const MerchantAddressView = lazy(() => import('views/MerchantAddress/MerchantAddressView'));
+const MerchantView = lazy(() => import('views/Merchant/MerchantView'));
 const OrderContentView = lazy(() => import('views/OrderContent/OrderContentView'));
 const OrderView = lazy(() => import('views/Order/OrderView'));
-const PartnerView = lazy(() => import('views/Partner/PartnerView'));
+const OrderStatusView = lazy(() => import('views/OrderStatus/OrderStatusView'));
+const PaymentMethodView = lazy(() => import('views/PaymentMethod/PaymentMethodView'));
+const ProductView = lazy(() => import('views/Product/ProductView'));
+const ProductStatusView = lazy(() => import('views/ProductStatus/ProductStatusView'));
+const ProductTypeView = lazy(() => import('views/ProductType/ProductTypeView'));
 const ProvinceView = lazy(() => import('views/Province/ProvinceView'));
 const ShippingAddressView = lazy(() => import('views/ShippingAddress/ShippingAddressView'));
 const StockView = lazy(() => import('views/Stock/StockView'));
-const UnitView = lazy(() => import('views/Unit/UnitView'));
 const VariationView = lazy(() => import('views/Variation/VariationView'));
 const VariationGroupingView = lazy(() => import('views/VariationGrouping/VariationGroupingView'));
 const WardView = lazy(() => import('views/Ward/WardView'));
@@ -75,20 +83,24 @@ export const routes: IRoute[] = [
     component: CustomerGroupingView,
   },
   {
-    path: DISCOUNT_CUSTOMER_GROUPING_ROUTE,
-    component: DiscountCustomerGroupingView,
+    path: DISCOUNT_CONTENT_ROUTE,
+    component: DiscountContentView,
   },
   {
     path: DISCOUNT_ROUTE,
     component: DiscountView,
   },
   {
-    path: DISCOUNT_ITEM_ROUTE,
-    component: DiscountItemView,
-  },
-  {
     path: DISTRICT_ROUTE,
     component: DistrictView,
+  },
+  {
+    path: E_VOUCHER_CONTENT_ROUTE,
+    component: EVoucherContentView,
+  },
+  {
+    path: E_VOUCHER_ROUTE,
+    component: EVoucherView,
   },
   {
     path: IMAGE_FILE_ROUTE,
@@ -99,12 +111,12 @@ export const routes: IRoute[] = [
     component: ItemView,
   },
   {
-    path: ITEM_STATUS_ROUTE,
-    component: ItemStatusView,
+    path: MERCHANT_ADDRESS_ROUTE,
+    component: MerchantAddressView,
   },
   {
-    path: ITEM_TYPE_ROUTE,
-    component: ItemTypeView,
+    path: MERCHANT_ROUTE,
+    component: MerchantView,
   },
   {
     path: ORDER_CONTENT_ROUTE,
@@ -115,8 +127,24 @@ export const routes: IRoute[] = [
     component: OrderView,
   },
   {
-    path: PARTNER_ROUTE,
-    component: PartnerView,
+    path: ORDER_STATUS_ROUTE,
+    component: OrderStatusView,
+  },
+  {
+    path: PAYMENT_METHOD_ROUTE,
+    component: PaymentMethodView,
+  },
+  {
+    path: PRODUCT_ROUTE,
+    component: ProductView,
+  },
+  {
+    path: PRODUCT_STATUS_ROUTE,
+    component: ProductStatusView,
+  },
+  {
+    path: PRODUCT_TYPE_ROUTE,
+    component: ProductTypeView,
   },
   {
     path: PROVINCE_ROUTE,
@@ -129,10 +157,6 @@ export const routes: IRoute[] = [
   {
     path: STOCK_ROUTE,
     component: StockView,
-  },
-  {
-    path: UNIT_ROUTE,
-    component: UnitView,
   },
   {
     path: VARIATION_ROUTE,

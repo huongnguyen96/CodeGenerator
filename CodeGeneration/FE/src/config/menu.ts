@@ -7,21 +7,25 @@ import {BRAND_ROUTE} from './route-consts';
 import {CATEGORY_ROUTE} from './route-consts';
 import {CUSTOMER_ROUTE} from './route-consts';
 import {CUSTOMER_GROUPING_ROUTE} from './route-consts';
-import {DISCOUNT_CUSTOMER_GROUPING_ROUTE} from './route-consts';
+import {DISCOUNT_CONTENT_ROUTE} from './route-consts';
 import {DISCOUNT_ROUTE} from './route-consts';
-import {DISCOUNT_ITEM_ROUTE} from './route-consts';
 import {DISTRICT_ROUTE} from './route-consts';
+import {E_VOUCHER_CONTENT_ROUTE} from './route-consts';
+import {E_VOUCHER_ROUTE} from './route-consts';
 import {IMAGE_FILE_ROUTE} from './route-consts';
 import {ITEM_ROUTE} from './route-consts';
-import {ITEM_STATUS_ROUTE} from './route-consts';
-import {ITEM_TYPE_ROUTE} from './route-consts';
+import {MERCHANT_ADDRESS_ROUTE} from './route-consts';
+import {MERCHANT_ROUTE} from './route-consts';
 import {ORDER_CONTENT_ROUTE} from './route-consts';
 import {ORDER_ROUTE} from './route-consts';
-import {PARTNER_ROUTE} from './route-consts';
+import {ORDER_STATUS_ROUTE} from './route-consts';
+import {PAYMENT_METHOD_ROUTE} from './route-consts';
+import {PRODUCT_ROUTE} from './route-consts';
+import {PRODUCT_STATUS_ROUTE} from './route-consts';
+import {PRODUCT_TYPE_ROUTE} from './route-consts';
 import {PROVINCE_ROUTE} from './route-consts';
 import {SHIPPING_ADDRESS_ROUTE} from './route-consts';
 import {STOCK_ROUTE} from './route-consts';
-import {UNIT_ROUTE} from './route-consts';
 import {VARIATION_ROUTE} from './route-consts';
 import {VARIATION_GROUPING_ROUTE} from './route-consts';
 import {WARD_ROUTE} from './route-consts';
@@ -60,8 +64,8 @@ export const menu: IRoute[] = [
     exact: false,
   },
   {
-    title: translate('discountCustomerGrouping.title'),
-    path: DISCOUNT_CUSTOMER_GROUPING_ROUTE,
+    title: translate('discountContent.title'),
+    path: DISCOUNT_CONTENT_ROUTE,
     icon: 'dashboard',
     exact: false,
   },
@@ -72,14 +76,20 @@ export const menu: IRoute[] = [
     exact: false,
   },
   {
-    title: translate('discountItem.title'),
-    path: DISCOUNT_ITEM_ROUTE,
+    title: translate('district.title'),
+    path: DISTRICT_ROUTE,
     icon: 'dashboard',
     exact: false,
   },
   {
-    title: translate('district.title'),
-    path: DISTRICT_ROUTE,
+    title: translate('eVoucherContent.title'),
+    path: E_VOUCHER_CONTENT_ROUTE,
+    icon: 'dashboard',
+    exact: false,
+  },
+  {
+    title: translate('eVoucher.title'),
+    path: E_VOUCHER_ROUTE,
     icon: 'dashboard',
     exact: false,
   },
@@ -96,14 +106,14 @@ export const menu: IRoute[] = [
     exact: false,
   },
   {
-    title: translate('itemStatus.title'),
-    path: ITEM_STATUS_ROUTE,
+    title: translate('merchantAddress.title'),
+    path: MERCHANT_ADDRESS_ROUTE,
     icon: 'dashboard',
     exact: false,
   },
   {
-    title: translate('itemType.title'),
-    path: ITEM_TYPE_ROUTE,
+    title: translate('merchant.title'),
+    path: MERCHANT_ROUTE,
     icon: 'dashboard',
     exact: false,
   },
@@ -120,8 +130,32 @@ export const menu: IRoute[] = [
     exact: false,
   },
   {
-    title: translate('partner.title'),
-    path: PARTNER_ROUTE,
+    title: translate('orderStatus.title'),
+    path: ORDER_STATUS_ROUTE,
+    icon: 'dashboard',
+    exact: false,
+  },
+  {
+    title: translate('paymentMethod.title'),
+    path: PAYMENT_METHOD_ROUTE,
+    icon: 'dashboard',
+    exact: false,
+  },
+  {
+    title: translate('product.title'),
+    path: PRODUCT_ROUTE,
+    icon: 'dashboard',
+    exact: false,
+  },
+  {
+    title: translate('productStatus.title'),
+    path: PRODUCT_STATUS_ROUTE,
+    icon: 'dashboard',
+    exact: false,
+  },
+  {
+    title: translate('productType.title'),
+    path: PRODUCT_TYPE_ROUTE,
     icon: 'dashboard',
     exact: false,
   },
@@ -140,12 +174,6 @@ export const menu: IRoute[] = [
   {
     title: translate('stock.title'),
     path: STOCK_ROUTE,
-    icon: 'dashboard',
-    exact: false,
-  },
-  {
-    title: translate('unit.title'),
-    path: UNIT_ROUTE,
     icon: 'dashboard',
     exact: false,
   },

@@ -16,16 +16,10 @@ import { ITEM_ROUTE } from 'config/route-consts';
 import { Item } from 'models/Item';
 import { ItemSearch } from 'models/ItemSearch';
 
-import {Brand} from 'models/Brand';
-import {BrandSearch} from 'models/BrandSearch';
-import {Category} from 'models/Category';
-import {CategorySearch} from 'models/CategorySearch';
-import {Partner} from 'models/Partner';
-import {PartnerSearch} from 'models/PartnerSearch';
-import {ItemStatus} from 'models/ItemStatus';
-import {ItemStatusSearch} from 'models/ItemStatusSearch';
-import {ItemType} from 'models/ItemType';
-import {ItemTypeSearch} from 'models/ItemTypeSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
+import {Product} from 'models/Product';
+import {ProductSearch} from 'models/ProductSearch';
 
 const {Column} = Table;
 
@@ -110,91 +104,59 @@ function ItemMaster(props: RouteComponentProps) {
                 render={renderIndex<Item, ItemSearch>(search)}
         />
         
-         <Column key="code"
-                dataIndex="code"
-                title={translate('itemMaster.code')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('code', sorter)}
-        />
-         <Column key="name"
-                dataIndex="name"
-                title={translate('itemMaster.name')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('name', sorter)}
-        />
          <Column key="sKU"
                 dataIndex="sKU"
                 title={translate('itemMaster.sKU')}
                 sorter
                 sortOrder={getColumnSortOrder<Item>('sKU', sorter)}
         />
-         <Column key="description"
-                dataIndex="description"
-                title={translate('itemMaster.description')}
+         <Column key="price"
+                dataIndex="price"
+                title={translate('itemMaster.price')}
                 sorter
-                sortOrder={getColumnSortOrder<Item>('description', sorter)}
+                sortOrder={getColumnSortOrder<Item>('price', sorter)}
         />
-         <Column key="brand"
-                dataIndex="brand"
-                title={translate('itemMaster.brand')}
+         <Column key="minPrice"
+                dataIndex="minPrice"
+                title={translate('itemMaster.minPrice')}
                 sorter
-                sortOrder={getColumnSortOrder<Item>('brand', sorter)}
-                render={(brand: Brand) => {
+                sortOrder={getColumnSortOrder<Item>('minPrice', sorter)}
+        />
+         <Column key="firstVariation"
+                dataIndex="firstVariation"
+                title={translate('itemMaster.firstVariation')}
+                sorter
+                sortOrder={getColumnSortOrder<Item>('firstVariation', sorter)}
+                render={(firstVariation: Variation) => {
                        return (
                          <>
-                           {brand && brand.id}
+                           {firstVariation && firstVariation.id}
                          </>
                        );
                      }}
         />
-         <Column key="category"
-                dataIndex="category"
-                title={translate('itemMaster.category')}
+         <Column key="product"
+                dataIndex="product"
+                title={translate('itemMaster.product')}
                 sorter
-                sortOrder={getColumnSortOrder<Item>('category', sorter)}
-                render={(category: Category) => {
+                sortOrder={getColumnSortOrder<Item>('product', sorter)}
+                render={(product: Product) => {
                        return (
                          <>
-                           {category && category.id}
+                           {product && product.id}
                          </>
                        );
                      }}
         />
-         <Column key="partner"
-                dataIndex="partner"
-                title={translate('itemMaster.partner')}
+         <Column key="secondVariation"
+                dataIndex="secondVariation"
+                title={translate('itemMaster.secondVariation')}
                 sorter
-                sortOrder={getColumnSortOrder<Item>('partner', sorter)}
-                render={(partner: Partner) => {
+                sortOrder={getColumnSortOrder<Item>('secondVariation', sorter)}
+                render={(secondVariation: Variation) => {
                        return (
                          <>
-                           {partner && partner.id}
-                         </>
-                       );
-                     }}
-        />
-         <Column key="status"
-                dataIndex="status"
-                title={translate('itemMaster.status')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('status', sorter)}
-                render={(status: ItemStatus) => {
-                       return (
-                         <>
-                           {status && status.id}
-                         </>
-                       );
-                     }}
-        />
-         <Column key="type"
-                dataIndex="type"
-                title={translate('itemMaster.type')}
-                sorter
-                sortOrder={getColumnSortOrder<Item>('type', sorter)}
-                render={(type: ItemType) => {
-                       return (
-                         <>
-                           {type && type.id}
+                           {secondVariation && secondVariation.id}
                          </>
                        );
                      }}

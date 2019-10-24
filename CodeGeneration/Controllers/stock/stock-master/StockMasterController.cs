@@ -9,7 +9,7 @@ using WG.Services.MStock;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MUnit;
+using WG.Services.MItem;
 using WG.Services.MWarehouse;
 
 
@@ -23,7 +23,7 @@ namespace WG.Controllers.stock.stock_master
         public const string List = Default + "/list";
         public const string Get = Default + "/get";
         
-        public const string SingleListUnit= Default + "/single-list-unit";
+        public const string SingleListItem= Default + "/single-list-item";
         public const string SingleListWarehouse= Default + "/single-list-warehouse";
     }
 
@@ -31,19 +31,19 @@ namespace WG.Controllers.stock.stock_master
     {
         
         
-        private IUnitService UnitService;
+        private IItemService ItemService;
         private IWarehouseService WarehouseService;
         private IStockService StockService;
 
         public StockMasterController(
             
-            IUnitService UnitService,
+            IItemService ItemService,
             IWarehouseService WarehouseService,
             IStockService StockService
         )
         {
             
-            this.UnitService = UnitService;
+            this.ItemService = ItemService;
             this.WarehouseService = WarehouseService;
             this.StockService = StockService;
         }
@@ -90,34 +90,35 @@ namespace WG.Controllers.stock.stock_master
             StockFilter.Selects = StockSelect.ALL;
             
             StockFilter.Id = new LongFilter{ Equal = StockMaster_StockFilterDTO.Id };
-            StockFilter.UnitId = new LongFilter{ Equal = StockMaster_StockFilterDTO.UnitId };
+            StockFilter.ItemId = new LongFilter{ Equal = StockMaster_StockFilterDTO.ItemId };
             StockFilter.WarehouseId = new LongFilter{ Equal = StockMaster_StockFilterDTO.WarehouseId };
             StockFilter.Quantity = new LongFilter{ Equal = StockMaster_StockFilterDTO.Quantity };
             return StockFilter;
         }
         
         
-        [Route(StockMasterRoute.SingleListUnit), HttpPost]
-        public async Task<List<StockMaster_UnitDTO>> SingleListUnit([FromBody] StockMaster_UnitFilterDTO StockMaster_UnitFilterDTO)
+        [Route(StockMasterRoute.SingleListItem), HttpPost]
+        public async Task<List<StockMaster_ItemDTO>> SingleListItem([FromBody] StockMaster_ItemFilterDTO StockMaster_ItemFilterDTO)
         {
-            UnitFilter UnitFilter = new UnitFilter();
-            UnitFilter.Skip = 0;
-            UnitFilter.Take = 20;
-            UnitFilter.OrderBy = UnitOrder.Id;
-            UnitFilter.OrderType = OrderType.ASC;
-            UnitFilter.Selects = UnitSelect.ALL;
+            ItemFilter ItemFilter = new ItemFilter();
+            ItemFilter.Skip = 0;
+            ItemFilter.Take = 20;
+            ItemFilter.OrderBy = ItemOrder.Id;
+            ItemFilter.OrderType = OrderType.ASC;
+            ItemFilter.Selects = ItemSelect.ALL;
             
-            UnitFilter.Id = new LongFilter{ Equal = StockMaster_UnitFilterDTO.Id };
-            UnitFilter.FirstVariationId = new LongFilter{ Equal = StockMaster_UnitFilterDTO.FirstVariationId };
-            UnitFilter.SecondVariationId = new LongFilter{ Equal = StockMaster_UnitFilterDTO.SecondVariationId };
-            UnitFilter.ThirdVariationId = new LongFilter{ Equal = StockMaster_UnitFilterDTO.ThirdVariationId };
-            UnitFilter.SKU = new StringFilter{ StartsWith = StockMaster_UnitFilterDTO.SKU };
-            UnitFilter.Price = new LongFilter{ Equal = StockMaster_UnitFilterDTO.Price };
+            ItemFilter.Id = new LongFilter{ Equal = StockMaster_ItemFilterDTO.Id };
+            ItemFilter.ProductId = new LongFilter{ Equal = StockMaster_ItemFilterDTO.ProductId };
+            ItemFilter.FirstVariationId = new LongFilter{ Equal = StockMaster_ItemFilterDTO.FirstVariationId };
+            ItemFilter.SecondVariationId = new LongFilter{ Equal = StockMaster_ItemFilterDTO.SecondVariationId };
+            ItemFilter.SKU = new StringFilter{ StartsWith = StockMaster_ItemFilterDTO.SKU };
+            ItemFilter.Price = new LongFilter{ Equal = StockMaster_ItemFilterDTO.Price };
+            ItemFilter.MinPrice = new LongFilter{ Equal = StockMaster_ItemFilterDTO.MinPrice };
 
-            List<Unit> Units = await UnitService.List(UnitFilter);
-            List<StockMaster_UnitDTO> StockMaster_UnitDTOs = Units
-                .Select(x => new StockMaster_UnitDTO(x)).ToList();
-            return StockMaster_UnitDTOs;
+            List<Item> Items = await ItemService.List(ItemFilter);
+            List<StockMaster_ItemDTO> StockMaster_ItemDTOs = Items
+                .Select(x => new StockMaster_ItemDTO(x)).ToList();
+            return StockMaster_ItemDTOs;
         }
 
         [Route(StockMasterRoute.SingleListWarehouse), HttpPost]

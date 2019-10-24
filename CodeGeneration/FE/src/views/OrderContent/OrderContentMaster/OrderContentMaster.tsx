@@ -16,6 +16,8 @@ import { ORDER_CONTENT_ROUTE } from 'config/route-consts';
 import { OrderContent } from 'models/OrderContent';
 import { OrderContentSearch } from 'models/OrderContentSearch';
 
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import {Order} from 'models/Order';
 import {OrderSearch} from 'models/OrderSearch';
 
@@ -102,11 +104,11 @@ function OrderContentMaster(props: RouteComponentProps) {
                 render={renderIndex<OrderContent, OrderContentSearch>(search)}
         />
         
-         <Column key="itemName"
-                dataIndex="itemName"
-                title={translate('orderContentMaster.itemName')}
+         <Column key="productName"
+                dataIndex="productName"
+                title={translate('orderContentMaster.productName')}
                 sorter
-                sortOrder={getColumnSortOrder<OrderContent>('itemName', sorter)}
+                sortOrder={getColumnSortOrder<OrderContent>('productName', sorter)}
         />
          <Column key="firstVersion"
                 dataIndex="firstVersion"
@@ -120,12 +122,6 @@ function OrderContentMaster(props: RouteComponentProps) {
                 sorter
                 sortOrder={getColumnSortOrder<OrderContent>('secondVersion', sorter)}
         />
-         <Column key="thirdVersion"
-                dataIndex="thirdVersion"
-                title={translate('orderContentMaster.thirdVersion')}
-                sorter
-                sortOrder={getColumnSortOrder<OrderContent>('thirdVersion', sorter)}
-        />
          <Column key="price"
                 dataIndex="price"
                 title={translate('orderContentMaster.price')}
@@ -137,6 +133,25 @@ function OrderContentMaster(props: RouteComponentProps) {
                 title={translate('orderContentMaster.discountPrice')}
                 sorter
                 sortOrder={getColumnSortOrder<OrderContent>('discountPrice', sorter)}
+        />
+         <Column key="quantity"
+                dataIndex="quantity"
+                title={translate('orderContentMaster.quantity')}
+                sorter
+                sortOrder={getColumnSortOrder<OrderContent>('quantity', sorter)}
+        />
+         <Column key="item"
+                dataIndex="item"
+                title={translate('orderContentMaster.item')}
+                sorter
+                sortOrder={getColumnSortOrder<OrderContent>('item', sorter)}
+                render={(item: Item) => {
+                       return (
+                         <>
+                           {item && item.id}
+                         </>
+                       );
+                     }}
         />
          <Column key="order"
                 dataIndex="order"

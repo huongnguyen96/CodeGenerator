@@ -38,5 +38,6 @@ namespace WG.Controllers.warehouse.warehouse_detail
         public string Email { get; set; }
         public string Address { get; set; }
         public long? PartnerId { get; set; }
+        public WarehouseOrder OrderBy { get; set; }
     }
 }

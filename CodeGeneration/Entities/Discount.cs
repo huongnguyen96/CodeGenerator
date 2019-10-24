@@ -13,8 +13,8 @@ namespace WG.Entities
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public string Type { get; set; }
-        public List<DiscountCustomerGrouping> DiscountCustomerGroupings { get; set; }
-        public List<DiscountItem> DiscountItems { get; set; }
+        public List<DiscountContent> DiscountContents { get; set; }
+        public List<Discount_CustomerGrouping> Discount_CustomerGroupings { get; set; }
     }
 
     public class DiscountFilter : FilterEntity
@@ -41,7 +41,8 @@ namespace WG.Entities
         End = 4,
         Type = 5,
     }
-
+    
+    [Flags]
     public enum DiscountSelect:long
     {
         ALL = E.ALL,

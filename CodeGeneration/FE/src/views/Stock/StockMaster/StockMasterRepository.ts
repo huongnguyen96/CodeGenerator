@@ -6,8 +6,8 @@ import {map} from 'rxjs/operators';
 import {Stock} from 'models/Stock';
 import {StockSearch} from 'models/StockSearch';
 
-import {Unit} from 'models/Unit';
-import {UnitSearch} from 'models/UnitSearch';
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import {Warehouse} from 'models/Warehouse';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
@@ -45,10 +45,10 @@ export class StockMasterRepository extends Repository {
       );
   };
   
-  public singleListUnit = (unitSearch: UnitSearch): Observable<Unit[]> => {
-    return this.httpService.post('/single-list-unit',unitSearch)
+  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
+    return this.httpService.post('/single-list-item',itemSearch)
       .pipe(
-        map((response: AxiosResponse<Unit[]>) => response.data),
+        map((response: AxiosResponse<Item[]>) => response.data),
       );
   };
   public singleListWarehouse = (warehouseSearch: WarehouseSearch): Observable<Warehouse[]> => {

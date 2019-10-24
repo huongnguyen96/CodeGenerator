@@ -38,7 +38,8 @@ namespace WG.Entities
         OrderNumber = 3,
         District = 4,
     }
-
+    
+    [Flags]
     public enum WardSelect:long
     {
         ALL = E.ALL,

@@ -18,6 +18,8 @@ import { OrderSearch } from 'models/OrderSearch';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
+import {OrderStatus} from 'models/OrderStatus';
+import {OrderStatusSearch} from 'models/OrderStatusSearch';
 
 const {Column} = Table;
 
@@ -141,6 +143,19 @@ function OrderMaster(props: RouteComponentProps) {
                        return (
                          <>
                            {customer && customer.id}
+                         </>
+                       );
+                     }}
+        />
+         <Column key="status"
+                dataIndex="status"
+                title={translate('orderMaster.status')}
+                sorter
+                sortOrder={getColumnSortOrder<Order>('status', sorter)}
+                render={(status: OrderStatus) => {
+                       return (
+                         <>
+                           {status && status.id}
                          </>
                        );
                      }}

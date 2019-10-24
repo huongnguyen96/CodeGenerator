@@ -6,6 +6,8 @@ import {map} from 'rxjs/operators';
 import {OrderContent} from 'models/OrderContent';
 import {OrderContentSearch} from 'models/OrderContentSearch';
 
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import {Order} from 'models/Order';
 import {OrderSearch} from 'models/OrderSearch';
 
@@ -43,6 +45,12 @@ export class OrderContentMasterRepository extends Repository {
       );
   };
   
+  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
+    return this.httpService.post('/single-list-item',itemSearch)
+      .pipe(
+        map((response: AxiosResponse<Item[]>) => response.data),
+      );
+  };
   public singleListOrder = (orderSearch: OrderSearch): Observable<Order[]> => {
     return this.httpService.post('/single-list-order',orderSearch)
       .pipe(

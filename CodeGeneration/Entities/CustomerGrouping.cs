@@ -11,6 +11,7 @@ namespace WG.Entities
         public long Id { get; set; }
         public string Name { get; set; }
         public List<Customer_CustomerGrouping> Customer_CustomerGroupings { get; set; }
+        public List<Discount_CustomerGrouping> Discount_CustomerGroupings { get; set; }
     }
 
     public class CustomerGroupingFilter : FilterEntity
@@ -31,7 +32,8 @@ namespace WG.Entities
         Id = 1,
         Name = 2,
     }
-
+    
+    [Flags]
     public enum CustomerGroupingSelect:long
     {
         ALL = E.ALL,

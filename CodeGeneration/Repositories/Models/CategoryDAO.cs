@@ -9,7 +9,7 @@ namespace CodeGeneration.Repositories.Models
         {
             Brands = new HashSet<BrandDAO>();
             InverseParent = new HashSet<CategoryDAO>();
-            Items = new HashSet<ItemDAO>();
+            Products = new HashSet<ProductDAO>();
         }
 
         public long Id { get; set; }
@@ -21,6 +21,6 @@ namespace CodeGeneration.Repositories.Models
         public virtual CategoryDAO Parent { get; set; }
         public virtual ICollection<BrandDAO> Brands { get; set; }
         public virtual ICollection<CategoryDAO> InverseParent { get; set; }
-        public virtual ICollection<ItemDAO> Items { get; set; }
+        public virtual ICollection<ProductDAO> Products { get; set; }
     }
 }

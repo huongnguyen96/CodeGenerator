@@ -17,7 +17,7 @@ namespace CodeGeneration.Repositories.Models
         public string Address { get; set; }
         public long PartnerId { get; set; }
 
-        public virtual PartnerDAO Partner { get; set; }
+        public virtual MerchantDAO Partner { get; set; }
         public virtual ICollection<StockDAO> Stocks { get; set; }
     }
 }

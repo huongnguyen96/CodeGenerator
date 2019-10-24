@@ -87,6 +87,8 @@ namespace WG.Repositories
                     Id = q.Customer.Id,
                     Username = q.Customer.Username,
                     DisplayName = q.Customer.DisplayName,
+                    PhoneNumber = q.Customer.PhoneNumber,
+                    Email = q.Customer.Email,
                 } : null,
                 CustomerGrouping = filter.Selects.Contains(Customer_CustomerGroupingSelect.CustomerGrouping) && q.CustomerGrouping != null ? new CustomerGrouping
                 {
@@ -129,6 +131,8 @@ namespace WG.Repositories
                     Id = Customer_CustomerGroupingDAO.Customer.Id,
                     Username = Customer_CustomerGroupingDAO.Customer.Username,
                     DisplayName = Customer_CustomerGroupingDAO.Customer.DisplayName,
+                    PhoneNumber = Customer_CustomerGroupingDAO.Customer.PhoneNumber,
+                    Email = Customer_CustomerGroupingDAO.Customer.Email,
                 },
                 CustomerGrouping = Customer_CustomerGroupingDAO.CustomerGrouping == null ? null : new CustomerGrouping
                 {

@@ -21,8 +21,8 @@ import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
 import './VariationGroupingDetail.scss';
 import variationGroupingDetailRepository from './VariationGroupingDetailRepository';
 
-import {Item} from 'models/Item';
-import {ItemSearch} from 'models/ItemSearch';
+import {Product} from 'models/Product';
+import {ProductSearch} from 'models/ProductSearch';
 
 function VariationGroupingDetail(props) {
   const {
@@ -38,7 +38,7 @@ function VariationGroupingDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [variationGrouping, loading] = useDetail<VariationGrouping>(id, variationGroupingDetailRepository.get, new VariationGrouping());
   
-  const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
+  const [productSearch, setProductSearch] = useState<ProductSearch>(new ProductSearch());
 
   function handleSubmit() {
     form.validateFields((validationError: Error, variationGrouping: VariationGrouping) => {
@@ -104,25 +104,25 @@ function VariationGroupingDetail(props) {
         </Form.Item>
 
         
-        <Form.Item label={translate('variationGroupingDetail.item')}>
+        <Form.Item label={translate('variationGroupingDetail.product')}>
             {
                 form.getFieldDecorator(
-                    'itemId', 
+                    'productId', 
                     {
-                        initialValue: variationGrouping.item 
-                            ? variationGrouping.item.id 
+                        initialValue: variationGrouping.product 
+                            ? variationGrouping.product.id 
                             : null,
                     }
                 )
                 (
-                    <SingleSelect getList={variationGroupingDetailRepository.singleListItem}
-                                  search={itemSearch}
+                    <SingleSelect getList={variationGroupingDetailRepository.singleListProduct}
+                                  search={productSearch}
                                   searchField="name"
                                   showSearch
-                                  setSearch={setItemSearch}>
-                      {variationGrouping.item && (
-                        <Option value={variationGrouping.item.id}>
-                          {variationGrouping.item.id}
+                                  setSearch={setProductSearch}>
+                      {variationGrouping.product && (
+                        <Option value={variationGrouping.product.id}>
+                          {variationGrouping.product.id}
                         </Option>
                       )}
                     </SingleSelect>,

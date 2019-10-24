@@ -11,29 +11,23 @@ namespace WG.Controllers.item.item_detail
     {
         
         public long Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        public long ProductId { get; set; }
+        public long FirstVariationId { get; set; }
+        public long? SecondVariationId { get; set; }
         public string SKU { get; set; }
-        public string Description { get; set; }
-        public long TypeId { get; set; }
-        public long StatusId { get; set; }
-        public long PartnerId { get; set; }
-        public long CategoryId { get; set; }
-        public long BrandId { get; set; }
+        public long Price { get; set; }
+        public long MinPrice { get; set; }
         public ItemDetail_ItemDTO() {}
         public ItemDetail_ItemDTO(Item Item)
         {
             
             this.Id = Item.Id;
-            this.Code = Item.Code;
-            this.Name = Item.Name;
+            this.ProductId = Item.ProductId;
+            this.FirstVariationId = Item.FirstVariationId;
+            this.SecondVariationId = Item.SecondVariationId;
             this.SKU = Item.SKU;
-            this.Description = Item.Description;
-            this.TypeId = Item.TypeId;
-            this.StatusId = Item.StatusId;
-            this.PartnerId = Item.PartnerId;
-            this.CategoryId = Item.CategoryId;
-            this.BrandId = Item.BrandId;
+            this.Price = Item.Price;
+            this.MinPrice = Item.MinPrice;
         }
     }
 
@@ -41,14 +35,12 @@ namespace WG.Controllers.item.item_detail
     {
         
         public long? Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
+        public long? ProductId { get; set; }
+        public long? FirstVariationId { get; set; }
+        public long? SecondVariationId { get; set; }
         public string SKU { get; set; }
-        public string Description { get; set; }
-        public long? TypeId { get; set; }
-        public long? StatusId { get; set; }
-        public long? PartnerId { get; set; }
-        public long? CategoryId { get; set; }
-        public long? BrandId { get; set; }
+        public long? Price { get; set; }
+        public long? MinPrice { get; set; }
+        public ItemOrder OrderBy { get; set; }
     }
 }

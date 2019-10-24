@@ -1,7 +1,7 @@
 import {Model} from 'core';
 
 import {Category} from 'models/Category';
-import {Item} from 'models/Item';
+import {Product} from 'models/Product';
 
 export class Brand extends Model {
    
@@ -13,7 +13,7 @@ export class Brand extends Model {
 
   public category?: Category;
   
-  public items?: Item[];
+  public products?: Product[];
 
   public constructor(brand?: Brand) {
     super(brand);

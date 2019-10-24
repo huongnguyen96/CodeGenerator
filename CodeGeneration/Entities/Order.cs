@@ -15,7 +15,9 @@ namespace WG.Entities
         public long Total { get; set; }
         public long VoucherDiscount { get; set; }
         public long CampaignDiscount { get; set; }
+        public long StatusId { get; set; }
         public Customer Customer { get; set; }
+        public OrderStatus Status { get; set; }
         public List<OrderContent> OrderContents { get; set; }
     }
 
@@ -29,6 +31,7 @@ namespace WG.Entities
         public LongFilter Total { get; set; }
         public LongFilter VoucherDiscount { get; set; }
         public LongFilter CampaignDiscount { get; set; }
+        public LongFilter StatusId { get; set; }
         public List<long> Ids { get; set; }
         public List<long> ExceptIds { get; set; }
 
@@ -46,8 +49,10 @@ namespace WG.Entities
         Total = 5,
         VoucherDiscount = 6,
         CampaignDiscount = 7,
+        Status = 8,
     }
-
+    
+    [Flags]
     public enum OrderSelect:long
     {
         ALL = E.ALL,
@@ -59,5 +64,6 @@ namespace WG.Entities
         Total = E._5,
         VoucherDiscount = E._6,
         CampaignDiscount = E._7,
+        Status = E._8,
     }
 }

@@ -9,7 +9,7 @@ using WG.Services.MVariationGrouping;
 using Microsoft.AspNetCore.Mvc;
 using WG.Entities;
 
-using WG.Services.MItem;
+using WG.Services.MProduct;
 
 
 namespace WG.Controllers.variation_grouping.variation_grouping_detail
@@ -23,24 +23,24 @@ namespace WG.Controllers.variation_grouping.variation_grouping_detail
         public const string Update = Default + "/update";
         public const string Delete = Default + "/delete";
         
-        public const string SingleListItem= Default + "/single-list-item";
+        public const string SingleListProduct= Default + "/single-list-product";
     }
 
     public class VariationGroupingDetailController : ApiController
     {
         
         
-        private IItemService ItemService;
+        private IProductService ProductService;
         private IVariationGroupingService VariationGroupingService;
 
         public VariationGroupingDetailController(
             
-            IItemService ItemService,
+            IProductService ProductService,
             IVariationGroupingService VariationGroupingService
         )
         {
             
-            this.ItemService = ItemService;
+            this.ProductService = ProductService;
             this.VariationGroupingService = VariationGroupingService;
         }
 
@@ -110,36 +110,40 @@ namespace WG.Controllers.variation_grouping.variation_grouping_detail
             
             VariationGrouping.Id = VariationGroupingDetail_VariationGroupingDTO.Id;
             VariationGrouping.Name = VariationGroupingDetail_VariationGroupingDTO.Name;
-            VariationGrouping.ItemId = VariationGroupingDetail_VariationGroupingDTO.ItemId;
+            VariationGrouping.ProductId = VariationGroupingDetail_VariationGroupingDTO.ProductId;
             return VariationGrouping;
         }
         
         
-        [Route(VariationGroupingDetailRoute.SingleListItem), HttpPost]
-        public async Task<List<VariationGroupingDetail_ItemDTO>> SingleListItem([FromBody] VariationGroupingDetail_ItemFilterDTO VariationGroupingDetail_ItemFilterDTO)
+        [Route(VariationGroupingDetailRoute.SingleListProduct), HttpPost]
+        public async Task<List<VariationGroupingDetail_ProductDTO>> SingleListProduct([FromBody] VariationGroupingDetail_ProductFilterDTO VariationGroupingDetail_ProductFilterDTO)
         {
-            ItemFilter ItemFilter = new ItemFilter();
-            ItemFilter.Skip = 0;
-            ItemFilter.Take = 20;
-            ItemFilter.OrderBy = ItemOrder.Id;
-            ItemFilter.OrderType = OrderType.ASC;
-            ItemFilter.Selects = ItemSelect.ALL;
+            ProductFilter ProductFilter = new ProductFilter();
+            ProductFilter.Skip = 0;
+            ProductFilter.Take = 20;
+            ProductFilter.OrderBy = ProductOrder.Id;
+            ProductFilter.OrderType = OrderType.ASC;
+            ProductFilter.Selects = ProductSelect.ALL;
             
-            ItemFilter.Id = new LongFilter{ Equal = VariationGroupingDetail_ItemFilterDTO.Id };
-            ItemFilter.Code = new StringFilter{ StartsWith = VariationGroupingDetail_ItemFilterDTO.Code };
-            ItemFilter.Name = new StringFilter{ StartsWith = VariationGroupingDetail_ItemFilterDTO.Name };
-            ItemFilter.SKU = new StringFilter{ StartsWith = VariationGroupingDetail_ItemFilterDTO.SKU };
-            ItemFilter.Description = new StringFilter{ StartsWith = VariationGroupingDetail_ItemFilterDTO.Description };
-            ItemFilter.TypeId = new LongFilter{ Equal = VariationGroupingDetail_ItemFilterDTO.TypeId };
-            ItemFilter.StatusId = new LongFilter{ Equal = VariationGroupingDetail_ItemFilterDTO.StatusId };
-            ItemFilter.PartnerId = new LongFilter{ Equal = VariationGroupingDetail_ItemFilterDTO.PartnerId };
-            ItemFilter.CategoryId = new LongFilter{ Equal = VariationGroupingDetail_ItemFilterDTO.CategoryId };
-            ItemFilter.BrandId = new LongFilter{ Equal = VariationGroupingDetail_ItemFilterDTO.BrandId };
+            ProductFilter.Id = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.Id };
+            ProductFilter.Code = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.Code };
+            ProductFilter.Name = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.Name };
+            ProductFilter.Description = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.Description };
+            ProductFilter.TypeId = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.TypeId };
+            ProductFilter.StatusId = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.StatusId };
+            ProductFilter.MerchantId = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.MerchantId };
+            ProductFilter.CategoryId = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.CategoryId };
+            ProductFilter.BrandId = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.BrandId };
+            ProductFilter.WarrantyPolicy = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.WarrantyPolicy };
+            ProductFilter.ReturnPolicy = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.ReturnPolicy };
+            ProductFilter.ExpiredDate = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.ExpiredDate };
+            ProductFilter.ConditionOfUse = new StringFilter{ StartsWith = VariationGroupingDetail_ProductFilterDTO.ConditionOfUse };
+            ProductFilter.MaximumPurchaseQuantity = new LongFilter{ Equal = VariationGroupingDetail_ProductFilterDTO.MaximumPurchaseQuantity };
 
-            List<Item> Items = await ItemService.List(ItemFilter);
-            List<VariationGroupingDetail_ItemDTO> VariationGroupingDetail_ItemDTOs = Items
-                .Select(x => new VariationGroupingDetail_ItemDTO(x)).ToList();
-            return VariationGroupingDetail_ItemDTOs;
+            List<Product> Products = await ProductService.List(ProductFilter);
+            List<VariationGroupingDetail_ProductDTO> VariationGroupingDetail_ProductDTOs = Products
+                .Select(x => new VariationGroupingDetail_ProductDTO(x)).ToList();
+            return VariationGroupingDetail_ProductDTOs;
         }
 
     }

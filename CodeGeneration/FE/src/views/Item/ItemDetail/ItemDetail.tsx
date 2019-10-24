@@ -21,16 +21,10 @@ import {ItemSearch} from 'models/ItemSearch';
 import './ItemDetail.scss';
 import itemDetailRepository from './ItemDetailRepository';
 
-import {Brand} from 'models/Brand';
-import {BrandSearch} from 'models/BrandSearch';
-import {Category} from 'models/Category';
-import {CategorySearch} from 'models/CategorySearch';
-import {Partner} from 'models/Partner';
-import {PartnerSearch} from 'models/PartnerSearch';
-import {ItemStatus} from 'models/ItemStatus';
-import {ItemStatusSearch} from 'models/ItemStatusSearch';
-import {ItemType} from 'models/ItemType';
-import {ItemTypeSearch} from 'models/ItemTypeSearch';
+import {Variation} from 'models/Variation';
+import {VariationSearch} from 'models/VariationSearch';
+import {Product} from 'models/Product';
+import {ProductSearch} from 'models/ProductSearch';
 
 function ItemDetail(props) {
   const {
@@ -46,11 +40,8 @@ function ItemDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [item, loading] = useDetail<Item>(id, itemDetailRepository.get, new Item());
   
-  const [brandSearch, setBrandSearch] = useState<BrandSearch>(new BrandSearch());
-  const [categorySearch, setCategorySearch] = useState<CategorySearch>(new CategorySearch());
-  const [partnerSearch, setPartnerSearch] = useState<PartnerSearch>(new PartnerSearch());
-  const [itemStatusSearch, setItemStatusSearch] = useState<ItemStatusSearch>(new ItemStatusSearch());
-  const [itemTypeSearch, setItemTypeSearch] = useState<ItemTypeSearch>(new ItemTypeSearch());
+  const [variationSearch, setVariationSearch] = useState<VariationSearch>(new VariationSearch());
+  const [productSearch, setProductSearch] = useState<ProductSearch>(new ProductSearch());
 
   function handleSubmit() {
     form.validateFields((validationError: Error, item: Item) => {
@@ -101,34 +92,6 @@ function ItemDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('itemDetail.code')}>
-          {form.getFieldDecorator('code', {
-            initialValue: item.code,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.code.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
-        <Form.Item label={translate('itemDetail.name')}>
-          {form.getFieldDecorator('name', {
-            initialValue: item.name,
-            rules: [
-              {
-                required: true,
-                message: translate('itemDetail.errors.name.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('itemDetail.sKU')}>
           {form.getFieldDecorator('sKU', {
             initialValue: item.sKU,
@@ -143,13 +106,27 @@ function ItemDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('itemDetail.description')}>
-          {form.getFieldDecorator('description', {
-            initialValue: item.description,
+        <Form.Item label={translate('itemDetail.price')}>
+          {form.getFieldDecorator('price', {
+            initialValue: item.price,
             rules: [
               {
                 required: true,
-                message: translate('itemDetail.errors.description.required'),
+                message: translate('itemDetail.errors.price.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
+        </Form.Item>
+
+        <Form.Item label={translate('itemDetail.minPrice')}>
+          {form.getFieldDecorator('minPrice', {
+            initialValue: item.minPrice,
+            rules: [
+              {
+                required: true,
+                message: translate('itemDetail.errors.minPrice.required'),
               },
             ],
           })(
@@ -158,125 +135,50 @@ function ItemDetail(props) {
         </Form.Item>
 
         
-        <Form.Item label={translate('itemDetail.brand')}>
+        <Form.Item label={translate('itemDetail.firstVariation')}>
             {
                 form.getFieldDecorator(
-                    'brandId', 
+                    'firstVariationId', 
                     {
-                        initialValue: item.brand 
-                            ? item.brand.id 
+                        initialValue: item.firstVariation 
+                            ? item.firstVariation.id 
                             : null,
                     }
                 )
                 (
-                    <SingleSelect getList={itemDetailRepository.singleListBrand}
-                                  search={brandSearch}
+                    <SingleSelect getList={itemDetailRepository.singleListVariation}
+                                  search={variationSearch}
                                   searchField="name"
                                   showSearch
-                                  setSearch={setBrandSearch}>
-                      {item.brand && (
-                        <Option value={item.brand.id}>
-                          {item.brand.id}
+                                  setSearch={setVariationSearch}>
+                      {item.firstVariation && (
+                        <Option value={item.firstVariation.id}>
+                          {item.firstVariation.id}
                         </Option>
                       )}
                     </SingleSelect>,
                 )
             }
         </Form.Item>
-        <Form.Item label={translate('itemDetail.category')}>
+        <Form.Item label={translate('itemDetail.product')}>
             {
                 form.getFieldDecorator(
-                    'categoryId', 
+                    'productId', 
                     {
-                        initialValue: item.category 
-                            ? item.category.id 
+                        initialValue: item.product 
+                            ? item.product.id 
                             : null,
                     }
                 )
                 (
-                    <SingleSelect getList={itemDetailRepository.singleListCategory}
-                                  search={categorySearch}
+                    <SingleSelect getList={itemDetailRepository.singleListProduct}
+                                  search={productSearch}
                                   searchField="name"
                                   showSearch
-                                  setSearch={setCategorySearch}>
-                      {item.category && (
-                        <Option value={item.category.id}>
-                          {item.category.id}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
-        <Form.Item label={translate('itemDetail.partner')}>
-            {
-                form.getFieldDecorator(
-                    'partnerId', 
-                    {
-                        initialValue: item.partner 
-                            ? item.partner.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={itemDetailRepository.singleListPartner}
-                                  search={partnerSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setPartnerSearch}>
-                      {item.partner && (
-                        <Option value={item.partner.id}>
-                          {item.partner.id}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
-        <Form.Item label={translate('itemDetail.status')}>
-            {
-                form.getFieldDecorator(
-                    'statusId', 
-                    {
-                        initialValue: item.status 
-                            ? item.status.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={itemDetailRepository.singleListItemStatus}
-                                  search={itemStatusSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setItemStatusSearch}>
-                      {item.status && (
-                        <Option value={item.status.id}>
-                          {item.status.id}
-                        </Option>
-                      )}
-                    </SingleSelect>,
-                )
-            }
-        </Form.Item>
-        <Form.Item label={translate('itemDetail.type')}>
-            {
-                form.getFieldDecorator(
-                    'typeId', 
-                    {
-                        initialValue: item.type 
-                            ? item.type.id 
-                            : null,
-                    }
-                )
-                (
-                    <SingleSelect getList={itemDetailRepository.singleListItemType}
-                                  search={itemTypeSearch}
-                                  searchField="name"
-                                  showSearch
-                                  setSearch={setItemTypeSearch}>
-                      {item.type && (
-                        <Option value={item.type.id}>
-                          {item.type.id}
+                                  setSearch={setProductSearch}>
+                      {item.product && (
+                        <Option value={item.product.id}>
+                          {item.product.id}
                         </Option>
                       )}
                     </SingleSelect>,

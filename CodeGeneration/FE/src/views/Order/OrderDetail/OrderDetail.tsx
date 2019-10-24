@@ -23,6 +23,8 @@ import orderDetailRepository from './OrderDetailRepository';
 
 import {Customer} from 'models/Customer';
 import {CustomerSearch} from 'models/CustomerSearch';
+import {OrderStatus} from 'models/OrderStatus';
+import {OrderStatusSearch} from 'models/OrderStatusSearch';
 
 function OrderDetail(props) {
   const {
@@ -39,6 +41,7 @@ function OrderDetail(props) {
   const [order, loading] = useDetail<Order>(id, orderDetailRepository.get, new Order());
   
   const [customerSearch, setCustomerSearch] = useState<CustomerSearch>(new CustomerSearch());
+  const [orderStatusSearch, setOrderStatusSearch] = useState<OrderStatusSearch>(new OrderStatusSearch());
 
   function handleSubmit() {
     form.validateFields((validationError: Error, order: Order) => {
@@ -179,6 +182,31 @@ function OrderDetail(props) {
                       {order.customer && (
                         <Option value={order.customer.id}>
                           {order.customer.id}
+                        </Option>
+                      )}
+                    </SingleSelect>,
+                )
+            }
+        </Form.Item>
+        <Form.Item label={translate('orderDetail.status')}>
+            {
+                form.getFieldDecorator(
+                    'statusId', 
+                    {
+                        initialValue: order.status 
+                            ? order.status.id 
+                            : null,
+                    }
+                )
+                (
+                    <SingleSelect getList={orderDetailRepository.singleListOrderStatus}
+                                  search={orderStatusSearch}
+                                  searchField="name"
+                                  showSearch
+                                  setSearch={setOrderStatusSearch}>
+                      {order.status && (
+                        <Option value={order.status.id}>
+                          {order.status.id}
                         </Option>
                       )}
                     </SingleSelect>,

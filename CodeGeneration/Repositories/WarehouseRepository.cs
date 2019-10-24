@@ -121,7 +121,7 @@ namespace WG.Repositories
                 Email = filter.Selects.Contains(WarehouseSelect.Email) ? q.Email : default(string),
                 Address = filter.Selects.Contains(WarehouseSelect.Address) ? q.Address : default(string),
                 PartnerId = filter.Selects.Contains(WarehouseSelect.Partner) ? q.PartnerId : default(long),
-                Partner = filter.Selects.Contains(WarehouseSelect.Partner) && q.Partner != null ? new Partner
+                Partner = filter.Selects.Contains(WarehouseSelect.Partner) && q.Partner != null ? new Merchant
                 {
                     
                     Id = q.Partner.Id,
@@ -163,7 +163,7 @@ namespace WG.Repositories
                 Email = WarehouseDAO.Email,
                 Address = WarehouseDAO.Address,
                 PartnerId = WarehouseDAO.PartnerId,
-                Partner = WarehouseDAO.Partner == null ? null : new Partner
+                Partner = WarehouseDAO.Partner == null ? null : new Merchant
                 {
                     
                     Id = WarehouseDAO.Partner.Id,

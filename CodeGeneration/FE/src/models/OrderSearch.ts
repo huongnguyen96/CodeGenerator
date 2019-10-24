@@ -16,5 +16,7 @@ export class OrderSearch extends Search {
   public voucherDiscount?: number;
 
   public campaignDiscount?: number;
+
+  public statusId?: number;
 ;
 }

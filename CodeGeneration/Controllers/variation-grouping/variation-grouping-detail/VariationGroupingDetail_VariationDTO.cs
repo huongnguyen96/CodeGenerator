@@ -29,5 +29,6 @@ namespace WG.Controllers.variation_grouping.variation_grouping_detail
         public long? Id { get; set; }
         public string Name { get; set; }
         public long? VariationGroupingId { get; set; }
+        public VariationOrder OrderBy { get; set; }
     }
 }

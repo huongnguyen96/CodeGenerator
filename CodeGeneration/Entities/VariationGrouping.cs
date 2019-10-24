@@ -10,8 +10,8 @@ namespace WG.Entities
         
         public long Id { get; set; }
         public string Name { get; set; }
-        public long ItemId { get; set; }
-        public Item Item { get; set; }
+        public long ProductId { get; set; }
+        public Product Product { get; set; }
         public List<Variation> Variations { get; set; }
     }
 
@@ -20,7 +20,7 @@ namespace WG.Entities
         
         public LongFilter Id { get; set; }
         public StringFilter Name { get; set; }
-        public LongFilter ItemId { get; set; }
+        public LongFilter ProductId { get; set; }
         public List<long> Ids { get; set; }
         public List<long> ExceptIds { get; set; }
 
@@ -33,15 +33,16 @@ namespace WG.Entities
         
         Id = 1,
         Name = 2,
-        Item = 3,
+        Product = 3,
     }
-
+    
+    [Flags]
     public enum VariationGroupingSelect:long
     {
         ALL = E.ALL,
         
         Id = E._1,
         Name = E._2,
-        Item = E._3,
+        Product = E._3,
     }
 }

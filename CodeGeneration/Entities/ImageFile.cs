@@ -33,7 +33,8 @@ namespace WG.Entities
         Path = 2,
         Name = 3,
     }
-
+    
+    [Flags]
     public enum ImageFileSelect:long
     {
         ALL = E.ALL,

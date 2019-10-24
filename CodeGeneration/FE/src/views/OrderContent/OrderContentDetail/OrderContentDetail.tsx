@@ -21,6 +21,8 @@ import {OrderContentSearch} from 'models/OrderContentSearch';
 import './OrderContentDetail.scss';
 import orderContentDetailRepository from './OrderContentDetailRepository';
 
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import {Order} from 'models/Order';
 import {OrderSearch} from 'models/OrderSearch';
 
@@ -38,6 +40,7 @@ function OrderContentDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [orderContent, loading] = useDetail<OrderContent>(id, orderContentDetailRepository.get, new OrderContent());
   
+  const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
   const [orderSearch, setOrderSearch] = useState<OrderSearch>(new OrderSearch());
 
   function handleSubmit() {
@@ -89,13 +92,13 @@ function OrderContentDetail(props) {
           <Input type="hidden"/>,
         )}
         
-        <Form.Item label={translate('orderContentDetail.itemName')}>
-          {form.getFieldDecorator('itemName', {
-            initialValue: orderContent.itemName,
+        <Form.Item label={translate('orderContentDetail.productName')}>
+          {form.getFieldDecorator('productName', {
+            initialValue: orderContent.productName,
             rules: [
               {
                 required: true,
-                message: translate('orderContentDetail.errors.itemName.required'),
+                message: translate('orderContentDetail.errors.productName.required'),
               },
             ],
           })(
@@ -131,20 +134,6 @@ function OrderContentDetail(props) {
           )}
         </Form.Item>
 
-        <Form.Item label={translate('orderContentDetail.thirdVersion')}>
-          {form.getFieldDecorator('thirdVersion', {
-            initialValue: orderContent.thirdVersion,
-            rules: [
-              {
-                required: true,
-                message: translate('orderContentDetail.errors.thirdVersion.required'),
-              },
-            ],
-          })(
-            <Input type="text"/>,
-          )}
-        </Form.Item>
-
         <Form.Item label={translate('orderContentDetail.price')}>
           {form.getFieldDecorator('price', {
             initialValue: orderContent.price,
@@ -173,7 +162,46 @@ function OrderContentDetail(props) {
           )}
         </Form.Item>
 
+        <Form.Item label={translate('orderContentDetail.quantity')}>
+          {form.getFieldDecorator('quantity', {
+            initialValue: orderContent.quantity,
+            rules: [
+              {
+                required: true,
+                message: translate('orderContentDetail.errors.quantity.required'),
+              },
+            ],
+          })(
+            <Input type="text"/>,
+          )}
+        </Form.Item>
+
         
+        <Form.Item label={translate('orderContentDetail.item')}>
+            {
+                form.getFieldDecorator(
+                    'itemId', 
+                    {
+                        initialValue: orderContent.item 
+                            ? orderContent.item.id 
+                            : null,
+                    }
+                )
+                (
+                    <SingleSelect getList={orderContentDetailRepository.singleListItem}
+                                  search={itemSearch}
+                                  searchField="name"
+                                  showSearch
+                                  setSearch={setItemSearch}>
+                      {orderContent.item && (
+                        <Option value={orderContent.item.id}>
+                          {orderContent.item.id}
+                        </Option>
+                      )}
+                    </SingleSelect>,
+                )
+            }
+        </Form.Item>
         <Form.Item label={translate('orderContentDetail.order')}>
             {
                 form.getFieldDecorator(

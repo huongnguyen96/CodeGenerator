@@ -25,35 +25,49 @@ namespace WG.Repositories
 
         ICustomer_CustomerGroupingRepository Customer_CustomerGroupingRepository { get; }
 
-        IDiscountCustomerGroupingRepository DiscountCustomerGroupingRepository { get; }
+        IDiscountContentRepository DiscountContentRepository { get; }
 
         IDiscountRepository DiscountRepository { get; }
 
-        IDiscountItemRepository DiscountItemRepository { get; }
+        IDiscount_CustomerGroupingRepository Discount_CustomerGroupingRepository { get; }
 
         IDistrictRepository DistrictRepository { get; }
+
+        IEVoucherContentRepository EVoucherContentRepository { get; }
+
+        IEVoucherRepository EVoucherRepository { get; }
 
         IImageFileRepository ImageFileRepository { get; }
 
         IItemRepository ItemRepository { get; }
 
-        IItemStatusRepository ItemStatusRepository { get; }
+        IMerchantAddressRepository MerchantAddressRepository { get; }
 
-        IItemTypeRepository ItemTypeRepository { get; }
+        IMerchantRepository MerchantRepository { get; }
 
         IOrderContentRepository OrderContentRepository { get; }
 
         IOrderRepository OrderRepository { get; }
 
-        IPartnerRepository PartnerRepository { get; }
+        IOrderStatusRepository OrderStatusRepository { get; }
+
+        IPaymentMethodRepository PaymentMethodRepository { get; }
+
+        IProductRepository ProductRepository { get; }
+
+        IProductStatusRepository ProductStatusRepository { get; }
+
+        IProductTypeRepository ProductTypeRepository { get; }
+
+        IProduct_MerchantAddressRepository Product_MerchantAddressRepository { get; }
+
+        IProduct_PaymentMethodRepository Product_PaymentMethodRepository { get; }
 
         IProvinceRepository ProvinceRepository { get; }
 
         IShippingAddressRepository ShippingAddressRepository { get; }
 
         IStockRepository StockRepository { get; }
-
-        IUnitRepository UnitRepository { get; }
 
         IVariationRepository VariationRepository { get; }
 
@@ -82,35 +96,49 @@ namespace WG.Repositories
 
         public ICustomer_CustomerGroupingRepository Customer_CustomerGroupingRepository { get; private set; }
 
-        public IDiscountCustomerGroupingRepository DiscountCustomerGroupingRepository { get; private set; }
+        public IDiscountContentRepository DiscountContentRepository { get; private set; }
 
         public IDiscountRepository DiscountRepository { get; private set; }
 
-        public IDiscountItemRepository DiscountItemRepository { get; private set; }
+        public IDiscount_CustomerGroupingRepository Discount_CustomerGroupingRepository { get; private set; }
 
         public IDistrictRepository DistrictRepository { get; private set; }
+
+        public IEVoucherContentRepository EVoucherContentRepository { get; private set; }
+
+        public IEVoucherRepository EVoucherRepository { get; private set; }
 
         public IImageFileRepository ImageFileRepository { get; private set; }
 
         public IItemRepository ItemRepository { get; private set; }
 
-        public IItemStatusRepository ItemStatusRepository { get; private set; }
+        public IMerchantAddressRepository MerchantAddressRepository { get; private set; }
 
-        public IItemTypeRepository ItemTypeRepository { get; private set; }
+        public IMerchantRepository MerchantRepository { get; private set; }
 
         public IOrderContentRepository OrderContentRepository { get; private set; }
 
         public IOrderRepository OrderRepository { get; private set; }
 
-        public IPartnerRepository PartnerRepository { get; private set; }
+        public IOrderStatusRepository OrderStatusRepository { get; private set; }
+
+        public IPaymentMethodRepository PaymentMethodRepository { get; private set; }
+
+        public IProductRepository ProductRepository { get; private set; }
+
+        public IProductStatusRepository ProductStatusRepository { get; private set; }
+
+        public IProductTypeRepository ProductTypeRepository { get; private set; }
+
+        public IProduct_MerchantAddressRepository Product_MerchantAddressRepository { get; private set; }
+
+        public IProduct_PaymentMethodRepository Product_PaymentMethodRepository { get; private set; }
 
         public IProvinceRepository ProvinceRepository { get; private set; }
 
         public IShippingAddressRepository ShippingAddressRepository { get; private set; }
 
         public IStockRepository StockRepository { get; private set; }
-
-        public IUnitRepository UnitRepository { get; private set; }
 
         public IVariationRepository VariationRepository { get; private set; }
 
@@ -139,35 +167,49 @@ namespace WG.Repositories
 
             Customer_CustomerGroupingRepository = new Customer_CustomerGroupingRepository(DataContext, CurrentContext);
 
-            DiscountCustomerGroupingRepository = new DiscountCustomerGroupingRepository(DataContext, CurrentContext);
+            DiscountContentRepository = new DiscountContentRepository(DataContext, CurrentContext);
 
             DiscountRepository = new DiscountRepository(DataContext, CurrentContext);
 
-            DiscountItemRepository = new DiscountItemRepository(DataContext, CurrentContext);
+            Discount_CustomerGroupingRepository = new Discount_CustomerGroupingRepository(DataContext, CurrentContext);
 
             DistrictRepository = new DistrictRepository(DataContext, CurrentContext);
+
+            EVoucherContentRepository = new EVoucherContentRepository(DataContext, CurrentContext);
+
+            EVoucherRepository = new EVoucherRepository(DataContext, CurrentContext);
 
             ImageFileRepository = new ImageFileRepository(DataContext, CurrentContext);
 
             ItemRepository = new ItemRepository(DataContext, CurrentContext);
 
-            ItemStatusRepository = new ItemStatusRepository(DataContext, CurrentContext);
+            MerchantAddressRepository = new MerchantAddressRepository(DataContext, CurrentContext);
 
-            ItemTypeRepository = new ItemTypeRepository(DataContext, CurrentContext);
+            MerchantRepository = new MerchantRepository(DataContext, CurrentContext);
 
             OrderContentRepository = new OrderContentRepository(DataContext, CurrentContext);
 
             OrderRepository = new OrderRepository(DataContext, CurrentContext);
 
-            PartnerRepository = new PartnerRepository(DataContext, CurrentContext);
+            OrderStatusRepository = new OrderStatusRepository(DataContext, CurrentContext);
+
+            PaymentMethodRepository = new PaymentMethodRepository(DataContext, CurrentContext);
+
+            ProductRepository = new ProductRepository(DataContext, CurrentContext);
+
+            ProductStatusRepository = new ProductStatusRepository(DataContext, CurrentContext);
+
+            ProductTypeRepository = new ProductTypeRepository(DataContext, CurrentContext);
+
+            Product_MerchantAddressRepository = new Product_MerchantAddressRepository(DataContext, CurrentContext);
+
+            Product_PaymentMethodRepository = new Product_PaymentMethodRepository(DataContext, CurrentContext);
 
             ProvinceRepository = new ProvinceRepository(DataContext, CurrentContext);
 
             ShippingAddressRepository = new ShippingAddressRepository(DataContext, CurrentContext);
 
             StockRepository = new StockRepository(DataContext, CurrentContext);
-
-            UnitRepository = new UnitRepository(DataContext, CurrentContext);
 
             VariationRepository = new VariationRepository(DataContext, CurrentContext);
 

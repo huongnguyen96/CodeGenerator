@@ -155,6 +155,8 @@ namespace WG.Repositories
                     Id = q.Customer.Id,
                     Username = q.Customer.Username,
                     DisplayName = q.Customer.DisplayName,
+                    PhoneNumber = q.Customer.PhoneNumber,
+                    Email = q.Customer.Email,
                 } : null,
                 District = filter.Selects.Contains(ShippingAddressSelect.District) && q.District != null ? new District
                 {
@@ -222,6 +224,8 @@ namespace WG.Repositories
                     Id = ShippingAddressDAO.Customer.Id,
                     Username = ShippingAddressDAO.Customer.Username,
                     DisplayName = ShippingAddressDAO.Customer.DisplayName,
+                    PhoneNumber = ShippingAddressDAO.Customer.PhoneNumber,
+                    Email = ShippingAddressDAO.Customer.Email,
                 },
                 District = ShippingAddressDAO.District == null ? null : new District
                 {

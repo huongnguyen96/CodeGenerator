@@ -29,7 +29,8 @@ namespace WG.Entities
         Customer = 1,
         CustomerGrouping = 2,
     }
-
+    
+    [Flags]
     public enum Customer_CustomerGroupingSelect:long
     {
         ALL = E.ALL,

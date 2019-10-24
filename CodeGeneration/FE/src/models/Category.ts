@@ -1,7 +1,7 @@
 import {Model} from 'core';
 
 import {Brand} from 'models/Brand';
-import {Item} from 'models/Item';
+import {Product} from 'models/Product';
 
 export class Category extends Model {
    
@@ -21,7 +21,7 @@ export class Category extends Model {
   
   public inverseParent?: Category[];
   
-  public items?: Item[];
+  public products?: Product[];
 
   public constructor(category?: Category) {
     super(category);

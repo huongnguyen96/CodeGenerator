@@ -7,7 +7,7 @@ namespace CodeGeneration.Repositories.Models
     {
         public BrandDAO()
         {
-            Items = new HashSet<ItemDAO>();
+            Products = new HashSet<ProductDAO>();
         }
 
         public long Id { get; set; }
@@ -15,6 +15,6 @@ namespace CodeGeneration.Repositories.Models
         public long CategoryId { get; set; }
 
         public virtual CategoryDAO Category { get; set; }
-        public virtual ICollection<ItemDAO> Items { get; set; }
+        public virtual ICollection<ProductDAO> Products { get; set; }
     }
 }

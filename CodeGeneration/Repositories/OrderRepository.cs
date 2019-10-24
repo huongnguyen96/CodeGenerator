@@ -49,6 +49,8 @@ namespace WG.Repositories
                 query = query.Where(q => q.VoucherDiscount, filter.VoucherDiscount);
             if (filter.CampaignDiscount != null)
                 query = query.Where(q => q.CampaignDiscount, filter.CampaignDiscount);
+            if (filter.StatusId != null)
+                query = query.Where(q => q.StatusId, filter.StatusId);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -84,6 +86,9 @@ namespace WG.Repositories
                         case OrderOrder.CampaignDiscount:
                             query = query.OrderBy(q => q.CampaignDiscount);
                             break;
+                        case OrderOrder.Status:
+                            query = query.OrderBy(q => q.Status.Id);
+                            break;
                     }
                     break;
                 case OrderType.DESC:
@@ -111,6 +116,9 @@ namespace WG.Repositories
                         case OrderOrder.CampaignDiscount:
                             query = query.OrderByDescending(q => q.CampaignDiscount);
                             break;
+                        case OrderOrder.Status:
+                            query = query.OrderByDescending(q => q.Status.Id);
+                            break;
                     }
                     break;
             }
@@ -130,12 +138,23 @@ namespace WG.Repositories
                 Total = filter.Selects.Contains(OrderSelect.Total) ? q.Total : default(long),
                 VoucherDiscount = filter.Selects.Contains(OrderSelect.VoucherDiscount) ? q.VoucherDiscount : default(long),
                 CampaignDiscount = filter.Selects.Contains(OrderSelect.CampaignDiscount) ? q.CampaignDiscount : default(long),
+                StatusId = filter.Selects.Contains(OrderSelect.Status) ? q.StatusId : default(long),
                 Customer = filter.Selects.Contains(OrderSelect.Customer) && q.Customer != null ? new Customer
                 {
                     
                     Id = q.Customer.Id,
                     Username = q.Customer.Username,
                     DisplayName = q.Customer.DisplayName,
+                    PhoneNumber = q.Customer.PhoneNumber,
+                    Email = q.Customer.Email,
+                } : null,
+                Status = filter.Selects.Contains(OrderSelect.Status) && q.Status != null ? new OrderStatus
+                {
+                    
+                    Id = q.Status.Id,
+                    Code = q.Status.Code,
+                    Name = q.Status.Name,
+                    Description = q.Status.Description,
                 } : null,
             }).ToListAsync();
             return Orders;
@@ -171,12 +190,23 @@ namespace WG.Repositories
                 Total = OrderDAO.Total,
                 VoucherDiscount = OrderDAO.VoucherDiscount,
                 CampaignDiscount = OrderDAO.CampaignDiscount,
+                StatusId = OrderDAO.StatusId,
                 Customer = OrderDAO.Customer == null ? null : new Customer
                 {
                     
                     Id = OrderDAO.Customer.Id,
                     Username = OrderDAO.Customer.Username,
                     DisplayName = OrderDAO.Customer.DisplayName,
+                    PhoneNumber = OrderDAO.Customer.PhoneNumber,
+                    Email = OrderDAO.Customer.Email,
+                },
+                Status = OrderDAO.Status == null ? null : new OrderStatus
+                {
+                    
+                    Id = OrderDAO.Status.Id,
+                    Code = OrderDAO.Status.Code,
+                    Name = OrderDAO.Status.Name,
+                    Description = OrderDAO.Status.Description,
                 },
             }).FirstOrDefaultAsync();
             return Order;
@@ -193,6 +223,7 @@ namespace WG.Repositories
             OrderDAO.Total = Order.Total;
             OrderDAO.VoucherDiscount = Order.VoucherDiscount;
             OrderDAO.CampaignDiscount = Order.CampaignDiscount;
+            OrderDAO.StatusId = Order.StatusId;
             
             await DataContext.Order.AddAsync(OrderDAO);
             await DataContext.SaveChangesAsync();
@@ -213,6 +244,7 @@ namespace WG.Repositories
             OrderDAO.Total = Order.Total;
             OrderDAO.VoucherDiscount = Order.VoucherDiscount;
             OrderDAO.CampaignDiscount = Order.CampaignDiscount;
+            OrderDAO.StatusId = Order.StatusId;
             await DataContext.SaveChangesAsync();
             return true;
         }

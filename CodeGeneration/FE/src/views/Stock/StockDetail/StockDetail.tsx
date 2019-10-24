@@ -21,8 +21,8 @@ import {StockSearch} from 'models/StockSearch';
 import './StockDetail.scss';
 import stockDetailRepository from './StockDetailRepository';
 
-import {Unit} from 'models/Unit';
-import {UnitSearch} from 'models/UnitSearch';
+import {Item} from 'models/Item';
+import {ItemSearch} from 'models/ItemSearch';
 import {Warehouse} from 'models/Warehouse';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
@@ -40,7 +40,7 @@ function StockDetail(props) {
   const [pageSpinning, setPageSpinning] = useState<boolean>(false);
   const [stock, loading] = useDetail<Stock>(id, stockDetailRepository.get, new Stock());
   
-  const [unitSearch, setUnitSearch] = useState<UnitSearch>(new UnitSearch());
+  const [itemSearch, setItemSearch] = useState<ItemSearch>(new ItemSearch());
   const [warehouseSearch, setWarehouseSearch] = useState<WarehouseSearch>(new WarehouseSearch());
 
   function handleSubmit() {
@@ -107,25 +107,25 @@ function StockDetail(props) {
         </Form.Item>
 
         
-        <Form.Item label={translate('stockDetail.unit')}>
+        <Form.Item label={translate('stockDetail.item')}>
             {
                 form.getFieldDecorator(
-                    'unitId', 
+                    'itemId', 
                     {
-                        initialValue: stock.unit 
-                            ? stock.unit.id 
+                        initialValue: stock.item 
+                            ? stock.item.id 
                             : null,
                     }
                 )
                 (
-                    <SingleSelect getList={stockDetailRepository.singleListUnit}
-                                  search={unitSearch}
+                    <SingleSelect getList={stockDetailRepository.singleListItem}
+                                  search={itemSearch}
                                   searchField="name"
                                   showSearch
-                                  setSearch={setUnitSearch}>
-                      {stock.unit && (
-                        <Option value={stock.unit.id}>
-                          {stock.unit.id}
+                                  setSearch={setItemSearch}>
+                      {stock.item && (
+                        <Option value={stock.item.id}>
+                          {stock.item.id}
                         </Option>
                       )}
                     </SingleSelect>,

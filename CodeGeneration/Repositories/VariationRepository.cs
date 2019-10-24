@@ -99,7 +99,7 @@ namespace WG.Repositories
                     
                     Id = q.VariationGrouping.Id,
                     Name = q.VariationGrouping.Name,
-                    ItemId = q.VariationGrouping.ItemId,
+                    ProductId = q.VariationGrouping.ProductId,
                 } : null,
             }).ToListAsync();
             return Variations;
@@ -136,7 +136,7 @@ namespace WG.Repositories
                     
                     Id = VariationDAO.VariationGrouping.Id,
                     Name = VariationDAO.VariationGrouping.Name,
-                    ItemId = VariationDAO.VariationGrouping.ItemId,
+                    ProductId = VariationDAO.VariationGrouping.ProductId,
                 },
             }).FirstOrDefaultAsync();
             return Variation;

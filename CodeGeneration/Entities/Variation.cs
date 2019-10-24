@@ -12,9 +12,8 @@ namespace WG.Entities
         public string Name { get; set; }
         public long VariationGroupingId { get; set; }
         public VariationGrouping VariationGrouping { get; set; }
-        public List<Unit> UnitFirstVariations { get; set; }
-        public List<Unit> UnitSecondVariations { get; set; }
-        public List<Unit> UnitThirdVariations { get; set; }
+        public List<Item> ItemFirstVariations { get; set; }
+        public List<Item> ItemSecondVariations { get; set; }
     }
 
     public class VariationFilter : FilterEntity
@@ -37,7 +36,8 @@ namespace WG.Entities
         Name = 2,
         VariationGrouping = 3,
     }
-
+    
+    [Flags]
     public enum VariationSelect:long
     {
         ALL = E.ALL,

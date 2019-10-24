@@ -41,6 +41,10 @@ namespace WG.Repositories
                 query = query.Where(q => q.Username, filter.Username);
             if (filter.DisplayName != null)
                 query = query.Where(q => q.DisplayName, filter.DisplayName);
+            if (filter.PhoneNumber != null)
+                query = query.Where(q => q.PhoneNumber, filter.PhoneNumber);
+            if (filter.Email != null)
+                query = query.Where(q => q.Email, filter.Email);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -64,6 +68,12 @@ namespace WG.Repositories
                         case CustomerOrder.DisplayName:
                             query = query.OrderBy(q => q.DisplayName);
                             break;
+                        case CustomerOrder.PhoneNumber:
+                            query = query.OrderBy(q => q.PhoneNumber);
+                            break;
+                        case CustomerOrder.Email:
+                            query = query.OrderBy(q => q.Email);
+                            break;
                     }
                     break;
                 case OrderType.DESC:
@@ -78,6 +88,12 @@ namespace WG.Repositories
                             break;
                         case CustomerOrder.DisplayName:
                             query = query.OrderByDescending(q => q.DisplayName);
+                            break;
+                        case CustomerOrder.PhoneNumber:
+                            query = query.OrderByDescending(q => q.PhoneNumber);
+                            break;
+                        case CustomerOrder.Email:
+                            query = query.OrderByDescending(q => q.Email);
                             break;
                     }
                     break;
@@ -94,6 +110,8 @@ namespace WG.Repositories
                 Id = filter.Selects.Contains(CustomerSelect.Id) ? q.Id : default(long),
                 Username = filter.Selects.Contains(CustomerSelect.Username) ? q.Username : default(string),
                 DisplayName = filter.Selects.Contains(CustomerSelect.DisplayName) ? q.DisplayName : default(string),
+                PhoneNumber = filter.Selects.Contains(CustomerSelect.PhoneNumber) ? q.PhoneNumber : default(string),
+                Email = filter.Selects.Contains(CustomerSelect.Email) ? q.Email : default(string),
             }).ToListAsync();
             return Customers;
         }
@@ -124,6 +142,8 @@ namespace WG.Repositories
                 Id = CustomerDAO.Id,
                 Username = CustomerDAO.Username,
                 DisplayName = CustomerDAO.DisplayName,
+                PhoneNumber = CustomerDAO.PhoneNumber,
+                Email = CustomerDAO.Email,
             }).FirstOrDefaultAsync();
             return Customer;
         }
@@ -135,6 +155,8 @@ namespace WG.Repositories
             CustomerDAO.Id = Customer.Id;
             CustomerDAO.Username = Customer.Username;
             CustomerDAO.DisplayName = Customer.DisplayName;
+            CustomerDAO.PhoneNumber = Customer.PhoneNumber;
+            CustomerDAO.Email = Customer.Email;
             
             await DataContext.Customer.AddAsync(CustomerDAO);
             await DataContext.SaveChangesAsync();
@@ -151,6 +173,8 @@ namespace WG.Repositories
             CustomerDAO.Id = Customer.Id;
             CustomerDAO.Username = Customer.Username;
             CustomerDAO.DisplayName = Customer.DisplayName;
+            CustomerDAO.PhoneNumber = Customer.PhoneNumber;
+            CustomerDAO.Email = Customer.Email;
             await DataContext.SaveChangesAsync();
             return true;
         }

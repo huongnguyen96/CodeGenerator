@@ -1,6 +1,6 @@
 import {Model} from 'core';
 
-import {Item} from 'models/Item';
+import {Product} from 'models/Product';
 import {Variation} from 'models/Variation';
 
 export class VariationGrouping extends Model {
@@ -9,9 +9,9 @@ export class VariationGrouping extends Model {
  
   public name?: string;
  
-  public itemId?: number;
+  public productId?: number;
 
-  public item?: Item;
+  public product?: Product;
   
   public variations?: Variation[];
 

@@ -5,22 +5,16 @@ export class ItemSearch extends Search {
   
   public id?: number;
 
-  public code?: string;
+  public productId?: number;
 
-  public name?: string;
+  public firstVariationId?: number;
+
+  public secondVariationId?: number;
 
   public sKU?: string;
 
-  public description?: string;
+  public price?: number;
 
-  public typeId?: number;
-
-  public statusId?: number;
-
-  public partnerId?: number;
-
-  public categoryId?: number;
-
-  public brandId?: number;
+  public minPrice?: number;
 ;
 }

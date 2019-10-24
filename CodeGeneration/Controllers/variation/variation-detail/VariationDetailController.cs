@@ -127,7 +127,7 @@ namespace WG.Controllers.variation.variation_detail
             
             VariationGroupingFilter.Id = new LongFilter{ Equal = VariationDetail_VariationGroupingFilterDTO.Id };
             VariationGroupingFilter.Name = new StringFilter{ StartsWith = VariationDetail_VariationGroupingFilterDTO.Name };
-            VariationGroupingFilter.ItemId = new LongFilter{ Equal = VariationDetail_VariationGroupingFilterDTO.ItemId };
+            VariationGroupingFilter.ProductId = new LongFilter{ Equal = VariationDetail_VariationGroupingFilterDTO.ProductId };
 
             List<VariationGrouping> VariationGroupings = await VariationGroupingService.List(VariationGroupingFilter);
             List<VariationDetail_VariationGroupingDTO> VariationDetail_VariationGroupingDTOs = VariationGroupings

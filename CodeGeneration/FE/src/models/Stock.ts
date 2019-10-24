@@ -1,19 +1,19 @@
 import {Model} from 'core';
 
-import {Unit} from 'models/Unit';
+import {Item} from 'models/Item';
 import {Warehouse} from 'models/Warehouse';
 
 export class Stock extends Model {
    
   public id?: number;
  
-  public unitId?: number;
+  public itemId?: number;
  
   public warehouseId?: number;
  
   public quantity?: number;
 
-  public unit?: Unit;
+  public item?: Item;
 
   public warehouse?: Warehouse;
 

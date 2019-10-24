@@ -58,5 +58,6 @@ namespace WG.Controllers.province.province_master
         public long? DistrictId { get; set; }
         public long? WardId { get; set; }
         public string Address { get; set; }
+        public ShippingAddressOrder OrderBy { get; set; }
     }
 }

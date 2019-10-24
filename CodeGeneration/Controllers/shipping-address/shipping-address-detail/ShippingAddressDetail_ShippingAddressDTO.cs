@@ -61,5 +61,6 @@ namespace WG.Controllers.shipping_address.shipping_address_detail
         public long? DistrictId { get; set; }
         public long? WardId { get; set; }
         public string Address { get; set; }
+        public ShippingAddressOrder OrderBy { get; set; }
     }
 }

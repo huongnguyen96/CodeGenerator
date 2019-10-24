@@ -39,8 +39,8 @@ namespace WG.Repositories
                 query = query.Where(q => q.Id, filter.Id);
             if (filter.Name != null)
                 query = query.Where(q => q.Name, filter.Name);
-            if (filter.ItemId != null)
-                query = query.Where(q => q.ItemId, filter.ItemId);
+            if (filter.ProductId != null)
+                query = query.Where(q => q.ProductId, filter.ProductId);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -61,8 +61,8 @@ namespace WG.Repositories
                         case VariationGroupingOrder.Name:
                             query = query.OrderBy(q => q.Name);
                             break;
-                        case VariationGroupingOrder.Item:
-                            query = query.OrderBy(q => q.Item.Id);
+                        case VariationGroupingOrder.Product:
+                            query = query.OrderBy(q => q.Product.Id);
                             break;
                     }
                     break;
@@ -76,8 +76,8 @@ namespace WG.Repositories
                         case VariationGroupingOrder.Name:
                             query = query.OrderByDescending(q => q.Name);
                             break;
-                        case VariationGroupingOrder.Item:
-                            query = query.OrderByDescending(q => q.Item.Id);
+                        case VariationGroupingOrder.Product:
+                            query = query.OrderByDescending(q => q.Product.Id);
                             break;
                     }
                     break;
@@ -93,20 +93,24 @@ namespace WG.Repositories
                 
                 Id = filter.Selects.Contains(VariationGroupingSelect.Id) ? q.Id : default(long),
                 Name = filter.Selects.Contains(VariationGroupingSelect.Name) ? q.Name : default(string),
-                ItemId = filter.Selects.Contains(VariationGroupingSelect.Item) ? q.ItemId : default(long),
-                Item = filter.Selects.Contains(VariationGroupingSelect.Item) && q.Item != null ? new Item
+                ProductId = filter.Selects.Contains(VariationGroupingSelect.Product) ? q.ProductId : default(long),
+                Product = filter.Selects.Contains(VariationGroupingSelect.Product) && q.Product != null ? new Product
                 {
                     
-                    Id = q.Item.Id,
-                    Code = q.Item.Code,
-                    Name = q.Item.Name,
-                    SKU = q.Item.SKU,
-                    Description = q.Item.Description,
-                    TypeId = q.Item.TypeId,
-                    StatusId = q.Item.StatusId,
-                    PartnerId = q.Item.PartnerId,
-                    CategoryId = q.Item.CategoryId,
-                    BrandId = q.Item.BrandId,
+                    Id = q.Product.Id,
+                    Code = q.Product.Code,
+                    Name = q.Product.Name,
+                    Description = q.Product.Description,
+                    TypeId = q.Product.TypeId,
+                    StatusId = q.Product.StatusId,
+                    MerchantId = q.Product.MerchantId,
+                    CategoryId = q.Product.CategoryId,
+                    BrandId = q.Product.BrandId,
+                    WarrantyPolicy = q.Product.WarrantyPolicy,
+                    ReturnPolicy = q.Product.ReturnPolicy,
+                    ExpiredDate = q.Product.ExpiredDate,
+                    ConditionOfUse = q.Product.ConditionOfUse,
+                    MaximumPurchaseQuantity = q.Product.MaximumPurchaseQuantity,
                 } : null,
             }).ToListAsync();
             return VariationGroupings;
@@ -137,20 +141,24 @@ namespace WG.Repositories
                  
                 Id = VariationGroupingDAO.Id,
                 Name = VariationGroupingDAO.Name,
-                ItemId = VariationGroupingDAO.ItemId,
-                Item = VariationGroupingDAO.Item == null ? null : new Item
+                ProductId = VariationGroupingDAO.ProductId,
+                Product = VariationGroupingDAO.Product == null ? null : new Product
                 {
                     
-                    Id = VariationGroupingDAO.Item.Id,
-                    Code = VariationGroupingDAO.Item.Code,
-                    Name = VariationGroupingDAO.Item.Name,
-                    SKU = VariationGroupingDAO.Item.SKU,
-                    Description = VariationGroupingDAO.Item.Description,
-                    TypeId = VariationGroupingDAO.Item.TypeId,
-                    StatusId = VariationGroupingDAO.Item.StatusId,
-                    PartnerId = VariationGroupingDAO.Item.PartnerId,
-                    CategoryId = VariationGroupingDAO.Item.CategoryId,
-                    BrandId = VariationGroupingDAO.Item.BrandId,
+                    Id = VariationGroupingDAO.Product.Id,
+                    Code = VariationGroupingDAO.Product.Code,
+                    Name = VariationGroupingDAO.Product.Name,
+                    Description = VariationGroupingDAO.Product.Description,
+                    TypeId = VariationGroupingDAO.Product.TypeId,
+                    StatusId = VariationGroupingDAO.Product.StatusId,
+                    MerchantId = VariationGroupingDAO.Product.MerchantId,
+                    CategoryId = VariationGroupingDAO.Product.CategoryId,
+                    BrandId = VariationGroupingDAO.Product.BrandId,
+                    WarrantyPolicy = VariationGroupingDAO.Product.WarrantyPolicy,
+                    ReturnPolicy = VariationGroupingDAO.Product.ReturnPolicy,
+                    ExpiredDate = VariationGroupingDAO.Product.ExpiredDate,
+                    ConditionOfUse = VariationGroupingDAO.Product.ConditionOfUse,
+                    MaximumPurchaseQuantity = VariationGroupingDAO.Product.MaximumPurchaseQuantity,
                 },
             }).FirstOrDefaultAsync();
             return VariationGrouping;
@@ -162,7 +170,7 @@ namespace WG.Repositories
             
             VariationGroupingDAO.Id = VariationGrouping.Id;
             VariationGroupingDAO.Name = VariationGrouping.Name;
-            VariationGroupingDAO.ItemId = VariationGrouping.ItemId;
+            VariationGroupingDAO.ProductId = VariationGrouping.ProductId;
             
             await DataContext.VariationGrouping.AddAsync(VariationGroupingDAO);
             await DataContext.SaveChangesAsync();
@@ -178,7 +186,7 @@ namespace WG.Repositories
             
             VariationGroupingDAO.Id = VariationGrouping.Id;
             VariationGroupingDAO.Name = VariationGrouping.Name;
-            VariationGroupingDAO.ItemId = VariationGrouping.ItemId;
+            VariationGroupingDAO.ProductId = VariationGrouping.ProductId;
             await DataContext.SaveChangesAsync();
             return true;
         }

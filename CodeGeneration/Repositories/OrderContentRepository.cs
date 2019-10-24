@@ -39,18 +39,20 @@ namespace WG.Repositories
                 query = query.Where(q => q.Id, filter.Id);
             if (filter.OrderId != null)
                 query = query.Where(q => q.OrderId, filter.OrderId);
-            if (filter.ItemName != null)
-                query = query.Where(q => q.ItemName, filter.ItemName);
+            if (filter.ItemId != null)
+                query = query.Where(q => q.ItemId, filter.ItemId);
+            if (filter.ProductName != null)
+                query = query.Where(q => q.ProductName, filter.ProductName);
             if (filter.FirstVersion != null)
                 query = query.Where(q => q.FirstVersion, filter.FirstVersion);
             if (filter.SecondVersion != null)
                 query = query.Where(q => q.SecondVersion, filter.SecondVersion);
-            if (filter.ThirdVersion != null)
-                query = query.Where(q => q.ThirdVersion, filter.ThirdVersion);
             if (filter.Price != null)
                 query = query.Where(q => q.Price, filter.Price);
             if (filter.DiscountPrice != null)
                 query = query.Where(q => q.DiscountPrice, filter.DiscountPrice);
+            if (filter.Quantity != null)
+                query = query.Where(q => q.Quantity, filter.Quantity);
             if (filter.Ids != null)
                 query = query.Where(q => filter.Ids.Contains(q.Id));
             if (filter.ExceptIds != null)
@@ -71,8 +73,11 @@ namespace WG.Repositories
                         case OrderContentOrder.Order:
                             query = query.OrderBy(q => q.Order.Id);
                             break;
-                        case OrderContentOrder.ItemName:
-                            query = query.OrderBy(q => q.ItemName);
+                        case OrderContentOrder.Item:
+                            query = query.OrderBy(q => q.Item.Id);
+                            break;
+                        case OrderContentOrder.ProductName:
+                            query = query.OrderBy(q => q.ProductName);
                             break;
                         case OrderContentOrder.FirstVersion:
                             query = query.OrderBy(q => q.FirstVersion);
@@ -80,14 +85,14 @@ namespace WG.Repositories
                         case OrderContentOrder.SecondVersion:
                             query = query.OrderBy(q => q.SecondVersion);
                             break;
-                        case OrderContentOrder.ThirdVersion:
-                            query = query.OrderBy(q => q.ThirdVersion);
-                            break;
                         case OrderContentOrder.Price:
                             query = query.OrderBy(q => q.Price);
                             break;
                         case OrderContentOrder.DiscountPrice:
                             query = query.OrderBy(q => q.DiscountPrice);
+                            break;
+                        case OrderContentOrder.Quantity:
+                            query = query.OrderBy(q => q.Quantity);
                             break;
                     }
                     break;
@@ -101,8 +106,11 @@ namespace WG.Repositories
                         case OrderContentOrder.Order:
                             query = query.OrderByDescending(q => q.Order.Id);
                             break;
-                        case OrderContentOrder.ItemName:
-                            query = query.OrderByDescending(q => q.ItemName);
+                        case OrderContentOrder.Item:
+                            query = query.OrderByDescending(q => q.Item.Id);
+                            break;
+                        case OrderContentOrder.ProductName:
+                            query = query.OrderByDescending(q => q.ProductName);
                             break;
                         case OrderContentOrder.FirstVersion:
                             query = query.OrderByDescending(q => q.FirstVersion);
@@ -110,14 +118,14 @@ namespace WG.Repositories
                         case OrderContentOrder.SecondVersion:
                             query = query.OrderByDescending(q => q.SecondVersion);
                             break;
-                        case OrderContentOrder.ThirdVersion:
-                            query = query.OrderByDescending(q => q.ThirdVersion);
-                            break;
                         case OrderContentOrder.Price:
                             query = query.OrderByDescending(q => q.Price);
                             break;
                         case OrderContentOrder.DiscountPrice:
                             query = query.OrderByDescending(q => q.DiscountPrice);
+                            break;
+                        case OrderContentOrder.Quantity:
+                            query = query.OrderByDescending(q => q.Quantity);
                             break;
                     }
                     break;
@@ -133,12 +141,24 @@ namespace WG.Repositories
                 
                 Id = filter.Selects.Contains(OrderContentSelect.Id) ? q.Id : default(long),
                 OrderId = filter.Selects.Contains(OrderContentSelect.Order) ? q.OrderId : default(long),
-                ItemName = filter.Selects.Contains(OrderContentSelect.ItemName) ? q.ItemName : default(string),
+                ItemId = filter.Selects.Contains(OrderContentSelect.Item) ? q.ItemId : default(long?),
+                ProductName = filter.Selects.Contains(OrderContentSelect.ProductName) ? q.ProductName : default(string),
                 FirstVersion = filter.Selects.Contains(OrderContentSelect.FirstVersion) ? q.FirstVersion : default(string),
                 SecondVersion = filter.Selects.Contains(OrderContentSelect.SecondVersion) ? q.SecondVersion : default(string),
-                ThirdVersion = filter.Selects.Contains(OrderContentSelect.ThirdVersion) ? q.ThirdVersion : default(string),
                 Price = filter.Selects.Contains(OrderContentSelect.Price) ? q.Price : default(long),
                 DiscountPrice = filter.Selects.Contains(OrderContentSelect.DiscountPrice) ? q.DiscountPrice : default(long),
+                Quantity = filter.Selects.Contains(OrderContentSelect.Quantity) ? q.Quantity : default(long),
+                Item = filter.Selects.Contains(OrderContentSelect.Item) && q.Item != null ? new Item
+                {
+                    
+                    Id = q.Item.Id,
+                    ProductId = q.Item.ProductId,
+                    FirstVariationId = q.Item.FirstVariationId,
+                    SecondVariationId = q.Item.SecondVariationId,
+                    SKU = q.Item.SKU,
+                    Price = q.Item.Price,
+                    MinPrice = q.Item.MinPrice,
+                } : null,
                 Order = filter.Selects.Contains(OrderContentSelect.Order) && q.Order != null ? new Order
                 {
                     
@@ -149,6 +169,7 @@ namespace WG.Repositories
                     Total = q.Order.Total,
                     VoucherDiscount = q.Order.VoucherDiscount,
                     CampaignDiscount = q.Order.CampaignDiscount,
+                    StatusId = q.Order.StatusId,
                 } : null,
             }).ToListAsync();
             return OrderContents;
@@ -179,12 +200,24 @@ namespace WG.Repositories
                  
                 Id = OrderContentDAO.Id,
                 OrderId = OrderContentDAO.OrderId,
-                ItemName = OrderContentDAO.ItemName,
+                ItemId = OrderContentDAO.ItemId,
+                ProductName = OrderContentDAO.ProductName,
                 FirstVersion = OrderContentDAO.FirstVersion,
                 SecondVersion = OrderContentDAO.SecondVersion,
-                ThirdVersion = OrderContentDAO.ThirdVersion,
                 Price = OrderContentDAO.Price,
                 DiscountPrice = OrderContentDAO.DiscountPrice,
+                Quantity = OrderContentDAO.Quantity,
+                Item = OrderContentDAO.Item == null ? null : new Item
+                {
+                    
+                    Id = OrderContentDAO.Item.Id,
+                    ProductId = OrderContentDAO.Item.ProductId,
+                    FirstVariationId = OrderContentDAO.Item.FirstVariationId,
+                    SecondVariationId = OrderContentDAO.Item.SecondVariationId,
+                    SKU = OrderContentDAO.Item.SKU,
+                    Price = OrderContentDAO.Item.Price,
+                    MinPrice = OrderContentDAO.Item.MinPrice,
+                },
                 Order = OrderContentDAO.Order == null ? null : new Order
                 {
                     
@@ -195,6 +228,7 @@ namespace WG.Repositories
                     Total = OrderContentDAO.Order.Total,
                     VoucherDiscount = OrderContentDAO.Order.VoucherDiscount,
                     CampaignDiscount = OrderContentDAO.Order.CampaignDiscount,
+                    StatusId = OrderContentDAO.Order.StatusId,
                 },
             }).FirstOrDefaultAsync();
             return OrderContent;
@@ -206,12 +240,13 @@ namespace WG.Repositories
             
             OrderContentDAO.Id = OrderContent.Id;
             OrderContentDAO.OrderId = OrderContent.OrderId;
-            OrderContentDAO.ItemName = OrderContent.ItemName;
+            OrderContentDAO.ItemId = OrderContent.ItemId;
+            OrderContentDAO.ProductName = OrderContent.ProductName;
             OrderContentDAO.FirstVersion = OrderContent.FirstVersion;
             OrderContentDAO.SecondVersion = OrderContent.SecondVersion;
-            OrderContentDAO.ThirdVersion = OrderContent.ThirdVersion;
             OrderContentDAO.Price = OrderContent.Price;
             OrderContentDAO.DiscountPrice = OrderContent.DiscountPrice;
+            OrderContentDAO.Quantity = OrderContent.Quantity;
             
             await DataContext.OrderContent.AddAsync(OrderContentDAO);
             await DataContext.SaveChangesAsync();
@@ -227,12 +262,13 @@ namespace WG.Repositories
             
             OrderContentDAO.Id = OrderContent.Id;
             OrderContentDAO.OrderId = OrderContent.OrderId;
-            OrderContentDAO.ItemName = OrderContent.ItemName;
+            OrderContentDAO.ItemId = OrderContent.ItemId;
+            OrderContentDAO.ProductName = OrderContent.ProductName;
             OrderContentDAO.FirstVersion = OrderContent.FirstVersion;
             OrderContentDAO.SecondVersion = OrderContent.SecondVersion;
-            OrderContentDAO.ThirdVersion = OrderContent.ThirdVersion;
             OrderContentDAO.Price = OrderContent.Price;
             OrderContentDAO.DiscountPrice = OrderContent.DiscountPrice;
+            OrderContentDAO.Quantity = OrderContent.Quantity;
             await DataContext.SaveChangesAsync();
             return true;
         }

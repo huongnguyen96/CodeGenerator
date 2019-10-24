@@ -35,5 +35,6 @@ namespace WG.Controllers.category.category_detail
         public string Name { get; set; }
         public long? ParentId { get; set; }
         public string Icon { get; set; }
+        public CategoryOrder OrderBy { get; set; }
     }
 }

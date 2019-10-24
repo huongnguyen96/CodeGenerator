@@ -150,6 +150,8 @@ namespace WG.Controllers.shipping_address.shipping_address_detail
             CustomerFilter.Id = new LongFilter{ Equal = ShippingAddressDetail_CustomerFilterDTO.Id };
             CustomerFilter.Username = new StringFilter{ StartsWith = ShippingAddressDetail_CustomerFilterDTO.Username };
             CustomerFilter.DisplayName = new StringFilter{ StartsWith = ShippingAddressDetail_CustomerFilterDTO.DisplayName };
+            CustomerFilter.PhoneNumber = new StringFilter{ StartsWith = ShippingAddressDetail_CustomerFilterDTO.PhoneNumber };
+            CustomerFilter.Email = new StringFilter{ StartsWith = ShippingAddressDetail_CustomerFilterDTO.Email };
 
             List<Customer> Customers = await CustomerService.List(CustomerFilter);
             List<ShippingAddressDetail_CustomerDTO> ShippingAddressDetail_CustomerDTOs = Customers

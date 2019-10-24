@@ -5,7 +5,7 @@ export class StockSearch extends Search {
   
   public id?: number;
 
-  public unitId?: number;
+  public itemId?: number;
 
   public warehouseId?: number;
 

@@ -11,20 +11,20 @@ namespace WG.Controllers.stock.stock_master
     {
         
         public long Id { get; set; }
-        public long UnitId { get; set; }
+        public long ItemId { get; set; }
         public long WarehouseId { get; set; }
         public long Quantity { get; set; }
-        public StockMaster_UnitDTO Unit { get; set; }
+        public StockMaster_ItemDTO Item { get; set; }
         public StockMaster_WarehouseDTO Warehouse { get; set; }
         public StockMaster_StockDTO() {}
         public StockMaster_StockDTO(Stock Stock)
         {
             
             this.Id = Stock.Id;
-            this.UnitId = Stock.UnitId;
+            this.ItemId = Stock.ItemId;
             this.WarehouseId = Stock.WarehouseId;
             this.Quantity = Stock.Quantity;
-            this.Unit = new StockMaster_UnitDTO(Stock.Unit);
+            this.Item = new StockMaster_ItemDTO(Stock.Item);
 
             this.Warehouse = new StockMaster_WarehouseDTO(Stock.Warehouse);
 
@@ -35,8 +35,9 @@ namespace WG.Controllers.stock.stock_master
     {
         
         public long? Id { get; set; }
-        public long? UnitId { get; set; }
+        public long? ItemId { get; set; }
         public long? WarehouseId { get; set; }
         public long? Quantity { get; set; }
+        public StockOrder OrderBy { get; set; }
     }
 }

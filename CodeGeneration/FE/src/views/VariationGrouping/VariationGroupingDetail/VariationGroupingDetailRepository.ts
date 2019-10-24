@@ -6,8 +6,8 @@ import {map} from 'rxjs/operators';
 import {VariationGrouping} from 'models/VariationGrouping';
 import {VariationGroupingSearch} from 'models/VariationGroupingSearch';
 
-import {Item} from 'models/Item';
-import {ItemSearch} from 'models/ItemSearch';
+import {Product} from 'models/Product';
+import {ProductSearch} from 'models/ProductSearch';
 
 export class VariationGroupingDetailRepository extends Repository {
   public constructor() {
@@ -45,10 +45,10 @@ export class VariationGroupingDetailRepository extends Repository {
     return variationGrouping.id ? this.update(variationGrouping) : this.create(variationGrouping);
   };
   
-  public singleListItem = (itemSearch: ItemSearch): Observable<Item[]> => {
-    return this.httpService.post('/single-list-item',itemSearch)
+  public singleListProduct = (productSearch: ProductSearch): Observable<Product[]> => {
+    return this.httpService.post('/single-list-product',productSearch)
       .pipe(
-        map((response: AxiosResponse<Item[]>) => response.data),
+        map((response: AxiosResponse<Product[]>) => response.data),
       );
   };
 }

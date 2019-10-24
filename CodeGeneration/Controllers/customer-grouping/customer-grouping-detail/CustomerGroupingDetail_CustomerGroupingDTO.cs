@@ -26,5 +26,6 @@ namespace WG.Controllers.customer_grouping.customer_grouping_detail
         
         public long? Id { get; set; }
         public string Name { get; set; }
+        public CustomerGroupingOrder OrderBy { get; set; }
     }
 }

@@ -6,8 +6,8 @@ import {map} from 'rxjs/operators';
 import {Warehouse} from 'models/Warehouse';
 import {WarehouseSearch} from 'models/WarehouseSearch';
 
-import {Partner} from 'models/Partner';
-import {PartnerSearch} from 'models/PartnerSearch';
+import {Merchant} from 'models/Merchant';
+import {MerchantSearch} from 'models/MerchantSearch';
 
 export class WarehouseDetailRepository extends Repository {
   public constructor() {
@@ -45,10 +45,10 @@ export class WarehouseDetailRepository extends Repository {
     return warehouse.id ? this.update(warehouse) : this.create(warehouse);
   };
   
-  public singleListPartner = (partnerSearch: PartnerSearch): Observable<Partner[]> => {
-    return this.httpService.post('/single-list-partner',partnerSearch)
+  public singleListMerchant = (merchantSearch: MerchantSearch): Observable<Merchant[]> => {
+    return this.httpService.post('/single-list-merchant',merchantSearch)
       .pipe(
-        map((response: AxiosResponse<Partner[]>) => response.data),
+        map((response: AxiosResponse<Merchant[]>) => response.data),
       );
   };
 }

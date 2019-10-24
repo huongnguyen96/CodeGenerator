@@ -13,20 +13,27 @@ namespace CodeGeneration.Repositories.Models
         public virtual DbSet<CustomerGroupingDAO> CustomerGrouping { get; set; }
         public virtual DbSet<Customer_CustomerGroupingDAO> Customer_CustomerGrouping { get; set; }
         public virtual DbSet<DiscountDAO> Discount { get; set; }
-        public virtual DbSet<DiscountCustomerGroupingDAO> DiscountCustomerGrouping { get; set; }
-        public virtual DbSet<DiscountItemDAO> DiscountItem { get; set; }
+        public virtual DbSet<DiscountContentDAO> DiscountContent { get; set; }
+        public virtual DbSet<Discount_CustomerGroupingDAO> Discount_CustomerGrouping { get; set; }
         public virtual DbSet<DistrictDAO> District { get; set; }
+        public virtual DbSet<EVoucherDAO> EVoucher { get; set; }
+        public virtual DbSet<EVoucherContentDAO> EVoucherContent { get; set; }
         public virtual DbSet<ImageFileDAO> ImageFile { get; set; }
         public virtual DbSet<ItemDAO> Item { get; set; }
-        public virtual DbSet<ItemStatusDAO> ItemStatus { get; set; }
-        public virtual DbSet<ItemTypeDAO> ItemType { get; set; }
+        public virtual DbSet<MerchantDAO> Merchant { get; set; }
+        public virtual DbSet<MerchantAddressDAO> MerchantAddress { get; set; }
         public virtual DbSet<OrderDAO> Order { get; set; }
         public virtual DbSet<OrderContentDAO> OrderContent { get; set; }
-        public virtual DbSet<PartnerDAO> Partner { get; set; }
+        public virtual DbSet<OrderStatusDAO> OrderStatus { get; set; }
+        public virtual DbSet<PaymentMethodDAO> PaymentMethod { get; set; }
+        public virtual DbSet<ProductDAO> Product { get; set; }
+        public virtual DbSet<ProductStatusDAO> ProductStatus { get; set; }
+        public virtual DbSet<ProductTypeDAO> ProductType { get; set; }
+        public virtual DbSet<Product_MerchantAddressDAO> Product_MerchantAddress { get; set; }
+        public virtual DbSet<Product_PaymentMethodDAO> Product_PaymentMethod { get; set; }
         public virtual DbSet<ProvinceDAO> Province { get; set; }
         public virtual DbSet<ShippingAddressDAO> ShippingAddress { get; set; }
         public virtual DbSet<StockDAO> Stock { get; set; }
-        public virtual DbSet<UnitDAO> Unit { get; set; }
         public virtual DbSet<VariationDAO> Variation { get; set; }
         public virtual DbSet<VariationGroupingDAO> VariationGrouping { get; set; }
         public virtual DbSet<WardDAO> Ward { get; set; }
@@ -85,6 +92,10 @@ namespace CodeGeneration.Repositories.Models
             {
                 entity.Property(e => e.DisplayName).HasMaxLength(500);
 
+                entity.Property(e => e.Email).HasMaxLength(500);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(500);
+
                 entity.Property(e => e.Username).HasMaxLength(500);
             });
 
@@ -127,32 +138,36 @@ namespace CodeGeneration.Repositories.Models
                     .HasMaxLength(500);
             });
 
-            modelBuilder.Entity<DiscountCustomerGroupingDAO>(entity =>
-            {
-                entity.Property(e => e.CustomerGroupingCode)
-                    .IsRequired()
-                    .HasMaxLength(500);
-
-                entity.HasOne(d => d.Discount)
-                    .WithMany(p => p.DiscountCustomerGroupings)
-                    .HasForeignKey(d => d.DiscountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CampaignCustomerGrouping_Campaign");
-            });
-
-            modelBuilder.Entity<DiscountItemDAO>(entity =>
+            modelBuilder.Entity<DiscountContentDAO>(entity =>
             {
                 entity.HasOne(d => d.Discount)
-                    .WithMany(p => p.DiscountItems)
+                    .WithMany(p => p.DiscountContents)
                     .HasForeignKey(d => d.DiscountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CampaignItem_Campaign");
 
-                entity.HasOne(d => d.Unit)
-                    .WithMany(p => p.DiscountItems)
-                    .HasForeignKey(d => d.UnitId)
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.DiscountContents)
+                    .HasForeignKey(d => d.ItemId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CampaignItem_ItemVersion");
+            });
+
+            modelBuilder.Entity<Discount_CustomerGroupingDAO>(entity =>
+            {
+                entity.HasKey(e => new { e.DiscountId, e.CustomerGroupingId });
+
+                entity.HasOne(d => d.CustomerGrouping)
+                    .WithMany(p => p.Discount_CustomerGroupings)
+                    .HasForeignKey(d => d.CustomerGroupingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Discount_CustomerGrouping_CustomerGrouping");
+
+                entity.HasOne(d => d.Discount)
+                    .WithMany(p => p.Discount_CustomerGroupings)
+                    .HasForeignKey(d => d.DiscountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Discount_CustomerGrouping_Discount");
             });
 
             modelBuilder.Entity<DistrictDAO>(entity =>
@@ -170,6 +185,43 @@ namespace CodeGeneration.Repositories.Models
                     .HasConstraintName("FK_District_Province");
             });
 
+            modelBuilder.Entity<EVoucherDAO>(entity =>
+            {
+                entity.Property(e => e.End).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Start).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.EVouchers)
+                    .HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EVoucher_Customer");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.EVouchers)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_EVoucher_Product");
+            });
+
+            modelBuilder.Entity<EVoucherContentDAO>(entity =>
+            {
+                entity.Property(e => e.MerchantCode).HasMaxLength(500);
+
+                entity.Property(e => e.UsedCode).HasMaxLength(500);
+
+                entity.Property(e => e.UsedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.EVourcher)
+                    .WithMany(p => p.EVoucherContents)
+                    .HasForeignKey(d => d.EVourcherId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EVoucherContent_EVoucher");
+            });
+
             modelBuilder.Entity<ImageFileDAO>(entity =>
             {
                 entity.Property(e => e.Name).HasMaxLength(500);
@@ -179,59 +231,54 @@ namespace CodeGeneration.Repositories.Models
 
             modelBuilder.Entity<ItemDAO>(entity =>
             {
-                entity.Property(e => e.Code)
+                entity.Property(e => e.SKU)
                     .IsRequired()
-                    .HasMaxLength(500);
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.Description).HasMaxLength(500);
+                entity.HasOne(d => d.FirstVariation)
+                    .WithMany(p => p.ItemFirstVariations)
+                    .HasForeignKey(d => d.FirstVariationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Unit_ItemTier");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Items)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_Product");
+
+                entity.HasOne(d => d.SecondVariation)
+                    .WithMany(p => p.ItemSecondVariations)
+                    .HasForeignKey(d => d.SecondVariationId)
+                    .HasConstraintName("FK_Unit_ItemTier1");
+            });
+
+            modelBuilder.Entity<MerchantDAO>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(500);
+
+                entity.Property(e => e.ContactPerson).HasMaxLength(500);
 
                 entity.Property(e => e.Name).HasMaxLength(500);
 
-                entity.Property(e => e.SKU).HasMaxLength(500);
-
-                entity.HasOne(d => d.Brand)
-                    .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.BrandId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Item_Brand");
-
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Item_Category");
-
-                entity.HasOne(d => d.Partner)
-                    .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.PartnerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Item_Merchant");
-
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.StatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Item_ItemStatus");
-
-                entity.HasOne(d => d.Type)
-                    .WithMany(p => p.Items)
-                    .HasForeignKey(d => d.TypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Item_ItemType");
+                entity.Property(e => e.Phone).HasMaxLength(500);
             });
 
-            modelBuilder.Entity<ItemStatusDAO>(entity =>
+            modelBuilder.Entity<MerchantAddressDAO>(entity =>
             {
-                entity.Property(e => e.Code).HasMaxLength(50);
+                entity.Property(e => e.Address).HasMaxLength(500);
 
-                entity.Property(e => e.Name).HasMaxLength(50);
-            });
+                entity.Property(e => e.Code).HasMaxLength(500);
 
-            modelBuilder.Entity<ItemTypeDAO>(entity =>
-            {
-                entity.Property(e => e.Code).HasMaxLength(50);
+                entity.Property(e => e.Contact).HasMaxLength(500);
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Phone).HasMaxLength(500);
+
+                entity.HasOne(d => d.Merchant)
+                    .WithMany(p => p.MerchantAddresses)
+                    .HasForeignKey(d => d.MerchantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MerchantAddress_Merchant");
             });
 
             modelBuilder.Entity<OrderDAO>(entity =>
@@ -245,19 +292,28 @@ namespace CodeGeneration.Repositories.Models
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Customer");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_OrderStatus");
             });
 
             modelBuilder.Entity<OrderContentDAO>(entity =>
             {
                 entity.Property(e => e.FirstVersion).HasMaxLength(500);
 
-                entity.Property(e => e.ItemName)
+                entity.Property(e => e.ProductName)
                     .IsRequired()
                     .HasMaxLength(500);
 
                 entity.Property(e => e.SecondVersion).HasMaxLength(500);
 
-                entity.Property(e => e.ThirdVersion).HasMaxLength(500);
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.OrderContents)
+                    .HasForeignKey(d => d.ItemId)
+                    .HasConstraintName("FK_OrderContent_Item");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderContents)
@@ -266,15 +322,121 @@ namespace CodeGeneration.Repositories.Models
                     .HasConstraintName("FK_OrderContent_Order");
             });
 
-            modelBuilder.Entity<PartnerDAO>(entity =>
+            modelBuilder.Entity<OrderStatusDAO>(entity =>
             {
-                entity.Property(e => e.Address).HasMaxLength(500);
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(500);
 
-                entity.Property(e => e.ContactPerson).HasMaxLength(500);
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<PaymentMethodDAO>(entity =>
+            {
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<ProductDAO>(entity =>
+            {
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(500);
 
                 entity.Property(e => e.Name).HasMaxLength(500);
 
-                entity.Property(e => e.Phone).HasMaxLength(500);
+                entity.HasOne(d => d.Brand)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.BrandId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_Brand");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_Category");
+
+                entity.HasOne(d => d.Merchant)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.MerchantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_Merchant");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.StatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_ItemStatus");
+
+                entity.HasOne(d => d.Type)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.TypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Item_ItemType");
+            });
+
+            modelBuilder.Entity<ProductStatusDAO>(entity =>
+            {
+                entity.Property(e => e.Code).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ProductTypeDAO>(entity =>
+            {
+                entity.Property(e => e.Code).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Product_MerchantAddressDAO>(entity =>
+            {
+                entity.HasKey(e => new { e.ProductId, e.MerchantAddressId });
+
+                entity.HasOne(d => d.MerchantAddress)
+                    .WithMany(p => p.Product_MerchantAddresses)
+                    .HasForeignKey(d => d.MerchantAddressId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_MerchantAddress_MerchantAddress");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Product_MerchantAddresses)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_MerchantAddress_Product");
+            });
+
+            modelBuilder.Entity<Product_PaymentMethodDAO>(entity =>
+            {
+                entity.HasKey(e => new { e.ProductId, e.PaymentMethodId });
+
+                entity.HasOne(d => d.PaymentMethod)
+                    .WithMany(p => p.Product_PaymentMethods)
+                    .HasForeignKey(d => d.PaymentMethodId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_PaymentMethod_PaymentMethod");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Product_PaymentMethods)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_PaymentMethod_Product");
             });
 
             modelBuilder.Entity<ProvinceDAO>(entity =>
@@ -329,9 +491,9 @@ namespace CodeGeneration.Repositories.Models
 
             modelBuilder.Entity<StockDAO>(entity =>
             {
-                entity.HasOne(d => d.Unit)
+                entity.HasOne(d => d.Item)
                     .WithMany(p => p.Stocks)
-                    .HasForeignKey(d => d.UnitId)
+                    .HasForeignKey(d => d.ItemId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UnitStock_Unit");
 
@@ -340,29 +502,6 @@ namespace CodeGeneration.Repositories.Models
                     .HasForeignKey(d => d.WarehouseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ItemStock_Warehouse");
-            });
-
-            modelBuilder.Entity<UnitDAO>(entity =>
-            {
-                entity.Property(e => e.SKU)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.HasOne(d => d.FirstVariation)
-                    .WithMany(p => p.UnitFirstVariations)
-                    .HasForeignKey(d => d.FirstVariationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Unit_ItemTier");
-
-                entity.HasOne(d => d.SecondVariation)
-                    .WithMany(p => p.UnitSecondVariations)
-                    .HasForeignKey(d => d.SecondVariationId)
-                    .HasConstraintName("FK_Unit_ItemTier1");
-
-                entity.HasOne(d => d.ThirdVariation)
-                    .WithMany(p => p.UnitThirdVariations)
-                    .HasForeignKey(d => d.ThirdVariationId)
-                    .HasConstraintName("FK_ItemVersion_Version");
             });
 
             modelBuilder.Entity<VariationDAO>(entity =>
@@ -384,9 +523,9 @@ namespace CodeGeneration.Repositories.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.Item)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.VariationGroupings)
-                    .HasForeignKey(d => d.ItemId)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ItemTierGrouping_Item");
             });

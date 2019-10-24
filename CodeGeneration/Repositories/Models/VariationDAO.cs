@@ -7,9 +7,8 @@ namespace CodeGeneration.Repositories.Models
     {
         public VariationDAO()
         {
-            UnitFirstVariations = new HashSet<UnitDAO>();
-            UnitSecondVariations = new HashSet<UnitDAO>();
-            UnitThirdVariations = new HashSet<UnitDAO>();
+            ItemFirstVariations = new HashSet<ItemDAO>();
+            ItemSecondVariations = new HashSet<ItemDAO>();
         }
 
         public long Id { get; set; }
@@ -17,8 +16,7 @@ namespace CodeGeneration.Repositories.Models
         public long VariationGroupingId { get; set; }
 
         public virtual VariationGroupingDAO VariationGrouping { get; set; }
-        public virtual ICollection<UnitDAO> UnitFirstVariations { get; set; }
-        public virtual ICollection<UnitDAO> UnitSecondVariations { get; set; }
-        public virtual ICollection<UnitDAO> UnitThirdVariations { get; set; }
+        public virtual ICollection<ItemDAO> ItemFirstVariations { get; set; }
+        public virtual ICollection<ItemDAO> ItemSecondVariations { get; set; }
     }
 }

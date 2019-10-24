@@ -37,8 +37,8 @@ namespace WG.Repositories
             
             if (filter.Id != null)
                 query = query.Where(q => q.Id, filter.Id);
-            if (filter.UnitId != null)
-                query = query.Where(q => q.UnitId, filter.UnitId);
+            if (filter.ItemId != null)
+                query = query.Where(q => q.ItemId, filter.ItemId);
             if (filter.WarehouseId != null)
                 query = query.Where(q => q.WarehouseId, filter.WarehouseId);
             if (filter.Quantity != null)
@@ -60,8 +60,8 @@ namespace WG.Repositories
                         case StockOrder.Id:
                             query = query.OrderBy(q => q.Id);
                             break;
-                        case StockOrder.Unit:
-                            query = query.OrderBy(q => q.Unit.Id);
+                        case StockOrder.Item:
+                            query = query.OrderBy(q => q.Item.Id);
                             break;
                         case StockOrder.Warehouse:
                             query = query.OrderBy(q => q.Warehouse.Id);
@@ -78,8 +78,8 @@ namespace WG.Repositories
                         case StockOrder.Id:
                             query = query.OrderByDescending(q => q.Id);
                             break;
-                        case StockOrder.Unit:
-                            query = query.OrderByDescending(q => q.Unit.Id);
+                        case StockOrder.Item:
+                            query = query.OrderByDescending(q => q.Item.Id);
                             break;
                         case StockOrder.Warehouse:
                             query = query.OrderByDescending(q => q.Warehouse.Id);
@@ -100,18 +100,19 @@ namespace WG.Repositories
             {
                 
                 Id = filter.Selects.Contains(StockSelect.Id) ? q.Id : default(long),
-                UnitId = filter.Selects.Contains(StockSelect.Unit) ? q.UnitId : default(long),
+                ItemId = filter.Selects.Contains(StockSelect.Item) ? q.ItemId : default(long),
                 WarehouseId = filter.Selects.Contains(StockSelect.Warehouse) ? q.WarehouseId : default(long),
                 Quantity = filter.Selects.Contains(StockSelect.Quantity) ? q.Quantity : default(long),
-                Unit = filter.Selects.Contains(StockSelect.Unit) && q.Unit != null ? new Unit
+                Item = filter.Selects.Contains(StockSelect.Item) && q.Item != null ? new Item
                 {
                     
-                    Id = q.Unit.Id,
-                    FirstVariationId = q.Unit.FirstVariationId,
-                    SecondVariationId = q.Unit.SecondVariationId,
-                    ThirdVariationId = q.Unit.ThirdVariationId,
-                    SKU = q.Unit.SKU,
-                    Price = q.Unit.Price,
+                    Id = q.Item.Id,
+                    ProductId = q.Item.ProductId,
+                    FirstVariationId = q.Item.FirstVariationId,
+                    SecondVariationId = q.Item.SecondVariationId,
+                    SKU = q.Item.SKU,
+                    Price = q.Item.Price,
+                    MinPrice = q.Item.MinPrice,
                 } : null,
                 Warehouse = filter.Selects.Contains(StockSelect.Warehouse) && q.Warehouse != null ? new Warehouse
                 {
@@ -151,18 +152,19 @@ namespace WG.Repositories
             {
                  
                 Id = StockDAO.Id,
-                UnitId = StockDAO.UnitId,
+                ItemId = StockDAO.ItemId,
                 WarehouseId = StockDAO.WarehouseId,
                 Quantity = StockDAO.Quantity,
-                Unit = StockDAO.Unit == null ? null : new Unit
+                Item = StockDAO.Item == null ? null : new Item
                 {
                     
-                    Id = StockDAO.Unit.Id,
-                    FirstVariationId = StockDAO.Unit.FirstVariationId,
-                    SecondVariationId = StockDAO.Unit.SecondVariationId,
-                    ThirdVariationId = StockDAO.Unit.ThirdVariationId,
-                    SKU = StockDAO.Unit.SKU,
-                    Price = StockDAO.Unit.Price,
+                    Id = StockDAO.Item.Id,
+                    ProductId = StockDAO.Item.ProductId,
+                    FirstVariationId = StockDAO.Item.FirstVariationId,
+                    SecondVariationId = StockDAO.Item.SecondVariationId,
+                    SKU = StockDAO.Item.SKU,
+                    Price = StockDAO.Item.Price,
+                    MinPrice = StockDAO.Item.MinPrice,
                 },
                 Warehouse = StockDAO.Warehouse == null ? null : new Warehouse
                 {
@@ -183,7 +185,7 @@ namespace WG.Repositories
             StockDAO StockDAO = new StockDAO();
             
             StockDAO.Id = Stock.Id;
-            StockDAO.UnitId = Stock.UnitId;
+            StockDAO.ItemId = Stock.ItemId;
             StockDAO.WarehouseId = Stock.WarehouseId;
             StockDAO.Quantity = Stock.Quantity;
             
@@ -200,7 +202,7 @@ namespace WG.Repositories
             StockDAO StockDAO = DataContext.Stock.Where(x => x.Id == Stock.Id).FirstOrDefault();
             
             StockDAO.Id = Stock.Id;
-            StockDAO.UnitId = Stock.UnitId;
+            StockDAO.ItemId = Stock.ItemId;
             StockDAO.WarehouseId = Stock.WarehouseId;
             StockDAO.Quantity = Stock.Quantity;
             await DataContext.SaveChangesAsync();

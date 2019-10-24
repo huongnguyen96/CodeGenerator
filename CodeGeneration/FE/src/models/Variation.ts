@@ -1,7 +1,7 @@
 import {Model} from 'core';
 
 import {VariationGrouping} from 'models/VariationGrouping';
-import {Unit} from 'models/Unit';
+import {Item} from 'models/Item';
 
 export class Variation extends Model {
    
@@ -13,11 +13,9 @@ export class Variation extends Model {
 
   public variationGrouping?: VariationGrouping;
   
-  public unitFirstVariations?: Unit[];
+  public itemFirstVariations?: Item[];
   
-  public unitSecondVariations?: Unit[];
-  
-  public unitThirdVariations?: Unit[];
+  public itemSecondVariations?: Item[];
 
   public constructor(variation?: Variation) {
     super(variation);

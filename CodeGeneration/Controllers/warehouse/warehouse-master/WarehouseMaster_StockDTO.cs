@@ -11,19 +11,19 @@ namespace WG.Controllers.warehouse.warehouse_master
     {
         
         public long Id { get; set; }
-        public long UnitId { get; set; }
+        public long ItemId { get; set; }
         public long WarehouseId { get; set; }
         public long Quantity { get; set; }
-        public WarehouseMaster_UnitDTO Unit { get; set; }
+        public WarehouseMaster_ItemDTO Item { get; set; }
         public WarehouseMaster_StockDTO() {}
         public WarehouseMaster_StockDTO(Stock Stock)
         {
             
             this.Id = Stock.Id;
-            this.UnitId = Stock.UnitId;
+            this.ItemId = Stock.ItemId;
             this.WarehouseId = Stock.WarehouseId;
             this.Quantity = Stock.Quantity;
-            this.Unit = new WarehouseMaster_UnitDTO(Stock.Unit);
+            this.Item = new WarehouseMaster_ItemDTO(Stock.Item);
 
         }
     }
@@ -32,8 +32,9 @@ namespace WG.Controllers.warehouse.warehouse_master
     {
         
         public long? Id { get; set; }
-        public long? UnitId { get; set; }
+        public long? ItemId { get; set; }
         public long? WarehouseId { get; set; }
         public long? Quantity { get; set; }
+        public StockOrder OrderBy { get; set; }
     }
 }

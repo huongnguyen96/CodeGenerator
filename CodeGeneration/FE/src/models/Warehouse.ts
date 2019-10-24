@@ -1,6 +1,6 @@
 import {Model} from 'core';
 
-import {Partner} from 'models/Partner';
+import {Merchant} from 'models/Merchant';
 import {Stock} from 'models/Stock';
 
 export class Warehouse extends Model {
@@ -17,7 +17,7 @@ export class Warehouse extends Model {
  
   public partnerId?: number;
 
-  public partner?: Partner;
+  public partner?: Merchant;
   
   public stocks?: Stock[];
 

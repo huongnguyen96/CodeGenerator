@@ -1,5 +1,6 @@
 import {Model} from 'core';
 
+import {Item} from 'models/Item';
 import {Order} from 'models/Order';
 
 export class OrderContent extends Model {
@@ -8,17 +9,21 @@ export class OrderContent extends Model {
  
   public orderId?: number;
  
-  public itemName?: string;
+  public itemId?: number;
+ 
+  public productName?: string;
  
   public firstVersion?: string;
  
   public secondVersion?: string;
  
-  public thirdVersion?: string;
- 
   public price?: number;
  
   public discountPrice?: number;
+ 
+  public quantity?: number;
+
+  public item?: Item;
 
   public order?: Order;
 

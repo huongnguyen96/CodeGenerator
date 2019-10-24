@@ -16,7 +16,7 @@ namespace WG.Entities
         public Category Parent { get; set; }
         public List<Brand> Brands { get; set; }
         public List<Category> InverseParent { get; set; }
-        public List<Item> Items { get; set; }
+        public List<Product> Products { get; set; }
     }
 
     public class CategoryFilter : FilterEntity
@@ -43,7 +43,8 @@ namespace WG.Entities
         Parent = 4,
         Icon = 5,
     }
-
+    
+    [Flags]
     public enum CategorySelect:long
     {
         ALL = E.ALL,
